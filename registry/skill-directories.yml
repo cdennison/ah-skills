@@ -1,0 +1,211 @@
+version: 1
+generated_at: '2026-05-08'
+entries:
+- name: agentskills-io
+  url: https://agentskills.io
+  kind: registry
+  ref: ''
+  scan_paths: []
+  requires_crawler: true
+  description: Home of the Agent Skills open standard. Aggregates skills across multiple agent products (Claude Code, Codex,
+    Cursor, Gemini CLI).
+  license: spec is open
+  tags:
+  - spec
+  - registry
+  - cross-tool
+  last_verified: '2026-05-08'
+- name: anthropics-claude-plugins-official
+  url: https://github.com/anthropics/claude-plugins-official
+  kind: collection
+  ref: main
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  - skills/*/SKILL.md
+  description: Anthropic-managed directory of high-quality Claude Code plugins, several of which bundle skills.
+  license: Apache-2.0
+  tags:
+  - official
+  - anthropic
+  - plugins
+  last_verified: '2026-05-08'
+- name: anthropics-skills
+  url: https://github.com/anthropics/skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Anthropic's official Agent Skills repository, including the spec, the skill-creator template, and the production
+    document skills (docx, pdf, pptx, xlsx).
+  license: Apache-2.0 / source-available
+  tags:
+  - official
+  - anthropic
+  - reference
+  last_verified: '2026-05-08'
+- name: awesomeclaude-ai
+  url: https://awesomeclaude.ai/awesome-claude-skills
+  kind: registry
+  ref: ''
+  scan_paths: []
+  requires_crawler: true
+  description: Visual directory of awesome Claude Skills.
+  tags:
+  - registry
+  - hosted
+  - visual
+  last_verified: '2026-05-08'
+- name: behisecc-awesome-claude-skills
+  url: https://github.com/BehiSecc/awesome-claude-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Curated list of Claude Skills.
+  tags:
+  - community
+  - awesome-list
+  last_verified: '2026-05-08'
+- name: buildwithclaude-com
+  url: https://buildwithclaude.com
+  kind: marketplace
+  ref: ''
+  scan_paths: []
+  requires_crawler: true
+  description: Plugin marketplace for Claude Code.
+  tags:
+  - marketplace
+  - hosted
+  last_verified: '2026-05-08'
+- name: claude-plugins-dev
+  url: https://claude-plugins.dev
+  kind: registry
+  ref: ''
+  scan_paths: []
+  requires_crawler: true
+  description: Community registry of Claude Code plugins and Agent Skills with a CLI installer.
+  tags:
+  - registry
+  - hosted
+  - cli
+  last_verified: '2026-05-08'
+- name: claudemarketplaces-com
+  url: https://claudemarketplaces.com
+  kind: marketplace
+  ref: ''
+  scan_paths: []
+  requires_crawler: true
+  description: Directory of Claude Code plugins, skills, and MCP servers with community voting.
+  tags:
+  - marketplace
+  - hosted
+  last_verified: '2026-05-08'
+- name: composiohq-awesome-claude-skills
+  url: https://github.com/ComposioHQ/awesome-claude-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Composio's curated list of Claude Skills, focused on automation agents.
+  license: MIT
+  tags:
+  - community
+  - awesome-list
+  - automation
+  last_verified: '2026-05-08'
+- name: daymade-claude-code-skills
+  url: https://github.com/daymade/claude-code-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Production-ready Claude Code skills for development workflows.
+  tags:
+  - community
+  last_verified: '2026-05-08'
+- name: glebis-claude-skills
+  url: https://github.com/glebis/claude-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Gleb's collection of Claude Code skills for AI workflows.
+  tags:
+  - community
+  last_verified: '2026-05-08'
+- name: lap-platform-claude-marketplace
+  url: https://github.com/Lap-Platform/claude-marketplace
+  kind: marketplace
+  ref: main
+  scan_paths:
+  - marketplace/*/skills/*/SKILL.md
+  description: 1,500+ auto-generated API skills (Payments, Dev tools, Productivity, AI/ML, Communication).
+  tags:
+  - marketplace
+  - large
+  - api-generated
+  last_verified: '2026-05-08'
+- name: majiayu000-claude-skill-registry
+  url: https://github.com/majiayu000/claude-skill-registry
+  kind: registry
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Comprehensive Claude Code skills registry, updated daily, with a web frontend at skills-registry-web.vercel.app.
+  tags:
+  - registry
+  - large
+  last_verified: '2026-05-08'
+- name: sickn33-antigravity-awesome-skills
+  url: https://github.com/sickn33/antigravity-awesome-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Installable library of 1,400+ agentic skills for Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity, and
+    more. Ships an installer CLI.
+  license: MIT
+  tags:
+  - community
+  - awesome-list
+  - 1k+
+  - cross-tool
+  last_verified: '2026-05-08'
+- name: skills-sh
+  url: https://skills.sh
+  kind: registry
+  ref: ''
+  scan_paths: []
+  requires_crawler: true
+  description: The Agent Skills Directory.
+  tags:
+  - registry
+  - hosted
+  last_verified: '2026-05-08'
+- name: travisvn-awesome-claude-skills
+  url: https://github.com/travisvn/awesome-claude-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Travis Fischer's awesome-list of Claude Skills, particularly Claude Code.
+  license: CC-BY-4.0
+  tags:
+  - community
+  - awesome-list
+  last_verified: '2026-05-08'
+- name: voltagent-awesome-agent-skills
+  url: https://github.com/VoltAgent/awesome-agent-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: 1000+ agent skills from official dev teams (Anthropic, Google Labs, Vercel, Stripe, Cloudflare, Netlify, Trail
+    of Bits, Sentry, Expo, Hugging Face, Figma) and the community.
+  license: MIT
+  tags:
+  - community
+  - awesome-list
+  - 1k+
+  - vendor-aggregated
+  last_verified: '2026-05-08'

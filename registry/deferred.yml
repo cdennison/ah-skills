@@ -1,0 +1,15 @@
+version: 1
+entries:
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: WebFetch 403 and sandbox blocks direct curl'
+  first_seen: '2026-05-08'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com
+  reason: 'unverifiable: site returns 403 to fetcher; cannot confirm whether listings are SKILL.md skills or just MCP servers'
+  first_seen: '2026-05-08'
+- url: https://skilldex-web.vercel.app
+  name: skilldex-vercel-app
+  reason: 'unverifiable: vercel-hosted demo subdomain returns 403'
+  first_seen: '2026-05-08'
+generated_at: '2026-05-08'

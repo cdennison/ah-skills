@@ -1,6 +1,28 @@
 version: 1
 generated_at: '2026-05-08'
 entries:
+- name: abubakarsiddik31-claude-skills-collection
+  url: https://github.com/abubakarsiddik31/claude-skills-collection
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Curated awesome-list of 173 official and community Claude Skills across 13 categories.
+  tags:
+  - community
+  - awesome-list
+  last_verified: '2026-05-08'
+- name: affaan-m-everything-claude-code
+  url: https://github.com/affaan-m/everything-claude-code
+  kind: registry
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Plugin-format Claude Code registry bundling skills, agents, and hooks.
+  tags:
+  - community
+  - registry
+  last_verified: '2026-05-08'
 - name: agentskills-io
   url: https://agentskills.io
   kind: registry
@@ -14,6 +36,16 @@ entries:
   - spec
   - registry
   - cross-tool
+  last_verified: '2026-05-08'
+- name: alirezarezvani-claude-skills
+  url: https://github.com/alirezarezvani/claude-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - '*/*/SKILL.md'
+  description: Domain-organized library of Claude Code skills (engineering, product, and other team disciplines).
+  tags:
+  - community
   last_verified: '2026-05-08'
 - name: anthropics-claude-plugins-official
   url: https://github.com/anthropics/claude-plugins-official
@@ -42,6 +74,17 @@ entries:
   - official
   - anthropic
   - reference
+  last_verified: '2026-05-08'
+- name: avabillions2040-claudedesignskills-02-02-2026
+  url: https://github.com/AvaBillions2040/claudedesignskills-02-02-2026
+  kind: collection
+  ref: main
+  scan_paths:
+  - .claude/skills/*/SKILL.md
+  description: Design-focused skillstack for 3D/WebGL, animation, and modern web (fork of freshtechbro/claudedesignskills).
+  tags:
+  - community
+  - design
   last_verified: '2026-05-08'
 - name: awesomeclaude-ai
   url: https://awesomeclaude.ai/awesome-claude-skills
@@ -100,6 +143,42 @@ entries:
   - marketplace
   - hosted
   last_verified: '2026-05-08'
+- name: cloudflare-chanfana
+  url: https://github.com/cloudflare/chanfana
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Chanfana OpenAPI endpoint skill for building schema-validated CRUD APIs on Cloudflare Workers.
+  tags:
+  - vendor
+  - cloudflare
+  - openapi
+  last_verified: '2026-05-08'
+- name: cloudflare-moltworker
+  url: https://github.com/cloudflare/moltworker
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Cloudflare moltworker skill for controlling headless Chrome via Browser Rendering CDP WebSocket.
+  tags:
+  - vendor
+  - cloudflare
+  - browser
+  last_verified: '2026-05-08'
+- name: cloudflare-skills
+  url: https://github.com/cloudflare/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Official Cloudflare skills covering Workers, Pages, storage, AI, networking, and security.
+  tags:
+  - vendor
+  - cloudflare
+  - workers
+  last_verified: '2026-05-08'
 - name: composiohq-awesome-claude-skills
   url: https://github.com/ComposioHQ/awesome-claude-skills
   kind: awesome-list
@@ -113,6 +192,18 @@ entries:
   - awesome-list
   - automation
   last_verified: '2026-05-08'
+- name: databricks-agent-skills
+  url: https://github.com/databricks/databricks-agent-skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Official Databricks agent skills covering CLI, apps, jobs, pipelines, model serving, and Lakebase.
+  tags:
+  - vendor
+  - databricks
+  - data
+  last_verified: '2026-05-08'
 - name: daymade-claude-code-skills
   url: https://github.com/daymade/claude-code-skills
   kind: collection
@@ -123,6 +214,31 @@ entries:
   tags:
   - community
   last_verified: '2026-05-08'
+- name: figma-mcp-server-guide
+  url: https://github.com/figma/mcp-server-guide
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Official Figma skills guiding agents on using the Figma MCP server for design generation and implementation.
+  tags:
+  - vendor
+  - figma
+  - mcp
+  - design
+  last_verified: '2026-05-08'
+- name: getbindu-awesome-claude-code-and-skills
+  url: https://github.com/GetBindu/awesome-claude-code-and-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Curated awesome-list of Claude Code tools and skills.
+  license: Apache-2.0
+  tags:
+  - community
+  - awesome-list
+  last_verified: '2026-05-08'
 - name: glebis-claude-skills
   url: https://github.com/glebis/claude-skills
   kind: collection
@@ -132,6 +248,111 @@ entries:
   description: Gleb's collection of Claude Code skills for AI workflows.
   tags:
   - community
+  last_verified: '2026-05-08'
+- name: gmh5225-awesome-skills
+  url: https://github.com/gmh5225/awesome-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Curated list of agent skills for Claude Code, Copilot, Cursor, Gemini CLI.
+  tags:
+  - community
+  - awesome-list
+  - multi-platform
+  last_verified: '2026-05-08'
+- name: hashgraph-online-registry-broker-skills
+  url: https://github.com/hashgraph-online/registry-broker-skills
+  kind: individual
+  ref: main
+  scan_paths:
+  - SKILL.md
+  description: Single skill for searching and registering agents in the Hashgraph Universal Registry.
+  tags:
+  - vendor
+  - hashgraph
+  last_verified: '2026-05-08'
+- name: heilcheng-awesome-agent-skills
+  url: https://github.com/heilcheng/awesome-agent-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Community-curated awesome-list of agent skills with vendor and community categories.
+  tags:
+  - community
+  - awesome-list
+  last_verified: '2026-05-08'
+- name: iflytek-skillhub
+  url: https://github.com/iflytek/skillhub
+  kind: registry
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Self-hosted enterprise agent skill registry with RBAC and audit logs.
+  license: Apache-2.0
+  tags:
+  - registry
+  - enterprise
+  - self-hosted
+  last_verified: '2026-05-08'
+- name: jackculpan-claude-skills-curated
+  url: https://github.com/jackculpan/claude-skills-curated
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Hand-picked awesome-list of Claude Code skills, plugins, and resources.
+  license: CC0-1.0
+  tags:
+  - community
+  - awesome-list
+  - curated
+  last_verified: '2026-05-08'
+- name: jacobrask-claude-skills
+  url: https://github.com/jacobrask/claude-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Mac-focused Claude Code skills (Safari tabs, calendar, JMAP email, knowledge base).
+  license: MIT
+  tags:
+  - community
+  - mac
+  last_verified: '2026-05-08'
+- name: jeffallan-claude-skills
+  url: https://github.com/Jeffallan/claude-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Specialized Claude Code skills for full-stack developers.
+  tags:
+  - community
+  last_verified: '2026-05-08'
+- name: jezweb-claude-skills
+  url: https://github.com/jezweb/claude-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  description: Plugin-based production workflow skills for Claude Code.
+  license: MIT
+  tags:
+  - community
+  - plugins
+  last_verified: '2026-05-08'
+- name: karanb192-awesome-claude-skills
+  url: https://github.com/karanb192/awesome-claude-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Curated awesome-list of verified Claude Skills with explicit safety guidance.
+  tags:
+  - community
+  - awesome-list
   last_verified: '2026-05-08'
 - name: lap-platform-claude-marketplace
   url: https://github.com/Lap-Platform/claude-marketplace
@@ -145,6 +366,18 @@ entries:
   - large
   - api-generated
   last_verified: '2026-05-08'
+- name: linear-linear-release
+  url: https://github.com/linear/linear-release
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Linear release setup skill for generating CI/CD configuration that tracks releases in Linear.
+  tags:
+  - vendor
+  - linear
+  - ci-cd
+  last_verified: '2026-05-08'
 - name: majiayu000-claude-skill-registry
   url: https://github.com/majiayu000/claude-skill-registry
   kind: registry
@@ -155,6 +388,103 @@ entries:
   tags:
   - registry
   - large
+  last_verified: '2026-05-08'
+- name: mattpocock-skills
+  url: https://github.com/mattpocock/skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/*/SKILL.md
+  description: Engineering skills (TDD, git guardrails, etc.) for Claude and other coding agents.
+  license: MIT
+  tags:
+  - community
+  - engineering
+  last_verified: '2026-05-08'
+- name: meetrais-claude-agent-skills
+  url: https://github.com/meetrais/claude-agent-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - custom_skills/skills/*/SKILL.md
+  description: Demonstration repo for the Claude Skills API with sample skills under custom_skills/.
+  tags:
+  - community
+  - examples
+  last_verified: '2026-05-08'
+- name: microsoft-skills
+  url: https://github.com/microsoft/skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - .github/skills/*/SKILL.md
+  description: Microsoft's official skills collection for Azure SDKs and Microsoft AI tooling.
+  license: MIT
+  tags:
+  - vendor
+  - official-microsoft
+  last_verified: '2026-05-08'
+- name: mongodb-agent-skills
+  url: https://github.com/mongodb/agent-skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Official MongoDB skills for connection optimization, schema design, query tuning, and Atlas features.
+  tags:
+  - vendor
+  - mongodb
+  - database
+  last_verified: '2026-05-08'
+- name: mongodb-tines-claude
+  url: https://github.com/mongodb/tines-claude
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Tines workflow automation skill paired with MCP server for building SOAR stories and actions.
+  tags:
+  - vendor
+  - tines
+  - automation
+  - soar
+  last_verified: '2026-05-08'
+- name: orchestra-research-ai-research-skills
+  url: https://github.com/Orchestra-Research/AI-research-SKILLs
+  kind: collection
+  ref: main
+  scan_paths:
+  - '*/*/SKILL.md'
+  description: Library of AI research and engineering skills organized by numbered category folders.
+  license: MIT
+  tags:
+  - community
+  - research
+  last_verified: '2026-05-08'
+- name: patrickserrano-skills
+  url: https://github.com/patrickserrano/skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: iOS, Swift, and SwiftUI Claude Code skills bundled as a plugin.
+  license: MIT
+  tags:
+  - community
+  - ios
+  - swift
+  last_verified: '2026-05-08'
+- name: replicate-skills
+  url: https://github.com/replicate/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Official Replicate skills for finding, running, comparing, and publishing AI models.
+  tags:
+  - vendor
+  - replicate
+  - ai-models
   last_verified: '2026-05-08'
 - name: sickn33-antigravity-awesome-skills
   url: https://github.com/sickn33/antigravity-awesome-skills
@@ -182,6 +512,68 @@ entries:
   - registry
   - hosted
   last_verified: '2026-05-08'
+- name: stripe-ai
+  url: https://github.com/stripe/ai
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Official Stripe skills for building AI-powered products with Stripe APIs and integrations.
+  tags:
+  - vendor
+  - stripe
+  - payments
+  last_verified: '2026-05-08'
+- name: stripe-link-cli
+  url: https://github.com/stripe/link-cli
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Stripe Link CLI skill for obtaining one-time-use payment credentials so agents can complete purchases.
+  tags:
+  - vendor
+  - stripe
+  - payments
+  last_verified: '2026-05-08'
+- name: stripe-purl
+  url: https://github.com/stripe/purl
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Stripe Purl skill for making HTTP requests with automatic x402 payment handling.
+  tags:
+  - vendor
+  - stripe
+  - payments
+  - x402
+  last_verified: '2026-05-08'
+- name: tech-leads-club-agent-skills
+  url: https://github.com/tech-leads-club/agent-skills
+  kind: registry
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Security-validated skill registry for professional AI coding agents (Claude Code, Cursor, Copilot).
+  license: MIT
+  tags:
+  - registry
+  - validated
+  - multi-agent
+  last_verified: '2026-05-08'
+- name: trailofbits-mewt
+  url: https://github.com/trailofbits/mewt
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Trail of Bits mewt mutation testing skill for adding tree-sitter-based language support.
+  tags:
+  - vendor
+  - trailofbits
+  - testing
+  last_verified: '2026-05-08'
 - name: travisvn-awesome-claude-skills
   url: https://github.com/travisvn/awesome-claude-skills
   kind: awesome-list
@@ -208,4 +600,17 @@ entries:
   - awesome-list
   - 1k+
   - vendor-aggregated
+  last_verified: '2026-05-08'
+- name: ynulihao-agentskillos
+  url: https://github.com/ynulihao/AgentSkillOS
+  kind: registry
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Agent skill operating system aggregating 200k+ skills with retrieval and orchestration.
+  license: MIT
+  tags:
+  - registry
+  - large-scale
+  - orchestration
   last_verified: '2026-05-08'

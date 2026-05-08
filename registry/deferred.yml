@@ -1,0 +1,51 @@
+version: 1
+entries:
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://agensi.io
+  name: agensi-io
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://agentskill.sh
+  name: agentskill-sh
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://skillhub.club
+  name: skillhub-club
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://huggingface.co/docs/hub/agents-skills
+  name: huggingface-skills-docs
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://omniskill.online
+  name: omniskill-online
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://www.skillsdirectory.com
+  name: skillsdirectory-com
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://www.agentskill.club
+  name: agentskill-club
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://lobehub.com/skills
+  name: lobehub-skills
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://github.com/obviousworks/Claude-AI-skills-collection-2026
+  name: obviousworks-claude-ai-skills-collection-2026
+  reason: Very thin repo (2 commits); contains no skills and minimal curation — re-evaluate when populated
+  first_seen: '2026-05-08'
+generated_at: '2026-05-08'

@@ -1,0 +1,47 @@
+version: 1
+entries:
+- url: https://github.com/alirezarezvani/claude-skills
+  name: alirezarezvani-claude-skills
+  reason: Nested non-uniform layout requires custom scan_paths; defer for human review of glob pattern.
+  first_seen: '2026-05-09'
+- url: https://github.com/jeremylongshore/claude-code-plugins-plus-skills
+  name: jeremylongshore-claude-code-plugins-plus-skills
+  reason: Could not verify any SKILL.md fetches; large unverified count claim warrants human spot-check.
+  first_seen: '2026-05-09'
+- url: https://github.com/Agent-3-7/agent37-skills-collection
+  name: agent-3-7-agent37-skills-collection
+  reason: Thin collection (2 plugins) with unusual nested layout; warrants human review before ingest.
+  first_seen: '2026-05-09'
+- url: https://tessl.io/registry
+  name: tessl-io
+  reason: 'unverifiable: 403 Forbidden on WebFetch and no independent corroboration'
+  first_seen: '2026-05-09'
+- url: https://skillkit.io
+  name: skillkit-io
+  reason: 'unverifiable: 403 on WebFetch but real product per multiple GitHub references'
+  first_seen: '2026-05-09'
+- url: https://agentskillshub.dev
+  name: agentskillshub-dev
+  reason: 'unverifiable: 403 on WebFetch; corroborating GitHub repo suggests it''s real'
+  first_seen: '2026-05-09'
+- url: https://www.claudepluginhub.com
+  name: claudepluginhub-com
+  reason: 'unverifiable: 403 on WebFetch; weak GitHub corroboration'
+  first_seen: '2026-05-09'
+- url: https://www.agensi.io/skills
+  name: agensi-io
+  reason: 'unverifiable: 403 on WebFetch but plugin repos target the marketplace'
+  first_seen: '2026-05-09'
+- url: https://aiagentsdirectory.com/skills
+  name: aiagentsdirectory-com
+  reason: 'unverifiable: 403 on WebFetch and weak corroboration'
+  first_seen: '2026-05-09'
+- url: https://www.aitmpl.com/plugins
+  name: aitmpl-com
+  reason: 'unverifiable: 403 on WebFetch and no independent corroboration'
+  first_seen: '2026-05-09'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: 403 on WebFetch and no independent corroboration'
+  first_seen: '2026-05-09'
+generated_at: '2026-05-09'

@@ -1,0 +1,40 @@
+version: 1
+entries:
+- url: https://github.com/obviousworks/Claude-AI-skills-collection-2026
+  name: obviousworks-claude-ai-skills-collection-2026
+  reason: Only 2 commits and no local SKILL.md files; thin README catalog linking out to other repos. Re-evaluate after more
+    substance/activity.
+  first_seen: '2026-05-10'
+- url: https://agentskill.sh
+  name: agentskill-sh
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-10'
+- url: https://claw-hub.net
+  name: claw-hub-net
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-10'
+- url: https://agentskillexchange.com
+  name: agentskillexchange-com
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-10'
+- url: https://www.agentskills.to
+  name: agentskills-to
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-10'
+- url: https://agentskillshub.dev
+  name: agentskillshub-dev
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-10'
+- url: https://www.skill-marketplace.com
+  name: skill-marketplace-com
+  reason: 'unverifiable: 403 / ECONNREFUSED'
+  first_seen: '2026-05-10'
+- url: https://skillforge.cc
+  name: skillforge-cc
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-10'
+- url: https://www.agensi.io
+  name: agensi-io
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-10'
+generated_at: '2026-05-10'

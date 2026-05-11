@@ -1,0 +1,27 @@
+version: 1
+entries:
+- url: https://github.com/shadowrootdev/awesome-agent-skills-mcp
+  name: shadowrootdev-awesome-agent-skills-mcp
+  reason: wrapper, not primary registry — proxies VoltAgent/awesome-agent-skills via MCP; would duplicate that upstream source
+  first_seen: '2026-05-11'
+- url: https://discoveraiskills.com
+  name: discoveraiskills-com
+  reason: 'unverifiable: homepage returns 403 to WebFetch and curl; cannot confirm index, activity, or gating'
+  first_seen: '2026-05-11'
+- url: https://tonsofskills.com
+  name: tonsofskills-com
+  reason: 'unverifiable: homepage returns 403 to WebFetch and curl'
+  first_seen: '2026-05-11'
+- url: https://www.agensi.io
+  name: agensi-io
+  reason: 'unverifiable: homepage returns 403 to WebFetch and curl'
+  first_seen: '2026-05-11'
+- url: https://claudecodeplugins.io
+  name: claudecodeplugins-io
+  reason: 'unverifiable: homepage returns 403 to WebFetch and curl'
+  first_seen: '2026-05-11'
+- url: https://lobehub.com/skills
+  name: lobehub-com-skills
+  reason: 'unverifiable: /skills index returns 403 to WebFetch and curl'
+  first_seen: '2026-05-11'
+generated_at: '2026-05-11'

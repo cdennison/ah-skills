@@ -1,0 +1,49 @@
+version: 1
+entries:
+- url: https://github.com/affaan-m/everything-claude-code
+  name: affaan-m-everything-claude-code
+  reason: 'star-count-implausible: 179,964 stars and 27,757 forks on a repo created 2026-01-18 (under 4 months old) is not
+    credible organic growth and indicates likely inflated metrics; structure/content/license/recency check out but needs human
+    judgment.'
+  first_seen: '2026-05-12'
+- url: https://github.com/figma/mcp-server-guide
+  name: figma-mcp-server-guide
+  reason: 'no-oss-license: repo governed by Figma Developer Terms, not MIT as scout claimed; redistribution may be restricted.'
+  first_seen: '2026-05-12'
+- url: https://tonsofskills.com
+  name: tonsofskills-com
+  reason: 'unverifiable: HTTP-403 on tonsofskills.com, www.tonsofskills.com, /skills, and /index.html — site blocks automated
+    fetchers.'
+  first_seen: '2026-05-12'
+- url: https://agenticskills.io
+  name: agenticskills-io
+  reason: 'unverifiable: HTTP-403 — site blocks automated fetchers.'
+  first_seen: '2026-05-12'
+- url: https://agensi.io
+  name: agensi-io
+  reason: 'unverifiable: HTTP-403 — site blocks automated fetchers.'
+  first_seen: '2026-05-12'
+- url: https://agentskillshub.top
+  name: agentskillshub-top
+  reason: 'unverifiable: HTTP-403 — .top TLD with 61,000+ claimed count are common SEO-chaff signals, but content could not
+    be independently verified.'
+  first_seen: '2026-05-12'
+- url: https://clawhub.ai
+  name: clawhub-ai
+  reason: 'unverifiable: HTTP-403 on primary and alternate URLs; cannot investigate flagged ''ClawHavoc'' security incident.'
+  first_seen: '2026-05-12'
+- url: https://aiagentsdirectory.com/skills
+  name: aiagentsdirectory-com
+  reason: 'unverifiable: HTTP-403 host_not_allowed (egress block); cannot confirm whether /skills index is real curation or
+    scrape-aggregation.'
+  first_seen: '2026-05-12'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: HTTP-403.'
+  first_seen: '2026-05-12'
+- url: https://mcpservers.org/agent-skills
+  name: mcpservers-org
+  reason: 'unverifiable: HTTP-403 on primary and root URLs; cannot confirm agent-skills section is original aggregation versus
+    pure referral.'
+  first_seen: '2026-05-12'
+generated_at: '2026-05-12'

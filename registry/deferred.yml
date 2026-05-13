@@ -1,0 +1,47 @@
+version: 1
+entries:
+- url: https://github.com/obviousworks/Claude-AI-skills-collection-2026
+  name: obviousworks-claude-ai-skills-collection-2026
+  reason: 'unverifiable: stub repo no skills'
+  first_seen: '2026-05-13'
+- url: https://github.com/Nix2828/collective-agent-skills
+  name: nix2828-collective-agent-skills
+  reason: 'fork-with-no-traction: duplicates upstream VoltAgent/awesome-agent-skills'
+  first_seen: '2026-05-13'
+- url: https://github.com/github/awesome-copilot
+  name: github-awesome-copilot
+  reason: 'out-of-scope: copilot-only'
+  first_seen: '2026-05-13'
+- url: https://tonsofskills.com
+  name: tonsofskills-com
+  reason: 'unverifiable: 403 from sandbox, substance check impossible'
+  first_seen: '2026-05-13'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: 403 from sandbox, substance check impossible'
+  first_seen: '2026-05-13'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com
+  reason: 'unverifiable: 403 from sandbox, substance check impossible'
+  first_seen: '2026-05-13'
+- url: https://www.skillsdirectory.com
+  name: skillsdirectory-com
+  reason: 'unverifiable: 403 from sandbox, substance check impossible'
+  first_seen: '2026-05-13'
+- url: https://www.aitmpl.com/plugins
+  name: aitmpl-com
+  reason: 'unverifiable: 403 from sandbox, substance check impossible'
+  first_seen: '2026-05-13'
+- url: https://lobehub.com/skills
+  name: lobehub-com
+  reason: 'unverifiable: 403 from sandbox, substance check impossible'
+  first_seen: '2026-05-13'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: 403 from sandbox, substance check impossible'
+  first_seen: '2026-05-13'
+- url: https://llmbase.ai/skills
+  name: llmbase-ai
+  reason: 'unverifiable: 403 from sandbox, substance check impossible'
+  first_seen: '2026-05-13'
+generated_at: '2026-05-13'

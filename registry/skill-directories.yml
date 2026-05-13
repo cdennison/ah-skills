@@ -1,6 +1,35 @@
 version: 1
-generated_at: '2026-05-08'
+generated_at: '2026-05-13'
 entries:
+- name: addyosmani-agent-skills
+  url: https://github.com/addyosmani/agent-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Production-grade engineering skills encoding senior engineer workflows, quality gates, and best practices for
+    AI coding agents.
+  license: MIT
+  tags:
+  - community
+  - engineering
+  - tdd
+  - code-review
+  last_verified: '2026-05-13'
+- name: affaan-m-everything-claude-code
+  url: https://github.com/affaan-m/everything-claude-code
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: 228+ Claude Code skills covering coding standards, backend/frontend patterns, TDD, agent harnesses, security
+    review, and domain-specific workflows.
+  license: MIT
+  tags:
+  - community
+  - collection
+  - comprehensive
+  last_verified: '2026-05-13'
 - name: agentskills-io
   url: https://agentskills.io
   kind: registry
@@ -15,6 +44,36 @@ entries:
   - registry
   - cross-tool
   last_verified: '2026-05-08'
+- name: alirezarezvani-claude-skills
+  url: https://github.com/alirezarezvani/claude-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - '*/*/skills/*/SKILL.md'
+  description: Large open-source library of 268 production-ready Claude Code skills across 9 domains including engineering,
+    marketing, product, finance, and project management.
+  license: MIT
+  tags:
+  - community
+  - collection
+  - production-ready
+  - 1k+
+  last_verified: '2026-05-13'
+- name: antfu-skills
+  url: https://github.com/antfu/skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Curated Agent Skills for the Vue/Vite/Nuxt ecosystem reflecting Anthony Fu's preferences and best practices.
+  license: MIT
+  tags:
+  - community
+  - vue
+  - vite
+  - nuxt
+  - frontend
+  last_verified: '2026-05-13'
 - name: anthropics-claude-plugins-official
   url: https://github.com/anthropics/claude-plugins-official
   kind: collection
@@ -43,6 +102,34 @@ entries:
   - anthropic
   - reference
   last_verified: '2026-05-08'
+- name: apify-agent-skills
+  url: https://github.com/apify/agent-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Apify's production-grade web scraping and automation skills for AI coding agents.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - apify
+  - web-scraping
+  - automation
+  last_verified: '2026-05-13'
+- name: apify-awesome-skills
+  url: https://github.com/apify/awesome-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Community collection of Apify agent skills for web scraping, data extraction, lead generation, and market research.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - apify
+  - web-scraping
+  - data-extraction
+  last_verified: '2026-05-13'
 - name: awesomeclaude-ai
   url: https://awesomeclaude.ai/awesome-claude-skills
   kind: registry
@@ -66,6 +153,21 @@ entries:
   - community
   - awesome-list
   last_verified: '2026-05-08'
+- name: blockscout-agent-skills
+  url: https://github.com/blockscout/agent-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - '*/SKILL.md'
+  description: Blockscout's official agent skills for blockchain data analysis and web3 development via the Blockscout MCP
+    server and PRO API across all EVM chains.
+  license: MIT
+  tags:
+  - vendor
+  - blockchain
+  - web3
+  - evm
+  last_verified: '2026-05-13'
 - name: buildwithclaude-com
   url: https://buildwithclaude.com
   kind: marketplace
@@ -77,6 +179,20 @@ entries:
   - marketplace
   - hosted
   last_verified: '2026-05-08'
+- name: callstackincubator-agent-skills
+  url: https://github.com/callstackincubator/agent-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Callstack's agent-optimized skills for React Native development, including performance best practices, GitHub
+    workflows, upgrades, and brownfield migration.
+  license: MIT
+  tags:
+  - community
+  - react-native
+  - mobile
+  last_verified: '2026-05-13'
 - name: claude-plugins-dev
   url: https://claude-plugins.dev
   kind: registry
@@ -100,6 +216,22 @@ entries:
   - marketplace
   - hosted
   last_verified: '2026-05-08'
+- name: cloudflare-skills
+  url: https://github.com/cloudflare/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Cloudflare's official Agent Skills for Workers, Pages, Durable Objects, Agents SDK, Sandbox SDK, Wrangler,
+    and web performance.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - official
+  - cloudflare
+  - workers
+  - edge
+  last_verified: '2026-05-13'
 - name: composiohq-awesome-claude-skills
   url: https://github.com/ComposioHQ/awesome-claude-skills
   kind: awesome-list
@@ -113,6 +245,20 @@ entries:
   - awesome-list
   - automation
   last_verified: '2026-05-08'
+- name: composiohq-skills
+  url: https://github.com/composiohq/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Composio Tool Router and Triggers skills for connecting agents to 1000+ external apps via SDK and CLI.
+  license: MIT
+  tags:
+  - vendor
+  - composio
+  - tool-router
+  - integrations
+  last_verified: '2026-05-13'
 - name: daymade-claude-code-skills
   url: https://github.com/daymade/claude-code-skills
   kind: collection
@@ -123,6 +269,38 @@ entries:
   tags:
   - community
   last_verified: '2026-05-08'
+- name: expo-skills
+  url: https://github.com/expo/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - plugins/expo/skills/*/SKILL.md
+  description: Official Expo team Agent Skills for building, deploying, and debugging Expo apps including native UI, API routes,
+    and deployment.
+  license: MIT
+  tags:
+  - vendor
+  - official
+  - expo
+  - react-native
+  - mobile
+  last_verified: '2026-05-13'
+- name: getsentry-skills
+  url: https://github.com/getsentry/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Sentry team's Agent Skills for code review, commits, security review, bug finding, doc co-authoring, and prompt
+    optimization.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - official
+  - sentry
+  - code-review
+  - development
+  last_verified: '2026-05-13'
 - name: glebis-claude-skills
   url: https://github.com/glebis/claude-skills
   kind: collection
@@ -133,6 +311,119 @@ entries:
   tags:
   - community
   last_verified: '2026-05-08'
+- name: gmh5225-awesome-skills
+  url: https://github.com/gmh5225/awesome-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Curated awesome-list of Agent Skills repos across Claude Code, Copilot, Cursor, Gemini CLI, and Codex.
+  license: MIT
+  tags:
+  - community
+  - awesome-list
+  last_verified: '2026-05-13'
+- name: google-skills
+  url: https://github.com/google/skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/cloud/*/SKILL.md
+  description: Google's official agent skills for Google Cloud products including BigQuery, AlloyDB, Cloud SQL, Cloud Run,
+    GKE, Firebase, Gemini API, and Well-Architected Framework guidance.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - google
+  - gcp
+  - bigquery
+  - gemini
+  last_verified: '2026-05-13'
+- name: heilcheng-awesome-agent-skills
+  url: https://github.com/heilcheng/awesome-agent-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Community-curated awesome-list (browseable at agent-skill.co) of Agent Skills repos across AI platforms, cloud,
+    developer tools, and business/productivity.
+  license: MIT
+  tags:
+  - community
+  - awesome-list
+  - directory
+  last_verified: '2026-05-13'
+- name: hoodini-ai-agents-skills
+  url: https://github.com/hoodini/ai-agents-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: 28+ Agent Skills covering Meta Ads, Google Workspace CLI, AWS AgentCore, LangChain, and Vercel for Claude Code,
+    GitHub Copilot, Cursor, and Windsurf.
+  license: MIT
+  tags:
+  - community
+  - cross-tool
+  last_verified: '2026-05-13'
+- name: huggingface-skills
+  url: https://github.com/huggingface/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Hugging Face official Agent Skills for the HF CLI, datasets, Gradio apps, LLM fine-tuning, transformers.js,
+    and the Hugging Face ecosystem.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - official
+  - huggingface
+  - ml
+  - ai
+  last_verified: '2026-05-13'
+- name: jetbrains-skills
+  url: https://github.com/JetBrains/skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - '*/SKILL.md'
+  description: JetBrains-verified curated snapshot of 126 agent skills sourced from 14 upstream repositories with metadata.source
+    links to the originals.
+  license: Mixed (upstream licenses)
+  tags:
+  - vendor
+  - jetbrains
+  - curated
+  - multi-source
+  last_verified: '2026-05-13'
+- name: jezweb-claude-skills
+  url: https://github.com/jezweb/claude-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  description: Production workflow skills for Claude Code organized across 10 plugins covering Cloudflare, Shopify, WordPress,
+    frontend, design, writing, social media, and dev tools.
+  license: MIT
+  tags:
+  - community
+  - collection
+  - plugins
+  last_verified: '2026-05-13'
+- name: karanb192-awesome-claude-skills
+  url: https://github.com/karanb192/awesome-claude-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Curated awesome-list of 50+ Claude Skills for Claude Code, Claude.ai, and API across categories like TDD, debugging,
+    git workflows, and document processing.
+  license: MIT
+  tags:
+  - community
+  - awesome-list
+  last_verified: '2026-05-13'
 - name: lap-platform-claude-marketplace
   url: https://github.com/Lap-Platform/claude-marketplace
   kind: marketplace
@@ -156,6 +447,116 @@ entries:
   - registry
   - large
   last_verified: '2026-05-08'
+- name: microsoft-skills
+  url: https://github.com/microsoft/skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - .github/skills/*/SKILL.md
+  - .github/plugins/*/skills/*/SKILL.md
+  description: Microsoft's official collection of 174+ agent skills covering Azure SDKs, Entra, Copilot SDK, KQL/Kusto, MCP,
+    microsoft-docs, and AI Foundry across multiple languages.
+  license: MIT
+  tags:
+  - vendor
+  - microsoft
+  - azure
+  - kql
+  - entra
+  - copilot
+  - ai-foundry
+  last_verified: '2026-05-13'
+- name: openai-skills
+  url: https://github.com/openai/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/.curated/*/SKILL.md
+  - skills/.system/*/SKILL.md
+  description: Official OpenAI Codex agent skills catalog covering deployment, design tools, productivity integrations, and
+    core system utilities.
+  license: per-skill
+  tags:
+  - vendor
+  - openai
+  - codex
+  last_verified: '2026-05-13'
+- name: philipbankier-awesome-agent-skills
+  url: https://github.com/philipbankier/awesome-agent-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Meta-directory of Agent Skills, MCP servers, and Cursor/Windsurf rules with daily sync from awesome-lists,
+    MCP Registry, cursor.directory, and GitHub trending.
+  license: CC0-1.0
+  tags:
+  - community
+  - awesome-list
+  - meta-directory
+  - active
+  last_verified: '2026-05-13'
+- name: prisma-skills
+  url: https://github.com/prisma/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - '*/SKILL.md'
+  description: Prisma's Agent Skills for the Prisma ORM v7 covering CLI, client API, database setup, Prisma Postgres, driver
+    adapters, and v6-to-v7 upgrade.
+  license: MIT
+  tags:
+  - vendor
+  - official
+  - prisma
+  - orm
+  - database
+  last_verified: '2026-05-13'
+- name: redis-agent-skills
+  url: https://github.com/redis/agent-skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Redis official agent skill covering data structures, Redis Query Engine, vector search with RedisVL, semantic
+    caching with LangCache, and performance optimization.
+  license: MIT
+  tags:
+  - vendor
+  - redis
+  - database
+  - vector-search
+  last_verified: '2026-05-13'
+- name: render-oss-skills
+  url: https://github.com/render-oss/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: 21 official Render skills that teach AI coding tools how to deploy, operate, and debug apps on Render.
+  license: MIT
+  tags:
+  - vendor
+  - render
+  - deployment
+  - devops
+  last_verified: '2026-05-13'
+- name: replicate-skills
+  url: https://github.com/replicate/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Replicate's Agent Skills for finding, comparing, running, building, and publishing AI models, plus prompting
+    guidance for image and video generation.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - official
+  - replicate
+  - ai-models
+  - generative
+  last_verified: '2026-05-13'
 - name: sickn33-antigravity-awesome-skills
   url: https://github.com/sickn33/antigravity-awesome-skills
   kind: awesome-list
@@ -171,6 +572,20 @@ entries:
   - 1k+
   - cross-tool
   last_verified: '2026-05-08'
+- name: skillmatic-ai-awesome-agent-skills
+  url: https://github.com/skillmatic-ai/awesome-agent-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Curated reference awesome-list of Agent Skills repos and marketplaces across Anthropic, OpenAI, Microsoft,
+    Google Workspace, Vercel, Supabase, and Hugging Face.
+  license: CC0-1.0
+  tags:
+  - community
+  - awesome-list
+  - reference
+  last_verified: '2026-05-13'
 - name: skills-sh
   url: https://skills.sh
   kind: registry
@@ -182,6 +597,38 @@ entries:
   - registry
   - hosted
   last_verified: '2026-05-08'
+- name: streamlit-agent-skills
+  url: https://github.com/streamlit/agent-skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - developing-with-streamlit/SKILL.md
+  - developing-with-streamlit/skills/*/SKILL.md
+  description: Streamlit Agent Skills with a routing SKILL.md plus 17 sub-skills covering dashboards, chat UI, theming, performance,
+    and Snowflake integration.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - streamlit
+  - python
+  - dashboards
+  last_verified: '2026-05-13'
+- name: trailofbits-skills
+  url: https://github.com/trailofbits/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  description: Trail of Bits' security-focused Agent Skills for code audit, smart contract security, malware analysis, reverse
+    engineering, and secure development.
+  license: CC-BY-SA-4.0
+  tags:
+  - vendor
+  - official
+  - trailofbits
+  - security
+  - audit
+  last_verified: '2026-05-13'
 - name: travisvn-awesome-claude-skills
   url: https://github.com/travisvn/awesome-claude-skills
   kind: awesome-list
@@ -194,6 +641,37 @@ entries:
   - community
   - awesome-list
   last_verified: '2026-05-08'
+- name: twilio-ai
+  url: https://github.com/twilio/ai
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/*/SKILL.md
+  description: Twilio AI Skills (and MCP) for SMS, MMS, WhatsApp, RCS, Voice, Verify, SendGrid, Conversations, Messaging Services,
+    and Compliance.
+  license: MIT
+  tags:
+  - vendor
+  - twilio
+  - sendgrid
+  - messaging
+  - mcp
+  last_verified: '2026-05-13'
+- name: vercel-labs-agent-skills
+  url: https://github.com/vercel-labs/agent-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Vercel Labs agent skills for React/Next.js best practices, web design guidelines, React Native, view transitions,
+    composition patterns, and Vercel deployment.
+  license: MIT
+  tags:
+  - vendor
+  - vercel
+  - react
+  - nextjs
+  last_verified: '2026-05-13'
 - name: voltagent-awesome-agent-skills
   url: https://github.com/VoltAgent/awesome-agent-skills
   kind: awesome-list

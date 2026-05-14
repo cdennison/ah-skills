@@ -1,0 +1,28 @@
+version: 1
+entries:
+- url: https://skilldex-web.vercel.app
+  name: skilldex-web-vercel
+  reason: Site reachable per search index but sandbox egress blocked direct WebFetch; fewer than 5 distinct skill names retrievable
+    from the index without browser access.
+  first_seen: '2026-05-14'
+- url: https://findskills.vercel.app
+  name: findskills-vercel
+  reason: Reachable but aggregates ClawHub which has a documented credential-harvesting malware history. Manual review needed
+    before approving the FindSkills front-end, since the scanner may surface those tainted skills downstream.
+  first_seen: '2026-05-14'
+- url: https://github.com/hesreallyhim/awesome-claude-code
+  name: hesreallyhim-awesome-claude-code
+  reason: README is a placeholder ('TODO / hm'). 250+ entries are in THE_RESOURCES_TABLE.csv but not navigable from the README.
+    License CC BY-NC-ND 4.0 has no-derivatives clause.
+  first_seen: '2026-05-14'
+- url: https://github.com/Eyadkelleh/awesome-claude-skills-security
+  name: Eyadkelleh-awesome-claude-skills-security
+  reason: Scan path mismatch (actual SKILL.md is at seclists-categories/[category]/[category]/SKILL.md not skills/*/SKILL.md)
+    and no LICENSE file. Authorization framing is adequate; defer until paths and license are addressed.
+  first_seen: '2026-05-14'
+- url: https://github.com/xixu-me/awesome-persona-distill-skills
+  name: xixu-persona-distillation
+  reason: Spec mismatch (awesome-list of external repos, not a collection). Several listed skills target private individuals
+    (ex-partners, crushes) raising unresolved consent questions.
+  first_seen: '2026-05-14'
+generated_at: '2026-05-14'

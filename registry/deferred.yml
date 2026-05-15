@@ -1,0 +1,28 @@
+version: 1
+entries:
+- url: https://www.agensi.io
+  name: agensi-io
+  reason: 'unverifiable: 403 Forbidden on both www and bare host'
+  first_seen: '2026-05-15'
+- url: https://www.agentskillsmarket.space
+  name: agentskillsmarket-space
+  reason: 'unverifiable: 403 Forbidden on both www and bare host'
+  first_seen: '2026-05-15'
+- url: https://lobehub.com/skills
+  name: lobehub-com
+  reason: 'unverifiable: 403 Forbidden response'
+  first_seen: '2026-05-15'
+- url: https://llmbase.ai/skills
+  name: llmbase-ai
+  reason: 'unverifiable: 403 Forbidden response'
+  first_seen: '2026-05-15'
+- url: https://skillibary.vercel.app
+  name: skillibary-vercel
+  reason: 'unverifiable: 403 Forbidden response'
+  first_seen: '2026-05-15'
+- url: https://github.com/figma/community-resources
+  name: figma-community-resources
+  reason: 'unverifiable: no in-tree SKILL.md files - agent_skills/ is an index of external repos rather than a skill collection
+    itself'
+  first_seen: '2026-05-15'
+generated_at: '2026-05-15'

@@ -1,0 +1,33 @@
+version: 1
+entries:
+- url: https://www.agensi.io/skills
+  name: agensi-io
+  reason: 'unverifiable: HTTP 403 from WebFetch and curl; DNS resolves but WAF blocks content inspection'
+  first_seen: '2026-05-16'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: HTTP 403; DNS resolves but content blocked. Cannot confirm real marketplace vs SEO spam'
+  first_seen: '2026-05-16'
+- url: https://jfrog.com/ai-catalog/skills-registry
+  name: jfrog-skills-registry
+  reason: 'unverifiable: HTTP 403 from WebFetch on jfrog.com. JFrog is legitimate but cannot confirm specific skills-registry
+    page lists concrete skills'
+  first_seen: '2026-05-16'
+- url: https://aws.amazon.com/bedrock/agentcore
+  name: aws-agent-registry
+  reason: 'unverifiable: HTTP 403 from WebFetch on aws.amazon.com. AWS AgentCore is real but URL hosts marketing page, not
+    necessarily a public registry index'
+  first_seen: '2026-05-16'
+- url: https://www.mcpmarket.com/tools/skills
+  name: mcpmarket-com
+  reason: 'unverifiable: HTTP 403; cannot confirm concrete skill listings'
+  first_seen: '2026-05-16'
+- url: https://www.aitmpl.com/plugins
+  name: aitmpl-com
+  reason: 'unverifiable: HTTP 403; Cloudflare WAF blocks automated access'
+  first_seen: '2026-05-16'
+- url: https://fast-agent.ai/agents/skills
+  name: fast-agent-skills
+  reason: 'unverifiable: host returns 403 to WebFetch; cannot confirm or deny a real skills registry'
+  first_seen: '2026-05-16'
+generated_at: '2026-05-16'

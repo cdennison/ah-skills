@@ -1,0 +1,23 @@
+version: 1
+entries:
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: 403 from WebFetch, unable to confirm content or skills index'
+  first_seen: '2026-05-17'
+- url: https://www.aitmpl.com/plugins
+  name: aitmpl-com
+  reason: 'unverifiable: 403 from WebFetch, unable to confirm content or skills/plugins index'
+  first_seen: '2026-05-17'
+- url: https://lobehub.com/skills
+  name: lobehub-com
+  reason: 'unverifiable: 403 from WebFetch, unable to confirm content or skills index'
+  first_seen: '2026-05-17'
+- url: https://claudeskills.info/skills
+  name: claudeskills-info
+  reason: 'unverifiable: 403 from WebFetch, unable to confirm content or skills registry'
+  first_seen: '2026-05-17'
+- url: https://github.com/obviousworks/Claude-AI-skills-collection-2026
+  name: obviousworks-claude-ai-skills-collection-2026
+  reason: 'brand-new with no actual skill content: 2 commits, only README.md, 0 SKILL.md files'
+  first_seen: '2026-05-17'
+generated_at: '2026-05-17'

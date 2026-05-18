@@ -1,0 +1,13 @@
+version: 1
+entries:
+- url: https://github.com/syntax-syndicate/agentic-skills-marketplace
+  name: syntax-syndicate-agentic
+  reason: Reachable but no static SKILL.md catalog — single generator plugin that creates skills dynamically from user codebases.
+    0 stars, 4+ months stale (last commit 2026-01-09). Defer pending policy on generator-style entries.
+  first_seen: '2026-05-18'
+- url: https://github.com/JetBrains/skills
+  name: jetbrains-skills
+  reason: Layout uses flat root-level skill directories rather than skills/*/SKILL.md; no exposed LICENSE file. Needs custom
+    scan_paths and license clarification before approval.
+  first_seen: '2026-05-18'
+generated_at: '2026-05-18'

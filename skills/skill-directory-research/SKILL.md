@@ -1,8 +1,22 @@
 ---
 name: skill-directory-research
-description: Spawn a research team that scouts the web for new Claude Skill directories (GitHub awesome-lists, plugin marketplaces, registries, vendor skill collections), vets each candidate, and registers approved entries in registry/skill-directories.yml so the agentic highway scanner can ingest them. Use when the user asks to grow the skill registry, scout for new skill repos or marketplaces, refresh known sources, audit which directories the highway is scanning, or rebuild the scan manifest.
+description: Spawn a research team that scouts the web for new Claude Skill directories (GitHub awesome-lists, plugin marketplaces, registries, vendor skill collections), vets each candidate, and registers approved entries in registry/skill-directories.yml so the agentic highway scanner can ingest them. Use when the user asks to grow the skill registry, scout for new skill repos or marketplaces, refresh known sources, audit which directories the highway is scanning, or rebuild the scan manifest. Safe to run unattended on a schedule.
 when_to_use: Trigger on phrases like "find new skill directories", "scout for skills", "refresh the registry", "what should the agentic highway scan", "discover skill collections", "add new awesome-claude-skills sources".
-allowed-tools: Read Write Edit Glob Grep Bash WebFetch WebSearch Agent
+arguments:
+  - name: lane
+    description: Optional scout lane (github-awesome | marketplaces | vendor-orgs | recent-posts). Omit to run all four.
+  - name: mode
+    description: "interactive (default) or headless. headless auto-commits and pushes without prompting."
+argument-hint: "[lane] [interactive|headless]"
+allowed-tools: Read Write Edit Glob Grep WebFetch WebSearch Agent Bash(python3 *) Bash(git add *) Bash(git commit *) Bash(git push *) Bash(git branch *)
+disable-model-invocation: false
+user-invocable: true
+context: fork
+model: claude-sonnet-4-6
+effort: medium
+paths:
+  - registry/**
+  - skills/skill-directory-research/**
 ---
 
 # Skill Directory Research Team
@@ -15,7 +29,19 @@ The skill orchestrates a team working in parallel:
 - **Vetters** confirm each candidate is real, active, and spec-compliant.
 - **The orchestrator** (you) dedupes against the existing registry, merges approved entries, and rebuilds the scan manifest.
 
-Pass an optional lane to limit a run: `/skill-directory-research github` runs only the GitHub scout. With no arguments, run all four lanes.
+## Arguments
+
+| Arg | Values | Default | Effect |
+| --- | --- | --- | --- |
+| `lane` | `github-awesome` \| `marketplaces` \| `vendor-orgs` \| `recent-posts` | unset | Run only the named scout lane. Omit to dispatch all four in parallel. |
+| `mode` | `interactive` \| `headless` | `interactive` | `interactive` stops after step 7 and waits for the user to review the report. `headless` skips the prompt and runs the commit+push block in step 8 automatically. |
+
+Examples:
+
+- `/skill-directory-research` — all four lanes, interactive review.
+- `/skill-directory-research marketplaces` — marketplace scout only, interactive review.
+- `/skill-directory-research github-awesome headless` — GitHub awesome-list scout only, auto-commit and push.
+- `/skill-directory-research "" headless` — all four lanes, auto-commit and push (the empty first arg keeps positional order).
 
 ## Inputs
 
@@ -96,7 +122,17 @@ The manifest is what the agentic highway scanner consumes. It strips registry me
 
 Show a table with columns: **Name | URL | Decision | Evidence**. Group by approve / defer / reject. Cite the scout lane and the verifying check (HTTP code, SKILL.md path, last commit date) for every approved entry.
 
-If the user has not asked you to commit, stop here and let them review. Only commit and push after explicit confirmation.
+In `interactive` mode (default), stop here and let the user review. Only proceed to step 8 after explicit confirmation. In `headless` mode, proceed to step 8 automatically — but still skip the commit if `git status --porcelain registry/` is empty (no diff means a no-op run, do not create an empty commit).
+
+### 8. Commit and push
+
+```bash
+git add registry/skill-directories.yml registry/scan-manifest.yml registry/deferred.yml
+git commit -m "registry: add N skill directories from research run"
+git push -u origin "$(git branch --show-current)"
+```
+
+Open a PR against `main` summarising additions in the body only when the user asks for one. Do NOT auto-merge. Do NOT push to `main` directly.
 
 ## Conventions for additions
 
@@ -129,15 +165,3 @@ See `references/registry-schema.md` for the full schema.
 - Unverified author and no independent mirrors or stars.
 
 Deferred entries are appended to `registry/deferred.yml` (created lazily) so the next run can re-evaluate without re-discovering them.
-
-## Optional: commit and PR
-
-When the user asks to commit:
-
-```bash
-git add registry/skill-directories.yml registry/scan-manifest.yml registry/deferred.yml
-git commit -m "registry: add N skill directories from research run"
-git push -u origin "$(git branch --show-current)"
-```
-
-Open a PR against `main` summarising additions in the body. Do NOT auto-merge.

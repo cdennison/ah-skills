@@ -1,0 +1,39 @@
+version: 1
+entries:
+- url: https://github.com/Eyadkelleh/awesome-claude-skills-security
+  name: eyadkelleh-awesome-claude-skills-security
+  reason: 'unverifiable: SKILL.md path layout unclear (doubled directory names reported)'
+  first_seen: '2026-05-21'
+- url: https://www.aitmpl.com/plugins/
+  name: aitmpl-com
+  reason: 'unverifiable: bot protection'
+  first_seen: '2026-05-21'
+- url: https://www.skillsdirectory.com/
+  name: skillsdirectory-com
+  reason: 'unverifiable: bot protection'
+  first_seen: '2026-05-21'
+- url: https://claudeskills.info/skills/
+  name: claudeskills-info
+  reason: 'unverifiable: bot protection'
+  first_seen: '2026-05-21'
+- url: https://www.skillhub.club/
+  name: skillhub-club
+  reason: 'unverifiable: bot protection'
+  first_seen: '2026-05-21'
+- url: https://www.skillshub.work/
+  name: skillshub-work
+  reason: 'unverifiable: bot protection'
+  first_seen: '2026-05-21'
+- url: https://skillsmp.com/
+  name: skillsmp-com
+  reason: 'unverifiable: bot protection; suspicious skill count'
+  first_seen: '2026-05-21'
+- url: https://www.claudepluginhub.com/marketplaces/anthropics-claude-plugins-official
+  name: claudepluginhub-com
+  reason: 'unverifiable: bot protection'
+  first_seen: '2026-05-21'
+- url: https://github.com/obviousworks/Claude-AI-skills-collection-2026
+  name: obviousworks-claude-ai-skills-collection-2026
+  reason: empty scaffold; no SKILL.md files yet
+  first_seen: '2026-05-21'
+generated_at: '2026-05-21'

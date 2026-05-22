@@ -1,0 +1,59 @@
+version: 1
+entries:
+- url: https://llmbase.ai/skills
+  name: llmbase-ai
+  reason: 'unverifiable: HTTP 403 bot-gated'
+  first_seen: '2026-05-22'
+- url: https://lobehub.com/skills
+  name: lobehub-com
+  reason: 'unverifiable: HTTP 403 bot-gated'
+  first_seen: '2026-05-22'
+- url: https://www.aitmpl.com/plugins
+  name: aitmpl-com
+  reason: 'unverifiable: HTTP 403 bot-gated'
+  first_seen: '2026-05-22'
+- url: https://shyft.ai/skills
+  name: shyft-ai
+  reason: 'unverifiable: HTTP 403 bot-gated'
+  first_seen: '2026-05-22'
+- url: https://www.claudeskillsmarket.com
+  name: claudeskillsmarket-com
+  reason: 'unverifiable: HTTP 403 bot-gated'
+  first_seen: '2026-05-22'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+- url: https://www.skillhub.club
+  name: skillhub-club
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+- url: https://agentskillshub.dev
+  name: agentskillshub-dev
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+- url: https://claudeskills.info/skills
+  name: claudeskills-info
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+- url: https://www.mcpbundles.com/skills
+  name: mcpbundles-com
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+- url: https://www.agensi.io/skills
+  name: agensi-io
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+- url: https://www.atcyrus.com/skills
+  name: atcyrus-com
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+generated_at: '2026-05-22'

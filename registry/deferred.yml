@@ -1,0 +1,47 @@
+version: 1
+entries:
+- url: https://github.com/saeed-vayghan/gemini-agent-skills
+  name: saeed-vayghan-gemini-agent-skills
+  reason: 'unverifiable: could not retrieve SKILL.md frontmatter within 5-fetch cap'
+  first_seen: '2026-05-23'
+- url: https://www.agensi.io/skills
+  name: agensi-io
+  reason: 'unverifiable: WebFetch blocked (403), real marketplace confirmed by search but couldn''t directly observe listings'
+  first_seen: '2026-05-23'
+- url: https://www.awesomeskills.dev/en
+  name: awesomeskills-dev
+  reason: 'unverifiable: WebFetch blocked (403), real directory confirmed by search'
+  first_seen: '2026-05-23'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: WebFetch blocked (403), real marketplace confirmed by search'
+  first_seen: '2026-05-23'
+- url: https://lobehub.com/skills
+  name: lobehub-skills
+  reason: 'unverifiable: WebFetch blocked (403), real marketplace confirmed by search'
+  first_seen: '2026-05-23'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com-skills
+  reason: 'unverifiable: WebFetch blocked (403), real directory confirmed by search'
+  first_seen: '2026-05-23'
+- url: https://claudskills.com
+  name: claudskills-com
+  reason: 'unverifiable: WebFetch blocked (403), real registry confirmed by search'
+  first_seen: '2026-05-23'
+- url: https://skills.pub/en
+  name: skills-pub
+  reason: 'unverifiable: WebFetch blocked (403), real marketplace confirmed by search'
+  first_seen: '2026-05-23'
+- url: https://www.skillhub.club
+  name: skillhub-club
+  reason: 'unverifiable: WebFetch blocked (403), real marketplace confirmed by search'
+  first_seen: '2026-05-23'
+- url: https://mcpservers.org/claude-skills
+  name: mcpservers-org-claude
+  reason: 'unverifiable: WebFetch blocked (403); re-vet to confirm correct path (/claude-skills vs /agent-skills)'
+  first_seen: '2026-05-23'
+- url: https://awesomeskill.ai
+  name: awesomeskill-ai
+  reason: 'unverifiable: WebFetch blocked (403), real marketplace confirmed by search'
+  first_seen: '2026-05-23'
+generated_at: '2026-05-23'

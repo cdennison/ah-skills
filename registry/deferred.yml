@@ -1,0 +1,43 @@
+version: 1
+entries:
+- url: https://lobehub.com/skills
+  name: lobehub-skills
+  reason: 'unverifiable: lobehub.com returns HTTP 403 to WebFetch from this environment so the index page contents and skill
+    counts cannot be confirmed firsthand. Re-run from an environment that can fetch lobehub.com.'
+  first_seen: '2026-05-24'
+- url: https://awesomeskill.ai
+  name: awesomeskill-ai
+  reason: 'unverifiable: site returns 403/ECONNREFUSED to all WebFetch attempts; cannot confirm whether index lists concrete
+    SKILL.md files. Scout-claimed ''50,000+'' was already flagged for skepticism.'
+  first_seen: '2026-05-24'
+- url: https://www.aitmpl.com
+  name: aitmpl-com
+  reason: 'unverifiable: WebFetch returns HTTP 403 Forbidden for aitmpl.com and subpaths. Cannot confirm whether the index
+    lists concrete SKILL.md skills with YAML frontmatter or only general AI agent templates.'
+  first_seen: '2026-05-24'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com
+  reason: 'unverifiable: WebFetch returns HTTP 403 Forbidden. Cannot confirm whether the directory indexes Claude Code SKILL.md
+    skills with frontmatter or only MCP servers.'
+  first_seen: '2026-05-24'
+- url: https://agentskill.sh
+  name: agentskill-sh
+  reason: 'unverifiable: site returns HTTP 403 Forbidden; cannot confirm whether there is a real browsable index of concrete
+    SKILL.md skills or just a marketing landing page. ''159,000+ skills'' claim flagged for skepticism.'
+  first_seen: '2026-05-24'
+- url: https://explainx.ai/skills
+  name: explainx-ai
+  reason: 'unverifiable: site returns HTTP 403 Forbidden; cannot confirm whether the page actually lists concrete installable
+    SKILL.md skills.'
+  first_seen: '2026-05-24'
+- url: https://clawhub.ai
+  name: clawhub-ai
+  reason: 'unverifiable: site returns 403 to WebFetch on all attempted paths; cannot confirm it is a real, populated skills
+    registry.'
+  first_seen: '2026-05-24'
+- url: https://www.agensi.io/skills
+  name: agensi-io
+  reason: 'unverifiable: site returns HTTP 403 to anonymous fetches; cannot confirm whether the marketplace index is publicly
+    browsable or behind a login wall.'
+  first_seen: '2026-05-24'
+generated_at: '2026-05-24'

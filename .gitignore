@@ -1,0 +1,5 @@
+# Transient artifacts produced by skill-directory-research runs
+candidates.json
+new-candidates.json
+vet-batch-*.json
+verdicts.json

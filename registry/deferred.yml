@@ -1,0 +1,47 @@
+version: 1
+entries:
+- url: https://github.com/obviousworks/Claude-AI-skills-collection-2026
+  name: obviousworks-claude-ai-skills-collection-2026
+  reason: small (14 stars) and new; revisit next run
+  first_seen: '2026-05-25'
+- url: https://glama.ai/mcp/servers
+  name: glama-ai-mcp
+  reason: 'unverifiable: WebFetch returned 403 (bot-blocking). Re-evaluate next run with an authenticated fetcher.'
+  first_seen: '2026-05-25'
+- url: https://skillhaven.dev
+  name: skillhaven-dev
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://getbeam.dev
+  name: getbeam-dev
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://polyskill.ai
+  name: polyskill-ai
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://gofastmcp.com
+  name: gofastmcp-com
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://www.agensi.io
+  name: agensi-io
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://lobehub.com/skills
+  name: lobehub-skills
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://claudeskills.info
+  name: claudeskills-info
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://skillregistry.io
+  name: skillregistry-io
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+generated_at: '2026-05-25'

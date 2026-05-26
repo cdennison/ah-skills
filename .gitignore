@@ -1,0 +1,8 @@
+# Scratch artifacts produced by the skill-directory-research workflow.
+# Scouts dump candidates here; vetters dump verdicts here; the orchestrator
+# merges into registry/ and these stay local.
+candidates.json
+new-candidates.json
+verdicts.json
+verdicts-batch*.json
+batches/

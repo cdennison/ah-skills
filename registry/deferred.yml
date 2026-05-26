@@ -1,0 +1,35 @@
+version: 1
+entries:
+- url: https://tessl.io/registry
+  name: tessl-io
+  reason: 'unverifiable: HTTP 403 host_not_allowed from sandbox'
+  first_seen: '2026-05-26'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: HTTP 403 host_not_allowed from sandbox'
+  first_seen: '2026-05-26'
+- url: https://awesomeskill.ai
+  name: awesomeskill-ai
+  reason: 'unverifiable: HTTP 403 from sandbox'
+  first_seen: '2026-05-26'
+- url: https://fastmcp.me/Skills/Explore
+  name: fastmcp-me
+  reason: 'unverifiable: HTTP 403 from sandbox'
+  first_seen: '2026-05-26'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: HTTP 403 from sandbox'
+  first_seen: '2026-05-26'
+- url: https://www.skillhub.club
+  name: skillhub-club
+  reason: 'unverifiable: HTTP 403 from sandbox'
+  first_seen: '2026-05-26'
+- url: https://www.agensi.io
+  name: agensi-io
+  reason: 'unverifiable: HTTP 403 from sandbox'
+  first_seen: '2026-05-26'
+- url: https://awesome-skills.com
+  name: awesome-skills-com
+  reason: 'unverifiable: HTTP 403 from sandbox'
+  first_seen: '2026-05-26'
+generated_at: '2026-05-26'

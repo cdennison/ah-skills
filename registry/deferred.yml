@@ -1,0 +1,33 @@
+version: 1
+entries:
+- url: https://skillhub.club
+  name: skillhub-club
+  reason: 'unverifiable: 403 bot block'
+  first_seen: '2026-05-27'
+- url: https://lobehub.com/skills
+  name: lobehub-skills
+  reason: 'unverifiable: 403 bot block'
+  first_seen: '2026-05-27'
+- url: https://agensi.io
+  name: agensi-io
+  reason: 'unverifiable: 403 bot block'
+  first_seen: '2026-05-27'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: 403 bot block'
+  first_seen: '2026-05-27'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: 403 bot block'
+  first_seen: '2026-05-27'
+- url: https://agentskillshub.dev
+  name: agentskillshub-dev
+  reason: 'unverifiable: 403 bot block'
+  first_seen: '2026-05-27'
+- url: https://github.com/Samarth0211/awesome-claude-skills-2026
+  name: samarth0211-awesome-claude-skills-2026
+  reason: Content is not in-repo (redirects to external clskills.in site we cannot verify per spec), license CC BY-NC-ND 4.0
+    restricts derivative/non-commercial reuse which conflicts with crawler ingest, and commit history is too thin to assess
+    activity. Defer pending license clarification and in-repo content.
+  first_seen: '2026-05-27'
+generated_at: '2026-05-27'

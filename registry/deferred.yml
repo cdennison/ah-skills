@@ -1,0 +1,69 @@
+version: 1
+entries:
+- url: https://github.com/Evaluris-Solutions/claude-active-directory
+  name: evaluris-solutions-claude-active-directory
+  reason: 'safety review: repo is an authorization-gated AD red-team harness referencing destructive ops (spray/relay/destruction)
+    and OPSEC/telemetry awareness. Strong ROE gating present, but inclusion warrants explicit policy review before approval.'
+  first_seen: '2026-05-28'
+- url: https://www.agensi.io
+  name: agensi-io
+  reason: 'unverifiable: sandbox network policy blocks the host (x-deny-reason: host_not_allowed). Cannot confirm reachability
+    or content from this environment.'
+  first_seen: '2026-05-28'
+- url: https://skillshub.wtf
+  name: skillshub-wtf
+  reason: 'unverifiable: sandbox network policy blocks the host (x-deny-reason: host_not_allowed).'
+  first_seen: '2026-05-28'
+- url: https://www.skillhub.club
+  name: skillhub-club
+  reason: 'unverifiable: sandbox network policy blocks the host.'
+  first_seen: '2026-05-28'
+- url: https://aiskillsmarket.com
+  name: aiskillsmarket-com
+  reason: 'unverifiable: sandbox network policy blocks the host.'
+  first_seen: '2026-05-28'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: sandbox network policy blocks the host.'
+  first_seen: '2026-05-28'
+- url: https://skillregistry.io
+  name: skillregistry-io
+  reason: 'unverifiable: sandbox network policy blocks the host.'
+  first_seen: '2026-05-28'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: sandbox egress blocks host. Scout''s 425000+ skills claim suspiciously high and unverified.'
+  first_seen: '2026-05-28'
+- url: https://agentskillshub.dev
+  name: agentskillshub-dev
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+- url: https://clawhub.ai
+  name: clawhub-ai
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+- url: https://skillmd.io
+  name: skillmd-io
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+- url: https://agentskill.work/en
+  name: agentskill-work
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+- url: https://lobehub.com/skills
+  name: lobehub-skills
+  reason: 'unverifiable: sandbox egress blocks host. lobehub.com is widely known but /skills sub-page unverified.'
+  first_seen: '2026-05-28'
+- url: https://agenticskills.io
+  name: agenticskills-io
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+- url: https://skilldex-web.vercel.app
+  name: skilldex-vercel
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+- url: https://mcp-marketplace.io
+  name: mcp-marketplace-io
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+generated_at: '2026-05-28'

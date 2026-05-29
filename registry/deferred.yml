@@ -1,0 +1,65 @@
+version: 1
+entries:
+- url: https://github.com/Chat2AnyLLM/awesome-claude-skills
+  name: chat2anyllm-awesome-claude-skills
+  reason: Below 5-entry threshold for awesome-list; inflated skill-count (9966) unverified; appears auto-generated. Defer
+    for manual review.
+  first_seen: '2026-05-29'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'Unverifiable: sandbox egress proxy blocks non-allowlisted hosts; cannot confirm reachability or that the page is
+    a real populated marketplace.'
+  first_seen: '2026-05-29'
+- url: https://claudskills.com
+  name: claudskills-com
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://www.agensi.io/skills
+  name: agensi-io
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://lobehub.com/skills
+  name: lobehub-com
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://skillregistry.io
+  name: skillregistry-io
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://tessl.io/registry
+  name: tessl-io
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://skilldex-web.vercel.app
+  name: skilldex-web
+  reason: 'Unverifiable: sandbox blocks non-github hosts; could be a Vercel placeholder.'
+  first_seen: '2026-05-29'
+- url: https://skillibary.vercel.app
+  name: skillibary-vercel-app
+  reason: 'Unverifiable: sandbox blocks non-github hosts; could be a Vercel placeholder.'
+  first_seen: '2026-05-29'
+- url: https://llmbase.ai/skills
+  name: llmbase-ai
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://skillery.dev
+  name: skillery-dev
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://omni-skill-registry.omniroute.online
+  name: omni-skill-registry-omniroute-online
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://www.llmskills.directory
+  name: llmskills-directory
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://aregistry.ai
+  name: aregistry-ai
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+generated_at: '2026-05-29'

@@ -1,0 +1,64 @@
+version: 1
+entries:
+- url: https://github.com/gmh5225/awesome-skills
+  name: gmh5225-awesome-skills
+  reason: 'unverifiable: last commit date not surfaced; content otherwise strong.'
+  first_seen: '2026-05-30'
+- url: https://github.com/BlockRunAI/awesome-finance-mcp
+  name: BlockRunAI-awesome-finance-mcp
+  reason: 'unverifiable: last commit date not surfaced; entry count borderline (~5-7).'
+  first_seen: '2026-05-30'
+- url: https://github.com/kenryu42/awesome-claude-skills
+  name: kenryu42-awesome-claude-skills
+  reason: 'unverifiable: last commit date not surfaced; content otherwise OK.'
+  first_seen: '2026-05-30'
+- url: https://github.com/serenakeyitan/awesome-openclaw-roles
+  name: serenakeyitan-awesome-openclaw-roles
+  reason: 'unverifiable: last commit date not surfaced; other checks pass.'
+  first_seen: '2026-05-30'
+- url: https://github.com/aliosmanozturk1/awesome-swift-ai-tools
+  name: aliosmanozturk1-awesome-swift-ai-tools
+  reason: 'unverifiable: last commit date not surfaced; content checks pass.'
+  first_seen: '2026-05-30'
+- url: https://github.com/BCS1037/awesome-obsidian-skills
+  name: BCS1037-awesome-obsidian-skills
+  reason: 'unverifiable: README-stated date 2026-01-22 within window but not commit-log-verified; entry count (~8) borderline.'
+  first_seen: '2026-05-30'
+- url: https://github.com/hashgraph-online/awesome-ai-plugins
+  name: hashgraph-online-awesome-ai-plugins
+  reason: 'unverifiable: last commit date not surfaced. NOTE: vetter detected an injected fake <system-reminder> block in
+    fetched README and ignored it.'
+  first_seen: '2026-05-30'
+- url: https://tonsofskills.com
+  name: tonsofskills-com
+  reason: 'unverifiable: 403 on WebFetch for root and /skills.'
+  first_seen: '2026-05-30'
+- url: https://github.com/ananddtyagi/cc-marketplace
+  name: ananddtyagi-cc-marketplace
+  reason: 'unverifiable: environment restricts GitHub MCP to agentichighway/ah-skills only.'
+  first_seen: '2026-05-30'
+- url: https://github.com/xiaolai/claude-plugin-marketplace
+  name: xiaolai-claude-plugin-marketplace
+  reason: 'unverifiable: environment restricts GitHub MCP to agentichighway/ah-skills only.'
+  first_seen: '2026-05-30'
+- url: https://github.com/jmanhype/claude-code-plugin-marketplace
+  name: jmanhype-claude-code-plugin-marketplace
+  reason: 'unverifiable: environment restricts GitHub MCP to agentichighway/ah-skills only.'
+  first_seen: '2026-05-30'
+- url: https://github.com/jeremylongshore/claude-code-plugins-plus-skills
+  name: jeremylongshore-ccpi
+  reason: 'unverifiable: environment restricts GitHub MCP to agentichighway/ah-skills only.'
+  first_seen: '2026-05-30'
+- url: https://skilldex-web.vercel.app
+  name: skilldex-web
+  reason: 'unverifiable: 403 on WebFetch for root and /skills.'
+  first_seen: '2026-05-30'
+- url: https://www.skillsdirectory.com
+  name: skillsdirectory-com
+  reason: 'unverifiable: 403 on WebFetch for both www and apex.'
+  first_seen: '2026-05-30'
+- url: https://skillibary.vercel.app
+  name: skillibary
+  reason: 'unverifiable: 403 on WebFetch for root and /api.'
+  first_seen: '2026-05-30'
+generated_at: '2026-05-30'

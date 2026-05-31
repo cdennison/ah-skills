@@ -1,0 +1,48 @@
+version: 1
+entries:
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com
+  reason: 'unverifiable: HTTP 403 Forbidden response - cannot verify marketplace reachability'
+  first_seen: '2026-05-31'
+- url: https://mcp-registry.net
+  name: mcp-registry-net
+  reason: 'unverifiable: HTTP 403 Forbidden response - cannot verify registry reachability'
+  first_seen: '2026-05-31'
+- url: https://github.com/levnikolaevich/claude-code-skills
+  name: levnikolaevich-claude-code-skills
+  reason: Plugin-based repo structure unclear if it conforms to skills/*/SKILL.md pattern; needs manual inspection.
+  first_seen: '2026-05-31'
+- url: https://github.com/mhattingpete/claude-skills-marketplace
+  name: mhattingpete-claude-skills-marketplace
+  reason: Plugin-focused structure (engineering-workflow-plugin/, etc.) rather than standard skills/*/SKILL.md; requires manual
+    inspection.
+  first_seen: '2026-05-31'
+- url: https://www.agensi.io/skills
+  name: agensi-io
+  reason: 'unverifiable: HTTP 403 Forbidden'
+  first_seen: '2026-05-31'
+- url: https://www.pulsemcp.com
+  name: pulsemcp-com
+  reason: 'unverifiable: HTTP 403 Forbidden'
+  first_seen: '2026-05-31'
+- url: https://github.com/K-Dense-AI/claude-skills-mcp
+  name: K-Dense-AI-claude-skills-mcp
+  reason: Repo archived per README; skills natively adopted elsewhere. Cannot confirm active skill directory.
+  first_seen: '2026-05-31'
+- url: https://github.com/Samarth0211/awesome-claude-skills-2026
+  name: Samarth0211-awesome-claude-skills-2026
+  reason: Index/directory linking to external resources rather than hosting SKILL.md files. Minimal commits.
+  first_seen: '2026-05-31'
+- url: https://github.com/openshift/agentic-skills
+  name: openshift-agentic-skills
+  reason: Repo reachable but skills/ structure unclear from index; requires deeper inspection to confirm SKILL.md compliance.
+  first_seen: '2026-05-31'
+- url: https://github.com/simonw/claude-skills
+  name: simonw-claude-skills
+  reason: Repo archived per README; content moved to anthropics/skills. Cannot confirm current spec-compliance.
+  first_seen: '2026-05-31'
+- url: https://marketplace.anthropic.com/skills
+  name: marketplace-anthropic-com
+  reason: 'unverifiable: ECONNREFUSED on WebFetch.'
+  first_seen: '2026-05-31'
+generated_at: '2026-05-31'

@@ -1,0 +1,44 @@
+version: 1
+entries:
+- url: https://github.com/agenticnotetaking/eidos
+  name: agenticnotetaking-eidos
+  reason: 'unverifiable: WebFetch could not enumerate skills/ subdirectory and MCP github access restricted to the parent
+    repo; re-vet next run.'
+  first_seen: '2026-06-01'
+- url: https://www.claudepluginhub.com
+  name: claudepluginhub-com
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://omniskill.online
+  name: omniskill-online
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://claw-hub.net
+  name: claw-hub-net
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://openclaw-hub.org
+  name: openclaw-hub-org
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://jfrog.com/ai-catalog/skills-registry
+  name: jfrog-ai-catalog
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://www.agentskills.to
+  name: agentskills-to
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://www.agensi.io
+  name: agensi-io
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://clskillshub.com
+  name: clskillshub
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+generated_at: '2026-06-01'

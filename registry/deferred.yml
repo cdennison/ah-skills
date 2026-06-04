@@ -1,0 +1,70 @@
+version: 1
+entries:
+- url: https://github.com/Eyadkelleh/awesome-claude-skills-security
+  name: eyadkelleh-awesome-claude-skills-security
+  reason: 'unverifiable + safety review pending: SKILL.md raw URLs returned 404; cannot confirm frontmatter. Plus dual-use
+    offensive payloads warrant manual safety review before inclusion.'
+  first_seen: '2026-06-04'
+- url: https://lobehub.com/skills
+  name: lobehub-skills
+  reason: 'unverifiable: sandbox network policy blocks host; cannot confirm whether listings are Claude SKILL.md format vs
+    LobeChat agents'
+  first_seen: '2026-06-04'
+- url: https://www.agensi.io/skills
+  name: agensi-skills
+  reason: 'unverifiable: sandbox network policy blocks host; cannot confirm SKILL.md marketplace claims'
+  first_seen: '2026-06-04'
+- url: https://skillsmp.com
+  name: skillsmp
+  reason: 'unverifiable: sandbox blocks host; implausible 1.5M+ skills claim warrants extra skepticism on revisit'
+  first_seen: '2026-06-04'
+- url: https://claudeskills.info
+  name: claudeskills-info
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://www.skillhub.club
+  name: skillhub-club
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://www.skillibary.com
+  name: skillibary
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://claudskills.com
+  name: claudskills
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://skillforge.cc
+  name: skillforge
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://tonsofskills.com
+  name: tonsofskills
+  reason: 'unverifiable: sandbox blocks host; this is the frontend for jeremylongshore/claude-code-plugins-plus-skills, which
+    approved separately'
+  first_seen: '2026-06-04'
+- url: https://skillmarket.live
+  name: skillmarket-live
+  reason: 'unverifiable: sandbox blocks host; inflated 100,000+ skills claim warrants skepticism on revisit'
+  first_seen: '2026-06-04'
+- url: https://skills.re
+  name: skills-re
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://skillsllm.com
+  name: skillsllm
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://www.skillsdirectory.com
+  name: skillsdirectory
+  reason: 'unverifiable: sandbox blocks host; generic name pattern high-risk for non-Claude SEO site'
+  first_seen: '2026-06-04'
+- url: https://aiskillsmarket.com
+  name: aiskillsmarket
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+generated_at: '2026-06-04'

@@ -1,0 +1,90 @@
+version: 1
+entries:
+- url: https://github.com/huggingface/skills
+  name: huggingface-skills
+  reason: 'unverifiable: repo is real and active (10.6k stars, 294 commits) but vetter could not fetch a concrete SKILL.md
+    at the claimed path; scan_paths pattern needs re-verification on next run'
+  first_seen: '2026-06-05'
+- url: https://github.com/openai/skills
+  name: openai-skills
+  reason: 'ecosystem-uncertainty: repo is OpenAI Codex-focused; SKILL.md YAML frontmatter format and cross-tool compatibility
+    could not be verified in this pass. Re-evaluate next run with a deeper look at .system/.curated/.experimental subdirs.'
+  first_seen: '2026-06-05'
+- url: https://github.com/grafana/skills
+  name: grafana-skills
+  reason: 'scan-paths-uncertain: skills are nested one level deeper than the scout claimed; vetter suggests skills/*/*/SKILL.md
+    but could not confirm. Re-vet next run with the corrected glob.'
+  first_seen: '2026-06-05'
+- url: https://github.com/databricks/databricks-agent-skills
+  name: databricks-agent-skills
+  reason: 'unverifiable: SKILL.md frontmatter could not be confirmed (404 on attempted paths) and license is proprietary ''Databricks
+    License'' rather than SPDX. Re-vet next run.'
+  first_seen: '2026-06-05'
+- url: https://github.com/K-Dense-AI/scientific-agent-skills
+  name: K-Dense-AI-scientific-agent-skills
+  reason: 'unverifiable: LICENSE and sample SKILL.md returned 404 (raw URL routing issue); repo metadata otherwise strong
+    (512 commits, v2.45.0 2026-05-28, 142 scientific skills). Re-vet next run.'
+  first_seen: '2026-06-05'
+- url: https://github.com/Jeffallan/claude-skills
+  name: Jeffallan-claude-skills
+  reason: 'unverifiable: SKILL.md fetch returned 404; structure inferred from README only. Re-vet next run with corrected
+    path.'
+  first_seen: '2026-06-05'
+- url: https://github.com/mingrath/awesome-claude-skills
+  name: mingrath-awesome-claude-skills
+  reason: 'below-quality-bar: only 2 distinct linked skill repos (anthropics/skills, OthmanAdi/planning-with-files) despite
+    claiming 150+ skills — does not meet awesome-list >=5 distinct entries threshold. Re-vet if content expands.'
+  first_seen: '2026-06-05'
+- url: https://github.com/dashed/claude-marketplace
+  name: dashed-claude-marketplace
+  reason: 'unverifiable: GitHub raw content and API endpoints returned 403/blocked; could only confirm repo not archived.
+    Layout and SKILL.md frontmatter could not be confirmed.'
+  first_seen: '2026-06-05'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: HTTP 403 (anti-bot); cannot confirm catalog existence within fetch budget. Re-vet with authenticated
+    browser session.'
+  first_seen: '2026-06-05'
+- url: https://www.agensi.io
+  name: agensi-io
+  reason: 'unverifiable: HTTP 403 on /, /skills, /marketplace, /robots.txt, /api. Anti-bot protection blocks automated WebFetch.'
+  first_seen: '2026-06-05'
+- url: https://officialskills.sh
+  name: officialskills-sh
+  reason: 'unverifiable: HTTP 403; cannot confirm whether this is a real registry, parking page, or login-gated service.'
+  first_seen: '2026-06-05'
+- url: https://skly.ai
+  name: skly-ai
+  reason: 'unverifiable: vetter could not complete WebFetch in this pass. Re-vet next run.'
+  first_seen: '2026-06-05'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: all paths return HTTP 403; anti-bot/authentication wall.'
+  first_seen: '2026-06-05'
+- url: https://llmskills.org
+  name: llmskills-org
+  reason: 'unverifiable: HTTP 403; cannot confirm catalog.'
+  first_seen: '2026-06-05'
+- url: https://llm-skills.alisonaquinas.com
+  name: alisons-llm-skills
+  reason: 'unverifiable: HTTP 403; cannot confirm catalog.'
+  first_seen: '2026-06-05'
+- url: https://vercel.com/marketplace/category/agents
+  name: vercel-agents-marketplace
+  reason: 'unverifiable: HTTP 403; cannot determine whether this is a distinct catalog or marketing view of vercel-labs/agent-skills
+    (already approved upstream).'
+  first_seen: '2026-06-05'
+- url: https://agents.cloudflare.com
+  name: cloudflare-agents-portal
+  reason: 'unverifiable: HTTP 403; cannot distinguish from Cloudflare''s Agents-product landing page vs a distinct skill catalog.
+    cloudflare/skills GitHub repo is already approved upstream.'
+  first_seen: '2026-06-05'
+- url: https://www.skill-marketplace.com
+  name: skillhub-marketplace
+  reason: 'unverifiable: HTTP 403; cannot confirm scope (Claude/agent skills vs human skills marketplace).'
+  first_seen: '2026-06-05'
+- url: https://replit.com/products/agent
+  name: replit-agent-marketplace
+  reason: 'unverifiable: HTTP 403; cannot distinguish Replit Agent product page from a distinct skills catalog.'
+  first_seen: '2026-06-05'
+generated_at: '2026-06-05'

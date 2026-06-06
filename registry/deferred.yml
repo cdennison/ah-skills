@@ -1,0 +1,18 @@
+version: 1
+entries:
+- url: https://github.com/syntax-syndicate/agentic-skills-marketplace
+  name: syntax-syndicate-agentic-skills-marketplace
+  reason: Repo is a fork of agentic-jumpstart/marketplace and functions as a plugin that GENERATES SKILL.md files in target
+    codebases rather than hosting a registry. Not a registry of distributable skills.
+  first_seen: '2026-06-06'
+- url: https://github.com/amanning3390/hermeshub
+  name: amanning3390-hermeshub
+  reason: Active marketplace but for 'Hermes Agent by Nous Research' — different agent runtime. Schema compatibility with
+    Claude SKILL.md format unverified.
+  first_seen: '2026-06-06'
+- url: https://github.com/databricks/databricks-agent-skills
+  name: databricks-databricks-agent-skills
+  reason: Custom proprietary Databricks License restricts use to 'use of the Databricks Services pursuant to the Agreement'
+    — not standard OSS. Registry inclusion may require legal review.
+  first_seen: '2026-06-06'
+generated_at: '2026-06-06'

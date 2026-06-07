@@ -1,0 +1,26 @@
+version: 1
+entries:
+- url: https://llmbase.ai/skills
+  name: llmbase
+  reason: 'unverifiable: HTTP 403 host_not_allowed at network egress; cannot perform required on-page safety scan.'
+  first_seen: '2026-06-07'
+- url: https://lobehub.com/skills
+  name: lobehub
+  reason: 'unverifiable: HTTP 403 across multiple paths; cannot confirm /skills exists as a dedicated Claude Code skills section
+    (vs chat plugins/MCP).'
+  first_seen: '2026-06-07'
+- url: https://www.atcyrus.com/skills
+  name: cyrus-ai
+  reason: 'unverifiable: HTTP 403 to WebFetch; ambiguous whether marketplace gates installs through Cyrus''s hosted platform.'
+  first_seen: '2026-06-07'
+- url: https://github.com/agentregistry-dev/agentregistry
+  name: agentregistry-dev
+  reason: Registry platform/tooling without a bundled curated list of skills to crawl. Defer until an indexed catalog or public
+    instance URL is available.
+  first_seen: '2026-06-07'
+- url: https://jfrog.com/ai-catalog/skills-registry
+  name: jfrog-skills
+  reason: URL is an enterprise SaaS marketing/landing page for a gated, open-beta private registry (signup/free-trial/sales-contact
+    required). If a JFrog entry is desired, reconsider the public GitHub repo at https://github.com/jfrog/jfrog-skills instead.
+  first_seen: '2026-06-07'
+generated_at: '2026-06-07'

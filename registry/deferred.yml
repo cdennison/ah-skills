@@ -1,0 +1,44 @@
+version: 1
+entries:
+- url: https://github.com/Chat2AnyLLM/awesome-claude-skills
+  name: chat2anyllm-awesome-claude-skills
+  reason: 'unverifiable: auto-generated/scraped index of 10k+ entries from external config repo; entry quality and link validity
+    cannot be confirmed within fetch budget. Suspected low-signal scrape.'
+  first_seen: '2026-06-08'
+- url: https://tessl.io/registry
+  name: tessl-io
+  reason: 'unverifiable: host blocked at network layer in this environment; cannot verify reachability or index.'
+  first_seen: '2026-06-08'
+- url: https://lobehub.com/skills
+  name: lobehub
+  reason: 'unverifiable: host blocked at network layer; cannot verify skill index.'
+  first_seen: '2026-06-08'
+- url: https://guildskills.com
+  name: guildskills
+  reason: 'unverifiable: host blocked at network layer; cannot verify registry contents.'
+  first_seen: '2026-06-08'
+- url: https://skillsgate.ai
+  name: skillsgate-ai
+  reason: 'unverifiable: host blocked at network layer (403 host_not_allowed).'
+  first_seen: '2026-06-08'
+- url: https://skillsllm.com
+  name: skillsllm
+  reason: 'unverifiable: host blocked at network layer (403 host_not_allowed).'
+  first_seen: '2026-06-08'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com
+  reason: 'unverifiable: host blocked (403 host_not_allowed).'
+  first_seen: '2026-06-08'
+- url: https://mcpservers.org/agent-skills
+  name: mcpservers-org
+  reason: 'unverifiable: host blocked (403 host_not_allowed).'
+  first_seen: '2026-06-08'
+- url: https://atmos.tools/ai/skill-marketplace
+  name: atmos-tools
+  reason: 'unverifiable: host blocked (403 host_not_allowed).'
+  first_seen: '2026-06-08'
+- url: https://www.aitmpl.com/plugins
+  name: aitmpl-com
+  reason: 'unverifiable: host blocked (403 host_not_allowed).'
+  first_seen: '2026-06-08'
+generated_at: '2026-06-08'

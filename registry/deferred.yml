@@ -1,0 +1,58 @@
+version: 1
+entries:
+- url: https://github.com/obviousworks/Claude-AI-skills-collection-2026
+  name: obviousworks-claude-skills-2026
+  reason: no-skill-md-in-repo — repo is a README index/links rather than a SKILL.md collection. Re-evaluate next run if scan_paths
+    layout clarifies.
+  first_seen: '2026-06-09'
+- url: https://github.com/prismatic-io/prismatic-skills
+  name: prismatic-io-prismatic-skills
+  reason: no-skill-md-detected — repo is a Claude Code plugin (commands + knowledge bases) rather than a SKILL.md skills collection.
+    Re-evaluate if Prismatic ships SKILL.md skills.
+  first_seen: '2026-06-09'
+- url: https://www.agensi.io
+  name: agensi-io
+  reason: 'unverifiable: 403 on every path tried'
+  first_seen: '2026-06-09'
+- url: https://skillregistry.io
+  name: skillregistry-io
+  reason: 'unverifiable: 403 on canonical and www variants'
+  first_seen: '2026-06-09'
+- url: https://agentskill.sh
+  name: agentskill-sh
+  reason: 'unverifiable: 403 on canonical, connection refused on www'
+  first_seen: '2026-06-09'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: 403 on canonical and www variants'
+  first_seen: '2026-06-09'
+- url: https://lobehub.com/skills
+  name: lobehub-com-skills
+  reason: 'unverifiable: 403 (likely bot protection); legitimate org but skills endpoint not WebFetch-reachable'
+  first_seen: '2026-06-09'
+- url: https://claw-hub.net
+  name: claw-hub-net
+  reason: 'safety-unverified + unverifiable: 403'
+  first_seen: '2026-06-09'
+- url: https://clawhub.ai
+  name: clawhub-ai
+  reason: 'safety-unverified + unverifiable: 403'
+  first_seen: '2026-06-09'
+- url: https://github.com/SHADOWPR0/awesome-claude-skills
+  name: shadowpr0-awesome-claude-skills
+  reason: 'fork-of-canonical: redundant with voltagent-awesome-agent-skills already in registry; minimal independent content'
+  first_seen: '2026-06-09'
+- url: https://github.com/mingrath/awesome-claude-skills
+  name: mingrath-awesome-claude-skills
+  reason: 'unverifiable-layout: README references SKILL.md format but probes failed; revisit with deeper tree walk'
+  first_seen: '2026-06-09'
+- url: https://github.com/levnikolaevich/claude-code-skills
+  name: levnikolaevich-claude-code-skills
+  reason: 'unverifiable-layout: active repo but plugins/skills paths not confirmed within fetch budget'
+  first_seen: '2026-06-09'
+- url: https://github.com/abubakarsiddik31/claude-skills-collection
+  name: abubakarsiddik31-claude-skills-collection
+  reason: 'meta-index-not-collection: repo links to anthropics/skills, obra/superpowers, etc. rather than hosting SKILL.md
+    files. Could re-enter as awesome-list.'
+  first_seen: '2026-06-09'
+generated_at: '2026-06-09'

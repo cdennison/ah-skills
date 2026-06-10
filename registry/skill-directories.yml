@@ -1,5 +1,5 @@
 version: 1
-generated_at: '2026-05-08'
+generated_at: '2026-06-10'
 entries:
 - name: agentskills-io
   url: https://agentskills.io
@@ -15,6 +15,22 @@ entries:
   - registry
   - cross-tool
   last_verified: '2026-05-08'
+- name: alirezarezvani-claude-skills
+  url: https://github.com/alirezarezvani/claude-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - '*/*/skills/*/SKILL.md'
+  - '*/skills/*/SKILL.md'
+  description: Multi-domain collection of 338 Claude Code skills spanning engineering, DevOps, marketing, compliance, C-level
+    advisory, research, and productivity.
+  license: MIT
+  tags:
+  - community
+  - large
+  - 1k+
+  - multi-domain
+  last_verified: '2026-06-10'
 - name: anthropics-claude-plugins-official
   url: https://github.com/anthropics/claude-plugins-official
   kind: collection
@@ -100,6 +116,20 @@ entries:
   - marketplace
   - hosted
   last_verified: '2026-05-08'
+- name: cloudflare-skills
+  url: https://github.com/cloudflare/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Official Cloudflare agent skills for Workers, Wrangler, Durable Objects, Agents SDK, and the broader Cloudflare
+    Developer Platform.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - official
+  - cloudflare
+  last_verified: '2026-06-10'
 - name: composiohq-awesome-claude-skills
   url: https://github.com/ComposioHQ/awesome-claude-skills
   kind: awesome-list
@@ -133,6 +163,86 @@ entries:
   tags:
   - community
   last_verified: '2026-05-08'
+- name: google-skills
+  url: https://github.com/google/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/cloud/*/SKILL.md
+  description: Google's official Agent Skills for Google Cloud products including BigQuery, Cloud Run, GKE, Firebase, AlloyDB,
+    Gemini API, and Agent Platform.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - official
+  - google
+  - gcp
+  last_verified: '2026-06-10'
+- name: hashicorp-agent-skills
+  url: https://github.com/hashicorp/agent-skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - '*/*/skills/*/SKILL.md'
+  description: HashiCorp's official Agent Skills and Claude Code plugins for Terraform and Packer infrastructure workflows.
+  license: MPL-2.0
+  tags:
+  - vendor
+  - official
+  - hashicorp
+  - infrastructure
+  last_verified: '2026-06-10'
+- name: heilcheng-awesome-agent-skills
+  url: https://github.com/heilcheng/awesome-agent-skills
+  kind: awesome-list
+  ref: main
+  scan_paths: []
+  requires_crawler: true
+  description: Curated awesome-list of agent skills, MCP integrations, and SKILL.md resources across major AI platforms.
+  license: MIT
+  tags:
+  - community
+  - awesome-list
+  last_verified: '2026-06-10'
+- name: huggingface-skills
+  url: https://github.com/huggingface/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Official Hugging Face skills covering Hub CLI, model training, Spaces deployment, datasets, Gradio UIs, and
+    transformers.js.
+  license: Apache-2.0
+  tags:
+  - vendor
+  - official
+  - huggingface
+  last_verified: '2026-06-10'
+- name: jeffallan-claude-skills
+  url: https://github.com/Jeffallan/claude-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: 66 specialized full-stack developer skills covering languages, frameworks, infrastructure, APIs, testing, DevOps,
+    security, and ML.
+  license: MIT
+  tags:
+  - community
+  - full-stack
+  last_verified: '2026-06-10'
+- name: jeremylongshore-claude-code-plugins-plus-skills
+  url: https://github.com/jeremylongshore/claude-code-plugins-plus-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/*/SKILL.md
+  description: Large community collection of ~2810 Claude Code skills organized by category, plus plugins and agents.
+  license: MIT
+  tags:
+  - community
+  - 1k+
+  last_verified: '2026-06-10'
 - name: lap-platform-claude-marketplace
   url: https://github.com/Lap-Platform/claude-marketplace
   kind: marketplace
@@ -156,6 +266,47 @@ entries:
   - registry
   - large
   last_verified: '2026-05-08'
+- name: mrgoonie-claudekit-skills
+  url: https://github.com/mrgoonie/claudekit-skills
+  kind: collection
+  ref: main
+  scan_paths:
+  - .claude/skills/*/SKILL.md
+  description: Community collection of 30+ Claude skills covering backend, frontend, devops, MCP, databases, and AI/ML from
+    ClaudeKit.cc.
+  license: mixed
+  tags:
+  - community
+  last_verified: '2026-06-10'
+- name: openai-skills
+  url: https://github.com/openai/skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/.curated/*/SKILL.md
+  - skills/.system/*/SKILL.md
+  - skills/.experimental/*/SKILL.md
+  description: OpenAI curated agent skills covering PDF, Figma, Linear, Sentry, Notion, Playwright, deployment platforms,
+    speech, and security workflows.
+  license: per-skill
+  tags:
+  - vendor
+  - official
+  - openai
+  last_verified: '2026-06-10'
+- name: rohitg00-awesome-claude-code-toolkit
+  url: https://github.com/rohitg00/awesome-claude-code-toolkit
+  kind: collection
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Curated toolkit of 35+ Claude Code skills covering TDD, API design, cloud patterns, language idioms, and DevOps
+    practices.
+  license: Apache-2.0
+  tags:
+  - community
+  - toolkit
+  last_verified: '2026-06-10'
 - name: sickn33-antigravity-awesome-skills
   url: https://github.com/sickn33/antigravity-awesome-skills
   kind: awesome-list
@@ -182,6 +333,20 @@ entries:
   - registry
   - hosted
   last_verified: '2026-05-08'
+- name: supabase-agent-skills
+  url: https://github.com/supabase/agent-skills
+  kind: vendor-skills
+  ref: main
+  scan_paths:
+  - skills/*/SKILL.md
+  description: Official Supabase skills covering Database, Auth, Edge Functions, Realtime, Storage, and Postgres performance
+    best practices.
+  license: MIT
+  tags:
+  - vendor
+  - official
+  - supabase
+  last_verified: '2026-06-10'
 - name: travisvn-awesome-claude-skills
   url: https://github.com/travisvn/awesome-claude-skills
   kind: awesome-list

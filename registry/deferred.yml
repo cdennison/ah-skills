@@ -1,0 +1,66 @@
+version: 1
+entries:
+- url: https://github.com/agentskills/agentskills
+  name: agentskills-agentskills
+  reason: Repository is the official Agent Skills specification, not a skill collection or awesome-list. Re-evaluate when
+    role is clearer.
+  first_seen: '2026-06-11'
+- url: https://github.com/antfu/skills
+  name: antfu-skills
+  reason: 'unverifiable: GitHub page load errors prevented confirmation of SKILL.md files in subdirectories (vue, nuxt, pinia,
+    vite all visible). Retry on next run.'
+  first_seen: '2026-06-11'
+- url: https://www.claudemarketplace.net
+  name: claudemarketplace-net
+  reason: 'unverifiable: vetter could not WebFetch due to network policy blocking the host. Retry from a less-restricted environment.'
+  first_seen: '2026-06-11'
+- url: https://skillsplayground.com
+  name: skillsplayground-com
+  reason: 'unverifiable: vetter could not WebFetch due to network policy.'
+  first_seen: '2026-06-11'
+- url: https://oneskill.dev
+  name: oneskill-dev
+  reason: 'unverifiable: vetter could not WebFetch due to network policy.'
+  first_seen: '2026-06-11'
+- url: https://polyskill.ai
+  name: polyskill-ai
+  reason: 'unverifiable: vetter could not WebFetch due to network policy.'
+  first_seen: '2026-06-11'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: vetter could not WebFetch due to network policy.'
+  first_seen: '2026-06-11'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: vetter could not WebFetch due to network policy.'
+  first_seen: '2026-06-11'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: vetter could not WebFetch due to network policy.'
+  first_seen: '2026-06-11'
+- url: https://omniskill.online
+  name: omniskill-online
+  reason: 'unverifiable: vetter could not WebFetch due to network policy.'
+  first_seen: '2026-06-11'
+- url: https://github.com/twilio/ai
+  name: twilio-ai
+  reason: 'unverifiable: skills/ directory exists but SKILL.md path returned 404. Verify exact structure on next run.'
+  first_seen: '2026-06-11'
+- url: https://github.com/expo/skills
+  name: expo-skills
+  reason: 'unverifiable: repo exists with 2.1k stars but SKILL.md at expected skills/<x>/SKILL.md path 404''d. Confirm actual
+    layout next run.'
+  first_seen: '2026-06-11'
+- url: https://github.com/auth0/agent-skills
+  name: auth0-agent-skills
+  reason: Directory layout uses plugins/auth0/skills/ rather than the standard skills/. Re-verify scan path on next run.
+  first_seen: '2026-06-11'
+- url: https://github.com/railwayapp/railway-skills
+  name: railwayapp-railway-skills
+  reason: Directory layout uses plugins/railway/skills/ rather than the standard skills/. Re-verify scan path on next run.
+  first_seen: '2026-06-11'
+- url: https://www.agensi.io/skills
+  name: agensi-io
+  reason: 'unverifiable: WebFetch returned 403 from sub-agent network policy. Retry from a less-restricted environment.'
+  first_seen: '2026-06-11'
+generated_at: '2026-06-11'

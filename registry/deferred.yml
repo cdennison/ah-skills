@@ -1,0 +1,29 @@
+version: 1
+entries:
+- url: https://aitmpl.com
+  name: aitmpl-com
+  reason: 'unverifiable: 403-blocked-on-direct-fetch; Google snippets show real plugin/skill listings and ScamAdviser flags
+    the site as legitimate-but-young, but scale claim of 340+ plugins / 1367+ skills cannot be confirmed without a successful
+    crawl'
+  first_seen: '2026-06-20'
+- url: https://skillsdir.dev
+  name: skillsdir-dev
+  reason: 'unverifiable: 403-blocked-on-direct-fetch; corroborated as an open-source Claude Skills directory organised by
+    vertical, but scale/freshness unconfirmed'
+  first_seen: '2026-06-20'
+- url: https://oneskill.dev
+  name: oneskill-dev
+  reason: 'unverifiable: 403-blocked-on-direct-fetch; corroborated as auto-indexer of Skills/MCP servers compatible with 38+
+    agent platforms, but entry count and freshness unconfirmed'
+  first_seen: '2026-06-20'
+- url: https://www.skillsdirectory.com
+  name: skillsdirectory-com
+  reason: 'unverifiable: 403-blocked-on-direct-fetch; corroborated as security-grading registry, but listings cannot be confirmed
+    without crawl'
+  first_seen: '2026-06-20'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: 403-blocked-on-direct-fetch; well-corroborated as MCP/Agent Skills directory but entry counts/freshness
+    cannot be confirmed'
+  first_seen: '2026-06-20'
+generated_at: '2026-06-20'

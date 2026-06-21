@@ -1,0 +1,48 @@
+version: 1
+entries:
+- url: https://github.com/alirezarezvani/claude-skills
+  name: alirezarezvani-claude-skills
+  reason: 'unverifiable: could not fetch any SKILL.md to confirm YAML frontmatter; actual skill file layout not confirmed'
+  first_seen: '2026-06-21'
+- url: https://www.agensi.io/skills
+  name: agensi-io-skills
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). WebSearch evidence suggests healthy public catalog.'
+  first_seen: '2026-06-21'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). WebSearch confirms public index at /skills.'
+  first_seen: '2026-06-21'
+- url: https://claudeskills.info
+  name: claudeskills-info
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). WebSearch confirms public free marketplace.'
+  first_seen: '2026-06-21'
+- url: https://lobehub.com/skills
+  name: lobehub-skills
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). WebSearch confirms public marketplace.'
+  first_seen: '2026-06-21'
+- url: https://explainx.ai
+  name: explainx-ai
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). Pages exist per WebSearch.'
+  first_seen: '2026-06-21'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). WebSearch confirms 1,600+ skills public catalog.'
+  first_seen: '2026-06-21'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). Canonical index path is /tools/skills.'
+  first_seen: '2026-06-21'
+- url: https://aregistry.ai
+  name: aregistry-ai
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). Open-source artifact registry; catalog URL pattern not confirmed.'
+  first_seen: '2026-06-21'
+- url: https://orangebot.ai/skills
+  name: orangebot-ai-skills
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). Re-vet after host is allowlisted.'
+  first_seen: '2026-06-21'
+- url: https://clskills.in
+  name: clskills-in
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). Note: affiliated GitHub repo shows AI-spam signals; vet carefully
+    on re-evaluation.'
+  first_seen: '2026-06-21'
+generated_at: '2026-06-21'

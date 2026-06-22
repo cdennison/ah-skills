@@ -1,0 +1,55 @@
+version: 1
+entries:
+- url: https://www.skillsdirectory.com
+  name: skillsdirectory-com
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403 on WebFetch/curl)'
+  first_seen: '2026-06-22'
+- url: https://oneskill.dev
+  name: oneskill-dev
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://lobehub.com/skills
+  name: lobehub-com-skills
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://skillhaven.dev
+  name: skillhaven-dev
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://claudeskills.info
+  name: claudeskills-info
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://www.agentskill.club
+  name: agentskill-club
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://www.claudeskillsmarket.com
+  name: claudeskillsmarket-com
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://skills.pawgrammer.com
+  name: skills-pawgrammer-com
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://kissmyskills.com
+  name: kissmyskills-com
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://www.claudemarketplace.net
+  name: claudemarketplace-net
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://www.aitmpl.com
+  name: aitmpl-com
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+generated_at: '2026-06-22'

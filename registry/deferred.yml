@@ -1,0 +1,7 @@
+version: 1
+entries:
+- url: https://github.com/dashed/claude-marketplace
+  name: dashed-claude-marketplace
+  reason: 'unverifiable: personal marketplace with no license or stability guarantees'
+  first_seen: '2026-06-24'
+generated_at: '2026-06-24'

@@ -1,0 +1,13 @@
+version: 1
+entries:
+- url: https://skillforge.cc
+  name: skillforge-cc
+  reason: 'unverifiable: /skills returns ''0 skills'', individual skill URLs fall back to homepage content. No browsable skill
+    detail.'
+  first_seen: '2026-06-26'
+- url: https://www.claudeskillsmarket.com
+  name: claudeskillsmarket-com
+  reason: 'unverifiable: individual skill detail pages don''t surface through static fetches (likely JS-rendered). /browse-skills
+    returned only navigation links.'
+  first_seen: '2026-06-26'
+generated_at: '2026-06-26'

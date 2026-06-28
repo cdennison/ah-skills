@@ -1,0 +1,39 @@
+version: 1
+entries:
+- url: https://clawhub.ai
+  name: clawhub-ai
+  reason: unknown-operator-and-unclear-ecosystem-alignment
+  first_seen: '2026-06-28'
+- url: https://www.agentskill.club
+  name: agentskill-club
+  reason: no-verifiable-operator-identity
+  first_seen: '2026-06-28'
+- url: https://findskills.org
+  name: findskills-org
+  reason: no-identifiable-operator-self-acknowledged-unverified-content
+  first_seen: '2026-06-28'
+- url: https://agentskill.sh
+  name: agentskill-sh
+  reason: unverified-provenance
+  first_seen: '2026-06-28'
+- url: https://www.skillshub.pro
+  name: skillshub-pro
+  reason: unverified-provenance
+  first_seen: '2026-06-28'
+- url: https://www.skillsdirectory.com
+  name: skillsdirectory-com
+  reason: unverified-provenance
+  first_seen: '2026-06-28'
+- url: https://skillsllm.com
+  name: skillsllm-com
+  reason: unverified-provenance
+  first_seen: '2026-06-28'
+- url: https://www.skillhub.club
+  name: skillhub-club
+  reason: unverified-provenance
+  first_seen: '2026-06-28'
+- url: https://github.com/prisma/prisma-next
+  name: prisma-prisma-next
+  reason: skills/-symlinks-resolve-to-missing-path
+  first_seen: '2026-06-28'
+generated_at: '2026-06-28'

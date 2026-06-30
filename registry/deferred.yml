@@ -1,0 +1,15 @@
+version: 1
+entries:
+- url: https://github.com/treylom/prompt-engineering-skills
+  name: treylom-prompt-engineering-skills
+  reason: 'unverifiable: README 404'
+  first_seen: '2026-06-30'
+- url: https://lobehub.com/mcp
+  name: lobehub-mcp
+  reason: partial verification only, content truncated
+  first_seen: '2026-06-30'
+- url: https://github.com/render-examples/hermes-render
+  name: render-hermes-skills
+  reason: SKILL.md frontmatter not fully verified
+  first_seen: '2026-06-30'
+generated_at: '2026-06-30'

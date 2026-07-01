@@ -1,0 +1,24 @@
+version: 1
+entries:
+- url: https://github.com/NeverSight/learn-skills.dev
+  name: neversight-learn-skills-dev
+  reason: Repo alive as aggregation platform but no SKILL.md tree or index endpoint located in <=8 fetches; needs manual verification.
+  first_seen: '2026-07-01'
+- url: https://github.com/sybilng/skills-repository-v2
+  name: sybilng-skills-repository-v2
+  reason: Registry backend claims agentskills.io compatibility but no SKILL.md tree or exposed index discoverable in <=8 fetches.
+  first_seen: '2026-07-01'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: Could not verify a real, discoverable index of concrete authored Claude skills; catalog structure looks synthetic.
+  first_seen: '2026-07-01'
+- url: https://www.claudeskillsmarket.com
+  name: claudeskillsmarket-com
+  reason: Could not verify a real skill index within fetch budget; reads as promotional template.
+  first_seen: '2026-07-01'
+- url: https://github.com/prismatic-io/prismatic-skills
+  name: prismatic-skills
+  reason: Unable to confirm the standard SKILL.md-with-YAML-frontmatter layout within skill subdirectories; requires manual
+    re-check of internal file layout.
+  first_seen: '2026-07-01'
+generated_at: '2026-07-01'

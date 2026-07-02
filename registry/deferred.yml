@@ -1,0 +1,32 @@
+version: 1
+entries:
+- url: https://github.com/hesreallyhim/awesome-claude-code
+  name: hesreallyhim-awesome-claude-code
+  reason: awesome-list criterion (>=5 skill repo links) unverifiable — README is a stub; recheck after restructure
+  first_seen: '2026-07-02'
+- url: https://github.com/luna-prompts/skillnote
+  name: luna-prompts-skillnote
+  reason: Self-hosted registry software rather than discoverable public catalog; no independent skill index to crawl.
+  first_seen: '2026-07-02'
+- url: https://skillsdir.dev
+  name: skillsdir-dev
+  reason: Unverified anonymous author and no visible curation/security signals; revisit when documented.
+  first_seen: '2026-07-02'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: Unverified anonymous author with implausible 2M+ figure and no visible curation, install, or safety documentation.
+  first_seen: '2026-07-02'
+- url: https://github.com/openai/skills
+  name: openai-skills
+  reason: 'deprecated: see openai/plugins'
+  first_seen: '2026-07-02'
+- url: https://crossaitools.com
+  name: crossaitools-cat
+  reason: Aggressive monetization and inflated aggregate counts raise aggregator-farm concerns; defer pending methodology
+    review.
+  first_seen: '2026-07-02'
+- url: https://claudeskillsmarket.com
+  name: claudeskillsmarket
+  reason: 'Discoverability spot-check failed: no skill entries visible; defer pending direct inspection.'
+  first_seen: '2026-07-02'
+generated_at: '2026-07-02'

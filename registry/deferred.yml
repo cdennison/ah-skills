@@ -1,0 +1,35 @@
+version: 1
+entries:
+- url: https://github.com/borghei/Claude-Skills
+  name: borghei-claude-skills
+  reason: Commons Clause restricts commercial redistribution — legal review needed before ingesting into public scanner index
+  first_seen: '2026-07-04'
+- url: https://skillsmp.com
+  name: skillsmp
+  reason: 'unverifiable: landing page shows no browsable skill listings; requires deeper crawl'
+  first_seen: '2026-07-04'
+- url: https://claudeskillsmarket.com
+  name: claudeskillsmarket
+  reason: 'unverifiable: neither index nor browse page rendered concrete skill entries'
+  first_seen: '2026-07-04'
+- url: https://www.skillsdirectory.com
+  name: skillsdirectory
+  reason: 'unverifiable: index page did not render browsable skill listings on fetch'
+  first_seen: '2026-07-04'
+- url: https://www.claudepluginhub.com
+  name: claudepluginhub
+  reason: 'unverifiable: 403 Forbidden blocked verification'
+  first_seen: '2026-07-04'
+- url: https://claudeskills.info
+  name: claude-skills-info
+  reason: 'unverifiable: WebFetch blocked with 403'
+  first_seen: '2026-07-04'
+- url: https://awesomeskill.ai
+  name: awesomeskill-ai
+  reason: 'unverifiable: SPA renders no skill listings via server-fetched HTML'
+  first_seen: '2026-07-04'
+- url: https://kissmyskills.com
+  name: kissmyskills-com
+  reason: 'gated: all SKILL.md products are paid ($29-$39 each) with content delivered only post-purchase'
+  first_seen: '2026-07-04'
+generated_at: '2026-07-04'

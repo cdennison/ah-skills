@@ -1,0 +1,20 @@
+version: 1
+entries:
+- url: https://github.com/honnibal/claude-skills
+  name: honnibal-claude-skills
+  reason: 'unverifiable: repo uses non-standard ''.md.txt'' filenames at root, no SKILL.md files with YAML frontmatter'
+  first_seen: '2026-07-05'
+- url: https://clawhub.ai
+  name: clawhub-ai
+  reason: 'unverifiable: last-update date; catalog is very small (30 skills) — revisit once activity/dates are visible.'
+  first_seen: '2026-07-05'
+- url: https://claudecowork.im/plugins
+  name: claudecowork-im-plugins
+  reason: Self-declared unofficial fan site of ambiguous provenance; unable to verify listings map to real installable skills.
+  first_seen: '2026-07-05'
+- url: https://github.com/figma/community-resources
+  name: figma-community-resources
+  reason: Repo is Figma-org-hosted but self-declared non-endorsed community aggregation; README references a separate official
+    Figma agent-skills collection.
+  first_seen: '2026-07-05'
+generated_at: '2026-07-05'

@@ -1,0 +1,17 @@
+version: 1
+entries:
+- url: https://www.claudepluginhub.com
+  name: claudepluginhub-com
+  reason: 'unverifiable: 403 Forbidden on homepage and browse subpaths; likely Cloudflare/bot protection blocking WebFetch.
+    Retry with a crawler that supplies a real browser UA, or hand off to a scout able to bypass the block.'
+  first_seen: '2026-07-07'
+- url: https://lobehub.com/skills
+  name: lobehub-com
+  reason: 'unverifiable: LobeHub returns 403 to automated fetches (bot protection); cannot confirm skill count, activity date,
+    or content-safety without an authenticated/crawler path.'
+  first_seen: '2026-07-07'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com
+  reason: 'unverifiable: WebFetch rate-limited (HTTP 429) on repeated attempts; cannot confirm index structure or activity'
+  first_seen: '2026-07-07'
+generated_at: '2026-07-07'

@@ -1,0 +1,7 @@
+version: 1
+entries:
+- url: https://www.claudeskillsmarket.com
+  name: claudeskillsmarket-com
+  reason: Very small catalog (~37 skills), no clear listing grid observed on landing page — re-evaluate next run
+  first_seen: '2026-07-08'
+generated_at: '2026-07-08'

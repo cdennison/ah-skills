@@ -1,0 +1,16 @@
+version: 1
+entries:
+- url: https://skillsmp.com
+  name: skillsmp
+  reason: Homepage is largely a landing page with no concrete skill listings shown, only navigation categories.
+  first_seen: '2026-07-10'
+- url: https://github.com/mliu98/awesome-human-distillation
+  name: mliu98-awesome-human-distillation
+  reason: License unclear; consent/privacy concerns around personas distilled from real individuals (public figures, personal
+    relationships) without documented consent.
+  first_seen: '2026-07-10'
+- url: https://github.com/menkesu/awesome-pm-skills
+  name: menkesu-awesome-pm-skills
+  reason: Only 3 commits on main; license type not surfaced; SKILL.md structure not fully verified.
+  first_seen: '2026-07-10'
+generated_at: '2026-07-10'

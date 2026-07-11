@@ -1,0 +1,71 @@
+version: 1
+entries:
+- url: https://github.com/Chat2AnyLLM/awesome-claude-skills
+  name: chat2anyllm-awesome-claude-skills
+  reason: 'unverifiable: 86k skill count is an auto-generated file-count aggregation'
+  first_seen: '2026-07-11'
+- url: https://claudecodecommands.directory
+  name: claudecodecommands-directory
+  reason: 'scope-mismatch: hosts slash commands/prompts rather than Agent SKILL.md files'
+  first_seen: '2026-07-11'
+- url: https://claudskills.com
+  name: claudskills-com
+  reason: 'unverifiable: 145k skill count contradicts site''s own indexed figure'
+  first_seen: '2026-07-11'
+- url: https://github.com/jeremylongshore/claude-code-plugins-plus-skills
+  name: jeremylongshore-claude-code-plugins-plus-skills
+  reason: unverifiable skill counts and auto-generated provenance
+  first_seen: '2026-07-11'
+- url: https://skillsmp.com
+  name: skillsmp-com
+  reason: unverifiable skill count
+  first_seen: '2026-07-11'
+- url: https://mcpservers.org/agent-skills
+  name: mcpservers-org
+  reason: unverifiable aggregate counts
+  first_seen: '2026-07-11'
+- url: https://www.claudedirectory.org
+  name: claudedirectory-org
+  reason: 'scope-unclear: mostly non-skill resources'
+  first_seen: '2026-07-11'
+- url: https://claude-skills.bdnhost.net
+  name: bdnhost-claude-skills
+  reason: 'unverifiable: 151 verified vs 257 claimed'
+  first_seen: '2026-07-11'
+- url: https://github.com/mohitagw15856/pm-claude-skills
+  name: mohitagw15856-pm-claude-skills
+  reason: unverifiable scale and self-promotion
+  first_seen: '2026-07-11'
+- url: https://github.com/obviousworks/Claude-AI-skills-collection-2026
+  name: obviousworks-claude-ai-skills-collection-2026
+  reason: miscategorized as collection but appears to be a registry-index
+  first_seen: '2026-07-11'
+- url: https://awesomeskill.ai
+  name: awesomeskill-ai
+  reason: unverifiable public catalog
+  first_seen: '2026-07-11'
+- url: https://github.com/CavinHuang/claude-skills-hub
+  name: cavinhuang-claude-skills-hub
+  reason: too early-stage, sparse content
+  first_seen: '2026-07-11'
+- url: https://kissmyskills.com
+  name: kissmyskills-com
+  reason: unverifiable behind paywall
+  first_seen: '2026-07-11'
+- url: https://claudeskills.club
+  name: claudeskills-club
+  reason: unverifiable skill counts
+  first_seen: '2026-07-11'
+- url: https://www.agentskill.club
+  name: agentskill-club
+  reason: unverifiable aggregate count
+  first_seen: '2026-07-11'
+- url: https://github.com/borghei/Claude-Skills
+  name: borghei-claude-skills
+  reason: unverifiable inconsistent skill counts
+  first_seen: '2026-07-11'
+- url: https://skills.pub
+  name: skills-pub
+  reason: unverifiable low-quality aggregation
+  first_seen: '2026-07-11'
+generated_at: '2026-07-11'

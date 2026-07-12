@@ -1,0 +1,18 @@
+version: 1
+entries:
+- url: https://github.com/openai/skills
+  name: openai-skills
+  reason: 'unverifiable: repo is explicitly deprecated in README, redirecting to github.com/openai/plugins. Consider adding
+    openai/plugins instead.'
+  first_seen: '2026-07-12'
+- url: https://polyskill.ai
+  name: polyskill-ai
+  reason: Homepage reads as a splash/landing page with no concrete browsable skills, and the obvious /skills index returns
+    404 - cannot verify a functioning marketplace with real content.
+  first_seen: '2026-07-12'
+- url: https://lobehub.com/skills
+  name: lobehub-skills
+  reason: 'unverifiable: WebFetch 403 on all lobehub.com/skills and marketplace URLs. Site likely legitimate but content and
+    Claude Code SKILL.md compatibility could not be verified. Retry with authenticated or headless fetcher.'
+  first_seen: '2026-07-12'
+generated_at: '2026-07-12'

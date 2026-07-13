@@ -1,12 +1,33 @@
 version: 1
-generated_at: '2026-05-08'
+generated_at: '2026-07-13'
 targets:
+- name: addyosmani-agent-skills
+  url: https://github.com/addyosmani/agent-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: agensi-io
+  url: https://agensi.io
+  ref: ''
+  kind: marketplace
+  scan_paths: []
+  requires_crawler: true
 - name: agentskills-io
   url: https://agentskills.io
   ref: ''
   kind: registry
   scan_paths: []
   requires_crawler: true
+- name: alirezarezvani-claude-skills
+  url: https://github.com/alirezarezvani/claude-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - '*/*/SKILL.md'
+  - '*/*/*/SKILL.md'
+  requires_crawler: false
 - name: anthropics-claude-plugins-official
   url: https://github.com/anthropics/claude-plugins-official
   ref: main
@@ -17,6 +38,13 @@ targets:
   requires_crawler: false
 - name: anthropics-skills
   url: https://github.com/anthropics/skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: apify-agent-skills
+  url: https://github.com/apify/agent-skills
   ref: main
   kind: collection
   scan_paths:
@@ -34,10 +62,31 @@ targets:
   kind: awesome-list
   scan_paths: []
   requires_crawler: true
+- name: beshkenadze-claude-skills-marketplace
+  url: https://github.com/beshkenadze/claude-skills-marketplace
+  ref: main
+  kind: collection
+  scan_paths:
+  - '**/SKILL.md'
+  requires_crawler: false
+- name: borghei-claude-skills
+  url: https://github.com/borghei/Claude-Skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - '*/*/SKILL.md'
+  - '*/*/*/SKILL.md'
+  requires_crawler: false
 - name: buildwithclaude-com
   url: https://buildwithclaude.com
   ref: ''
   kind: marketplace
+  scan_paths: []
+  requires_crawler: true
+- name: chat2anyllm-awesome-claude-skills
+  url: https://github.com/Chat2AnyLLM/awesome-claude-skills
+  ref: main
+  kind: awesome-list
   scan_paths: []
   requires_crawler: true
 - name: claude-plugins-dev
@@ -52,12 +101,50 @@ targets:
   kind: marketplace
   scan_paths: []
   requires_crawler: true
+- name: claudeskills-info
+  url: https://claudeskills.info
+  ref: ''
+  kind: marketplace
+  scan_paths: []
+  requires_crawler: true
+- name: claudeskillsmarket-com
+  url: https://claudeskillsmarket.com
+  ref: ''
+  kind: marketplace
+  scan_paths: []
+  requires_crawler: true
+- name: claudskills-com
+  url: https://claudskills.com
+  ref: ''
+  kind: marketplace
+  scan_paths: []
+  requires_crawler: true
+- name: cloudflare-skills
+  url: https://github.com/cloudflare/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: collectivebrain-skills
+  url: https://collectivebrain.de/en/skills
+  ref: ''
+  kind: registry
+  scan_paths: []
+  requires_crawler: true
 - name: composiohq-awesome-claude-skills
   url: https://github.com/ComposioHQ/awesome-claude-skills
   ref: main
   kind: awesome-list
   scan_paths: []
   requires_crawler: true
+- name: conardli-garden-skills
+  url: https://github.com/ConardLi/garden-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
 - name: daymade-claude-code-skills
   url: https://github.com/daymade/claude-code-skills
   ref: main
@@ -65,6 +152,26 @@ targets:
   scan_paths:
   - skills/*/SKILL.md
   requires_crawler: false
+- name: denoland-skills
+  url: https://github.com/denoland/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: expo-skills
+  url: https://github.com/expo/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  requires_crawler: false
+- name: getbindu-awesome-claude-code-and-skills
+  url: https://github.com/GetBindu/awesome-claude-code-and-skills
+  ref: main
+  kind: awesome-list
+  scan_paths: []
+  requires_crawler: true
 - name: glebis-claude-skills
   url: https://github.com/glebis/claude-skills
   ref: main
@@ -72,6 +179,62 @@ targets:
   scan_paths:
   - skills/*/SKILL.md
   requires_crawler: false
+- name: grafana-skills
+  url: https://github.com/grafana/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/*/SKILL.md
+  requires_crawler: false
+- name: hesreallyhim-awesome-claude-code
+  url: https://github.com/hesreallyhim/awesome-claude-code
+  ref: main
+  kind: awesome-list
+  scan_paths: []
+  requires_crawler: true
+- name: huggingface-skills
+  url: https://github.com/huggingface/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: jeffallan-claude-skills
+  url: https://github.com/Jeffallan/claude-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: jezweb-claude-skills
+  url: https://github.com/jezweb/claude-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  requires_crawler: false
+- name: jsonbored-awesome-claude
+  url: https://github.com/JSONbored/awesome-claude
+  ref: main
+  kind: registry
+  scan_paths:
+  - README.md
+  - data/skills
+  requires_crawler: true
+- name: k-dense-ai-scientific-agent-skills
+  url: https://github.com/K-Dense-AI/scientific-agent-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: karanb192-awesome-claude-skills
+  url: https://github.com/karanb192/awesome-claude-skills
+  ref: main
+  kind: awesome-list
+  scan_paths:
+  - README.md
+  requires_crawler: true
 - name: lap-platform-claude-marketplace
   url: https://github.com/Lap-Platform/claude-marketplace
   ref: main
@@ -79,12 +242,150 @@ targets:
   scan_paths:
   - marketplace/*/skills/*/SKILL.md
   requires_crawler: false
+- name: levnikolaevich-claude-code-skills
+  url: https://github.com/levnikolaevich/claude-code-skills
+  ref: master
+  kind: collection
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  requires_crawler: false
 - name: majiayu000-claude-skill-registry
   url: https://github.com/majiayu000/claude-skill-registry
   ref: main
   kind: registry
   scan_paths: []
   requires_crawler: true
+- name: mattpocock-skills
+  url: https://github.com/mattpocock/skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - '**/SKILL.md'
+  requires_crawler: false
+- name: mdskills-ai
+  url: https://mdskills.ai
+  ref: ''
+  kind: marketplace
+  scan_paths: []
+  requires_crawler: true
+- name: mhattingpete-claude-skills-marketplace
+  url: https://github.com/mhattingpete/claude-skills-marketplace
+  ref: main
+  kind: collection
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  requires_crawler: false
+- name: microsoft-skills
+  url: https://github.com/microsoft/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - .github/skills/*/SKILL.md
+  - .github/plugins/*/skills/*/SKILL.md
+  requires_crawler: false
+- name: mohitagw15856-pm-claude-skills
+  url: https://github.com/mohitagw15856/pm-claude-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/**/SKILL.md
+  requires_crawler: false
+- name: nvidia-skills
+  url: https://github.com/NVIDIA/skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: obra-superpowers
+  url: https://github.com/obra/superpowers
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: officialskills-sh
+  url: https://officialskills.sh
+  ref: ''
+  kind: marketplace
+  scan_paths: []
+  requires_crawler: true
+- name: oneskill-dev
+  url: https://oneskill.dev
+  ref: ''
+  kind: registry
+  scan_paths: []
+  requires_crawler: true
+- name: pinecone-skills
+  url: https://github.com/pinecone-io/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: planetscale-skills
+  url: https://github.com/planetscale/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - '[0-9][0-9]-*/SKILL.md'
+  requires_crawler: false
+- name: prisma-skills
+  url: https://github.com/prisma/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - '*/SKILL.md'
+  requires_crawler: false
+- name: render-skills
+  url: https://github.com/render-oss/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: replicate-skills
+  url: https://github.com/replicate/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: rohitg00-awesome-claude-code-toolkit
+  url: https://github.com/rohitg00/awesome-claude-code-toolkit
+  ref: main
+  kind: awesome-list
+  scan_paths:
+  - README.md
+  requires_crawler: true
+- name: sentry-for-ai
+  url: https://github.com/getsentry/sentry-for-ai
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: sentry-sdk-skills
+  url: https://github.com/getsentry/sdk-skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - plugins/sentry-sdk-skills/skills/*/SKILL.md
+  requires_crawler: false
+- name: sentry-skills
+  url: https://github.com/getsentry/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: sickn33-agentic-awesome-skills
+  url: https://github.com/sickn33/agentic-awesome-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
 - name: sickn33-antigravity-awesome-skills
   url: https://github.com/sickn33/antigravity-awesome-skills
   ref: main
@@ -97,15 +398,112 @@ targets:
   kind: registry
   scan_paths: []
   requires_crawler: true
+- name: skillsdirectory-com
+  url: https://skillsdirectory.com
+  ref: ''
+  kind: marketplace
+  scan_paths: []
+  requires_crawler: true
+- name: skillsmp-com
+  url: https://skillsmp.com
+  ref: ''
+  kind: marketplace
+  scan_paths: []
+  requires_crawler: true
+- name: supabase-agent-skills
+  url: https://github.com/supabase/agent-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: tech-leads-club-agent-skills
+  url: https://github.com/tech-leads-club/agent-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - packages/skills-catalog/skills/*/*/SKILL.md
+  requires_crawler: false
+- name: thatrebeccarae-claude-marketing
+  url: https://github.com/thatrebeccarae/claude-marketing
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: tradermonty-claude-trading-skills
+  url: https://github.com/tradermonty/claude-trading-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: trailofbits-skills
+  url: https://github.com/trailofbits/skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  requires_crawler: false
+- name: trailofbits-skills-curated
+  url: https://github.com/trailofbits/skills-curated
+  ref: main
+  kind: marketplace
+  scan_paths:
+  - README.md
+  - .claude-plugin/marketplace.json
+  requires_crawler: true
 - name: travisvn-awesome-claude-skills
   url: https://github.com/travisvn/awesome-claude-skills
   ref: main
   kind: awesome-list
   scan_paths: []
   requires_crawler: true
+- name: upstash-skills
+  url: https://github.com/upstash/skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: vercel-labs-agent-skills
+  url: https://github.com/vercel-labs/agent-skills
+  ref: main
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: vercel-plugin
+  url: https://github.com/vercel/vercel-plugin
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
 - name: voltagent-awesome-agent-skills
   url: https://github.com/VoltAgent/awesome-agent-skills
   ref: main
   kind: awesome-list
   scan_paths: []
   requires_crawler: true
+- name: warden-skills
+  url: https://github.com/getsentry/warden-skills
+  ref: main
+  kind: vendor-skills
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: wordpress-agent-skills
+  url: https://github.com/WordPress/agent-skills
+  ref: trunk
+  kind: collection
+  scan_paths:
+  - skills/*/SKILL.md
+  requires_crawler: false
+- name: wshobson-agents
+  url: https://github.com/wshobson/agents
+  ref: main
+  kind: collection
+  scan_paths:
+  - plugins/*/skills/*/SKILL.md
+  requires_crawler: false

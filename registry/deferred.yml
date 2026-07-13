@@ -1,0 +1,30 @@
+version: 1
+entries:
+- url: https://github.com/mrgoonie/claudekit-skills
+  name: mrgoonie-claudekit-skills
+  reason: 'unclear-license: no LICENSE file present on main; skills live under .claude/skills/ which is unusual for a public
+    catalog root'
+  first_seen: '2026-07-13'
+- url: https://github.com/jeremylongshore/claude-code-plugins-plus-skills
+  name: jeremylongshore-claude-code-plugins-plus-skills
+  reason: 'safety-review-needed: prior AV false-positive PHP webshell strings incident; very large auto-generated catalog
+    (2810 skills)'
+  first_seen: '2026-07-13'
+- url: https://github.com/simonw/claude-skills
+  name: simonw-claude-skills
+  reason: 'ambiguous-duplicate: historical snapshot of Anthropic''s /mnt/skills; README explicitly redirects to anthropics/skills
+    which is already in the registry'
+  first_seen: '2026-07-13'
+- url: https://claudeskills.ai
+  name: claudeskills-ai
+  reason: 'unlaunched: waitlist page only'
+  first_seen: '2026-07-13'
+- url: https://localskills.sh
+  name: localskills-sh
+  reason: 'no-public-listings: catalog gated behind signup/CLI, landing page only'
+  first_seen: '2026-07-13'
+- url: https://github.com/openai/skills
+  name: openai-skills
+  reason: 'deprecated: superseded by openai/plugins'
+  first_seen: '2026-07-13'
+generated_at: '2026-07-13'

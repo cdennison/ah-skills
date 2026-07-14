@@ -1,0 +1,15 @@
+version: 1
+entries:
+- url: https://github.com/simonw/claude-skills
+  name: simonw-claude-skills
+  reason: 'superseded: content removed and redirected to anthropics/skills, which is already in the registry'
+  first_seen: '2026-07-14'
+- url: https://github.com/Sushegaad/Claude-Skills-Governance-Risk-and-Compliance
+  name: sushegaad-claude-skills-governance-risk-and-compliance
+  reason: 'unverifiable: skills distributed as .skill archive bundles rather than plain SKILL.md files at a scannable path'
+  first_seen: '2026-07-14'
+- url: https://github.com/openai/skills
+  name: openai-skills
+  reason: 'deprecated: superseded by openai/plugins — re-scout that repo before ingesting this one'
+  first_seen: '2026-07-14'
+generated_at: '2026-07-14'

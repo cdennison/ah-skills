@@ -1,0 +1,8 @@
+version: 1
+entries:
+- url: https://github.com/openai/skills
+  name: openai-skills
+  reason: Repo is explicitly deprecated by OpenAI, directing users to a separate OpenAI Plugins repository despite recent
+    commits. Re-vet against successor repo.
+  first_seen: '2026-07-15'
+generated_at: '2026-07-15'

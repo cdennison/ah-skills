@@ -1,0 +1,12 @@
+version: 1
+entries:
+- url: https://github.com/simonw/claude-skills
+  name: simonw-claude-skills
+  reason: 'unverifiable: SKILL.md path pattern not confirmed - probes to /pdf/SKILL.md and /all-skills/ both returned 404;
+    README redirects users to anthropics/skills'
+  first_seen: '2026-07-16'
+- url: https://www.claudedirectory.org
+  name: claudedirectory-org
+  reason: 'unverifiable: most recent entries dated June 29, 2024 — outside 18-month activity window from 2026-07-16'
+  first_seen: '2026-07-16'
+generated_at: '2026-07-16'

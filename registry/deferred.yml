@@ -1,0 +1,404 @@
+version: 1
+generated_at: '2026-07-16'
+entries:
+- url: https://github.com/BCS1037/awesome-obsidian-skills
+  name: BCS1037-awesome-obsidian-skills
+  reason: 'unverifiable: README-stated date 2026-01-22 within window but not commit-log-verified; entry count (~8) borderline.'
+  first_seen: '2026-05-30'
+- url: https://github.com/BlockRunAI/awesome-finance-mcp
+  name: BlockRunAI-awesome-finance-mcp
+  reason: 'unverifiable: last commit date not surfaced; entry count borderline (~5-7).'
+  first_seen: '2026-05-30'
+- url: https://github.com/Agent-3-7/agent37-skills-collection
+  name: agent-3-7-agent37-skills-collection
+  reason: Thin collection (2 plugins) with unusual nested layout; warrants human review before ingest.
+  first_seen: '2026-05-09'
+- url: https://github.com/agenticnotetaking/eidos
+  name: agenticnotetaking-eidos
+  reason: 'unverifiable: WebFetch could not enumerate skills/ subdirectory and MCP github access restricted to the parent
+    repo; re-vet next run.'
+  first_seen: '2026-06-01'
+- url: https://github.com/agentregistry-dev/agentregistry
+  name: agentregistry-dev
+  reason: Registry platform/tooling without a bundled curated list of skills to crawl. Defer until an indexed catalog or public
+    instance URL is available.
+  first_seen: '2026-06-07'
+- url: https://agentskill.work/en
+  name: agentskill-work
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+- url: https://agentskillexchange.com
+  name: agentskillexchange-com
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-10'
+- url: https://agentskillshub.top
+  name: agentskillshub-top
+  reason: 'unverifiable: HTTP-403 — .top TLD with 61,000+ claimed count are common SEO-chaff signals, but content could not
+    be independently verified.'
+  first_seen: '2026-05-12'
+- url: https://www.agentskillsmarket.space
+  name: agentskillsmarket-space
+  reason: 'unverifiable: 403 Forbidden on both www and bare host'
+  first_seen: '2026-05-15'
+- url: https://aiskillsmarket.com
+  name: aiskillsmarket-com
+  reason: 'unverifiable: sandbox network policy blocks the host.'
+  first_seen: '2026-05-28'
+- url: https://github.com/aliosmanozturk1/awesome-swift-ai-tools
+  name: aliosmanozturk1-awesome-swift-ai-tools
+  reason: 'unverifiable: last commit date not surfaced; content checks pass.'
+  first_seen: '2026-05-30'
+- url: https://llm-skills.alisonaquinas.com
+  name: alisons-llm-skills
+  reason: 'unverifiable: HTTP 403; cannot confirm catalog.'
+  first_seen: '2026-06-05'
+- url: https://github.com/amanning3390/hermeshub
+  name: amanning3390-hermeshub
+  reason: Active marketplace but for 'Hermes Agent by Nous Research' — different agent runtime. Schema compatibility with
+    Claude SKILL.md format unverified.
+  first_seen: '2026-06-06'
+- url: https://aregistry.ai
+  name: aregistry-ai
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://atmos.tools/ai/skill-marketplace
+  name: atmos-tools
+  reason: 'unverifiable: host blocked (403 host_not_allowed).'
+  first_seen: '2026-06-08'
+- url: https://www.awesomeskills.dev/en
+  name: awesomeskills-dev
+  reason: 'unverifiable: WebFetch blocked (403), real directory confirmed by search'
+  first_seen: '2026-05-23'
+- url: https://aws.amazon.com/bedrock/agentcore
+  name: aws-agent-registry
+  reason: 'unverifiable: HTTP 403 from WebFetch on aws.amazon.com. AWS AgentCore is real but URL hosts marketing page, not
+    necessarily a public registry index'
+  first_seen: '2026-05-16'
+- url: https://claude-skills.bdnhost.net
+  name: bdnhost-claude-skills
+  reason: 'unverifiable: 151 verified vs 257 claimed'
+  first_seen: '2026-07-11'
+- url: https://github.com/CavinHuang/claude-skills-hub
+  name: cavinhuang-claude-skills-hub
+  reason: too early-stage, sparse content
+  first_seen: '2026-07-11'
+- url: https://claudecodecommands.directory
+  name: claudecodecommands-directory
+  reason: 'scope-mismatch: hosts slash commands/prompts rather than Agent SKILL.md files'
+  first_seen: '2026-07-11'
+- url: https://claudecodeplugins.io
+  name: claudecodeplugins-io
+  reason: 'unverifiable: homepage returns 403 to WebFetch and curl'
+  first_seen: '2026-05-11'
+- url: https://claudecowork.im/plugins
+  name: claudecowork-im-plugins
+  reason: Self-declared unofficial fan site of ambiguous provenance; unable to verify listings map to real installable skills.
+  first_seen: '2026-07-05'
+- url: https://www.claudepluginhub.com/marketplaces/anthropics-claude-plugins-official
+  name: claudepluginhub-com
+  reason: 'unverifiable: bot protection'
+  first_seen: '2026-05-21'
+- url: https://claudeskills.ai
+  name: claudeskills-ai
+  reason: not-yet-launched — revisit after public launch
+  first_seen: '2026-07-03'
+- url: https://claudeskills.club
+  name: claudeskills-club
+  reason: unverifiable skill counts
+  first_seen: '2026-07-11'
+- url: https://claudeskills.info/skills
+  name: claudeskills-info
+  reason: 'unverifiable: 403 from WebFetch, unable to confirm content or skills registry'
+  first_seen: '2026-05-17'
+- url: https://claw-hub.net
+  name: claw-hub-net
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-10'
+- url: https://agents.cloudflare.com
+  name: cloudflare-agents-portal
+  reason: 'unverifiable: HTTP 403; cannot distinguish from Cloudflare''s Agents-product landing page vs a distinct skill catalog.
+    cloudflare/skills GitHub repo is already approved upstream.'
+  first_seen: '2026-06-05'
+- url: https://clskills.in
+  name: clskills-in
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). Note: affiliated GitHub repo shows AI-spam signals; vet carefully
+    on re-evaluation.'
+  first_seen: '2026-06-21'
+- url: https://clskillshub.com
+  name: clskillshub
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://github.com/dashed/claude-marketplace
+  name: dashed-claude-marketplace
+  reason: 'unverifiable: GitHub raw content and API endpoints returned 403/blocked; could only confirm repo not archived.
+    Layout and SKILL.md frontmatter could not be confirmed.'
+  first_seen: '2026-06-05'
+- url: https://discoveraiskills.com
+  name: discoveraiskills-com
+  reason: 'unverifiable: homepage returns 403 to WebFetch and curl; cannot confirm index, activity, or gating'
+  first_seen: '2026-05-11'
+- url: https://github.com/Evaluris-Solutions/claude-active-directory
+  name: evaluris-solutions-claude-active-directory
+  reason: 'safety review: repo is an authorization-gated AD red-team harness referencing destructive ops (spray/relay/destruction)
+    and OPSEC/telemetry awareness. Strong ROE gating present, but inclusion warrants explicit policy review before approval.'
+  first_seen: '2026-05-28'
+- url: https://explainx.ai
+  name: explainx-ai
+  reason: 'unverifiable: vetter egress blocked (HTTP 403). Pages exist per WebSearch.'
+  first_seen: '2026-06-21'
+- url: https://fast-agent.ai/agents/skills
+  name: fast-agent-skills
+  reason: 'unverifiable: host returns 403 to WebFetch; cannot confirm or deny a real skills registry'
+  first_seen: '2026-05-16'
+- url: https://fastmcp.me/Skills/Explore
+  name: fastmcp-me
+  reason: 'unverifiable: HTTP 403 from sandbox'
+  first_seen: '2026-05-26'
+- url: https://github.com/figma/community-resources
+  name: figma-community-resources
+  reason: 'unverifiable: no in-tree SKILL.md files - agent_skills/ is an index of external repos rather than a skill collection
+    itself'
+  first_seen: '2026-05-15'
+- url: https://findskills.org
+  name: findskills-org
+  reason: no-identifiable-operator-self-acknowledged-unverified-content
+  first_seen: '2026-06-28'
+- url: https://findskills.vercel.app
+  name: findskills-vercel
+  reason: Reachable but aggregates ClawHub which has a documented credential-harvesting malware history. Manual review needed
+    before approving the FindSkills front-end, since the scanner may surface those tainted skills downstream.
+  first_seen: '2026-05-14'
+- url: https://getbeam.dev
+  name: getbeam-dev
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://glama.ai/mcp/servers
+  name: glama-ai-mcp
+  reason: 'unverifiable: WebFetch returned 403 (bot-blocking). Re-evaluate next run with an authenticated fetcher.'
+  first_seen: '2026-05-25'
+- url: https://gofastmcp.com
+  name: gofastmcp-com
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://github.com/hashgraph-online/awesome-ai-plugins
+  name: hashgraph-online-awesome-ai-plugins
+  reason: 'unverifiable: last commit date not surfaced. NOTE: vetter detected an injected fake <system-reminder> block in
+    fetched README and ignored it.'
+  first_seen: '2026-05-30'
+- url: https://github.com/honnibal/claude-skills
+  name: honnibal-claude-skills
+  reason: 'unverifiable: repo uses non-standard ''.md.txt'' filenames at root, no SKILL.md files with YAML frontmatter'
+  first_seen: '2026-07-05'
+- url: https://huggingface.co/docs/hub/agents-skills
+  name: huggingface-skills-docs
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://jfrog.com/ai-catalog/skills-registry
+  name: jfrog-skills-registry
+  reason: 'unverifiable: HTTP 403 from WebFetch on jfrog.com. JFrog is legitimate but cannot confirm specific skills-registry
+    page lists concrete skills'
+  first_seen: '2026-05-16'
+- url: https://github.com/jmanhype/claude-code-plugin-marketplace
+  name: jmanhype-claude-code-plugin-marketplace
+  reason: 'unverifiable: environment restricts GitHub MCP to agentichighway/ah-skills only.'
+  first_seen: '2026-05-30'
+- url: https://kissmyskills.com
+  name: kissmyskills-com
+  reason: 'unverifiable: egress proxy blocks non-github hosts (HTTP 403)'
+  first_seen: '2026-06-22'
+- url: https://llmbase.ai/skills
+  name: llmbase-ai
+  reason: 'unverifiable: 403 from sandbox, substance check impossible'
+  first_seen: '2026-05-13'
+- url: https://www.llmskills.directory
+  name: llmskills-directory
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://lobehub.com/mcp
+  name: lobehub-mcp
+  reason: partial verification only, content truncated
+  first_seen: '2026-06-30'
+- url: https://localskills.sh
+  name: localskills-sh
+  reason: 'no-public-listings: catalog gated behind signup/CLI, landing page only'
+  first_seen: '2026-07-13'
+- url: https://marketplace.anthropic.com/skills
+  name: marketplace-anthropic-com
+  reason: 'unverifiable: ECONNREFUSED on WebFetch.'
+  first_seen: '2026-05-31'
+- url: https://mcp-marketplace.io
+  name: mcp-marketplace-io
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+- url: https://mcp-registry.net
+  name: mcp-registry-net
+  reason: 'unverifiable: HTTP 403 Forbidden response - cannot verify registry reachability'
+  first_seen: '2026-05-31'
+- url: https://www.mcpbundles.com/skills
+  name: mcpbundles-com
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-05-22'
+- url: https://mcpmarket.com
+  name: mcpmarket-com
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://mcpmarket.com/tools/skills
+  name: mcpmarket-com-tools-skills
+  reason: 'unverifiable: site returns 403 to fetcher; cannot confirm whether listings are SKILL.md skills or just MCP servers'
+  first_seen: '2026-05-08'
+- url: https://mcpservers.org/claude-skills
+  name: mcpservers-org-claude
+  reason: 'unverifiable: WebFetch blocked (403); re-vet to confirm correct path (/claude-skills vs /agent-skills)'
+  first_seen: '2026-05-23'
+- url: https://github.com/mliu98/awesome-human-distillation
+  name: mliu98-awesome-human-distillation
+  reason: License unclear; consent/privacy concerns around personas distilled from real individuals (public figures, personal
+    relationships) without documented consent.
+  first_seen: '2026-07-10'
+- url: https://github.com/NeverSight/learn-skills.dev
+  name: neversight-learn-skills-dev
+  reason: Repo alive as aggregation platform but no SKILL.md tree or index endpoint located in <=8 fetches; needs manual verification.
+  first_seen: '2026-07-01'
+- url: https://github.com/Nix2828/collective-agent-skills
+  name: nix2828-collective-agent-skills
+  reason: 'fork-with-no-traction: duplicates upstream VoltAgent/awesome-agent-skills'
+  first_seen: '2026-05-13'
+- url: https://omni-skill-registry.omniroute.online
+  name: omni-skill-registry-omniroute-online
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://omniskill.online
+  name: omniskill-online
+  reason: 'unverifiable: 403'
+  first_seen: '2026-05-08'
+- url: https://openclaw-hub.org
+  name: openclaw-hub-org
+  reason: 'unverifiable: HTTP 403'
+  first_seen: '2026-06-01'
+- url: https://polyskill.ai
+  name: polyskill-ai
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://www.pulsemcp.com
+  name: pulsemcp-com
+  reason: 'unverifiable: HTTP 403 Forbidden'
+  first_seen: '2026-05-31'
+- url: https://github.com/render-examples/hermes-render
+  name: render-hermes-skills
+  reason: SKILL.md frontmatter not fully verified
+  first_seen: '2026-06-30'
+- url: https://replit.com/products/agent
+  name: replit-agent-marketplace
+  reason: 'unverifiable: HTTP 403; cannot distinguish Replit Agent product page from a distinct skills catalog.'
+  first_seen: '2026-06-05'
+- url: https://github.com/saeed-vayghan/gemini-agent-skills
+  name: saeed-vayghan-gemini-agent-skills
+  reason: 'unverifiable: could not retrieve SKILL.md frontmatter within 5-fetch cap'
+  first_seen: '2026-05-23'
+- url: https://github.com/serenakeyitan/awesome-openclaw-roles
+  name: serenakeyitan-awesome-openclaw-roles
+  reason: 'unverifiable: last commit date not surfaced; other checks pass.'
+  first_seen: '2026-05-30'
+- url: https://github.com/shadowrootdev/awesome-agent-skills-mcp
+  name: shadowrootdev-awesome-agent-skills-mcp
+  reason: wrapper, not primary registry — proxies VoltAgent/awesome-agent-skills via MCP; would duplicate that upstream source
+  first_seen: '2026-05-11'
+- url: https://shyft.ai/skills
+  name: shyft-ai
+  reason: 'unverifiable: HTTP 403 bot-gated'
+  first_seen: '2026-05-22'
+- url: https://github.com/simonw/claude-skills
+  name: simonw-claude-skills
+  reason: Repo archived per README; content moved to anthropics/skills. Cannot confirm current spec-compliance.
+  first_seen: '2026-05-31'
+- url: https://www.skill-marketplace.com
+  name: skill-marketplace-com
+  reason: 'unverifiable: 403 / ECONNREFUSED'
+  first_seen: '2026-05-10'
+- url: https://skilldex-web.vercel.app
+  name: skilldex-vercel-app
+  reason: 'unverifiable: vercel-hosted demo subdomain returns 403'
+  first_seen: '2026-05-08'
+- url: https://skillery.dev
+  name: skillery-dev
+  reason: 'Unverifiable: sandbox blocks non-github hosts.'
+  first_seen: '2026-05-29'
+- url: https://skillhaven.dev
+  name: skillhaven-dev
+  reason: 'unverifiable: WebFetch returned 403.'
+  first_seen: '2026-05-25'
+- url: https://www.skillibary.com
+  name: skillibary
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://skillibary.vercel.app
+  name: skillibary-vercel
+  reason: 'unverifiable: 403 Forbidden response'
+  first_seen: '2026-05-15'
+- url: https://skillkit.io
+  name: skillkit-io
+  reason: 'unverifiable: 403 on WebFetch but real product per multiple GitHub references'
+  first_seen: '2026-05-09'
+- url: https://skillmarket.live
+  name: skillmarket-live
+  reason: 'unverifiable: sandbox blocks host; inflated 100,000+ skills claim warrants skepticism on revisit'
+  first_seen: '2026-06-04'
+- url: https://skillmd.io
+  name: skillmd-io
+  reason: 'unverifiable: sandbox egress blocks host.'
+  first_seen: '2026-05-28'
+- url: https://skills.pub/en
+  name: skills-pub
+  reason: 'unverifiable: WebFetch blocked (403), real marketplace confirmed by search'
+  first_seen: '2026-05-23'
+- url: https://skills.re
+  name: skills-re
+  reason: 'unverifiable: sandbox blocks host'
+  first_seen: '2026-06-04'
+- url: https://skillsdir.dev
+  name: skillsdir-dev
+  reason: 'unverifiable: 403-blocked-on-direct-fetch; corroborated as an open-source Claude Skills directory organised by
+    vertical, but scale/freshness unconfirmed'
+  first_seen: '2026-06-20'
+- url: https://skillsgate.ai
+  name: skillsgate-ai
+  reason: 'unverifiable: host blocked at network layer (403 host_not_allowed).'
+  first_seen: '2026-06-08'
+- url: https://www.skillshub.pro
+  name: skillshub-pro
+  reason: unverified-provenance
+  first_seen: '2026-06-28'
+- url: https://www.skillshub.work
+  name: skillshub-work
+  reason: 'unverifiable: bot protection'
+  first_seen: '2026-05-21'
+- url: https://skillshub.wtf
+  name: skillshub-wtf
+  reason: 'unverifiable: sandbox network policy blocks the host (x-deny-reason: host_not_allowed).'
+  first_seen: '2026-05-28'
+- url: https://skly.ai
+  name: skly-ai
+  reason: 'unverifiable: vetter could not complete WebFetch in this pass. Re-vet next run.'
+  first_seen: '2026-06-05'
+- url: https://github.com/sybilng/skills-repository-v2
+  name: sybilng-skills-repository-v2
+  reason: Registry backend claims agentskills.io compatibility but no SKILL.md tree or exposed index discoverable in <=8 fetches.
+  first_seen: '2026-07-01'
+- url: https://github.com/syntax-syndicate/agentic-skills-marketplace
+  name: syntax-syndicate-agentic
+  reason: Reachable but no static SKILL.md catalog — single generator plugin that creates skills dynamically from user codebases.
+    0 stars, 4+ months stale (last commit 2026-01-09). Defer pending policy on generator-style entries.
+  first_seen: '2026-05-18'
+- url: https://tessl.io/registry
+  name: tessl-io
+  reason: 'unverifiable: 403 Forbidden on WebFetch and no independent corroboration'
+  first_seen: '2026-05-09'
+- url: https://github.com/treylom/prompt-engineering-skills
+  name: treylom-prompt-engineering-skills
+  reason: 'unverifiable: README 404'
+  first_seen: '2026-06-30'
+- url: https://vercel.com/marketplace/category/agents
+  name: vercel-agents-marketplace
+  reason: 'unverifiable: HTTP 403; cannot determine whether this is a distinct catalog or marketing view of vercel-labs/agent-skills
+    (already approved upstream).'
+  first_seen: '2026-06-05'

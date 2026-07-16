@@ -1,8 +1,22 @@
 ---
 name: skill-directory-research
-description: Spawn a research team that scouts the web for new Claude Skill directories (GitHub awesome-lists, plugin marketplaces, registries, vendor skill collections), vets each candidate, and registers approved entries in registry/skill-directories.yml so the agentic highway scanner can ingest them. Use when the user asks to grow the skill registry, scout for new skill repos or marketplaces, refresh known sources, audit which directories the highway is scanning, or rebuild the scan manifest.
-when_to_use: Trigger on phrases like "find new skill directories", "scout for skills", "refresh the registry", "what should the agentic highway scan", "discover skill collections", "add new awesome-claude-skills sources".
-allowed-tools: Read Write Edit Glob Grep Bash WebFetch WebSearch Agent
+description: Spawn a research team that scouts the web for new Claude Skill directories (GitHub awesome-lists, plugin marketplaces, registries, vendor skill collections), vets each candidate, and registers approved entries in registry/skill-directories.yml so the agentic highway scanner can ingest them. Use when the user asks to grow the skill registry, scout for new skill repos or marketplaces, refresh known sources, audit which directories the highway is scanning, or rebuild the scan manifest. Safe to run unattended on a schedule.
+when_to_use: Trigger on phrases like "find new skill directories", "scout for skills", "refresh the registry", "what should the agentic highway scan", "discover skill collections", "add new awesome-claude-skills sources", "rebuild the scan manifest".
+arguments:
+  - name: lane
+    description: Optional scout lane (github-awesome | marketplaces | vendor-orgs | recent-posts). Omit to run all four.
+  - name: mode
+    description: "interactive (default) or headless. headless auto-commits and pushes without prompting."
+argument-hint: "[lane] [interactive|headless]"
+allowed-tools: Read Write Edit Glob Grep WebFetch WebSearch Agent Bash(python3 *) Bash(git add *) Bash(git commit *) Bash(git push *) Bash(git branch *)
+disable-model-invocation: false
+user-invocable: true
+context: fork
+model: claude-sonnet-4-6
+effort: medium
+paths:
+  - registry/**
+  - skills/skill-directory-research/**
 ---
 
 # Skill Directory Research Team
@@ -15,7 +29,21 @@ The skill orchestrates a team working in parallel:
 - **Vetters** confirm each candidate is real, active, and spec-compliant.
 - **The orchestrator** (you) dedupes against the existing registry, merges approved entries, and rebuilds the scan manifest.
 
-Pass an optional lane to limit a run: `/skill-directory-research github` runs only the GitHub scout. With no arguments, run all four lanes.
+## Arguments
+
+| Argument | Values | Default | Effect |
+| --- | --- | --- | --- |
+| `lane` | `github-awesome`, `marketplaces`, `vendor-orgs`, `recent-posts` | all four | Limits the scout dispatch to a single lane. |
+| `mode` | `interactive`, `headless` | `interactive` | `interactive` stops after the report and waits for review; `headless` auto-commits and pushes the updated registry + manifest without prompting. |
+
+Examples:
+
+- `/skill-directory-research` — all lanes, interactive.
+- `/skill-directory-research marketplaces` — marketplaces only, interactive.
+- `/skill-directory-research vendor-orgs headless` — vendor-orgs lane, auto-commit and push.
+- `/skill-directory-research headless` — all lanes, auto-commit and push (suitable for cron).
+
+If the second positional argument is `interactive` or `headless`, treat the first arg as `lane`. Otherwise the only arg is the lane.
 
 ## Inputs
 
@@ -23,6 +51,7 @@ Pass an optional lane to limit a run: `/skill-directory-research github` runs on
 | --- | --- |
 | `registry/skill-directories.yml` | Current registry. Source of truth for "already known". |
 | `registry/scan-manifest.yml` | Derived scanner manifest. Regenerated after every run. |
+| `registry/deferred.yml` | Lazy-created queue of deferred candidates from prior runs. |
 | `${CLAUDE_SKILL_DIR}/references/seed-directories.md` | Annotated seed list. Brief scouts on what is already canonical. |
 | `${CLAUDE_SKILL_DIR}/references/scout-brief.md` | Full scout prompt template. |
 | `${CLAUDE_SKILL_DIR}/references/vet-brief.md` | Full vetter prompt template. |
@@ -48,7 +77,9 @@ Record the entry count — the run report compares before/after.
 
 ### 2. Dispatch scouts in parallel
 
-Spawn four scouts in a single Agent message — independent search lanes, no shared state. Each scout receives the brief in `references/scout-brief.md` plus its lane assignment. Use `subagent_type=Explore` so they have read-only web/search access without write tools.
+Spawn scouts in a single Agent message — independent search lanes, no shared state. Each scout receives the brief in `references/scout-brief.md` plus its lane assignment, plus the list of `(name, url)` pairs from the current registry so it can skip duplicates. Use `subagent_type=Explore` so scouts have read-only web/search access without write tools.
+
+If `lane` was passed, spawn only that scout. Otherwise spawn all four in parallel.
 
 | Lane | Where to look | Example queries |
 | --- | --- | --- |
@@ -81,7 +112,7 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/merge_candidates.py \
   registry/skill-directories.yml verdicts.json
 ```
 
-Merge writes the updated registry sorted by `name`, sets `last_verified` to today on every approved entry, and is idempotent (rerunning with the same verdicts is a no-op).
+Merge writes the updated registry sorted by `name`, sets `last_verified` to today on every approved entry, and is idempotent (rerunning with the same verdicts is a no-op). Deferred candidates are appended to `registry/deferred.yml`.
 
 ### 6. Rebuild the scan manifest
 
@@ -94,9 +125,21 @@ The manifest is what the agentic highway scanner consumes. It strips registry me
 
 ### 7. Report
 
-Show a table with columns: **Name | URL | Decision | Evidence**. Group by approve / defer / reject. Cite the scout lane and the verifying check (HTTP code, SKILL.md path, last commit date) for every approved entry.
+Show a table with columns: **Name | URL | Decision | Evidence**. Group by approve / defer / reject. Cite the scout lane and the verifying check (HTTP code, SKILL.md path, last commit date) for every approved entry. Print before/after entry counts.
 
-If the user has not asked you to commit, stop here and let them review. Only commit and push after explicit confirmation.
+### 8. Commit (mode-dependent)
+
+**Interactive mode (default).** Stop after the report. Wait for the user to approve before committing or pushing.
+
+**Headless mode.** If at least one entry changed (added, refreshed, or deferred), commit and push automatically:
+
+```bash
+git add registry/skill-directories.yml registry/scan-manifest.yml registry/deferred.yml
+git commit -m "registry: refresh skill directories (added=A refreshed=R deferred=D)"
+git push -u origin "$(git branch --show-current)"
+```
+
+Do not create a pull request from headless mode — leave that to the user or to a separate scheduler. If nothing changed, skip the commit step entirely (no empty commits).
 
 ## Conventions for additions
 
@@ -128,16 +171,18 @@ See `references/registry-schema.md` for the full schema.
 - Brand-new directory with no skills yet.
 - Unverified author and no independent mirrors or stars.
 
-Deferred entries are appended to `registry/deferred.yml` (created lazily) so the next run can re-evaluate without re-discovering them.
+Deferred entries are appended to `registry/deferred.yml` so the next run can re-evaluate without re-discovering them.
 
-## Optional: commit and PR
+## Scheduled / unattended runs
 
-When the user asks to commit:
+This skill is safe to run on a schedule. Recommended cron-equivalent setup:
 
-```bash
-git add registry/skill-directories.yml registry/scan-manifest.yml registry/deferred.yml
-git commit -m "registry: add N skill directories from research run"
-git push -u origin "$(git branch --show-current)"
-```
+- Run weekly with `mode=headless` and no `lane` (all four scouts).
+- Run on-demand with a single `lane` when refreshing one source class.
+- Keep merges to a feature branch and let a separate review process open the PR — the skill itself never opens PRs in headless mode.
 
-Open a PR against `main` summarising additions in the body. Do NOT auto-merge.
+Failure modes the orchestrator must surface in headless mode (and exit non-zero where applicable):
+
+- `validate_registry.py` exits non-zero — abort, do not commit.
+- Zero approved candidates and zero refreshes — log "no-op" and do not commit.
+- A scout returns malformed JSON — drop that lane's output, continue with the others, and note the gap in the report.

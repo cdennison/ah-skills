@@ -1,0 +1,8 @@
+.env
+.venv/
+repos/
+search-raw/
+qdrant_db/
+.clone_state.json
+__pycache__/
+*.pyc

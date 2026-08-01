@@ -1,0 +1,28 @@
+flowchart LR
+    subgraph source [Source]
+        readme[awesome-agent-skills/README.md]
+    end
+
+    subgraph env [.env]
+        pat[GITHUB_PAT]
+    end
+
+    clone[clone_repos.py]
+    repos[(repos/)]
+    extract[extract_search_raw.py]
+    raw[(search-raw/)]
+    index[index_qdrant.py]
+    db[(qdrant_db/)]
+    query[query.py]
+    user([you])
+
+    readme --> clone
+    pat -.auth.-> clone
+    clone --> repos
+    repos --> extract
+    extract --> raw
+    raw --> index
+    index --> db
+    db --> query
+    user -- "search text" --> query
+    query -- "ranked SKILL.md hits" --> user

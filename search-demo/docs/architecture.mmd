@@ -1,28 +1,60 @@
 flowchart LR
-    subgraph source [Source]
-        readme[awesome-agent-skills/README.md]
+    subgraph inputs ["Repo discovery"]
+        awesome["awesome-agent-skills/README.md\n(upstream awesome-list)"]
+        search["search_github.py\nGitHub Search API"]
+        manualEntry["hand-picked repo\n+ reason"]
+        marketplace["fetch_marketplace.py\nanthropic claude-plugins-official\nmarketplace.json"]
     end
+
+    subgraph review ["Human review"]
+        queue["github_search_results.json\nreview queue, never read by pipeline"]
+        human([you: approve/reject])
+    end
+
+    registryPy["registry.py\n(add-manual / add-search CLI)"]
+    registry[("repo-seeds/registry.json\nsingle source of truth, ONE row per repo\nsources: [] -- overlap across channels\nis tracked, not deduped away")]
 
     subgraph env [.env]
         pat[GITHUB_PAT]
     end
 
+    runner["run_pipeline.sh\n(cron/launchd, safe to run several times/day --\nclone's own 24h per-repo skip + incremental index)"]
     clone[clone_repos.py]
     repos[(repos/)]
     extract[extract_search_raw.py]
     raw[(search-raw/)]
-    index[index_qdrant.py]
+    index["index_qdrant.py\n(incremental: hash-diff, only embeds new/changed)"]
     db[(qdrant_db/)]
-    query[query.py]
+
+    subgraph consumers [Query]
+        query[query.py — CLI]
+        app[app/streamlit_app.py — web UI]
+    end
+
     user([you])
 
-    readme --> clone
+    awesome -- "build_registry.py (one-time migration)\nregistry.py sync-seed\n(adds a 'seed' descriptor -- even to a\nrepo already tracked via another channel)" --> registry
+    search -- "ranked candidates" --> queue
+    queue --> human
+    human -- "registry.py add-search --approve owner/repo" --> registryPy
+    manualEntry -- "registry.py add-manual owner/repo reason" --> registryPy
+    marketplace -- "no review needed\nadds a 'marketplace' descriptor" --> registry
+    registryPy -- "adds a 'search'/'manual' descriptor" --> registry
+
+    runner -- "invokes in order" --> marketplace
+    runner -- "invokes in order" --> clone
+    runner -- "invokes in order" --> extract
+    runner -- "invokes in order" --> index
+    registry -- "owner/repo pairs, deduped 1:1\n(clone once regardless of source count)" --> clone
     pat -.auth.-> clone
-    clone --> repos
-    repos --> extract
+    clone -- "git clone --depth 1, skip if cloned <24h ago" --> repos
+    repos -- "find SKILL.md\n(one point per file, regardless of\nhow many registry sources found the repo)" --> extract
     extract --> raw
-    raw --> index
+    raw -- "diff by content hash, embed only changed (dense + BM25)" --> index
     index --> db
     db --> query
+    db --> app
     user -- "search text" --> query
+    user -- "search text" --> app
     query -- "ranked SKILL.md hits" --> user
+    app -- "ranked SKILL.md hits" --> user

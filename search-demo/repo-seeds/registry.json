@@ -1,0 +1,6797 @@
+[
+  {
+    "status": "active",
+    "repo": "claude-plugins",
+    "url": "https://github.com/42Crunch-AI/claude-plugins",
+    "owner": "42Crunch-AI",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "42crunch-api-security-testing"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "aaron-marketing-skills",
+    "url": "https://github.com/aaron-he-zhu/aaron-marketing-skills",
+    "owner": "aaron-he-zhu",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/addyosmani/agent-skills",
+    "owner": "addyosmani",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/adobe/skills",
+    "owner": "adobe",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "adobe-for-creativity"
+      }
+    ]
+  },
+  {
+    "owner": "affaan-m",
+    "repo": "ECC",
+    "url": "https://github.com/affaan-m/ECC",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "agent-sh",
+    "repo": "agentsys",
+    "url": "https://github.com/agent-sh/agentsys",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "Agentchengfeng",
+    "repo": "chengfeng-videocut-skills",
+    "url": "https://github.com/Agentchengfeng/chengfeng-videocut-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agentskills",
+    "url": "https://github.com/agentskills/agentskills",
+    "owner": "agentskills",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-seo",
+    "url": "https://github.com/AgriciDaniel/claude-seo",
+    "owner": "AgriciDaniel",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "aikido-claude-plugin",
+    "url": "https://github.com/AikidoSec/aikido-claude-plugin",
+    "owner": "AikidoSec",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "aikido"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/Airtable/skills",
+    "owner": "Airtable",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "airtable"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "airwallex-marketplace",
+    "url": "https://github.com/airwallex/airwallex-marketplace",
+    "owner": "airwallex",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "airwallex-agentos"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "kicad-happy",
+    "url": "https://github.com/aklofas/kicad-happy",
+    "owner": "aklofas",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-bootstrap",
+    "url": "https://github.com/alinaqi/claude-bootstrap",
+    "owner": "alinaqi",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "alirezarezvani",
+    "repo": "claude-skills",
+    "url": "https://github.com/alirezarezvani/claude-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "vibe-creating-skill",
+    "url": "https://github.com/Alisa0808/vibe-creating-skill",
+    "owner": "Alisa0808",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "AlphaGBM",
+    "repo": "skills",
+    "url": "https://github.com/AlphaGBM/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "altimate-claude-plugin",
+    "url": "https://github.com/AltimateAI/altimate-claude-plugin",
+    "owner": "AltimateAI",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "altimate-code"
+      }
+    ]
+  },
+  {
+    "owner": "AMAP-ML",
+    "repo": "SkillClaw",
+    "url": "https://github.com/AMAP-ML/SkillClaw",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/amd/skills",
+    "owner": "amd",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "amd-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mcp-marketplace",
+    "url": "https://github.com/amplitude/mcp-marketplace",
+    "owner": "amplitude",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "amplitude"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/angular/skills",
+    "owner": "angular",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "antfu",
+    "repo": "skills",
+    "url": "https://github.com/antfu/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugins-official",
+    "url": "https://github.com/anthropics/claude-plugins-official",
+    "owner": "anthropics",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "claude-code-setup"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugins-public",
+    "url": "https://github.com/anthropics/claude-plugins-public",
+    "owner": "anthropics",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "agent-sdk-dev"
+      }
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "url": "https://github.com/anthropics/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "terraform-skill",
+    "url": "https://github.com/antonbabenko/terraform-skill",
+    "owner": "antonbabenko",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "anysearch-ai",
+    "repo": "anysearch-skill",
+    "url": "https://github.com/anysearch-ai/anysearch-skill",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "apify",
+    "repo": "agent-skills",
+    "url": "https://github.com/apify/agent-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/apollographql/skills",
+    "owner": "apollographql",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "apollo-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "apollo-mcp-plugin",
+    "url": "https://github.com/apolloio/apollo-mcp-plugin",
+    "owner": "apolloio",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "apollo"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin",
+    "url": "https://github.com/appwrite/claude-plugin",
+    "owner": "appwrite",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "appwrite"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agents",
+    "url": "https://github.com/astronomer/agents",
+    "owner": "astronomer",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "astronomer-data-agents"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-toolkit",
+    "url": "https://github.com/atlanhq/agent-toolkit",
+    "owner": "atlanhq",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "atlan"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "atlassian-mcp-server",
+    "url": "https://github.com/atlassian/atlassian-mcp-server",
+    "owner": "atlassian",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "atlassian"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "forge-skills",
+    "url": "https://github.com/atlassian/forge-skills",
+    "owner": "atlassian",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "forge-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/auth0/agent-skills",
+    "owner": "auth0",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "auth0"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-code-wordpress.com",
+    "url": "https://github.com/Automattic/claude-code-wordpress.com",
+    "owner": "Automattic",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "build-with-wordpress"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "SwiftUI-Agent-Skill",
+    "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+    "owner": "AvdLee",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-memory-kit",
+    "url": "https://github.com/awrshift/claude-memory-kit",
+    "owner": "awrshift",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-toolkit-for-aws",
+    "url": "https://github.com/aws/agent-toolkit-for-aws",
+    "owner": "aws",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "aws-agents"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "sample-claude-code-plugins-for-startups",
+    "url": "https://github.com/aws-samples/sample-claude-code-plugins-for-startups",
+    "owner": "aws-samples",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "aws-dev-toolkit"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-plugins",
+    "url": "https://github.com/awslabs/agent-plugins",
+    "owner": "awslabs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "amazon-location-service"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "startups",
+    "url": "https://github.com/awslabs/startups",
+    "owner": "awslabs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "aws-startup-advisor"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "cosmosdb-claude-code-plugin",
+    "url": "https://github.com/AzureCosmosDB/cosmosdb-claude-code-plugin",
+    "owner": "AzureCosmosDB",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "azure-cosmos-db-assistant"
+      }
+    ]
+  },
+  {
+    "owner": "BankrBot",
+    "repo": "skills",
+    "url": "https://github.com/BankrBot/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/base44/skills",
+    "owner": "base44",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "base44"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "FableCodex",
+    "url": "https://github.com/baskduf/FableCodex",
+    "owner": "baskduf",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "VibeSec-Skill",
+    "url": "https://github.com/BehiSecc/VibeSec-Skill",
+    "owner": "BehiSecc",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "benchflow-ai",
+    "repo": "skillsbench",
+    "url": "https://github.com/benchflow-ai/skillsbench",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "bigdata-plugins-marketplace",
+    "url": "https://github.com/Bigdata-com/bigdata-plugins-marketplace",
+    "owner": "Bigdata-com",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "bigdata-com"
+      }
+    ]
+  },
+  {
+    "owner": "binance",
+    "repo": "binance-skills-hub",
+    "url": "https://github.com/binance/binance-skills-hub",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-ai-music-skills",
+    "url": "https://github.com/bitwize-music-studio/claude-ai-music-skills",
+    "owner": "bitwize-music-studio",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "humanizer",
+    "url": "https://github.com/blader/humanizer",
+    "owner": "blader",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "boltz-api-skills",
+    "url": "https://github.com/boltz-bio/boltz-api-skills",
+    "owner": "boltz-bio",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "boltz"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "box-for-ai",
+    "url": "https://github.com/box/box-for-ai",
+    "owner": "box",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "box"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "atomic-agents",
+    "url": "https://github.com/BrainBlend-AI/atomic-agents",
+    "owner": "BrainBlend-AI",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "atomic-agents"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai-marketing-skills",
+    "url": "https://github.com/BrianRWagner/ai-marketing-skills",
+    "owner": "BrianRWagner",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/brightdata/skills",
+    "owner": "brightdata",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "brightdata-plugin"
+      }
+    ]
+  },
+  {
+    "owner": "browser-act",
+    "repo": "skills",
+    "url": "https://github.com/browser-act/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "plugins",
+    "url": "https://github.com/browser-use/plugins",
+    "owner": "browser-use",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "browser-use"
+      }
+    ]
+  },
+  {
+    "owner": "browserbase",
+    "repo": "skills",
+    "url": "https://github.com/browserbase/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "BuilderIO",
+    "repo": "skills",
+    "url": "https://github.com/BuilderIO/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/buildkite/skills",
+    "owner": "buildkite",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "buildkite"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "canva-skills",
+    "url": "https://github.com/canva-sdks/canva-skills",
+    "owner": "canva-sdks",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "canva"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mcp-server",
+    "url": "https://github.com/cap-js/mcp-server",
+    "owner": "cap-js",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "cds-mcp"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "carbone-skill",
+    "url": "https://github.com/carboneio/carbone-skill",
+    "owner": "carboneio",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "carbone-skill"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "plugins",
+    "url": "https://github.com/carta/plugins",
+    "owner": "carta",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "carta-cap-table"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin",
+    "url": "https://github.com/catalystbyzoho/claude-plugin",
+    "owner": "catalystbyzoho",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "catalyst-by-zoho"
+      }
+    ]
+  },
+  {
+    "owner": "Cesarjoquin",
+    "repo": "Marketing-Skills",
+    "url": "https://github.com/Cesarjoquin/Marketing-Skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Dorothy",
+    "url": "https://github.com/Charlie85270/Dorothy",
+    "owner": "Charlie85270",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "ChrisWiles",
+    "repo": "claude-code-showcase",
+    "url": "https://github.com/ChrisWiles/claude-code-showcase",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "chrome-devtools-mcp",
+    "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+    "owner": "ChromeDevTools",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "chrome-devtools-mcp"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-code-plugin",
+    "url": "https://github.com/circlebackai/claude-code-plugin",
+    "owner": "circlebackai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "circleback"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/circlefin/skills",
+    "owner": "circlefin",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "circle-skills"
+      }
+    ]
+  },
+  {
+    "owner": "cisco-ai-defense",
+    "repo": "skill-scanner",
+    "url": "https://github.com/cisco-ai-defense/skill-scanner",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/ckeditor/skills",
+    "owner": "ckeditor",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "ckeditor"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/ClickHouse/agent-skills",
+    "owner": "ClickHouse",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "clickhouse-best-practices"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "clickhouse-claude-code-plugin",
+    "url": "https://github.com/ClickHouse/clickhouse-claude-code-plugin",
+    "owner": "ClickHouse",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "clickhouse"
+      }
+    ]
+  },
+  {
+    "owner": "CloudAI-X",
+    "repo": "claude-workflow-v2",
+    "url": "https://github.com/CloudAI-X/claude-workflow-v2",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "threejs-skills",
+    "url": "https://github.com/CloudAI-X/threejs-skills",
+    "owner": "CloudAI-X",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/cloudflare/skills",
+    "owner": "cloudflare",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "cloudflare"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "cloudinary-plugin",
+    "url": "https://github.com/cloudinary-devs/cloudinary-plugin",
+    "owner": "cloudinary-devs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "cloudinary"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin",
+    "url": "https://github.com/cockroachdb/claude-plugin",
+    "owner": "cockroachdb",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "cockroachdb"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/coderabbitai/skills",
+    "owner": "coderabbitai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      },
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "coderabbit"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "codspeed",
+    "url": "https://github.com/CodSpeedHQ/codspeed",
+    "owner": "CodSpeedHQ",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "codspeed"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "awesome-claude-skills",
+    "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "owner": "ComposioHQ",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "manual",
+        "added": "2026-08-01",
+        "note": "TODO: backfill reason -- migrated from MANUAL_REPOS.md 'Hand-picked' section, no original note recorded"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "deepeval",
+    "url": "https://github.com/confident-ai/deepeval",
+    "owner": "confident-ai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "deepeval"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ios-simulator-skill",
+    "url": "https://github.com/conorluddy/ios-simulator-skill",
+    "owner": "conorluddy",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "marketingskills",
+    "url": "https://github.com/coreyhaines31/marketingskills",
+    "owner": "coreyhaines31",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "email-marketing-bible",
+    "url": "https://github.com/CosmoBlk/email-marketing-bible",
+    "owner": "CosmoBlk",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/coursera/skills",
+    "owner": "coursera",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "learn-with-coursera"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "crowdsec-skill",
+    "url": "https://github.com/crowdsecurity/crowdsec-skill",
+    "owner": "crowdsecurity",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "crowdsec"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "foundry-skills",
+    "url": "https://github.com/CrowdStrike/foundry-skills",
+    "owner": "CrowdStrike",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "crowdstrike-falcon-foundry"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "dashmotion",
+    "url": "https://github.com/csthink/dashmotion",
+    "owner": "csthink",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai-toolkit",
+    "url": "https://github.com/cypress-io/ai-toolkit",
+    "owner": "cypress-io",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "n8n-skills",
+    "url": "https://github.com/czlonkowski/n8n-skills",
+    "owner": "czlonkowski",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "dash0-agent-plugin",
+    "url": "https://github.com/dash0hq/dash0-agent-plugin",
+    "owner": "dash0hq",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "dash0"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "databricks-agent-skills",
+    "url": "https://github.com/databricks/databricks-agent-skills",
+    "owner": "databricks",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "databricks"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-code-plugin",
+    "url": "https://github.com/datadog-labs/claude-code-plugin",
+    "owner": "datadog-labs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "datadog"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "datahub-skills",
+    "url": "https://github.com/datahub-project/datahub-skills",
+    "owner": "datahub-project",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "datahub-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "datarobot-agent-skills",
+    "url": "https://github.com/datarobot-oss/datarobot-agent-skills",
+    "owner": "datarobot-oss",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "datarobot-agent-skills"
+      }
+    ]
+  },
+  {
+    "owner": "davidondrej",
+    "repo": "skills",
+    "url": "https://github.com/davidondrej/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Product-Manager-Skills",
+    "url": "https://github.com/deanpeters/Product-Manager-Skills",
+    "owner": "deanpeters",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "wonda",
+    "url": "https://github.com/degausai/wonda",
+    "owner": "degausai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "dembrandt-skills",
+    "url": "https://github.com/dembrandt/dembrandt-skills",
+    "owner": "dembrandt",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "DenisSergeevitch",
+    "repo": "agents-best-practices",
+    "url": "https://github.com/DenisSergeevitch/agents-best-practices",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "translate-book",
+    "url": "https://github.com/deusyu/translate-book",
+    "owner": "deusyu",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "diet103",
+    "repo": "claude-code-infrastructure-showcase",
+    "url": "https://github.com/diet103/claude-code-infrastructure-showcase",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "product-manager-skills",
+    "url": "https://github.com/Digidai/product-manager-skills",
+    "owner": "Digidai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-remember",
+    "url": "https://github.com/Digital-Process-Tools/claude-remember",
+    "owner": "Digital-Process-Tools",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "remember"
+      }
+    ]
+  },
+  {
+    "owner": "disler",
+    "repo": "the-library",
+    "url": "https://github.com/disler/the-library",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "domino-claude-plugin",
+    "url": "https://github.com/dominodatalab/domino-claude-plugin",
+    "owner": "dominodatalab",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "dominodatalab"
+      }
+    ]
+  },
+  {
+    "owner": "Donchitos",
+    "repo": "Claude-Code-Game-Studios",
+    "url": "https://github.com/Donchitos/Claude-Code-Game-Studios",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "dotnet",
+    "repo": "skills",
+    "url": "https://github.com/dotnet/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "dropbox-ai-plugins",
+    "url": "https://github.com/dropbox/dropbox-ai-plugins",
+    "owner": "dropbox",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "dropbox"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "duckdb-skills",
+    "url": "https://github.com/duckdb/duckdb-skills",
+    "owner": "duckdb",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "duckdb-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "duende-skills",
+    "url": "https://github.com/DuendeSoftware/duende-skills",
+    "owner": "DuendeSoftware",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "duende-skills"
+      }
+    ]
+  },
+  {
+    "owner": "earthtojake",
+    "repo": "text-to-cad",
+    "url": "https://github.com/earthtojake/text-to-cad",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ],
+    "last_sync_failure": "2026-08-01T19:43:46",
+    "last_sync_failure_reason": "Cloning into '/Users/c/code/ah-skills/search-demo/repos/earthtojake/text-to-cad'...\ngit-lfs filter-process: git-lfs: command not found\nfatal: the remote end hung up unexpectedly\nwarning: Clone succeeded, but checkout failed.\nYou can inspect what was checked out with 'git status'\nand retry with 'git restore --source=HEAD :/'"
+  },
+  {
+    "owner": "eastlondoner",
+    "repo": "vibe-tools",
+    "url": "https://github.com/eastlondoner/vibe-tools",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "swift-patterns-skill",
+    "url": "https://github.com/efremidze/swift-patterns-skill",
+    "owner": "efremidze",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "platform-design-skills",
+    "url": "https://github.com/ehmo/platform-design-skills",
+    "owner": "ehmo",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai-plugins",
+    "url": "https://github.com/endorlabs/ai-plugins",
+    "owner": "endorlabs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "ai-plugins"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "unreal-engine-skills-for-claude-code-plugin",
+    "url": "https://github.com/EpicGames/unreal-engine-skills-for-claude-code-plugin",
+    "owner": "EpicGames",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "unreal-engine-skills-for-claude-code"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "alpha-insights",
+    "url": "https://github.com/Ericyoung-183/alpha-insights",
+    "owner": "Ericyoung-183",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "aso-skills",
+    "url": "https://github.com/Eronred/aso-skills",
+    "owner": "Eronred",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "rails-conventions",
+    "url": "https://github.com/ethos-link/rails-conventions",
+    "owner": "ethos-link",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "eunomia-bpf",
+    "repo": "agentsight",
+    "url": "https://github.com/eunomia-bpf/agentsight",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "evalstate",
+    "repo": "fast-agent",
+    "url": "https://github.com/evalstate/fast-agent",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "charlie-cfo-skill",
+    "url": "https://github.com/EveryInc/charlie-cfo-skill",
+    "owner": "EveryInc",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "exa-mcp-server",
+    "url": "https://github.com/exa-labs/exa-mcp-server",
+    "owner": "exa-labs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "exa"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "vibeprospecting-plugin",
+    "url": "https://github.com/explorium-ai/vibeprospecting-plugin",
+    "owner": "explorium-ai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "vibe-prospecting"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/expo/skills",
+    "owner": "expo",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "expo"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "fastly-agent-toolkit",
+    "url": "https://github.com/fastly/fastly-agent-toolkit",
+    "owner": "fastly",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "fastly-agent-toolkit"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mcp-server-guide",
+    "url": "https://github.com/figma/mcp-server-guide",
+    "owner": "figma",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "figma"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "firecrawl-claude-plugin",
+    "url": "https://github.com/firecrawl/firecrawl-claude-plugin",
+    "owner": "firecrawl",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "firecrawl"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Vibe-Skills",
+    "url": "https://github.com/foryourhealth111-pixel/Vibe-Skills",
+    "owner": "foryourhealth111-pixel",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "clarity-gate",
+    "url": "https://github.com/frmoretto/clarity-gate",
+    "owner": "frmoretto",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "fullstory-skills",
+    "url": "https://github.com/fullstorydev/fullstory-skills",
+    "owner": "fullstorydev",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "fullstory"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "dev-agent-skills",
+    "url": "https://github.com/fvadicamo/dev-agent-skills",
+    "owner": "fvadicamo",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Aegis",
+    "url": "https://github.com/GanyuanRan/Aegis",
+    "owner": "GanyuanRan",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "alloydb",
+    "url": "https://github.com/gemini-cli-extensions/alloydb",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "alloydb"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "alloydb-omni",
+    "url": "https://github.com/gemini-cli-extensions/alloydb-omni",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "alloydb-omni"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "bigquery-data-analytics",
+    "url": "https://github.com/gemini-cli-extensions/bigquery-data-analytics",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "bigquery-data-analytics"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "cloud-sql-mysql",
+    "url": "https://github.com/gemini-cli-extensions/cloud-sql-mysql",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "cloud-sql-mysql"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "cloud-sql-postgresql",
+    "url": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "cloud-sql-postgresql"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "cloud-sql-sqlserver",
+    "url": "https://github.com/gemini-cli-extensions/cloud-sql-sqlserver",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "cloud-sql-sqlserver"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "data-agent-kit-starter-pack",
+    "url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "data-agent-kit-starter-pack"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "dataproc",
+    "url": "https://github.com/gemini-cli-extensions/dataproc",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "dataproc"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "firestore-native",
+    "url": "https://github.com/gemini-cli-extensions/firestore-native",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "firestore-native"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "knowledge-catalog",
+    "url": "https://github.com/gemini-cli-extensions/knowledge-catalog",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "knowledge-catalog"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "looker",
+    "url": "https://github.com/gemini-cli-extensions/looker",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "looker"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "oracledb",
+    "url": "https://github.com/gemini-cli-extensions/oracledb",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "oracledb"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "spanner",
+    "url": "https://github.com/gemini-cli-extensions/spanner",
+    "owner": "gemini-cli-extensions",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "spanner"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "convex-backend-skill",
+    "url": "https://github.com/get-convex/convex-backend-skill",
+    "owner": "get-convex",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "convex"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "cli",
+    "url": "https://github.com/getsentry/cli",
+    "owner": "getsentry",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sentry-cli"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "plugin-claude",
+    "url": "https://github.com/getsentry/plugin-claude",
+    "owner": "getsentry",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sentry"
+      }
+    ]
+  },
+  {
+    "owner": "github",
+    "repo": "awesome-copilot",
+    "url": "https://github.com/github/awesome-copilot",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin",
+    "url": "https://github.com/gitkraken/claude-plugin",
+    "owner": "gitkraken",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "gitkraken"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "postiz-agent",
+    "url": "https://github.com/gitroomhq/postiz-agent",
+    "owner": "gitroomhq",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      },
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "postiz"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/gokapso/agent-skills",
+    "owner": "gokapso",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "google",
+    "repo": "agents-cli",
+    "url": "https://github.com/google/agents-cli",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/google/skills",
+    "owner": "google",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "google-gemini",
+    "repo": "gemini-skills",
+    "url": "https://github.com/google-gemini/gemini-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "google-labs-code",
+    "repo": "stitch-skills",
+    "url": "https://github.com/google-labs-code/stitch-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "modern-web-guidance",
+    "url": "https://github.com/GoogleChrome/modern-web-guidance",
+    "owner": "GoogleChrome",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "modern-web-guidance"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai-plugins",
+    "url": "https://github.com/gopigment/ai-plugins",
+    "owner": "gopigment",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "pigment"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai",
+    "url": "https://github.com/goshippo/ai",
+    "owner": "goshippo",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "shippo"
+      }
+    ]
+  },
+  {
+    "owner": "GPTomics",
+    "repo": "bioSkills",
+    "url": "https://github.com/GPTomics/bioSkills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai-marketplace",
+    "url": "https://github.com/grafana/ai-marketplace",
+    "owner": "grafana",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "grafana-assistant"
+      }
+    ]
+  },
+  {
+    "owner": "greensock",
+    "repo": "gsap-skills",
+    "url": "https://github.com/greensock/gsap-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/growthbook/skills",
+    "owner": "growthbook",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "growthbook"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "output",
+    "url": "https://github.com/growthxai/output",
+    "owner": "growthxai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "outputai"
+      }
+    ]
+  },
+  {
+    "owner": "GuDaStudio",
+    "repo": "skills",
+    "url": "https://github.com/GuDaStudio/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "skip_date": "2026-08-01",
+    "last_sync_failure": "2026-08-01T19:44:23",
+    "status": "skip",
+    "repo": "prompts",
+    "url": "https://github.com/hamelsmu/prompts",
+    "owner": "hamelsmu",
+    "added": "2026-08-01",
+    "last_sync_failure_reason": "Cloning into '/Users/c/code/ah-skills/search-demo/repos/hamelsmu/prompts'...\nremote: Repository not found.\nfatal: repository 'https://github.com/hamelsmu/prompts.git/' not found",
+    "skip_reason": "404: repository not found on GitHub (confirmed 2026-08-01, clone fails)",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-memory-skill",
+    "url": "https://github.com/hanfang/claude-memory-skill",
+    "owner": "hanfang",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mechanical-engineering-research-skill",
+    "url": "https://github.com/hanhuark/mechanical-engineering-research-skill",
+    "owner": "hanhuark",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "heilcheng",
+    "repo": "awesome-agent-skills",
+    "url": "https://github.com/heilcheng/awesome-agent-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "core-ai",
+    "url": "https://github.com/helius-labs/core-ai",
+    "owner": "helius-labs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "materials-simulation-skills",
+    "url": "https://github.com/HeshamFS/materials-simulation-skills",
+    "owner": "HeshamFS",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "hyperframes",
+    "url": "https://github.com/heygen-com/hyperframes",
+    "owner": "heygen-com",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "hyperframes"
+      }
+    ]
+  },
+  {
+    "owner": "heygen-com",
+    "repo": "skills",
+    "url": "https://github.com/heygen-com/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "HKUDS",
+    "repo": "OpenSpace",
+    "url": "https://github.com/HKUDS/OpenSpace",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "homeassistant-ai",
+    "repo": "skills",
+    "url": "https://github.com/homeassistant-ai/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skill",
+    "url": "https://github.com/honeycombio/agent-skill",
+    "owner": "honeycombio",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "honeycomb"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "honeydew-ai-coding-agents-plugins",
+    "url": "https://github.com/honeydew-ai/honeydew-ai-coding-agents-plugins",
+    "owner": "honeydew-ai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin",
+    "url": "https://github.com/hostinger/claude-plugin",
+    "owner": "hostinger",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "hostinger"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skill-optimizer",
+    "url": "https://github.com/hqhq1025/skill-optimizer",
+    "owner": "hqhq1025",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/huggingface/skills",
+    "owner": "huggingface",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "huggingface-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Claude-Ally-Health",
+    "url": "https://github.com/huifer/Claude-Ally-Health",
+    "owner": "huifer",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin",
+    "url": "https://github.com/hunter-io/claude-plugin",
+    "owner": "hunter-io",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "hunter"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ui-skills",
+    "url": "https://github.com/ibelick/ui-skills",
+    "owner": "ibelick",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "digital-marketing-pro",
+    "url": "https://github.com/indranilbanerjee/digital-marketing-pro",
+    "owner": "indranilbanerjee",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "inference-sh",
+    "repo": "skills",
+    "url": "https://github.com/inference-sh/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "dev-gtm-claude-skills",
+    "url": "https://github.com/infrasity-labs/dev-gtm-claude-skills",
+    "owner": "infrasity-labs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin-external",
+    "url": "https://github.com/intercom/claude-plugin-external",
+    "owner": "intercom",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "intercom"
+      }
+    ]
+  },
+  {
+    "owner": "itsmostafa",
+    "repo": "aws-agent-skills",
+    "url": "https://github.com/itsmostafa/aws-agent-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "skip_date": "2026-08-01",
+    "last_sync_failure": "2026-08-01T19:44:48",
+    "status": "skip",
+    "repo": "claudisms",
+    "url": "https://github.com/jeffersonwarrior/claudisms",
+    "owner": "jeffersonwarrior",
+    "added": "2026-08-01",
+    "last_sync_failure_reason": "Cloning into '/Users/c/code/ah-skills/search-demo/repos/jeffersonwarrior/claudisms'...\nremote: Repository not found.\nfatal: repository 'https://github.com/jeffersonwarrior/claudisms.git/' not found",
+    "skip_reason": "404: repository not found on GitHub (confirmed 2026-08-01, clone fails)",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "teamcity-cli",
+    "url": "https://github.com/JetBrains/teamcity-cli",
+    "owner": "JetBrains",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "teamcity-cli"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin",
+    "url": "https://github.com/jfrog/claude-plugin",
+    "owner": "jfrog",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "jfrog"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-skills",
+    "url": "https://github.com/Joannis/claude-skills",
+    "owner": "Joannis",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "jsmastery-pro",
+    "repo": "skills",
+    "url": "https://github.com/jsmastery-pro/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ffuf_claude_skill",
+    "url": "https://github.com/jthack/ffuf_claude_skill",
+    "owner": "jthack",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-scientific-skills",
+    "url": "https://github.com/K-Dense-AI/claude-scientific-skills",
+    "owner": "K-Dense-AI",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "K-Dense-AI",
+    "repo": "scientific-agent-skills",
+    "url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "data-structure-protocol",
+    "url": "https://github.com/k-kolomeitsev/data-structure-protocol",
+    "owner": "k-kolomeitsev",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "kepano",
+    "repo": "obsidian-skills",
+    "url": "https://github.com/kepano/obsidian-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "codex-collab",
+    "url": "https://github.com/Kevin7Qi/codex-collab",
+    "owner": "Kevin7Qi",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "KKKKhazix",
+    "repo": "khazix-skills",
+    "url": "https://github.com/KKKKhazix/khazix-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-skill-homeassistant",
+    "url": "https://github.com/komal-SkyNET/claude-skill-homeassistant",
+    "owner": "komal-SkyNET",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "kreuzberg",
+    "url": "https://github.com/kreuzberg-dev/kreuzberg",
+    "owner": "kreuzberg-dev",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "playwright-skill",
+    "url": "https://github.com/lackeyjb/playwright-skill",
+    "owner": "lackeyjb",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/LambdaTest/agent-skills",
+    "owner": "LambdaTest",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-observability-plugin",
+    "url": "https://github.com/langfuse/claude-observability-plugin",
+    "owner": "langfuse",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "langfuse-observability"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/langfuse/skills",
+    "owner": "langfuse",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "langfuse"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "awesome-legal-skills",
+    "url": "https://github.com/lawvable/awesome-legal-skills",
+    "owner": "lawvable",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugins",
+    "url": "https://github.com/legalzoom/claude-plugins",
+    "owner": "legalzoom",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "legalzoom"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "taste-skill",
+    "url": "https://github.com/Leonxlnx/taste-skill",
+    "owner": "Leonxlnx",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "LeoYeAI",
+    "repo": "openclaw-marketing-skills",
+    "url": "https://github.com/LeoYeAI/openclaw-marketing-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "linkedin-skills",
+    "url": "https://github.com/Linked-API/linkedin-skills",
+    "owner": "Linked-API",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "logrocket-claude-plugin",
+    "url": "https://github.com/LogRocket/logrocket-claude-plugin",
+    "owner": "LogRocket",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "logrocket"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mcp",
+    "url": "https://github.com/lovablelabs/mcp",
+    "owner": "lovablelabs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "lovable"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Understand-Anything",
+    "url": "https://github.com/Lum1104/Understand-Anything",
+    "owner": "Lum1104",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "lusha-mcp-plugin",
+    "url": "https://github.com/lusha-oss/lusha-mcp-plugin",
+    "owner": "lusha-oss",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "lusha"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-code-notion-plugin",
+    "url": "https://github.com/makenotion/claude-code-notion-plugin",
+    "owner": "makenotion",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      },
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "notion"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "notion-cookbook",
+    "url": "https://github.com/makenotion/notion-cookbook",
+    "owner": "makenotion",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mapbox-agent-skills",
+    "url": "https://github.com/mapbox/mapbox-agent-skills",
+    "owner": "mapbox",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "mapbox"
+      }
+    ]
+  },
+  {
+    "owner": "markdown-viewer",
+    "repo": "skills",
+    "url": "https://github.com/markdown-viewer/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "recursive-decomposition-skill",
+    "url": "https://github.com/massimodeluisa/recursive-decomposition-skill",
+    "owner": "massimodeluisa",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/mattpocock/skills",
+    "owner": "mattpocock",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      },
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "mattpocock-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/mcollina/skills",
+    "owner": "mcollina",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "Memento-Teams",
+    "repo": "Memento-Skills",
+    "url": "https://github.com/Memento-Teams/Memento-Skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "memodb-io",
+    "repo": "Acontext",
+    "url": "https://github.com/memodb-io/Acontext",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "MengTo",
+    "repo": "Skills",
+    "url": "https://github.com/MengTo/Skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skill.color-expert",
+    "url": "https://github.com/meodai/skill.color-expert",
+    "owner": "meodai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mercadopago-claude-marketplace",
+    "url": "https://github.com/mercadopago/mercadopago-claude-marketplace",
+    "owner": "mercadopago",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "mercadopago"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mergify-cli",
+    "url": "https://github.com/mergifyio/mergify-cli",
+    "owner": "mergifyio",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "mergify"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/metalbear-co/skills",
+    "owner": "metalbear-co",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "azure-skills",
+    "url": "https://github.com/microsoft/azure-skills",
+    "owner": "microsoft",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "azure"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "azure-sql-database-container",
+    "url": "https://github.com/microsoft/azure-sql-database-container",
+    "owner": "microsoft",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "azure-sql-developer"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Dataverse-skills",
+    "url": "https://github.com/microsoft/Dataverse-skills",
+    "owner": "microsoft",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "dataverse"
+      }
+    ]
+  },
+  {
+    "owner": "microsoft",
+    "repo": "SkillOpt",
+    "url": "https://github.com/microsoft/SkillOpt",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/microsoft/skills",
+    "owner": "microsoft",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "manual",
+        "added": "2026-08-01",
+        "note": "TODO: backfill reason -- migrated from MANUAL_REPOS.md 'Hand-picked' section, no original note recorded"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mcp",
+    "url": "https://github.com/MicrosoftDocs/mcp",
+    "owner": "MicrosoftDocs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "microsoft-docs"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mintlify-claude-plugin",
+    "url": "https://github.com/mintlify/mintlify-claude-plugin",
+    "owner": "mintlify",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "mintlify"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "miro-ai",
+    "url": "https://github.com/miroapp/miro-ai",
+    "owner": "miroapp",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "miro"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/mlflow/skills",
+    "owner": "mlflow",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "mlflow"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ext-apps",
+    "url": "https://github.com/modelcontextprotocol/ext-apps",
+    "owner": "modelcontextprotocol",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "mcp-apps"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "unslop",
+    "url": "https://github.com/MohamedAbdallah-14/unslop",
+    "owner": "MohamedAbdallah-14",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mcp",
+    "url": "https://github.com/mondaycom/mcp",
+    "owner": "mondaycom",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "monday-crm"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/mongodb/agent-skills",
+    "owner": "mongodb",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "mongodb"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-apple-bridges",
+    "url": "https://github.com/more-io/claude-apple-bridges",
+    "owner": "more-io",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Anthropic-Cybersecurity-Skills",
+    "url": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills",
+    "owner": "mukul975",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "multica-ai",
+    "repo": "multica",
+    "url": "https://github.com/multica-ai/multica",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Agent-Skills-for-Context-Engineering",
+    "url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+    "owner": "muratcankoylan",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "hand-drawn-diagrams",
+    "url": "https://github.com/muthuishere/hand-drawn-diagrams",
+    "owner": "muthuishere",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "last30days-skill",
+    "url": "https://github.com/mvanhorn/last30days-skill",
+    "owner": "mvanhorn",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "context-engineering-kit",
+    "url": "https://github.com/NeoLabHQ/context-engineering-kit",
+    "owner": "NeoLabHQ",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/neondatabase/agent-skills",
+    "owner": "neondatabase",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "neon"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "context-and-tools",
+    "url": "https://github.com/netlify/context-and-tools",
+    "owner": "netlify",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "netlify-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-code-plugin",
+    "url": "https://github.com/newrelic/claude-code-plugin",
+    "owner": "newrelic",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "newrelic"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ui-ux-pro-max-skill",
+    "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+    "owner": "nextlevelbuilder",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/Nimbleway/agent-skills",
+    "owner": "Nimbleway",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "nimble"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/NoizAI/skills",
+    "owner": "NoizAI",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-win11-speckit-update-skill",
+    "url": "https://github.com/NotMyself/claude-win11-speckit-update-skill",
+    "owner": "NotMyself",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "NotFair",
+    "url": "https://github.com/nowork-studio/NotFair",
+    "owner": "nowork-studio",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "numman-ali",
+    "repo": "openskills",
+    "url": "https://github.com/numman-ali/openskills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/NVIDIA/skills",
+    "owner": "NVIDIA",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      },
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "nvidia-skills"
+      }
+    ]
+  },
+  {
+    "owner": "NVIDIA",
+    "repo": "SkillSpector",
+    "url": "https://github.com/NVIDIA/SkillSpector",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "nightvision-skills",
+    "url": "https://github.com/nvsecurity/nightvision-skills",
+    "owner": "nvsecurity",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "nightvision"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "superpowers",
+    "url": "https://github.com/obra/superpowers",
+    "owner": "obra",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      },
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "superpowers"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "superpowers-lab",
+    "url": "https://github.com/obra/superpowers-lab",
+    "owner": "obra",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "zero-plugins",
+    "url": "https://github.com/officialzeroxyz/zero-plugins",
+    "owner": "officialzeroxyz",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "founder-skills",
+    "url": "https://github.com/ognjengt/founder-skills",
+    "owner": "ognjengt",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "pypict-claude-skill",
+    "url": "https://github.com/omkamal/pypict-claude-skill",
+    "owner": "omkamal",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "NanoBanana-PPT-Skills",
+    "url": "https://github.com/op7418/NanoBanana-PPT-Skills",
+    "owner": "op7418",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Youtube-clipper-skill",
+    "url": "https://github.com/op7418/Youtube-clipper-skill",
+    "owner": "op7418",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "openaccountants",
+    "url": "https://github.com/openaccountants/openaccountants",
+    "owner": "openaccountants",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "openclaw",
+    "repo": "agent-skills",
+    "url": "https://github.com/openclaw/agent-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "netsuite-suitecloud-sdk",
+    "url": "https://github.com/oracle/netsuite-suitecloud-sdk",
+    "owner": "oracle",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "netsuite-suitecloud"
+      }
+    ]
+  },
+  {
+    "owner": "oracle",
+    "repo": "skills",
+    "url": "https://github.com/oracle/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "oracle-aidp-samples",
+    "url": "https://github.com/oracle-samples/oracle-aidp-samples",
+    "owner": "oracle-samples",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "oracle-ai-data-platform-workbench-databricks-migrator"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "AI-research-SKILLs",
+    "url": "https://github.com/Orchestra-Research/AI-research-SKILLs",
+    "owner": "Orchestra-Research",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "lumen",
+    "url": "https://github.com/ory/lumen",
+    "owner": "ory",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "lumen"
+      }
+    ]
+  },
+  {
+    "owner": "outsourc-e",
+    "repo": "hermes-workspace",
+    "url": "https://github.com/outsourc-e/hermes-workspace",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-code-plugins",
+    "url": "https://github.com/PagerDuty/claude-code-plugins",
+    "owner": "PagerDuty",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "pagerduty"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Agent-Reach",
+    "url": "https://github.com/Panniantong/Agent-Reach",
+    "owner": "Panniantong",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ResumeSkills",
+    "url": "https://github.com/Paramchoudhary/ResumeSkills",
+    "owner": "Paramchoudhary",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agentcall",
+    "url": "https://github.com/pattern-ai-labs/agentcall",
+    "owner": "pattern-ai-labs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "AI-Toolkit",
+    "url": "https://github.com/paypal/AI-Toolkit",
+    "owner": "paypal",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "paypal"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "pm-skills",
+    "url": "https://github.com/phuryn/pm-skills",
+    "owner": "phuryn",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "pinecone-claude-code-plugin",
+    "url": "https://github.com/pinecone-io/pinecone-claude-code-plugin",
+    "owner": "pinecone-io",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "pinecone"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "pixeltable-skill",
+    "url": "https://github.com/pixeltable/pixeltable-skill",
+    "owner": "pixeltable",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "pixeltable"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin",
+    "url": "https://github.com/planetscale/claude-plugin",
+    "owner": "planetscale",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "planetscale"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "notebooklm-skill",
+    "url": "https://github.com/PleasePrompto/notebooklm-skill",
+    "owner": "PleasePrompto",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai-plugin",
+    "url": "https://github.com/PostHog/ai-plugin",
+    "owner": "PostHog",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "posthog"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "postman-claude-code-plugin",
+    "url": "https://github.com/Postman-Devrel/postman-claude-code-plugin",
+    "owner": "Postman-Devrel",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "postman"
+      }
+    ]
+  },
+  {
+    "owner": "Prat011",
+    "repo": "awesome-llm-skills",
+    "url": "https://github.com/Prat011/awesome-llm-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/preset-io/agent-skills",
+    "owner": "preset-io",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "preset-cli-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-plugin",
+    "url": "https://github.com/prisma/claude-plugin",
+    "owner": "prisma",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "prisma"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "clawsec",
+    "url": "https://github.com/prompt-security/clawsec",
+    "owner": "prompt-security",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "nutrient-agent-skill",
+    "url": "https://github.com/PSPDFKit-labs/nutrient-agent-skill",
+    "owner": "PSPDFKit-labs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/pydantic/skills",
+    "owner": "pydantic",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "logfire"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/qdrant/skills",
+    "owner": "qdrant",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      },
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "qdrant-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "qodo-skills",
+    "url": "https://github.com/qodo-ai/qodo-skills",
+    "owner": "qodo-ai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "qodo"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "quarkus-agent-mcp",
+    "url": "https://github.com/quarkusio/quarkus-agent-mcp",
+    "owner": "quarkusio",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "quarkus-agent"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "railway-skills",
+    "url": "https://github.com/railwayapp/railway-skills",
+    "owner": "railwayapp",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "railway"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "apple-hig-skills",
+    "url": "https://github.com/raintree-technology/apple-hig-skills",
+    "owner": "raintree-technology",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-code-startup-skills",
+    "url": "https://github.com/rameerez/claude-code-startup-skills",
+    "owner": "rameerez",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "iOS-Accessibility-Audit-Skill",
+    "url": "https://github.com/ramzesenok/iOS-Accessibility-Audit-Skill",
+    "owner": "ramzesenok",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "advertising-skills",
+    "url": "https://github.com/realkimbarrett/advertising-skills",
+    "owner": "realkimbarrett",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/redis/agent-skills",
+    "owner": "redis",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      },
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "redis-development"
+      }
+    ]
+  },
+  {
+    "owner": "remotion-dev",
+    "repo": "skills",
+    "url": "https://github.com/remotion-dev/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "render-plugin-claude-code",
+    "url": "https://github.com/render-oss/render-plugin-claude-code",
+    "owner": "render-oss",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "render"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "opc-skills",
+    "url": "https://github.com/ReScienceLab/opc-skills",
+    "owner": "ReScienceLab",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "resend-skills",
+    "url": "https://github.com/resend/resend-skills",
+    "owner": "resend",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      },
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "resend"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "rc-claude-code-plugin",
+    "url": "https://github.com/RevenueCat/rc-claude-code-plugin",
+    "owner": "RevenueCat",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "rc"
+      }
+    ]
+  },
+  {
+    "owner": "revfactory",
+    "repo": "harness",
+    "url": "https://github.com/revfactory/harness",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/rilldata/agent-skills",
+    "owner": "rilldata",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "rill"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skill-rails-upgrade",
+    "url": "https://github.com/robzolkos/skill-rails-upgrade",
+    "owner": "robzolkos",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "rootly-claude-plugin",
+    "url": "https://github.com/Rootly-AI-Labs/rootly-claude-plugin",
+    "owner": "Rootly-AI-Labs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "rootly"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Rootly-MCP-server",
+    "url": "https://github.com/Rootly-AI-Labs/Rootly-MCP-server",
+    "owner": "Rootly-AI-Labs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "tutor-skills",
+    "url": "https://github.com/RoundTable02/tutor-skills",
+    "owner": "RoundTable02",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "app-store-connect-cli-skills",
+    "url": "https://github.com/rudrankriyam/app-store-connect-cli-skills",
+    "owner": "rudrankriyam",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/runwayml/skills",
+    "owner": "runwayml",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "runway-api"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agentforce-adlc",
+    "url": "https://github.com/SalesforceAIResearch/agentforce-adlc",
+    "owner": "SalesforceAIResearch",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "agentforce-adlc"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "llm-wiki-manager",
+    "url": "https://github.com/sametbrr/llm-wiki-manager",
+    "owner": "sametbrr",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "SamurAIGPT",
+    "repo": "Generative-Media-Skills",
+    "url": "https://github.com/SamurAIGPT/Generative-Media-Skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-toolkit",
+    "url": "https://github.com/sanity-io/agent-toolkit",
+    "owner": "sanity-io",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sanity"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai-skills",
+    "url": "https://github.com/sanjay3290/ai-skills",
+    "owner": "sanjay3290",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "career-ops",
+    "url": "https://github.com/santifer/career-ops",
+    "owner": "santifer",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mdk-mcp-server",
+    "url": "https://github.com/SAP/mdk-mcp-server",
+    "owner": "SAP",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sap-mdk-server"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "open-ux-tools",
+    "url": "https://github.com/SAP/open-ux-tools",
+    "owner": "SAP",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sap-fiori-mcp-server"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ui-theme-designer-plugins-for-coding-agents",
+    "url": "https://github.com/SAP/ui-theme-designer-plugins-for-coding-agents",
+    "owner": "SAP",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "ui-theme-designer"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "hana-cli-claude-plugin",
+    "url": "https://github.com/SAP-samples/hana-cli-claude-plugin",
+    "owner": "SAP-samples",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sap-hana-cli"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "vexor",
+    "url": "https://github.com/scarletkc/vexor",
+    "owner": "scarletkc",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-speed-reader",
+    "url": "https://github.com/SeanZoR/claude-speed-reader",
+    "owner": "SeanZoR",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "mcp-marketplace",
+    "url": "https://github.com/semgrep/mcp-marketplace",
+    "owner": "semgrep",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "semgrep"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/Sendmux/skills",
+    "owner": "Sendmux",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "sdk",
+    "url": "https://github.com/ServiceNow/sdk",
+    "owner": "ServiceNow",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "servicenow-sdk"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "beautiful_prose",
+    "url": "https://github.com/SHADOWPR0/beautiful_prose",
+    "owner": "SHADOWPR0",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "security-bluebook-builder",
+    "url": "https://github.com/SHADOWPR0/security-bluebook-builder",
+    "owner": "SHADOWPR0",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "liquid-skills",
+    "url": "https://github.com/Shopify/liquid-skills",
+    "owner": "Shopify",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "liquid-lsp"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Shopify-AI-Toolkit",
+    "url": "https://github.com/Shopify/Shopify-AI-Toolkit",
+    "owner": "Shopify",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "shopify-ai-toolkit"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "a-share-skill",
+    "url": "https://github.com/shouldnotappearcalm/a-share-skill",
+    "owner": "shouldnotappearcalm",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "skip_date": "2026-08-01",
+    "last_sync_failure": "2026-08-01T19:40:50",
+    "status": "skip",
+    "repo": "skills",
+    "url": "https://github.com/Shpigford/skills",
+    "owner": "Shpigford",
+    "added": "2026-08-01",
+    "last_sync_failure_reason": "Cloning into '/Users/c/code/ah-skills/search-demo/repos/Shpigford/skills'...\nremote: Repository not found.\nfatal: repository 'https://github.com/Shpigford/skills.git/' not found",
+    "skip_reason": "404: repository not found on GitHub (confirmed 2026-08-01, clone fails)",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "awesome-llm-apps",
+    "url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
+    "owner": "Shubhamsaboo",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "manual",
+        "added": "2026-08-01",
+        "note": "TODO: backfill reason -- migrated from MANUAL_REPOS.md 'Hand-picked' section, no original note recorded"
+      }
+    ]
+  },
+  {
+    "skip_date": "2026-08-01",
+    "last_sync_failure": "2026-08-01T19:40:50",
+    "status": "skip",
+    "repo": "agent-skill-bus",
+    "url": "https://github.com/ShunsukeHayashi/agent-skill-bus",
+    "owner": "ShunsukeHayashi",
+    "added": "2026-08-01",
+    "last_sync_failure_reason": "Cloning into '/Users/c/code/ah-skills/search-demo/repos/ShunsukeHayashi/agent-skill-bus'...\nremote: Repository not found.\nfatal: repository 'https://github.com/ShunsukeHayashi/agent-skill-bus.git/' not found",
+    "skip_reason": "404: repository not found on GitHub (confirmed 2026-08-01, clone fails)",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agentic-awesome-skills",
+    "url": "https://github.com/sickn33/agentic-awesome-skills",
+    "owner": "sickn33",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "manual",
+        "added": "2026-08-01",
+        "note": "TODO: backfill reason -- migrated from MANUAL_REPOS.md 'Hand-picked' section, no original note recorded"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "slack-mcp-plugin",
+    "url": "https://github.com/slackapi/slack-mcp-plugin",
+    "owner": "slackapi",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "slack"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "creative-director-skill",
+    "url": "https://github.com/smixs/creative-director-skill",
+    "owner": "smixs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "snowflake-ai-kit",
+    "url": "https://github.com/Snowflake-Labs/snowflake-ai-kit",
+    "owner": "Snowflake-Labs",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "snowflake-cortex-code"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-scan",
+    "url": "https://github.com/snyk/agent-scan",
+    "owner": "snyk",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "sonarqube-agent-plugins",
+    "url": "https://github.com/SonarSource/sonarqube-agent-plugins",
+    "owner": "SonarSource",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sonarqube"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "sonatype-guide-claude-plugin",
+    "url": "https://github.com/sonatype/sonatype-guide-claude-plugin",
+    "owner": "sonatype",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sonatype-guide"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "sourcegraph-claudecode-plugin",
+    "url": "https://github.com/sourcegraph-community/sourcegraph-claudecode-plugin",
+    "owner": "sourcegraph-community",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sourcegraph"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ads-claude-plugin",
+    "url": "https://github.com/spotify/ads-claude-plugin",
+    "owner": "spotify",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "spotify-ads-api"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "confidence-ai-plugins",
+    "url": "https://github.com/spotify/confidence-ai-plugins",
+    "owner": "spotify",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "confidence"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "save-to-spotify",
+    "url": "https://github.com/spotify/save-to-spotify",
+    "owner": "spotify",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "save-to-spotify"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/stackhawk/agent-skills",
+    "owner": "stackhawk",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "stackhawk-hawkscan"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai",
+    "url": "https://github.com/stripe/ai",
+    "owner": "stripe",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "stripe"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "sumup-skills",
+    "url": "https://github.com/sumup/sumup-skills",
+    "owner": "sumup",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "sumup"
+      }
+    ]
+  },
+  {
+    "owner": "supabase",
+    "repo": "agent-skills",
+    "url": "https://github.com/supabase/agent-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "supabase-plugin",
+    "url": "https://github.com/supabase-community/supabase-plugin",
+    "owner": "supabase-community",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "supabase"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent",
+    "url": "https://github.com/taisly/agent",
+    "owner": "taisly",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-ecom",
+    "url": "https://github.com/takechanman1228/claude-ecom",
+    "owner": "takechanman1228",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ru-text",
+    "url": "https://github.com/talkstream/ru-text",
+    "owner": "talkstream",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/taosdata/agent-skills",
+    "owner": "taosdata",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "idmp-plugin"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/tavily-ai/skills",
+    "owner": "tavily-ai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "tavily"
+      }
+    ]
+  },
+  {
+    "owner": "tech-leads-club",
+    "repo": "agent-skills",
+    "url": "https://github.com/tech-leads-club/agent-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "playwright-skill",
+    "url": "https://github.com/testdino-hq/playwright-skill",
+    "owner": "testdino-hq",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/TheQtCompanyRnD/agent-skills",
+    "owner": "TheQtCompanyRnD",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "qt-development-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/togethercomputer/skills",
+    "owner": "togethercomputer",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "togetherai-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/transloadit/skills",
+    "owner": "transloadit",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "app-store-preflight-skills",
+    "url": "https://github.com/truongduy2611/app-store-preflight-skills",
+    "owner": "truongduy2611",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "courier-skills",
+    "url": "https://github.com/trycourier/courier-skills",
+    "owner": "trycourier",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "obsidian-knowledge-brain",
+    "url": "https://github.com/Tubo2333/obsidian-knowledge-brain",
+    "owner": "Tubo2333",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "ai",
+    "url": "https://github.com/twilio/ai",
+    "owner": "twilio",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "twilio-developer-kit"
+      }
+    ]
+  },
+  {
+    "owner": "u14app",
+    "repo": "neo-chat",
+    "url": "https://github.com/u14app/neo-chat",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "udecode",
+    "repo": "dotai",
+    "url": "https://github.com/udecode/dotai",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "plugins-coding-agents",
+    "url": "https://github.com/UI5/plugins-coding-agents",
+    "owner": "UI5",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "ui5"
+      }
+    ]
+  },
+  {
+    "skip_date": "2026-08-01",
+    "last_sync_failure": "2026-08-01T19:40:50",
+    "status": "skip",
+    "repo": "assets",
+    "url": "https://github.com/user-attachments/assets",
+    "owner": "user-attachments",
+    "added": "2026-08-01",
+    "last_sync_failure_reason": "Cloning into '/Users/c/code/ah-skills/search-demo/repos/user-attachments/assets'...\nremote: Repository not found.\nfatal: repository 'https://github.com/user-attachments/assets.git/' not found",
+    "skip_reason": "not a real repo -- user-attachments is GitHub's file-upload CDN namespace; this URL was mis-scraped from a markdown image/attachment link, not an actual repo link (confirmed 2026-08-01)",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "moyu",
+    "url": "https://github.com/uucz/moyu",
+    "owner": "uucz",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "plugins",
+    "url": "https://github.com/val-town/plugins",
+    "owner": "val-town",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "valtown"
+      }
+    ]
+  },
+  {
+    "skip_date": "2026-08-01",
+    "last_sync_failure": "2026-08-01T19:40:51",
+    "status": "skip",
+    "repo": "vanta-mcp-plugin",
+    "url": "https://github.com/VantaInc/vanta-mcp-plugin",
+    "owner": "VantaInc",
+    "added": "2026-08-01",
+    "last_sync_failure_reason": "Cloning into '/Users/c/code/ah-skills/search-demo/repos/VantaInc/vanta-mcp-plugin'...\nremote: Repository not found.\nfatal: repository 'https://github.com/VantaInc/vanta-mcp-plugin.git/' not found",
+    "skip_reason": "404: repository not found on GitHub (confirmed 2026-08-01, clone fails)",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "vanta"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/veniceai/skills",
+    "owner": "veniceai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "vercel-plugin",
+    "url": "https://github.com/vercel/vercel-plugin",
+    "owner": "vercel",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "vercel"
+      }
+    ]
+  },
+  {
+    "owner": "vercel-labs",
+    "repo": "agent-skills",
+    "url": "https://github.com/vercel-labs/agent-skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "vercel-labs",
+    "repo": "skills",
+    "url": "https://github.com/vercel-labs/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "owner": "vibe-motion",
+    "repo": "skills",
+    "url": "https://github.com/vibe-motion/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/video-db/skills",
+    "owner": "video-db",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "villagesql-skills",
+    "url": "https://github.com/villagesql/villagesql-skills",
+    "owner": "villagesql",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "vsql-extension-builder"
+      }
+    ]
+  },
+  {
+    "owner": "volcengine",
+    "repo": "OpenViking",
+    "url": "https://github.com/volcengine/OpenViking",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "awesome-agent-skills",
+    "url": "https://github.com/VoltAgent/awesome-agent-skills",
+    "owner": "VoltAgent",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "awesome-codex-subagents",
+    "url": "https://github.com/VoltAgent/awesome-codex-subagents",
+    "owner": "VoltAgent",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "voltagent",
+    "url": "https://github.com/VoltAgent/voltagent",
+    "owner": "VoltAgent",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "fiftyone-skills",
+    "url": "https://github.com/voxel51/fiftyone-skills",
+    "owner": "voxel51",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "fiftyone"
+      }
+    ]
+  },
+  {
+    "owner": "vuejs-ai",
+    "repo": "skills",
+    "url": "https://github.com/vuejs-ai/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Auto-claude-code-research-in-sleep",
+    "url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+    "owner": "wanshuiyin",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-windsor-ai-plugin",
+    "url": "https://github.com/windsor-ai/claude-windsor-ai-plugin",
+    "owner": "windsor-ai",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "windsor-ai"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/wix/skills",
+    "owner": "wix",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "wix"
+      }
+    ]
+  },
+  {
+    "owner": "wondelai",
+    "repo": "skills",
+    "url": "https://github.com/wondelai/skills",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "DesktopCommanderMCP",
+    "url": "https://github.com/wonderwhy-er/DesktopCommanderMCP",
+    "owner": "wonderwhy-er",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "desktop-commander"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "skills",
+    "url": "https://github.com/workos/skills",
+    "owner": "workos",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "workos"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "linear-claude-skill",
+    "url": "https://github.com/wrsmith108/linear-claude-skill",
+    "owner": "wrsmith108",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "varlock-claude-skill",
+    "url": "https://github.com/wrsmith108/varlock-claude-skill",
+    "owner": "wrsmith108",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "x-article-publisher-skill",
+    "url": "https://github.com/wshuyi/x-article-publisher-skill",
+    "owner": "wshuyi",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "tweetclaw",
+    "url": "https://github.com/Xquik-dev/tweetclaw",
+    "owner": "Xquik-dev",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "x-twitter-scraper",
+    "url": "https://github.com/Xquik-dev/x-twitter-scraper",
+    "owner": "Xquik-dev",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "ynulihao",
+    "repo": "AgentSkillOS",
+    "url": "https://github.com/ynulihao/AgentSkillOS",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "agent-skills",
+    "url": "https://github.com/youdotcom-oss/agent-skills",
+    "owner": "youdotcom-oss",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "youdotcom-agent-skills"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "Skill_Seekers",
+    "url": "https://github.com/yusufkaraaslan/Skill_Seekers",
+    "owner": "yusufkaraaslan",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "zapier-mcp",
+    "url": "https://github.com/zapier/zapier-mcp",
+    "owner": "zapier",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "zapier"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "frontend-slides",
+    "url": "https://github.com/zarazhangrui/frontend-slides",
+    "owner": "zarazhangrui",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "owner": "zebbern",
+    "repo": "claude-code-guide",
+    "url": "https://github.com/zebbern/claude-code-guide",
+    "added": "2026-08-01",
+    "status": "active",
+    "sources": [
+      {
+        "type": "search",
+        "added": "2026-08-01",
+        "query": "agents skills",
+        "sort": "best-match",
+        "exact": true,
+        "reviewed_date": "2026-08-01"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "AI-research-SKILLs",
+    "url": "https://github.com/zechenzhangAGI/AI-research-SKILLs",
+    "owner": "zechenzhangAGI",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "makepad-skills",
+    "url": "https://github.com/ZhangHanDong/makepad-skills",
+    "owner": "ZhangHanDong",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "zilliz-plugin",
+    "url": "https://github.com/zilliztech/zilliz-plugin",
+    "owner": "zilliztech",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "zilliz"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "zoom-plugin",
+    "url": "https://github.com/zoom/zoom-plugin",
+    "owner": "zoom",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "zoom-plugin"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "zoominfo-mcp-plugin",
+    "url": "https://github.com/Zoominfo/zoominfo-mcp-plugin",
+    "owner": "Zoominfo",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "zoominfo"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "zscaler-mcp-server",
+    "url": "https://github.com/zscaler/zscaler-mcp-server",
+    "owner": "zscaler",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "zscaler"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "model-hierarchy-skill",
+    "url": "https://github.com/zscole/model-hierarchy-skill",
+    "owner": "zscole",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "VMware-AIops",
+    "url": "https://github.com/zw008/VMware-AIops",
+    "owner": "zw008",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "aws-skills",
+    "url": "https://github.com/zxkane/aws-skills",
+    "owner": "zxkane",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "seed",
+        "added": "2026-08-01",
+        "file": "awesome-agent-skills/README.md"
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "repo": "claude-skills",
+    "url": "https://github.com/zytedata/claude-skills",
+    "owner": "zytedata",
+    "added": "2026-08-01",
+    "last_synced": "2026-08-01T19:31:24",
+    "sources": [
+      {
+        "type": "marketplace",
+        "added": "2026-08-01",
+        "listing_url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/refs/heads/main/.claude-plugin/marketplace.json",
+        "plugin": "zyte-web-data"
+      }
+    ]
+  }
+]

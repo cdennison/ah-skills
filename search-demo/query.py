@@ -48,6 +48,8 @@ def main():
         print(f"{hit.score:.3f}  {hit.payload['path']}")
         if hit.payload.get("description"):
             print(f"       {hit.payload['description']}")
+        if hit.payload.get("skill_url"):
+            print(f"       {hit.payload['skill_url']}")
 
 
 if __name__ == "__main__":

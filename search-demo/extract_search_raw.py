@@ -10,6 +10,8 @@ are called out explicitly in EXTRA_README_REPOS below.
 import shutil
 from pathlib import Path
 
+from blacklist import blacklisted_paths
+
 REPOS_DIR = Path(__file__).parent / "repos"
 DEST_DIR = Path(__file__).parent / "search-raw"
 
@@ -41,8 +43,10 @@ def find_target_files():
 def main():
     DEST_DIR.mkdir(exist_ok=True)
 
+    blacklisted = blacklisted_paths()
     skill_count = 0
     readme_count = 0
+    blacklisted_count = 0
     repos = set()
     total_chars = 0
     total_lines = 0
@@ -50,6 +54,15 @@ def main():
 
     for src, is_skill in find_target_files():
         rel = src.relative_to(REPOS_DIR)
+        if str(rel) in blacklisted:
+            blacklisted_count += 1
+            stale_dest = DEST_DIR / rel
+            if stale_dest.exists():
+                # Was extracted before being blacklisted -- remove so index_qdrant.py's
+                # hash-diff sees it as gone and drops it from Qdrant on the next run.
+                stale_dest.unlink()
+            continue
+
         dest = DEST_DIR / rel
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dest)
@@ -70,6 +83,7 @@ def main():
     print("--- extract_search_raw stats ---")
     print(f"Skills:          {skill_count:,}")
     print(f"Extra READMEs:   {readme_count:,}")
+    print(f"Blacklisted:     {blacklisted_count:,}")
     print(f"Total files:     {total_files:,}")
     print(f"Repos covered:   {len(repos):,}")
     print(f"Total lines:     {total_lines:,}")

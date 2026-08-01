@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Clone every GitHub repo linked from awesome-agent-skills/README.md, slowly."""
+"""Clone every GitHub repo listed in repo-seeds/registry.json, slowly.
+
+registry.json is the single source of truth for which repos feed the
+pipeline -- see registry.py for how entries get added/curated (seed, search,
+or manual, each with its own provenance detail).
+"""
 
 import base64
 import json
@@ -12,7 +17,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-README = Path(__file__).parent / "awesome-agent-skills" / "README.md"
+from registry import mark_sync_failure, repo_pairs
+
 DEST_DIR = Path(__file__).parent / "repos"
 ENV_FILE = Path(__file__).parent / ".env"
 STATE_FILE = Path(__file__).parent / ".clone_state.json"
@@ -20,6 +26,11 @@ STATE_FILE = Path(__file__).parent / ".clone_state.json"
 MIN_DELAY_SECONDS = 5  # floor pause between clones even when rate limit is healthy
 RECLONE_COOLDOWN_SECONDS = 24 * 60 * 60  # don't re-clone a repo within a day
 RATE_LIMIT_SAFETY_MARGIN = 5  # stop and wait when this few requests remain
+# Extra flat pause after every successful clone, on top of the rate-limit
+# pacing above -- stay conservative with GitHub even when the API says we
+# have quota to spare. Skipped for skips/errors since those don't hit the
+# clone endpoint.
+POST_CLONE_DELAY_SECONDS = 1
 
 REPO_URL_RE = re.compile(r"https://github\.com/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)")
 
@@ -38,19 +49,6 @@ def load_github_pat():
 
 
 GITHUB_PAT = load_github_pat()
-
-
-def extract_repo_urls():
-    text = README.read_text()
-    seen = set()
-    urls = []
-    for owner, repo in REPO_URL_RE.findall(text):
-        repo = repo.rstrip(".")
-        key = f"{owner}/{repo}"
-        if key not in seen:
-            seen.add(key)
-            urls.append((owner, repo))
-    return urls
 
 
 def _basic_auth_header():
@@ -117,16 +115,18 @@ def check_rate_limit():
 
 
 def clone_repo(owner, repo, state):
+    """Returns "skipped", "cloned", or "error" -- callers use this to decide
+    whether the rate-limit pacing delay is actually needed."""
     dest = DEST_DIR / owner / repo
 
     if recently_cloned(state, owner, repo):
         print(f"[skip] {owner}/{repo} cloned within the last 24h")
-        return True
+        return "skipped"
 
     if dest.exists():
         print(f"[skip] {owner}/{repo} already exists at {dest}")
         state[f"{owner}/{repo}"] = time.time()
-        return True
+        return "skipped"
 
     dest.parent.mkdir(parents=True, exist_ok=True)
     url = f"https://github.com/{owner}/{repo}.git"
@@ -145,10 +145,15 @@ def clone_repo(owner, repo, state):
         text=True,
     )
     if result.returncode != 0:
-        print(f"[error] {owner}/{repo}: {result.stderr.strip()}")
-        return False
+        error = result.stderr.strip()
+        print(f"[error] {owner}/{repo}: {error}")
+        try:
+            mark_sync_failure(owner, repo, error)
+        except ValueError:
+            pass  # repo not in registry (e.g. one-off URL clone) -- nothing to record
+        return "error"
     state[f"{owner}/{repo}"] = time.time()
-    return True
+    return "cloned"
 
 
 def parse_single_url(arg):
@@ -175,8 +180,8 @@ def main():
         save_state(state)
         return
 
-    repos = extract_repo_urls()
-    print(f"Found {len(repos)} unique repos in {README}")
+    repos = repo_pairs()
+    print(f"Found {len(repos)} repos in repo-seeds/registry.json")
 
     limit = None
     if len(sys.argv) > 1:
@@ -184,9 +189,12 @@ def main():
         repos = repos[:limit]
 
     for i, (owner, repo) in enumerate(repos):
-        clone_repo(owner, repo, state)
+        result = clone_repo(owner, repo, state)
         save_state(state)
-        if i < len(repos) - 1:
+        # Only pace against the rate limit when a clone actually happened --
+        # skips (already-cloned repos) don't touch the GitHub API.
+        if result == "cloned" and i < len(repos) - 1:
+            time.sleep(POST_CLONE_DELAY_SECONDS)
             delay = check_rate_limit()
             time.sleep(delay)
 

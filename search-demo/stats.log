@@ -1,0 +1,2272 @@
+
+=== 2026-08-04T16:58:29 (batch 1) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,410
+Active:            1,404
+Skipped:           6
+
+Synced today:      700
+Stale (synced on an earlier day): 1
+Never synced:      703
+Last sync failed:  703
+
+--- search-raw (disk) ---
+Skills: 19,740
+Files:  19,741
+Repos:  569
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 19,740
+Points: 19,741
+Repos:  571
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 19,577
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T16:59:11 (batch 2) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,410
+Active:            1,404
+Skipped:           6
+
+Synced today:      795
+Stale (synced on an earlier day): 1
+Never synced:      608
+Last sync failed:  608
+
+--- search-raw (disk) ---
+Skills: 19,740
+Files:  19,741
+Repos:  569
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 19,740
+Points: 19,741
+Repos:  571
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 19,577
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T17:17:34 (batch 3) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,410
+Active:            1,404
+Skipped:           6
+
+Synced today:      888
+Stale (synced on an earlier day): 0
+Never synced:      516
+Last sync failed:  515
+
+--- search-raw (disk) ---
+Skills: 24,756
+Files:  24,757
+Repos:  665
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 24,756
+Points: 24,757
+Repos:  665
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 19,577
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T21:55:57 (batch 1) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      980
+Stale (synced on an earlier day): 0
+Never synced:      429
+Last sync failed:  425
+
+--- search-raw (disk) ---
+Skills: 26,074
+Files:  26,075
+Repos:  735
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 26,074
+Points: 26,075
+Repos:  735
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T22:40:34 (batch 1) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,144
+Stale (synced on an earlier day): 0
+Never synced:      265
+Last sync failed:  265
+
+--- search-raw (disk) ---
+Skills: 31,536
+Files:  31,537
+Repos:  824
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 31,536
+Points: 31,537
+Repos:  822
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T22:55:55 (batch 2) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,218
+Stale (synced on an earlier day): 0
+Never synced:      191
+Last sync failed:  191
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T22:57:00 (batch 3) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,292
+Stale (synced on an earlier day): 0
+Never synced:      117
+Last sync failed:  117
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T22:58:04 (batch 4) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T22:59:09 (batch 5) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:00:16 (batch 6) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:01:23 (batch 7) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:02:29 (batch 8) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:03:34 (batch 9) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:04:43 (batch 10) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:05:49 (batch 11) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:06:57 (batch 12) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:07:55 (batch 13) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:08:56 (batch 14) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:09:54 (batch 15) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:10:53 (batch 16) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:11:54 (batch 17) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:12:54 (batch 18) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:13:53 (batch 19) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:14:52 (batch 20) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:15:51 (batch 21) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:16:52 (batch 22) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:17:50 (batch 23) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:18:50 (batch 24) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:19:50 (batch 25) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:20:50 (batch 26) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:21:51 (batch 27) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:22:52 (batch 28) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:23:57 (batch 29) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:24:59 (batch 30) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-04T23:26:00 (batch 31) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,318
+Stale (synced on an earlier day): 0
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:09:50 (batch 1) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      98
+Stale (synced on an earlier day): 1,220
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:11:11 (batch 2) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      196
+Stale (synced on an earlier day): 1,122
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:12:34 (batch 3) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      294
+Stale (synced on an earlier day): 1,024
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:13:55 (batch 4) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      390
+Stale (synced on an earlier day): 928
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:15:13 (batch 5) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      485
+Stale (synced on an earlier day): 833
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:16:30 (batch 6) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      580
+Stale (synced on an earlier day): 738
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:17:45 (batch 7) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      674
+Stale (synced on an earlier day): 644
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:19:00 (batch 8) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      766
+Stale (synced on an earlier day): 552
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:20:20 (batch 9) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      856
+Stale (synced on an earlier day): 462
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:21:48 (batch 10) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      944
+Stale (synced on an earlier day): 374
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:23:13 (batch 11) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,032
+Stale (synced on an earlier day): 286
+Never synced:      91
+Last sync failed:  91
+
+--- search-raw (disk) ---
+Skills: 33,721
+Files:  33,722
+Repos:  919
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 33,721
+Points: 33,722
+Repos:  916
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:26:59 (batch 1) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,121
+Stale (synced on an earlier day): 212
+Never synced:      76
+Last sync failed:  76
+
+--- search-raw (disk) ---
+Skills: 34,058
+Files:  34,132
+Repos:  932
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 34,058
+Points: 34,132
+Repos:  929
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:28:08 (batch 2) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,210
+Stale (synced on an earlier day): 123
+Never synced:      76
+Last sync failed:  76
+
+--- search-raw (disk) ---
+Skills: 34,058
+Files:  34,132
+Repos:  932
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 34,058
+Points: 34,132
+Repos:  929
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:29:16 (batch 3) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,299
+Stale (synced on an earlier day): 34
+Never synced:      76
+Last sync failed:  76
+
+--- search-raw (disk) ---
+Skills: 34,058
+Files:  34,132
+Repos:  932
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 34,058
+Points: 34,132
+Repos:  929
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:38:39 (batch 4) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,388
+Stale (synced on an earlier day): 8
+Never synced:      13
+Last sync failed:  13
+
+--- search-raw (disk) ---
+Skills: 34,992
+Files:  35,127
+Repos:  993
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 34,992
+Points: 35,127
+Repos:  990
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:40:05 (batch 5) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:42:22 (batch 1) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:43:30 (batch 2) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:44:41 (batch 3) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:45:48 (batch 4) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:46:55 (batch 5) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:48:01 (batch 6) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:49:07 (batch 7) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:50:13 (batch 8) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:51:19 (batch 9) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:52:25 (batch 10) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:53:31 (batch 11) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:54:39 (batch 12) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:55:45 (batch 13) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:56:51 (batch 14) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T08:58:21 (batch 15) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       1,415
+Active:            1,409
+Skipped:           6
+
+Synced today:      1,398
+Stale (synced on an earlier day): 0
+Never synced:      11
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 35,022
+Files:  35,158
+Repos:  995
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 35,022
+Points: 35,158
+Repos:  992
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T09:08:22 (batch 1) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       2,309
+Active:            2,303
+Skipped:           6
+
+Synced today:      1,492
+Stale (synced on an earlier day): 0
+Never synced:      811
+Last sync failed:  14
+
+--- search-raw (disk) ---
+Skills: 41,183
+Files:  41,477
+Repos:  1,079
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 41,183
+Points: 41,477
+Repos:  1,079
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T09:26:40 (batch 2) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       2,309
+Active:            2,303
+Skipped:           6
+
+Synced today:      1,589
+Stale (synced on an earlier day): 0
+Never synced:      714
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 54,154
+Files:  54,831
+Repos:  1,157
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 54,154
+Points: 54,831
+Repos:  1,160
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T09:42:42 (batch 3) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       2,309
+Active:            2,303
+Skipped:           6
+
+Synced today:      1,684
+Stale (synced on an earlier day): 0
+Never synced:      619
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 56,177
+Files:  56,896
+Repos:  1,237
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 56,177
+Points: 56,896
+Repos:  1,240
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T10:10:13 (batch 4) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       2,309
+Active:            2,303
+Skipped:           6
+
+Synced today:      1,777
+Stale (synced on an earlier day): 0
+Never synced:      526
+Last sync failed:  12
+
+--- search-raw (disk) ---
+Skills: 58,391
+Files:  59,193
+Repos:  1,315
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 58,391
+Points: 59,193
+Repos:  1,319
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv
+
+=== 2026-08-05T10:26:06 (batch 5) ===
+--- registry (repo-seeds/registry.json) ---
+Total repos:       2,309
+Active:            2,303
+Skipped:           6
+
+Synced today:      1,870
+Stale (synced on an earlier day): 0
+Never synced:      433
+Last sync failed:  11
+
+--- search-raw (disk) ---
+Skills: 61,162
+Files:  62,298
+Repos:  1,390
+Dir:    /Users/c/code/ah-skills/search-demo/search-raw
+
+--- qdrant (indexed) ---
+Skills: 61,162
+Points: 62,298
+Repos:  1,395
+DB:     /Users/c/code/ah-skills/search-demo/qdrant_db (collection='agent_skills')
+
+--- diff ---
+On disk but not indexed: 0
+Indexed but not on disk (stale): 0
+-> in sync
+
+--- skills_export.csv ---
+Rows: 24,757
+File: /Users/c/code/ah-skills/search-demo/skills_export.csv

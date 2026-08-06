@@ -7,12 +7,20 @@ none of them require re-explaining the pipeline itself (see
 [`README.md`](README.md#pipeline) and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 for that).
 
+**[`RUN.sh`](RUN.sh) automates steps 3 (partially) and 4 of this workflow**
+— repo discovery (`sync-seed`, marketplace, optional GitHub search/leaderboard)
+and rerunning the pipeline, in one command. It does **not** automate steps 0-2
+(reviewing what's unsynced, skipping noisy repos, blacklisting bad skills) —
+those stay a human judgment call by design. Run `./RUN.sh` for the mechanical
+part of a daily/recurring pass, then still walk steps 0-2 below yourself.
+
 ## 0. Check what didn't sync
 
 Every registry entry carries a `last_synced` timestamp, stamped by
-`run_pipeline.sh`'s last step (`registry.py mark-synced`) on every repo that
-has a directory under `repos/` once extract+index have both succeeded — i.e.
-"cloned AND through RAG". Start here before reviewing:
+`batch_pipeline.py` per-batch (or `registry.py mark-synced`, called by
+`archived/run_pipeline.sh`'s last step) on every repo that has a directory
+under `repos/` once extract+index have both succeeded — i.e. "cloned AND
+through RAG". Start here before reviewing:
 
 ```bash
 ./registry.py unsynced   # active repos not synced today (never synced, or stale)
@@ -74,8 +82,59 @@ human blacklisted it).
 
 ## 3. Update the repo list (always additive, never deletes)
 
-Four independent ways new repos enter the registry, all additive-only —
-none of them ever remove an existing registry row:
+**Every source of skills has to be continually refreshed — this isn't
+just a `sync-seed` thing.** Two different kinds of staleness are in play
+here, and it's easy to fix one and still be silently stuck on the other:
+
+1. **Registry staleness** — a repo already tracked hasn't been re-cloned
+   recently (`last_synced`, step 0/4 handle this).
+2. **Source staleness** — the *list a repo would be discovered from* is
+   itself out of date, so a brand-new upstream repo is invisible no matter
+   how often you re-run the discovery step against it.
+
+(2) is the one that's easy to miss, because the discovery scripts all exit
+`0` and print "0 new repos" whether nothing changed upstream or your local
+view of upstream is just stale. Concretely, for `officialskills.sh`:
+[`repo-seeds/awesome-agent-skills/README.md`](repo-seeds/awesome-agent-skills/README.md)
+is a **vendored, point-in-time copy** of the upstream
+[VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
+repo, tracked separately in
+[`repo-seeds/repo_seeds.json`](repo-seeds/repo_seeds.json) (`last_pulled`,
+distinct from any individual repo's `last_synced` in `registry.json`).
+`registry.py sync-seed` only ever regex-scrapes github.com links out of
+*that vendored copy* — it never talks to GitHub itself. If the vendored
+copy is a week stale, `sync-seed` will happily run every day, exit `0`,
+and never surface the six repos VoltAgent added upstream in the meantime.
+**`refresh_seeds.py` is what actually re-clones the upstream repo and
+overwrites the vendored copy** — run it before `sync-seed`, not instead of
+it:
+
+```bash
+./refresh_seeds.py          # re-vendor every tracked seed list from upstream
+./registry.py sync-seed      # THEN scrape the now-fresh vendored copy
+./registry.py seeds          # check every seed list's last_pulled
+```
+
+`RUN.sh` chains `refresh_seeds.py` → `sync-seed` in that order automatically
+every run, for exactly this reason.
+
+The same "is the *source* itself fresh, not just the registry" question
+applies to every channel, with a different answer per channel:
+
+| Source | What can go stale | How it's refreshed |
+|---|---|---|
+| Seed lists (`officialskills.sh`, ...) | The vendored copy under `repo-seeds/` | `refresh_seeds.py`, run before `sync-seed` (see above) |
+| Marketplace | Nothing — fetched live from Anthropic's repo every run | No separate refresh step needed; `fetch_marketplace.py` always gets current data |
+| `skills.sh` leaderboard | The raw snapshot in `leaderboard-raw/` | `pull_leaderboard.py`, **manual-only** (see [step 4](#4-rerun-the-pipeline-clone--extract--index) and `RUN.sh`'s header) — `add_skillsh_leaderboard.py` only reads whatever snapshot already exists, same relationship `sync-seed` has to `refresh_seeds.py` |
+| GitHub search | Nothing — each run queries the live API | No separate refresh step; running `search_github.py` again IS the refresh |
+| Individual repos already in the registry | Their own clone on disk | `last_synced` / step 0 above, refreshed by `batch_pipeline.py` |
+
+`RUN.sh` runs (a) and (b) below automatically every time (plus
+`refresh_seeds.py` immediately before (b), per the above); (c) and (d) are
+opt-in/manual since they need human judgment (c) or are inherently one-off
+(d) — see `RUN.sh`'s header comment. Four independent ways new repos enter
+the registry, all additive-only — none of them ever remove an existing
+registry row:
 
 ```bash
 # a) Anthropic's official Claude plugin marketplace -- no review needed,
@@ -83,7 +142,10 @@ none of them ever remove an existing registry row:
 ./fetch_marketplace.py
 
 # b) The vendored awesome-agent-skills list -- picks up anything appended
-#    to repo-seeds/awesome-agent-skills/README.md since the last sync
+#    to repo-seeds/awesome-agent-skills/README.md since the last sync.
+#    Run refresh_seeds.py first (see above) or this only sees whatever
+#    was vendored as of the last refresh, not what's upstream right now.
+./refresh_seeds.py
 ./registry.py sync-seed
 
 # c) GitHub search -- requires a human review step before anything is added
@@ -132,28 +194,58 @@ indexed" — that's always once.
 ## 4. Rerun the pipeline (clone → extract → index)
 
 ```bash
-./run_pipeline.sh
+python3 batch_pipeline.py --batch-size 100 --only-unsynced --stats
 ```
 
-This is safe and cheap to run multiple times a day:
+This is the standard way to rerun the pipeline now, for any size run.
+`clone_repos.py` on its own clones *everything* matching into `repos/` (full
+git clones) before `extract_search_raw.py` ever runs — for the full
+registry that's several GB+ sitting on disk at once, and has filled the
+disk before. `batch_pipeline.py` clones in bounded batches, extracts each
+batch into `search-raw/` (the only thing that actually needs to persist),
+then deletes `repos/` via `clean_repos.sh` before the next batch — so
+`repos/` never holds more than one batch's clones regardless of registry
+size.
 
-- **`fetch_marketplace.py`** — one HTTP GET, always fast.
-- **`clone_repos.py`** — has its own per-repo 24h skip
-  (`.clone_state.json`); repos cloned within the last day are skipped with
-  no GitHub API call at all, so re-running costs almost nothing beyond
+- `--only-unsynced` limits it to repos step 0's `unsynced` check would
+  flag, and skips by content (not registry position) so it correctly picks
+  up the remaining backlog on a resumed run.
+- `--stats` logs a running `stats.py` snapshot to `stats.log` after every
+  batch, so you can watch the sync/index/CSV counts climb instead of
+  waiting on one big opaque run.
+- `--batch-size N` (default 100) — smaller for a slow/careful catch-up or
+  debugging, larger if the delta is small and you just want it done.
+
+It's safe and cheap to run multiple times a day:
+
+- **`clone_repos.py`** (invoked once per batch) — has its own per-repo 24h
+  skip (`.clone_state.json`); repos cloned within the last day are skipped
+  with no GitHub API call at all, so re-running costs almost nothing beyond
   newly-added repos.
-- **`extract_search_raw.py`** — a full rescan of `repos/` every time (not
-  incremental), but this is a filesystem walk + copy, not network- or
-  embedding-bound, so it's seconds even at ~12k files.
+- **`extract_search_raw.py`** — a full rescan of the *current batch's*
+  `repos/` every time (not incremental across the whole registry), so it's
+  seconds even at thousands of files.
 - **`index_qdrant.py`** — incremental (hashes each file's content, only
   re-embeds new/changed files, and removes points for files that
   disappeared from `search-raw/`), so a same-day rerun with nothing new
   finishes almost instantly.
-- **`registry.py mark-synced`** — the final step; stamps `last_synced` on
-  every repo now present in `repos/`. This is what step 0's `unsynced`
-  check reads, so a `run_pipeline.sh` run that dies before this step (e.g.
-  a crash mid-`index_qdrant.py`) leaves `last_synced` stale even for repos
-  that were actually re-cloned that run.
+- **`mark_synced_pairs()`** (called internally by `batch_pipeline.py` after
+  each batch's extract+index) — stamps `last_synced` for exactly that
+  batch's confirmed-cloned repos. This is what step 0's `unsynced` check
+  reads, so a run that dies mid-batch only leaves *that* batch's repos
+  unstamped, not the whole run.
+
+`fetch_marketplace.py` (picking up new repos from the marketplace) is no
+longer chained into this step automatically — run it separately as part of
+[step 3](#3-update-the-repo-list-always-additive-never-deletes) before
+rerunning the pipeline if you want fresh marketplace repos included.
+
+**Legacy: `archived/run_pipeline.sh`.** The original single-shot pipeline
+runner (fetch marketplace → clone everything → extract → index →
+mark-synced) has been moved to `archived/` — it clones the *entire*
+matching set into `repos/` in one shot with no batching, which is exactly
+the disk-filling failure mode `batch_pipeline.py` was built to avoid. Kept
+around for reference only; don't run it as part of the regular workflow.
 
 ## Non-obvious issues / things that can bite you
 
@@ -170,11 +262,11 @@ This is safe and cheap to run multiple times a day:
 - **Blacklisting requires a rerun to take effect** (see step 2) — it's not
   a live query-time filter.
 - **`qdrant_db/` is a local embedded store, not a server — it does not
-  support concurrent writers.** If you (or a cron job) run
-  `index_qdrant.py` / `run_pipeline.sh` while another instance is already
-  running, the second one crashes with `RuntimeError: Storage folder ...
-  is already accessed by another instance of Qdrant client`. Make sure
-  `run_pipeline.sh` invocations don't overlap (e.g. a cron job that takes
+  support concurrent writers.** If you (or a cron job) run `index_qdrant.py`
+  / `batch_pipeline.py` while another instance is already running, the
+  second one crashes with `RuntimeError: Storage folder ... is already
+  accessed by another instance of Qdrant client`. Make sure
+  `batch_pipeline.py` invocations don't overlap (e.g. a cron job that takes
   longer than its own interval).
 - **`fetch_marketplace.py` always clones each plugin's repo default branch**
   (`--depth 1`, via `clone_repos.py`), **not** the specific `ref`/`sha`/

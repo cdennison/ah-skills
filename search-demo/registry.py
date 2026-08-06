@@ -18,14 +18,27 @@ source. `source_types(entry)` gives the set of channels that found a repo;
 
 Each source descriptor's `type` is one of:
 
-  "seed"        -- came from repo-seeds/awesome-agent-skills/README.md
-                   (an upstream awesome-list, vendored wholesale)
+  "<seed name>" -- "seed" is an architectural concept, not a literal type
+                   string: it means "came from an upstream awesome-list,
+                   vendored wholesale and synced via sync_seeds()." The
+                   `type` actually stored is always that specific list's
+                   name (e.g. "officialskills.sh" for
+                   repo-seeds/awesome-agent-skills/README.md), never the
+                   word "seed" itself -- see SEED_FILES below. This is what
+                   lets two different vendored lists both feed the registry
+                   without their descriptors colliding under one generic
+                   label.
   "search"      -- came from search_github.py, approved by a human after
-                   review; keeps the query/sort/exact used and review date
+                   review; keeps the query/sort/exact used, review date, and
+                   the result's 1-based `rank` (position in that search)
   "manual"      -- someone added it by hand; `note` records why
   "marketplace" -- came from fetch_marketplace.py (Anthropic's official
                    Claude plugin marketplace listing); keeps the plugin
                    name it was found under
+  "skills.sh"   -- came from add_skillsh_leaderboard.py, parsed out of a
+                   leaderboard-raw/combined.json snapshot (see
+                   pull_leaderboard.py); keeps the best (lowest) rank and
+                   the count of leaderboard skills seen from that repo
 
 This is repo-level bookkeeping only. It has no effect on how many times a
 repo gets cloned or a skill gets indexed: `clone_repos.py` still clones each
@@ -59,23 +72,32 @@ hand-edit registry.json directly, so every entry stays well-formed.
 
 Each entry also carries `last_synced` -- an ISO timestamp meaning "as of this
 time, the repo was cloned on disk AND had run through extract+index (RAG)".
-It's stamped by `mark-synced` (run_pipeline.sh calls this as its last step,
-after extract_search_raw.py + index_qdrant.py both succeed) on every repo
-that has a directory under repos/ at that point. A repo missing `last_synced`
-entirely has never made it through a full pipeline run; one whose
-`last_synced` date isn't today hasn't been refreshed today (run
-`./registry.py unsynced` to see the list).
+For a small/routine run, it's stamped by `mark-synced` (archived/run_pipeline.sh
+calls this as its last step, after extract_search_raw.py + index_qdrant.py
+both succeed) on every repo that has a directory under repos/ at that point.
+For a large/batched run, batch_pipeline.py stamps it per-batch via
+mark_synced_pairs() instead (see that function's docstring for why -- repos/
+only ever holds the current batch there, so the disk-presence check
+mark_synced_from_disk() uses would misclassify prior batches as failures).
+A repo missing `last_synced` entirely has never made it through a full
+pipeline run; one whose `last_synced` date isn't today hasn't been
+refreshed today (run `./registry.py unsynced` to see the list).
 
 CLI usage:
     ./registry.py add-manual owner/repo "reason this was added"
     ./registry.py add-search results.json --approve owner/repo --approve owner2/repo2
-    ./registry.py sync-seed          # additive: pick up new repos from the awesome-list, never touches existing entries
+    ./registry.py sync-seed          # additive: pick up new repos from every list in SEED_FILES, never touches existing entries
+    ./registry.py seeds              # list every vendored seed list + when its on-disk copy was last pulled (repo-seeds/repo_seeds.json)
+    ./registry.py mark-seed-pulled officialskills.sh   # stamp last_pulled=now after manually refreshing a seed list's vendored copy
     ./registry.py skip owner/repo "reason"
     ./registry.py unskip owner/repo
-    ./registry.py mark-synced        # stamp last_synced=now on every repo present in repos/ (run by run_pipeline.sh)
+    ./registry.py mark-synced        # stamp last_synced=now on every repo present in repos/ (run by archived/run_pipeline.sh; batch_pipeline.py does its own per-batch equivalent)
     ./registry.py unsynced           # list repos not synced today (never synced, or stale)
-    ./registry.py list [--source search|seed|manual] [--status active|skip]
+    ./registry.py list [--source search|officialskills.sh|manual] [--status active|skip]
     ./registry.py remove owner/repo   # hard delete -- only for actual mistakes, not quality judgments
+    ./registry.py update-skillsh owner/repo --rank N --skill-count N --top-installs N
+                                      # refresh skills.sh ranking fields for one repo, independent of
+                                      # clone/index state (works even if repos/<owner>/<repo> is gone)
 """
 
 import argparse
@@ -87,7 +109,30 @@ from pathlib import Path
 REGISTRY_FILE = Path(__file__).parent / "repo-seeds" / "registry.json"
 REPOS_DIR = Path(__file__).parent / "repos"
 
-VALID_SOURCES = {"seed", "search", "manual", "marketplace"}
+# repo-seeds/repo_seeds.json -- NOT the same thing as registry.json. This
+# tracks the vendored seed *lists themselves* (upstream repo, where they're
+# vendored to on disk, and when that vendored copy was last refreshed) so
+# staleness of the source lists is visible, separate from staleness of any
+# individual discovered repo (last_synced, in registry.json). Re-vendoring a
+# seed list (copying its files from upstream) is a manual/periodic step --
+# mark_seed_pulled() just records when that last happened.
+REPO_SEEDS_FILE = Path(__file__).parent / "repo-seeds" / "repo_seeds.json"
+
+# Every upstream awesome-list vendored wholesale into repo-seeds/ and synced
+# via sync_seeds(). "seed" describes the *mechanism* (regex-scrape every
+# github.com link out of a vendored file, additive, never destructive) --
+# each list still gets its own `name`, which is what actually gets written
+# as the source descriptor's `type` in registry.json. Add an entry here to
+# start tracking another vendored list; sync_seeds() loops over all of them.
+SEED_FILES = [
+    {
+        "name": "officialskills.sh",
+        "path": Path(__file__).parent / "repo-seeds" / "awesome-agent-skills" / "README.md",
+        "file": "awesome-agent-skills/README.md",
+    },
+]
+
+VALID_SOURCES = {"search", "manual", "marketplace", "skills.sh"} | {sf["name"] for sf in SEED_FILES}
 
 
 def load_registry() -> list[dict]:
@@ -164,6 +209,30 @@ def upsert(registry: list[dict], entry: dict) -> dict:
     return row
 
 
+def update_skillsh(owner: str, repo: str, rank: int | None = None, skill_count: int | None = None,
+                    top_installs: int | None = None) -> dict:
+    """Refresh the `skills.sh` source descriptor's rank/skill_count/top_installs
+    on an already-tracked repo -- e.g. after a fresh leaderboard pull, or a
+    manual correction -- without touching clone/extract/index state. Only
+    fields given are updated; omitted ones keep whatever was there before.
+    Works even if the repo's directory under repos/ has been deleted, since
+    this only ever writes to registry.json.
+    """
+    if rank is None and skill_count is None and top_installs is None:
+        raise ValueError("update_skillsh requires at least one of rank, skill_count, top_installs")
+    registry = load_registry()
+    detail = {"rank_last_updated": datetime.date.today().isoformat()}
+    if rank is not None:
+        detail["rank"] = rank
+    if skill_count is not None:
+        detail["skill_count"] = skill_count
+    if top_installs is not None:
+        detail["top_installs"] = top_installs
+    entry = upsert(registry, {"owner": owner, "repo": repo, "source": "skills.sh", **detail})
+    save_registry(registry)
+    return entry
+
+
 def add_manual(owner: str, repo: str, note: str) -> dict:
     if not note or not note.strip():
         raise ValueError("a manual entry requires a non-empty note explaining why it was added")
@@ -199,6 +268,8 @@ def add_search_results(results_json_path: Path, approved_full_names: list[str]) 
                 "sort": sort,
                 "exact": exact,
                 "reviewed_date": today,
+                "rank": result.get("rank"),
+                "rank_last_updated": today,
             },
         )
         added.append(entry)
@@ -236,45 +307,90 @@ def unskip(owner: str, repo: str) -> dict:
     return entry
 
 
+def load_repo_seeds() -> list[dict]:
+    if not REPO_SEEDS_FILE.exists():
+        return []
+    return json.loads(REPO_SEEDS_FILE.read_text())
+
+
+def save_repo_seeds(repo_seeds: list[dict]) -> None:
+    REPO_SEEDS_FILE.write_text(json.dumps(repo_seeds, indent=2) + "\n")
+
+
+def mark_seed_pulled(name: str) -> dict:
+    """Stamp repo_seeds.json's `last_pulled` = now for one seed list, after
+    you've manually refreshed its vendored copy under repo-seeds/ (e.g.
+    re-downloaded VoltAgent/awesome-agent-skills's README.md). Does not do
+    the pulling itself -- there's no automated fetcher for these upstream
+    lists today, only for the copy-on-disk's freshness bookkeeping. Run
+    `./registry.py sync-seed` afterward to actually pick up any new repos
+    the refreshed list contains."""
+    repo_seeds = load_repo_seeds()
+    entry = next((s for s in repo_seeds if s["name"] == name), None)
+    if entry is None:
+        raise ValueError(f"{name!r} not found in {REPO_SEEDS_FILE} -- known seeds: {[s['name'] for s in repo_seeds]}")
+    entry["last_pulled"] = datetime.datetime.now().astimezone().isoformat(timespec="seconds")
+    save_repo_seeds(repo_seeds)
+    return entry
+
+
 def sync_seeds() -> tuple[list[dict], list[dict]]:
-    """Pick up every repo currently in awesome-agent-skills/README.md. Never
-    destructive: a brand-new repo gets a new registry row, and a repo that's
-    already tracked (regardless of what source found it first) just gets a
-    "seed" descriptor added to its existing `sources` list if it doesn't
+    """Pick up every repo currently in each of SEED_FILES. Never destructive:
+    a brand-new repo gets a new registry row, and a repo that's already
+    tracked (regardless of what source found it first) just gets that seed
+    list's own descriptor (`type` == the seed's `name`, e.g.
+    "officialskills.sh") added to its existing `sources` list if it doesn't
     already have one -- surfacing the overlap instead of hiding it. Existing
-    descriptors of *other* types (skip status, manual notes, etc.) are never
-    touched. Returns (new_repos, newly_overlapping_repos).
+    descriptors of *other* types (skip status, manual notes, other seed
+    lists, etc.) are never touched. Runs every list in SEED_FILES in one
+    pass and returns the combined (new_repos, newly_overlapping_repos).
     """
     import re
 
-    readme = Path(__file__).parent / "repo-seeds" / "awesome-agent-skills" / "README.md"
     url_re = re.compile(r"https://github\.com/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)")
 
     registry = load_registry()
     new_repos, new_overlaps = [], []
-    seen_this_pass = set()
-    for owner, repo in url_re.findall(readme.read_text()):
-        repo = repo.rstrip(".")
-        key = (owner.lower(), repo.lower())
-        if key in seen_this_pass:
-            continue
-        seen_this_pass.add(key)
+    for seed in SEED_FILES:
+        seen_this_pass = set()
+        for owner, repo in url_re.findall(seed["path"].read_text()):
+            repo = repo.rstrip(".")
+            key = (owner.lower(), repo.lower())
+            if key in seen_this_pass:
+                continue
+            seen_this_pass.add(key)
 
-        existing = find(registry, owner, repo)
-        had_seed_source = existing is not None and "seed" in source_types(existing)
-        entry = upsert(registry, {
-            "owner": owner,
-            "repo": repo,
-            "source": "seed",
-            "file": "awesome-agent-skills/README.md",
-        })
-        if existing is None:
-            new_repos.append(entry)
-        elif not had_seed_source:
-            new_overlaps.append(entry)
+            existing = find(registry, owner, repo)
+            had_this_seed_source = existing is not None and seed["name"] in source_types(existing)
+            entry = upsert(registry, {
+                "owner": owner,
+                "repo": repo,
+                "source": seed["name"],
+                "file": seed["file"],
+            })
+            if existing is None:
+                new_repos.append(entry)
+            elif not had_this_seed_source:
+                new_overlaps.append(entry)
 
     save_registry(registry)
     return new_repos, new_overlaps
+
+
+def set_stars(owner: str, repo: str, stars: int) -> dict:
+    """Record the GitHub stargazer count fetched by clone_repos.py, along
+    with when it was fetched -- so consumers (index_qdrant.py, CSV export)
+    know both the value and its freshness. No-ops silently if the repo
+    isn't in the registry (e.g. a one-off URL clone never added via
+    add-manual/add-search)."""
+    registry = load_registry()
+    entry = find(registry, owner, repo)
+    if not entry:
+        return {}
+    entry["stars"] = stars
+    entry["stars_updated"] = datetime.datetime.now().isoformat(timespec="seconds")
+    save_registry(registry)
+    return entry
 
 
 def mark_sync_failure(owner: str, repo: str, reason: str) -> dict:
@@ -291,6 +407,32 @@ def mark_sync_failure(owner: str, repo: str, reason: str) -> dict:
     entry["last_sync_failure_reason"] = reason.strip()
     save_registry(registry)
     return entry
+
+
+def mark_synced_pairs(pairs: list[tuple[str, str]]) -> list[dict]:
+    """Stamp last_synced=now on exactly the given (owner, repo) entries,
+    without checking repos/ for a directory. Used by batch_pipeline.py,
+    where repos/ only ever holds the *current* batch's clones (earlier
+    batches' repos/ dirs are deleted to bound disk usage), so
+    mark_synced_from_disk's "no directory -> mark failure" logic would
+    wrongly flag every already-processed repo from a prior batch.
+
+    Callers are responsible for only passing pairs that are actually
+    confirmed on disk at some point (e.g. present in .clone_state.json) --
+    this function does no verification itself.
+    """
+    registry = load_registry()
+    now = datetime.datetime.now().isoformat(timespec="seconds")
+    pair_set = set(pairs)
+    synced = []
+    for entry in registry:
+        if (entry["owner"], entry["repo"]) in pair_set:
+            entry["last_synced"] = now
+            entry.pop("last_sync_failure", None)
+            entry.pop("last_sync_failure_reason", None)
+            synced.append(entry)
+    save_registry(registry)
+    return synced
 
 
 def mark_synced_from_disk() -> tuple[list[dict], list[dict]]:
@@ -348,10 +490,10 @@ def remove(owner: str, repo: str) -> bool:
 
 def _describe_source(descriptor: dict) -> str:
     t = descriptor["type"]
-    if t == "seed":
-        return f"seed:{descriptor.get('file')}"
+    if t == "officialskills.sh":
+        return f"officialskills.sh:{descriptor.get('file')}"
     if t == "search":
-        return f"search:{descriptor.get('query')!r}"
+        return f"search:{descriptor.get('query')!r} ({descriptor.get('sort')})"
     if t == "manual":
         return f"manual:{descriptor.get('note')}"
     if t == "marketplace":
@@ -359,14 +501,23 @@ def _describe_source(descriptor: dict) -> str:
     return t
 
 
-def repo_pairs(registry: list[dict] | None = None) -> list[tuple[str, str]]:
+def repo_pairs(registry: list[dict] | None = None, source: str | None = None) -> list[tuple[str, str]]:
     """(owner, repo) pairs for clone_repos.py, in registry order.
 
     Does NOT filter out status=="skip" entries yet -- skip is currently
     informational only (see module docstring). When that's wired up, this
     is the function that should start excluding them.
+
+    `source`, if given, restricts to entries that have a descriptor of that
+    type in `sources` (e.g. source="skills.sh" to clone only repos surfaced
+    by the leaderboard, regardless of what other channels have also found
+    them since).
     """
     registry = registry if registry is not None else load_registry()
+    if source is not None:
+        if source not in VALID_SOURCES:
+            raise ValueError(f"source must be one of {VALID_SOURCES}, got {source!r}")
+        registry = [r for r in registry if source in source_types(r)]
     return [(r["owner"], r["repo"]) for r in registry]
 
 
@@ -383,7 +534,12 @@ def _cli():
     p_search.add_argument("--approve", action="append", required=True, dest="approved",
                            help="owner/repo to approve (repeatable)")
 
-    sub.add_parser("sync-seed", help="Additively pick up new repos from the awesome-list README")
+    sub.add_parser("sync-seed", help="Additively pick up new repos from every list in SEED_FILES")
+
+    sub.add_parser("seeds", help="List every vendored seed list and when its on-disk copy was last pulled (repo_seeds.json)")
+
+    p_seed_pulled = sub.add_parser("mark-seed-pulled", help="Stamp repo_seeds.json last_pulled=now for one seed list, after manually refreshing its vendored copy")
+    p_seed_pulled.add_argument("name", help="Seed name, e.g. officialskills.sh")
 
     p_skip = sub.add_parser("skip", help="Mark a repo status=skip with a required reason (inert today, see docstring)")
     p_skip.add_argument("owner_repo", help="owner/repo")
@@ -392,7 +548,7 @@ def _cli():
     p_unskip = sub.add_parser("unskip", help="Reset a repo back to status=active")
     p_unskip.add_argument("owner_repo", help="owner/repo")
 
-    sub.add_parser("mark-synced", help="Stamp last_synced=now on every repo present in repos/ (run by run_pipeline.sh)")
+    sub.add_parser("mark-synced", help="Stamp last_synced=now on every repo present in repos/ (run by archived/run_pipeline.sh)")
     sub.add_parser("unsynced", help="List active repos not synced today (never synced, or stale)")
 
     p_list = sub.add_parser("list", help="List registry entries")
@@ -401,6 +557,12 @@ def _cli():
 
     p_remove = sub.add_parser("remove", help="Hard-delete a repo from the registry (mistakes only -- use skip for quality judgments)")
     p_remove.add_argument("owner_repo", help="owner/repo")
+
+    p_skillsh = sub.add_parser("update-skillsh", help="Refresh skills.sh rank/skill_count/top_installs for one repo, independent of clone/index state")
+    p_skillsh.add_argument("owner_repo", help="owner/repo")
+    p_skillsh.add_argument("--rank", type=int)
+    p_skillsh.add_argument("--skill-count", type=int)
+    p_skillsh.add_argument("--top-installs", type=int)
 
     args = parser.parse_args()
 
@@ -418,10 +580,24 @@ def _cli():
     elif args.cmd == "sync-seed":
         new_repos, new_overlaps = sync_seeds()
         for entry in new_repos:
-            print(f"Added {entry['owner']}/{entry['repo']} (source=seed)")
+            print(f"Added {entry['owner']}/{entry['repo']} (source={'+'.join(source_types(entry))})")
         for entry in new_overlaps:
-            print(f"{entry['owner']}/{entry['repo']} already tracked -- also found in seed (now {'+'.join(source_types(entry))})")
+            print(f"{entry['owner']}/{entry['repo']} already tracked -- also found via a seed list (now {'+'.join(source_types(entry))})")
         print(f"{len(new_repos)} new repo(s), {len(new_overlaps)} newly-overlapping repo(s)", file=sys.stderr)
+
+    elif args.cmd == "seeds":
+        repo_seeds = load_repo_seeds()
+        known = {s["name"] for s in SEED_FILES}
+        tracked = {s["name"] for s in repo_seeds}
+        for s in repo_seeds:
+            print(f"{s['name']:<20} last_pulled={s.get('last_pulled', 'never')}  upstream={s.get('upstream_repo')}")
+        missing = known - tracked
+        if missing:
+            print(f"[warn] in SEED_FILES but missing from {REPO_SEEDS_FILE}: {sorted(missing)}", file=sys.stderr)
+
+    elif args.cmd == "mark-seed-pulled":
+        entry = mark_seed_pulled(args.name)
+        print(f"Marked {entry['name']} last_pulled={entry['last_pulled']}")
 
     elif args.cmd == "skip":
         owner, _, repo = args.owner_repo.partition("/")
@@ -470,6 +646,18 @@ def _cli():
         else:
             print(f"[error] {owner}/{repo} not found in registry", file=sys.stderr)
             sys.exit(1)
+
+    elif args.cmd == "update-skillsh":
+        owner, _, repo = args.owner_repo.partition("/")
+        try:
+            entry = update_skillsh(owner, repo, rank=args.rank, skill_count=args.skill_count,
+                                    top_installs=args.top_installs)
+        except ValueError as e:
+            print(f"[error] {e}", file=sys.stderr)
+            sys.exit(1)
+        descriptor = next(s for s in entry["sources"] if s["type"] == "skills.sh")
+        print(f"Updated {entry['owner']}/{entry['repo']} skills.sh: rank={descriptor.get('rank')} "
+              f"skill_count={descriptor.get('skill_count')} top_installs={descriptor.get('top_installs')}")
 
 
 if __name__ == "__main__":

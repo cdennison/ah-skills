@@ -17,7 +17,81 @@ However many sources list a repo, it's still cloned once and its skills
 indexed once — see [Pipeline](#pipeline) below for why that overlap is
 useful signal rather than noise to deduplicate away.
 
-Curate the registry with [`registry.py`](registry.py) (`add-manual`, `add-search`, `sync-seed`, `skip`/`unskip`, `list`, `remove`) — never hand-edit `registry.json`. See [Pipeline](#pipeline) below for the full repo-discovery → review → registry → clone flow, and [`DAILY_JOB.md`](DAILY_JOB.md) for the recurring maintenance workflow (reviewing/skipping repos, blacklisting individual skills, pulling in new repos, and rerunning the index).
+**Doing recurring maintenance? Start at [`DAILY_JOB.md`](DAILY_JOB.md)** —
+that's the actual day-to-day workflow (check what's unsynced, review/skip
+noisy repos, blacklist bad skills, pull in new repos, rerun the pipeline).
+[`RUN.sh`](RUN.sh) automates the "pull in new repos + rerun the pipeline"
+half of that workflow end to end; the registry-review/curation half is
+still a human judgment call and stays manual on purpose.
+
+Curate the registry with [`registry.py`](registry.py) (`add-manual`, `add-search`, `sync-seed`, `skip`/`unskip`, `list`, `remove`) — never hand-edit `registry.json`. See [Pipeline](#pipeline) below for the full repo-discovery → review → registry → clone flow, [`DAILY_JOB.md`](DAILY_JOB.md) for the recurring maintenance workflow (reviewing/skipping repos, blacklisting individual skills, pulling in new repos, and rerunning the index), and [`RANK_SYNC.md`](RANK_SYNC.md) for how popularity/ranking data (skills.sh leaderboard, GitHub search order) is captured and refreshed, independent of clone/index. See [Running things — full reference](#running-things--full-reference) below for every runnable script in this repo.
+
+## Running things — full reference
+
+Every runnable entry point in this repo, grouped by what it's for. Anything
+not listed here is a library module, not meant to be run directly.
+
+**Full pipeline runners:**
+
+| Script | When to use |
+|---|---|
+| [`RUN.sh`](RUN.sh) | **The full end-to-end entry point.** Repo discovery (`sync-seed`, `fetch_marketplace.py`, optional `--with-search`/`--with-leaderboard`) → `batch_pipeline.py` → `export_csv.py`, in one command. Also serves as a reference for how every discovery channel fits together — read its header comment even if you call the pieces individually. |
+| [`batch_pipeline.py`](batch_pipeline.py) | Just the clone → extract → index stage, for any size run, without the repo-discovery steps `RUN.sh` wraps around it. Clones in bounded batches, extracts each batch, deletes `repos/` via [`clean_repos.sh`](clean_repos.sh), repeats — so `repos/` never holds more than one batch's clones. See [step 4 below](#4-full-end-to-end-clone--extract--index--query). |
+
+`archived/run_pipeline.sh` — the original single-shot runner (clone
+*everything* in one pass, no batching) — is kept for reference only, not
+part of the regular workflow. It clones everything matching into `repos/`
+before extract/index ever run, which is exactly the disk-filling failure
+mode `batch_pipeline.py` exists to avoid.
+
+**`RUN.sh` intentionally never calls `pull_leaderboard.py`** (see its own
+manual-only note below) — that line is present in `RUN.sh` but commented
+out, kept as a reference for where it *would* go, not omitted by oversight.
+
+**Individual pipeline stages** (run standalone, or chained manually):
+
+| Script | Stage |
+|---|---|
+| [`clone_repos.py`](clone_repos.py) | registry.json → `repos/` (shallow git clones) |
+| [`extract_search_raw.py`](extract_search_raw.py) | `repos/` → `search-raw/` (pulls out `SKILL.md` files) |
+| [`index_qdrant.py`](index_qdrant.py) | `search-raw/` → `qdrant_db/` (embed + index; `--metadata-only` re-pushes payload without re-embedding) |
+| [`clean_repos.sh`](clean_repos.sh) | Deletes `repos/` only — guarded, pinned to that exact path |
+
+**Registry curation** (what feeds the pipeline — see [Curating the repo registry](#curating-the-repo-registry) and [`DAILY_JOB.md`](DAILY_JOB.md)):
+
+| Script | Purpose |
+|---|---|
+| [`registry.py`](registry.py) | CLI to add/skip/list/remove registry entries — the only way to touch `registry.json` |
+| [`refresh_seeds.py`](refresh_seeds.py) | Re-vendors every seed list (e.g. `officialskills.sh`) in `repo-seeds/repo_seeds.json` from its upstream repo. Run before `registry.py sync-seed` — sync-seed only scrapes the vendored copy already on disk, so a stale copy means new upstream repos stay invisible even though sync-seed exits `0`. See [`DAILY_JOB.md`](DAILY_JOB.md) step 3. |
+| [`build_registry.py`](build_registry.py) | One-time migration (already run) — not part of ongoing workflow |
+| [`fetch_marketplace.py`](fetch_marketplace.py) | Pulls Anthropic's official Claude plugin marketplace listing, additive |
+| [`search_github.py`](search_github.py) | GitHub Search API → review queue (`repo-seeds/github_search_results.json`), needs human approval via `registry.py add-search` |
+| [`blacklist.py`](blacklist.py) | Exclude individual `SKILL.md` files (not whole repos) — enforced, unlike registry `skip` |
+
+**Ranking/leaderboard data** (independent of clone/index — see [`RANK_SYNC.md`](RANK_SYNC.md)):
+
+| Script | Purpose |
+|---|---|
+| [`pull_leaderboard.py`](pull_leaderboard.py) | **Manual-only, never automate.** Downloads a fresh `skills.sh` leaderboard snapshot into `leaderboard-raw/`; needs a hand-refreshed `VERCEL_OIDC_TOKEN` |
+| [`add_skillsh_leaderboard.py`](add_skillsh_leaderboard.py) | Upserts rank/skill_count/top_installs from the already-pulled snapshot into `registry.json` |
+| [`leaderboard.py`](leaderboard.py) | Quick top-20 all-time leaderboard fetch, standalone |
+
+**Query / serving:**
+
+| Script | Purpose |
+|---|---|
+| [`query.py`](query.py) | CLI hybrid search over `qdrant_db/` |
+| [`app/streamlit_app.py`](app/README.md) | Web UI, same search backend |
+
+**Utilities:**
+
+| Script | Purpose |
+|---|---|
+| [`stats.py`](stats.py) | Registry sync status + `search-raw`/Qdrant/CSV counts, all in one report — run any time as a sanity check |
+| [`export_csv.py`](export_csv.py) | Dumps the indexed Qdrant collection to `skills_export.csv` |
+| [`skills_map.py`](skills_map.py) | Maintains `repo-seeds/skills.json` (skill name → every repo it's found in) |
+| [`frontmatter.py`](frontmatter.py) | Shared YAML frontmatter parser (library, not run directly) |
+| [`make_data_zip.sh`](make_data_zip.sh) | Bundles generated data into `search_demo_data.zip` for a GitHub Release (maintainers) |
 
 ## Recreating this setup from scratch (quickstart)
 
@@ -118,72 +192,44 @@ python3 extract_search_raw.py
 .venv/bin/python query.py "excel spreadsheets"
 ```
 
+**For any large run (the full registry, or hundreds of repos at once), use
+`batch_pipeline.py` instead of calling `clone_repos.py` directly.** A plain
+`clone_repos.py` clones the *entire* matching set into `repos/` before
+`extract_search_raw.py` ever runs, so `repos/` (full git clones, not just
+the `SKILL.md` files that actually matter) grows unbounded for the whole
+run — this is what filled the disk previously. `batch_pipeline.py` clones a
+bounded batch, extracts it into `search-raw/`, deletes `repos/` via
+`clean_repos.sh`, and repeats — so `repos/` never holds more than one
+batch's worth of clones regardless of total registry size:
+
+```bash
+python3 batch_pipeline.py --batch-size 100 --only-unsynced --stats
+```
+
+- `--batch-size N` — repos cloned per batch before `repos/` gets wiped
+  (default 100).
+- `--only-unsynced` — skip repos already synced today
+  (`registry.unsynced_today()`), so a same-day rerun doesn't re-walk repos
+  it already processed.
+- `--stats` — append a timestamped snapshot (`stats.py`'s output) to
+  `stats.log` after every batch, so you can watch the counts climb. Best
+  paired with a small `--batch-size` (e.g. `2`) when debugging.
+
+See [`clean_repos.sh`](clean_repos.sh) (a guarded, dedicated script for
+deleting `repos/` — pinned to that exact path so it can't be pointed
+anywhere else) and [`batch_pipeline.py`](batch_pipeline.py) for the full
+option list.
+
 ## Architecture
 
-Rendered: [`docs/architecture.jpg`](docs/architecture.jpg) · Source: [`docs/architecture.mmd`](docs/architecture.mmd) · Keeping them in sync: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+Source: [`docs/architecture.mmd`](docs/architecture.mmd) · Keeping them in sync: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 
-```mermaid
-flowchart LR
-    subgraph inputs ["Repo discovery"]
-        awesome["awesome-agent-skills/README.md\n(upstream awesome-list)"]
-        search["search_github.py\nGitHub Search API"]
-        manualEntry["hand-picked repo\n+ reason"]
-        marketplace["fetch_marketplace.py\nanthropic claude-plugins-official\nmarketplace.json"]
-    end
+![Architecture diagram](docs/architecture.jpg)
 
-    subgraph review ["Human review"]
-        queue["github_search_results.json\nreview queue, never read by pipeline"]
-        human([you: approve/reject])
-    end
-
-    registryPy["registry.py\n(add-manual / add-search CLI)"]
-    registry[("repo-seeds/registry.json\nsingle source of truth, ONE row per repo\nsources: [] -- overlap across channels\nis tracked, not deduped away")]
-
-    subgraph env [.env]
-        pat[GITHUB_PAT]
-    end
-
-    runner["run_pipeline.sh\n(cron/launchd, safe to run several times/day --\nclone's own 24h per-repo skip + incremental index)"]
-    clone[clone_repos.py]
-    repos[(repos/)]
-    extract[extract_search_raw.py]
-    raw[(search-raw/)]
-    index["index_qdrant.py\n(incremental: hash-diff, only embeds new/changed)"]
-    db[(qdrant_db/)]
-
-    subgraph consumers [Query]
-        query[query.py — CLI]
-        app[app/streamlit_app.py — web UI]
-    end
-
-    user([you])
-
-    awesome -- "build_registry.py (one-time migration)\nregistry.py sync-seed\n(adds a 'seed' descriptor -- even to a\nrepo already tracked via another channel)" --> registry
-    search -- "ranked candidates" --> queue
-    queue --> human
-    human -- "registry.py add-search --approve owner/repo" --> registryPy
-    manualEntry -- "registry.py add-manual owner/repo reason" --> registryPy
-    marketplace -- "no review needed\nadds a 'marketplace' descriptor" --> registry
-    registryPy -- "adds a 'search'/'manual' descriptor" --> registry
-
-    runner -- "invokes in order" --> marketplace
-    runner -- "invokes in order" --> clone
-    runner -- "invokes in order" --> extract
-    runner -- "invokes in order" --> index
-    registry -- "owner/repo pairs, deduped 1:1\n(clone once regardless of source count)" --> clone
-    pat -.auth.-> clone
-    clone -- "git clone --depth 1, skip if cloned <24h ago" --> repos
-    repos -- "find SKILL.md\n(one point per file, regardless of\nhow many registry sources found the repo)" --> extract
-    extract --> raw
-    raw -- "diff by content hash, embed only changed (dense + BM25)" --> index
-    index --> db
-    db --> query
-    db --> app
-    user -- "search text" --> query
-    user -- "search text" --> app
-    query -- "ranked SKILL.md hits" --> user
-    app -- "ranked SKILL.md hits" --> user
-```
+(Rendered from `docs/architecture.mmd`, the actual source of truth — kept as
+one diagram, not duplicated inline here, so there's only one place to update
+when a script/directory changes. See `docs/ARCHITECTURE.md` for how to
+regenerate the image after editing the `.mmd`.)
 
 Repo discovery is now decoupled from cloning: `registry.json` is the single
 source of truth `clone_repos.py` reads — **one row per repo**, never one row
@@ -196,7 +242,7 @@ three independent sources agree on is a useful signal, and `registry.py
 list` / `./registry.py list --source X` can always tell you every channel
 that ever surfaced a given repo. Each source descriptor's `type` is one of:
 
-- `seed` — the vendored awesome-list, migrated in once by
+- `officialskills.sh` — the vendored awesome-list, migrated in once by
   `build_registry.py`, additively resynced by `registry.py sync-seed`
 - `search` — found by `search_github.py`, approved by a human, keeps the
   query/sort/`--exact` used
@@ -204,6 +250,9 @@ that ever surfaced a given repo. Each source descriptor's `type` is one of:
 - `marketplace` — found by `fetch_marketplace.py` in Anthropic's official
   Claude plugin marketplace listing, added without review since it's a
   curated Anthropic source
+- `skills.sh` — found by `add_skillsh_leaderboard.py` in a `skills.sh`
+  leaderboard snapshot, added without review; also carries `rank`,
+  `skill_count`, `top_installs` (see [`RANK_SYNC.md`](RANK_SYNC.md))
 
 Nothing gets into the registry without going through `registry.py`, so
 provenance is always recorded — see [Curating the repo
@@ -438,6 +487,61 @@ found, cloning proceeds unauthenticated with a warning.
 
 **`.env` contains a secret — do not commit it.**
 
+### skills.sh leaderboard (Vercel OIDC token)
+
+Pulling the skills.sh leaderboard (`pull_leaderboard.py`) requires a
+`VERCEL_OIDC_TOKEN` entry in `.env`, used to authenticate against the
+`skills.sh` API. This is a Vercel-project-scoped OIDC token, not a personal
+API key, so it's pulled from whichever repo has the Vercel project linked
+(`vercel env pull`), not generated here.
+
+**Updating `VERCEL_OIDC_TOKEN` in this repo's `.env`:**
+
+Run this from the *other* repo — the one with the Vercel project linked:
+
+```bash
+vercel env pull
+TOKEN_LINE=$(grep '^VERCEL_OIDC_TOKEN=' .env.local)
+ENV_FILE=/Users/c/code/ah-skills/search-demo/.env
+if grep -q '^VERCEL_OIDC_TOKEN=' "$ENV_FILE"; then
+  sed -i.bak "s|^VERCEL_OIDC_TOKEN=.*|$TOKEN_LINE|" "$ENV_FILE" && rm "$ENV_FILE.bak"
+else
+  echo "$TOKEN_LINE" >> "$ENV_FILE"
+fi
+echo "updated VERCEL_OIDC_TOKEN in $ENV_FILE"
+```
+
+This only replaces the `VERCEL_OIDC_TOKEN=` line (or appends it if missing)
+— every other line in `.env`, like `GITHUB_PAT`, is left untouched. Don't
+use a plain `cp .env.local .env` or similar — that clobbers the whole file
+and silently deletes any other secrets already in `.env`.
+
+**Pulling the leaderboard:**
+
+`pull_leaderboard.py` is **manual-only and must never be run by
+automation** — not `batch_pipeline.py`, not `archived/run_pipeline.sh`, not
+a cron job, not any other script in this repo. It requires a `VERCEL_OIDC_TOKEN` pulled by hand from the
+Vercel project repo (see above), which expires and can't be refreshed by a
+scheduled job on its own. Run it yourself, at the terminal, only when you
+deliberately want a fresh leaderboard snapshot.
+
+```bash
+python3 pull_leaderboard.py 1000
+```
+
+Paginates through the leaderboard 500 entries at a time (skills.sh's max
+page size) with a 1s sleep between pages to avoid rate limiting. Saves each
+raw page as `leaderboard-raw/page-N.json` plus a combined
+`leaderboard-raw/combined.json`. Pass a different total as the first
+argument (e.g. `python3 pull_leaderboard.py 200`), or `--out DIR` to change
+the output directory.
+
+Everything downstream of the raw pull — `add_skillsh_leaderboard.py`,
+`clone_repos.py`, `extract_search_raw.py`, `index_qdrant.py` — reads the
+already-saved `leaderboard-raw/combined.json` from disk. None of them
+re-pull from skills.sh, so they're safe to wire into automation even though
+the pull step itself never should be.
+
 ## Directories
 
 - `repo-seeds/` — **git-tracked** input that drives everything else; nothing
@@ -451,8 +555,9 @@ found, cloning proceeds unauthenticated with a warning.
     channel gets more than one descriptor — that overlap is tracked, not
     collapsed to a single "source." Also carries a `status: active | skip`
     (skip is currently schema-only/inert, see [`DAILY_JOB.md`](DAILY_JOB.md)),
-    a `last_synced` timestamp (cloned + through RAG, stamped by `registry.py
-    mark-synced`, the last step of `run_pipeline.sh`), and — only on failure
+    a `last_synced` timestamp (cloned + through RAG, stamped per-batch by
+    `batch_pipeline.py`, or by `registry.py mark-synced` — the last step of
+    legacy `archived/run_pipeline.sh`), and — only on failure
     — `last_sync_failure`/`last_sync_failure_reason`. Run `./registry.py
     unsynced` to see what hasn't synced today. Curate only via
     `registry.py` — see [Curating the repo

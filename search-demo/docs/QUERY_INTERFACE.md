@@ -29,8 +29,30 @@ Every point's payload is a flat dict with these fields, set in
 | `skill_url` | `https://github.com/{owner}/{repo}/blob/HEAD/{subpath}` | direct link to the `SKILL.md` (or extra README) on GitHub; `blob/HEAD` resolves to whichever branch is currently default, so it survives a `main`/`master` rename |
 | `name` | frontmatter `name:`, falls back to the parent directory name | short slug/title |
 | `description` | frontmatter `description:` | **plain-text only** (see below), empty string if the file has no description |
+| `sources` | `registry.source_types()` for this skill's `owner/repo` in `repo-seeds/registry.json` | sorted list of discovery channels (`seed`/`search`/`manual`/`marketplace`) that surfaced the repo; empty list if the repo isn't in the registry (shouldn't normally happen) — see the caveat below |
 | `content` | full raw file text, frontmatter included | used for embedding + full-text display/preview |
 | `content_hash` | `sha1(content)` hex digest | lets `index_qdrant.py` detect unchanged files and skip re-embedding them |
+
+### `sources` staleness caveat
+
+`content_hash` only hashes the `SKILL.md` text, so it does **not** change
+when a repo gains a new registry source between runs (e.g. a repo already
+found via `seed` later also turns up in `fetch_marketplace.py`).
+`index_qdrant.py`'s incremental hash-diff will treat that point as
+unchanged and skip re-uploading it, so its `sources` payload can go stale
+until the next **full rebuild**. Re-run `index_qdrant.py` against a fresh
+`qdrant_db/` (see the synchronization workflow below) after any registry
+sync (`fetch_marketplace.py`, `registry.py sync-seed`, `add-search`,
+`add-manual`) if you need `sources` to reflect the latest registry state
+immediately, rather than waiting for unrelated content changes to trigger
+a re-embed.
+
+This same repo-level provenance also feeds `repo-seeds/skills.json`
+(`skills_map.py`), which maps each skill *name* to every repo it was found
+in plus that repo's sources — useful for spotting the same skill vendored
+into multiple repos. It is refreshed by `clone_repos.py` on every run,
+independently of the Qdrant index, so it doesn't share this staleness
+issue.
 
 ### `description` parsing caveat
 
@@ -99,6 +121,7 @@ for hit in results.points:
     hit.payload["skill_url"]
     hit.payload["name"]
     hit.payload["description"]
+    hit.payload["sources"]
     hit.payload["content"]
 ```
 
@@ -265,6 +288,12 @@ sync these open items:
 - [x] Rebuild `qdrant_db/` after the parser/payload/URL changes. Verified on
       2026-08-01: the local collection contains 15,813 points and sampled
       payloads include all ten fields documented above.
+- [x] Add `sources` (registry discovery channels) to `index_qdrant.py`'s
+      payload, `app/search.py`'s `SkillPayload`/`SearchResult`, and render
+      it as a "Discovered via" column in `app/streamlit_app.py`. 2026-08-03.
+- [ ] `qdrant_db/` needs a **full rebuild** to backfill `sources` on
+      existing points (see the staleness caveat above) — not yet run in
+      this environment.
 
 ## Reference implementation
 

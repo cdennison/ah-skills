@@ -33,6 +33,11 @@ class SkillPayload(BaseModel):
     repo: str
     name: str
     description: str = ""
+    sources: tuple[str, ...] = ()
+    stars: int | None = None
+    duplicate_count: int = 1
+    name_collision_count: int = 0
+    name_shared_with: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -44,6 +49,11 @@ class SearchResult:
     security_scan: SecurityStatus
     description: str
     path: str
+    sources: tuple[str, ...]
+    stars: int | None
+    duplicate_count: int
+    name_collision_count: int
+    name_shared_with: tuple[str, ...]
 
 
 StatusPicker = Callable[[tuple[SecurityStatus, ...]], SecurityStatus]
@@ -64,6 +74,11 @@ def build_search_result(
         security_scan=security_scan,
         description=payload.description,
         path=payload.path,
+        sources=payload.sources,
+        stars=payload.stars,
+        duplicate_count=payload.duplicate_count,
+        name_collision_count=payload.name_collision_count,
+        name_shared_with=payload.name_shared_with,
     )
 
 

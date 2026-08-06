@@ -35,7 +35,7 @@ def seed_entries():
         yield {
             "owner": owner,
             "repo": repo,
-            "source": "seed",
+            "source": "officialskills.sh",
             "file": "awesome-agent-skills/README.md",
         }
 
@@ -87,10 +87,10 @@ def main():
 
     registry = load_registry()
 
-    counts = {"seed": 0, "manual": 0, "search": 0}
+    counts = {"officialskills.sh": 0, "manual": 0, "search": 0}
     for entry in seed_entries():
         upsert(registry, entry)
-        counts["seed"] += 1
+        counts["officialskills.sh"] += 1
     for entry in manual_search_entries():
         upsert(registry, entry)
         counts["search"] += 1

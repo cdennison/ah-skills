@@ -6,6 +6,7 @@ pipeline -- see registry.py for how entries get added/curated (seed, search,
 or manual, each with its own provenance detail).
 """
 
+import argparse
 import base64
 import json
 import os
@@ -17,14 +18,16 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-from registry import mark_sync_failure, repo_pairs
+import registry as registry_module
+import skills_map
+from registry import mark_sync_failure, repo_pairs, set_stars
 
 DEST_DIR = Path(__file__).parent / "repos"
 ENV_FILE = Path(__file__).parent / ".env"
 STATE_FILE = Path(__file__).parent / ".clone_state.json"
 
 MIN_DELAY_SECONDS = 5  # floor pause between clones even when rate limit is healthy
-RECLONE_COOLDOWN_SECONDS = 24 * 60 * 60  # don't re-clone a repo within a day
+RECLONE_COOLDOWN_SECONDS = 30 * 24 * 60 * 60  # don't re-clone a repo within a month
 RATE_LIMIT_SAFETY_MARGIN = 5  # stop and wait when this few requests remain
 # Extra flat pause after every successful clone, on top of the rate-limit
 # pacing above -- stay conservative with GitHub even when the API says we
@@ -114,13 +117,29 @@ def check_rate_limit():
     return max(MIN_DELAY_SECONDS, pace)
 
 
+def get_star_count(owner, repo):
+    """Query GitHub's repo API for stargazers_count. Returns None on failure."""
+    req = urllib.request.Request(f"https://api.github.com/repos/{owner}/{repo}")
+    req.add_header("Accept", "application/vnd.github+json")
+    if GITHUB_PAT:
+        req.add_header("Authorization", f"Bearer {GITHUB_PAT}")
+
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read())
+    except (urllib.error.URLError, urllib.error.HTTPError) as e:
+        print(f"[warn] could not fetch star count for {owner}/{repo}: {e}")
+        return None
+    return data.get("stargazers_count")
+
+
 def clone_repo(owner, repo, state):
     """Returns "skipped", "cloned", or "error" -- callers use this to decide
     whether the rate-limit pacing delay is actually needed."""
     dest = DEST_DIR / owner / repo
 
     if recently_cloned(state, owner, repo):
-        print(f"[skip] {owner}/{repo} cloned within the last 24h")
+        print(f"[skip] {owner}/{repo} cloned within the last 30 days")
         return "skipped"
 
     if dest.exists():
@@ -130,7 +149,11 @@ def clone_repo(owner, repo, state):
 
     dest.parent.mkdir(parents=True, exist_ok=True)
     url = f"https://github.com/{owner}/{repo}.git"
-    print(f"[clone] {url} -> {dest}")
+    stars = get_star_count(owner, repo)
+    stars_label = f"{stars} stars" if stars is not None else "stars unknown"
+    print(f"[clone] {url} ({stars_label}) -> {dest}")
+    if stars is not None:
+        set_stars(owner, repo, stars)
 
     cmd = ["git", "clone", "--depth", "1"]
     if GITHUB_PAT:
@@ -164,39 +187,115 @@ def parse_single_url(arg):
     return owner, repo.rstrip(".").removesuffix(".git")
 
 
+def _build_arg_parser():
+    parser = argparse.ArgumentParser(
+        description="Clone repos listed in repo-seeds/registry.json, slowly.",
+    )
+    parser.add_argument(
+        "url_or_limit",
+        nargs="?",
+        help="Either a one-off GitHub repo URL to clone directly, or a numeric limit "
+        "(clone only the first N repos in registry order). Omit to clone everything.",
+    )
+    parser.add_argument(
+        "--offset",
+        type=int,
+        default=0,
+        help="Skip this many repos at the start of registry order before applying the "
+        "limit, e.g. --offset 100 url_or_limit=100 clones repos 100-199. Used to work "
+        "through the registry in fixed-size batches under a disk-space budget.",
+    )
+    parser.add_argument(
+        "--source",
+        metavar="TYPE",
+        help="Only clone repos that have a descriptor of this source type in the registry "
+        f"(one of {sorted(registry_module.VALID_SOURCES)}), e.g. --source skills.sh to "
+        "clone only repos surfaced by the leaderboard.",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Shorthand for a small limit (2 repos) to sanity-check the end-to-end pipeline "
+        "without a long clone run. Combine with --source to debug a specific channel, e.g. "
+        "--source skills.sh --debug. Overridden by an explicit url_or_limit if both are given.",
+    )
+    parser.add_argument(
+        "--only-unsynced",
+        action="store_true",
+        help="Filter to registry entries whose last_synced isn't from today (never synced, "
+        "or stale), per registry.unsynced_today(). Skips already-synced-today repos by "
+        "content instead of registry position -- unlike --offset, this works even when "
+        "synced and unsynced repos are interleaved in registry order.",
+    )
+    return parser
+
+
 def main():
     if not GITHUB_PAT:
         print(f"[warn] no GITHUB_PAT found in {ENV_FILE} or environment; cloning unauthenticated (lower rate limit)")
 
     state = load_state()
 
-    if len(sys.argv) > 1 and not sys.argv[1].isdigit():
+    args = _build_arg_parser().parse_args()
+
+    if args.url_or_limit and not args.url_or_limit.isdigit():
         # one-off link mode: python3 clone_repos.py https://github.com/owner/repo
-        single = parse_single_url(sys.argv[1])
+        single = parse_single_url(args.url_or_limit)
         if not single:
-            print(f"[error] not a valid GitHub repo URL: {sys.argv[1]}")
+            print(f"[error] not a valid GitHub repo URL: {args.url_or_limit}")
             sys.exit(1)
-        clone_repo(*single, state)
+        result = clone_repo(*single, state)
         save_state(state)
+        if result != "error":
+            skills_map.update_repo(*single)
         return
 
-    repos = repo_pairs()
-    print(f"Found {len(repos)} repos in repo-seeds/registry.json")
+    if args.only_unsynced:
+        unsynced = registry_module.unsynced_today()
+        unsynced_keys = {(r["owner"], r["repo"]) for r in unsynced}
+        repos = [pair for pair in repo_pairs(source=args.source) if pair in unsynced_keys]
+        source_label = f" with source={args.source!r}" if args.source else ""
+        print(f"Found {len(repos)} unsynced-today repos in repo-seeds/registry.json{source_label}")
+    else:
+        repos = repo_pairs(source=args.source)
+        source_label = f" with source={args.source!r}" if args.source else ""
+        print(f"Found {len(repos)} repos in repo-seeds/registry.json{source_label}")
+
+    if args.offset:
+        repos = repos[args.offset:]
+        print(f"[offset] skipping first {args.offset} repos -- {len(repos)} remaining")
 
     limit = None
-    if len(sys.argv) > 1:
-        limit = int(sys.argv[1])
+    if args.url_or_limit:
+        limit = int(args.url_or_limit)
+    elif args.debug:
+        limit = 2
+        print("[debug] limiting to first 2 repos")
+    if limit is not None:
         repos = repos[:limit]
 
+    counts = {"cloned": 0, "skipped": 0, "error": 0}
     for i, (owner, repo) in enumerate(repos):
         result = clone_repo(owner, repo, state)
+        counts[result] += 1
         save_state(state)
+        # Refresh repo-seeds/skills.json every run regardless of clone
+        # outcome (cloned or skipped-as-already-present) -- registry.json's
+        # sources for this repo can change between runs even when its
+        # content on disk doesn't.
+        if result != "error":
+            skills_map.update_repo(owner, repo)
         # Only pace against the rate limit when a clone actually happened --
         # skips (already-cloned repos) don't touch the GitHub API.
         if result == "cloned" and i < len(repos) - 1:
             time.sleep(POST_CLONE_DELAY_SECONDS)
             delay = check_rate_limit()
             time.sleep(delay)
+
+    print(
+        f"Done: {counts['cloned']} cloned, {counts['skipped']} skipped, "
+        f"{counts['error']} errors (of {len(repos)} total)"
+    )
 
 
 if __name__ == "__main__":

@@ -1,0 +1,8 @@
+[
+  {
+    "name": "officialskills.sh",
+    "upstream_repo": "https://github.com/VoltAgent/awesome-agent-skills",
+    "vendored_path": "repo-seeds/awesome-agent-skills",
+    "last_pulled": "2026-08-04T21:39:27-04:00"
+  }
+]

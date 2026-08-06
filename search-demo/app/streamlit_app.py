@@ -9,21 +9,34 @@ class ResultRow(TypedDict):
     Rank: int
     Skill: str
     Repository: str
+    Stars: int | None
     Match: float
     Security_Scan: str
     Description: str
     Path: str
+    Sources: str
+    Also_In: str
+    Name_Collision: str
 
 
 def to_result_row(result: SearchResult) -> ResultRow:
+    extra_copies = result.duplicate_count - 1
     return ResultRow(
         Rank=result.rank,
         Skill=result.name,
         Repository=result.repository,
+        Stars=result.stars,
         Match=result.score,
         Security_Scan=result.security_scan.value,
         Description=result.description,
         Path=result.path,
+        Sources=", ".join(result.sources) if result.sources else "—",
+        Also_In=f"+{extra_copies} more repo{'s' if extra_copies != 1 else ''}" if extra_copies > 0 else "—",
+        Name_Collision=(
+            f"{result.name_collision_count} other repo{'s' if result.name_collision_count != 1 else ''} use this name"
+            if result.name_collision_count > 0
+            else "—"
+        ),
     )
 
 
@@ -82,19 +95,27 @@ def render_app() -> None:
             "Rank",
             "Skill",
             "Repository",
+            "Stars",
             "Match",
             "Security_Scan",
             "Description",
             "Path",
+            "Sources",
+            "Also_In",
+            "Name_Collision",
         ),
         column_config={
             "Rank": st.column_config.NumberColumn("#", width="small", format="%d"),
             "Skill": st.column_config.TextColumn("Skill", width="medium"),
             "Repository": st.column_config.TextColumn("Repository", width="small"),
+            "Stars": st.column_config.NumberColumn("★ Stars", width="small", format="%d"),
             "Match": st.column_config.NumberColumn("Match", width="small", format="%.3f"),
             "Security_Scan": st.column_config.TextColumn("Security Scan", width="medium"),
             "Description": st.column_config.TextColumn("Description", width="large"),
             "Path": st.column_config.TextColumn("Source path", width="large"),
+            "Sources": st.column_config.TextColumn("Discovered via", width="medium"),
+            "Also_In": st.column_config.TextColumn("Duplicate of", width="small"),
+            "Name_Collision": st.column_config.TextColumn("Name also used by", width="medium"),
         },
     )
 

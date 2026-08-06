@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Extract SKILL.md files (per the agentskills.io spec) from cloned repos into /search-raw.
 
-We only care about actual skill definitions (SKILL.md), not general repo READMEs.
-Some repos document their skills collection in a top-level README that sits one
-level above the skills/ directory rather than inside each skill folder — those
-are called out explicitly in EXTRA_README_REPOS below.
+For every SKILL.md we also look for a README.md that documents it, either
+sitting in the same directory or one directory up (e.g. a skills collection's
+top-level README). When found, it's extracted alongside the SKILL.md's
+destination directory -- flattened to that dir even if it originally lived a
+level up -- so each skill folder in /search-raw carries both files together.
 """
 
 import shutil
@@ -18,26 +19,35 @@ DEST_DIR = Path(__file__).parent / "search-raw"
 # Match SKILL.md (any casing), skip anything under .git
 TARGET_NAMES = {"skill.md"}
 
-# owner/repo pairs whose top-level README (one level up from skills/) should
-# also be indexed, since it documents the skills collection itself.
-EXTRA_README_REPOS = {
-    ("google-gemini", "gemini-skills"),
-}
+
+def find_readme(skill_path):
+    """Look for a README.md next to skill_path, then one directory up."""
+    for candidate_dir in (skill_path.parent, skill_path.parent.parent):
+        for readme_name in ("README.md", "readme.md", "Readme.md"):
+            readme = candidate_dir / readme_name
+            if readme.exists():
+                return readme
+    return None
 
 
 def find_target_files():
-    """Yield (path, is_skill) pairs. is_skill=False marks the extra top-level
-    READMEs, which are indexed for search but don't represent a single skill."""
+    """Yield (src, dest_rel, is_skill) triples. dest_rel is the path relative
+    to REPOS_DIR that the file should be extracted under -- for READMEs found
+    one directory up from their SKILL.md, this flattens them into the skill's
+    own directory so both files land together in /search-raw."""
     for path in REPOS_DIR.rglob("*.md"):
         if ".git" in path.parts:
             continue
-        if path.name.lower() in TARGET_NAMES:
-            yield path, True
+        if path.name.lower() not in TARGET_NAMES:
+            continue
 
-    for owner, repo in EXTRA_README_REPOS:
-        readme = REPOS_DIR / owner / repo / "README.md"
-        if readme.exists():
-            yield readme, False
+        rel = path.relative_to(REPOS_DIR)
+        yield path, rel, True
+
+        readme = find_readme(path)
+        if readme is not None:
+            readme_rel = rel.parent / readme.name
+            yield readme, readme_rel, False
 
 
 def main():
@@ -47,13 +57,13 @@ def main():
     skill_count = 0
     readme_count = 0
     blacklisted_count = 0
+    broken_count = 0
     repos = set()
     total_chars = 0
     total_lines = 0
     total_bytes = 0
 
-    for src, is_skill in find_target_files():
-        rel = src.relative_to(REPOS_DIR)
+    for src, rel, is_skill in find_target_files():
         if str(rel) in blacklisted:
             blacklisted_count += 1
             stale_dest = DEST_DIR / rel
@@ -61,6 +71,18 @@ def main():
                 # Was extracted before being blacklisted -- remove so index_qdrant.py's
                 # hash-diff sees it as gone and drops it from Qdrant on the next run.
                 stale_dest.unlink()
+            continue
+
+        if not src.exists():
+            # Broken symlink upstream (target missing in the source repo itself).
+            broken_count += 1
+            print(f"[warn] broken symlink, skipping: {rel}")
+            continue
+
+        if src.is_dir():
+            # Some repos have a SKILL.md/README.md *directory* rather than a
+            # file (e.g. a docs route folder) -- not a real skill file.
+            print(f"[warn] {rel} is a directory, not a file, skipping")
             continue
 
         dest = DEST_DIR / rel
@@ -84,6 +106,7 @@ def main():
     print(f"Skills:          {skill_count:,}")
     print(f"Extra READMEs:   {readme_count:,}")
     print(f"Blacklisted:     {blacklisted_count:,}")
+    print(f"Broken symlinks: {broken_count:,}")
     print(f"Total files:     {total_files:,}")
     print(f"Repos covered:   {len(repos):,}")
     print(f"Total lines:     {total_lines:,}")

@@ -3,6 +3,7 @@
 repos/
 search-raw/
 qdrant_db/
+docker/qdrant_storage/
 .clone_state.json
 __pycache__/
 *.pyc

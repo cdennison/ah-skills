@@ -189,7 +189,8 @@ rebuild rather than relying on the incremental path.
 1. **Stop every process using `qdrant_db/`.** Local embedded Qdrant takes an
    exclusive path lock. Stop Streamlit before indexing or rebuilding; do not
    run `query.py` concurrently with the app. If concurrent independent
-   processes become a requirement, run Qdrant as a server instead of local mode.
+   processes become a requirement, run Qdrant as a server instead of local
+   mode — see `docker/docker-compose.qdrant.yml`.
 2. **Update the contract and producer together.** Change `index_qdrant.py` and
    the collection/payload/query sections in this document in the same review.
 3. **Update all consumers.** Keep `query.py`, the frontend query adapter,

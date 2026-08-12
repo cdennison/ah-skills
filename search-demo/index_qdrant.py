@@ -80,9 +80,17 @@ from qdrant_client import QdrantClient, models
 from tqdm import tqdm
 
 import registry
+from agent_target import classify_agent_target, classify_from_metadata
 from frontmatter import parse_frontmatter
 
 SEARCH_RAW_DIR = Path(__file__).parent / "search-raw"
+# clone_repos.py's clone destination -- when a repo's local checkout is
+# still present here, classify_agent_target() can see plugin manifests
+# (.<agent>-plugin/plugin.json) and per-skill agents/<agent>.yaml sidecars,
+# both invisible to the path/text-only classify_from_metadata() fallback
+# used when a repo isn't (or is no longer) cloned to disk. See
+# agent_target.py's module docstring and UNFINISHED_TASKS.md.
+REPOS_DIR = Path(__file__).parent / "repos"
 DB_PATH = Path(__file__).parent / "qdrant_db"
 COLLECTION = "agent_skills"
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
@@ -167,6 +175,28 @@ _RANKING_EXCLUDE_KEYS = {
 
 def _slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", text.lower()).strip("_")
+
+
+# Locale-code shape (e.g. "es", "tr", "ja-JP", "zh-CN") -- deliberately just
+# a shape check, not a hardcoded list of the locales seen so far, so a new
+# translation directory this repo hasn't been indexed with yet still gets
+# picked up.
+_LOCALE_TOKEN_RE = re.compile(r"^[a-z]{2}(-[a-z]{2})?$", re.IGNORECASE)
+
+
+def _content_language(rel_path: str) -> str:
+    """Spoken/content language of a SKILL.md, parsed from the
+    `docs/<locale>/skills/...` translation-mirror path convention some repos
+    use (e.g. `affaan-m/ECC`'s `docs/ja-JP/skills/...`, `docs/zh-CN/skills/...`
+    -- see UNFINISHED_TASKS.md) -- NOT GitHub's per-repo programming-language
+    field. Defaults to "en" (the untranslated original) when no
+    `docs/<locale>/skills/` segment is present, or the segment there doesn't
+    look like a locale code (e.g. `docs/internal/efforts/.../skills/...`)."""
+    parts = rel_path.split("/")
+    for i in range(len(parts) - 2):
+        if parts[i] == "docs" and parts[i + 2] == "skills" and _LOCALE_TOKEN_RE.match(parts[i + 1]):
+            return parts[i + 1]
+    return "en"
 
 
 def _ranking_string(registry_entry: dict | None) -> str:
@@ -293,15 +323,34 @@ def load_skills(skip_paths: set[str] | None = None):
         # source between runs picks it up on the next rebuild.
         sources = sorted(registry.source_types(registry_entry)) if registry_entry else []
         stars = registry_entry.get("stars") if registry_entry else None
+        language = _content_language(str(rel))
         ranking = _ranking_string(registry_entry)
         h = content_hash(text)
+
+        skill_name = meta.get("name", path.parent.name)
+        skill_description = meta.get("description", "")
+
+        # Prefer the filesystem-aware classifier (plugin manifests, per-skill
+        # agents/*.yaml sidecars) when this repo's clone is still on disk --
+        # strictly higher-confidence than the path/text-only fallback used
+        # when it isn't. See REPOS_DIR comment above and agent_target.py.
+        repo_skill_path = REPOS_DIR / owner / repo / subpath
+        if repo_skill_path.is_file():
+            classification = classify_agent_target(
+                str(repo_skill_path), name=skill_name, description=skill_description
+            )
+        else:
+            classification = classify_from_metadata(
+                path=str(rel), name=skill_name, description=skill_description, owner=owner, repo=repo
+            )
+        agent_compatibility = [t for t in classification["agent_targets"] if t != "unknown"]
 
         group = by_hash.setdefault(
             h,
             {
                 "content_hash": h,
-                "name": meta.get("name", path.parent.name),
-                "description": meta.get("description", ""),
+                "name": skill_name,
+                "description": skill_description,
                 "content": text,
                 "locations": [],
             },
@@ -318,6 +367,8 @@ def load_skills(skip_paths: set[str] | None = None):
                 "sources": sources,
                 "stars": stars,
                 "ranking": ranking,
+                "language": language,
+                "agent_compatibility": agent_compatibility,
             }
         )
 
@@ -344,6 +395,13 @@ def load_skills(skip_paths: set[str] | None = None):
                 "skill_url": primary["skill_url"],
                 "stars": primary["stars"],
                 "ranking": primary["ranking"],
+                "language": primary["language"],
+                # Union across every location's classify_agent_target()/
+                # classify_from_metadata() result -- see agent_target.py.
+                # Real rule-based signal (plugin manifests, agents/*.yaml
+                # sidecars, path conventions, name mentions), not a fabricated
+                # taxonomy; stays [] wherever nothing was detected.
+                "agent_compatibility": sorted({a for loc in locations for a in loc["agent_compatibility"]}),
                 # search_rank_<query_slug>_<sort_slug> top-level fields for
                 # native Qdrant filtering -- see _search_rank_fields().
                 **_search_rank_fields(primary_registry_entry),
@@ -415,10 +473,25 @@ def refresh_metadata(client: QdrantClient) -> int:
                 entry = registry_by_repo.get((loc["owner"].lower(), loc["repo"].lower()))
                 new_sources = sorted(registry.source_types(entry)) if entry else []
                 new_stars = entry.get("stars") if entry else None
+                # Path-derived, not registry-derived (see _content_language) --
+                # re-derived here too for consistency, though it's invariant
+                # unless the parsing rule itself changes.
+                new_language = _content_language(loc["path"])
                 new_ranking = _ranking_string(entry)
-                if new_sources != loc.get("sources") or new_stars != loc.get("stars") or new_ranking != loc.get("ranking"):
+                if (
+                    new_sources != loc.get("sources")
+                    or new_stars != loc.get("stars")
+                    or new_language != loc.get("language")
+                    or new_ranking != loc.get("ranking")
+                ):
                     changed = True
-                loc = {**loc, "sources": new_sources, "stars": new_stars, "ranking": new_ranking}
+                loc = {
+                    **loc,
+                    "sources": new_sources,
+                    "stars": new_stars,
+                    "language": new_language,
+                    "ranking": new_ranking,
+                }
                 new_locations.append(loc)
             if not new_locations:
                 continue
@@ -430,6 +503,7 @@ def refresh_metadata(client: QdrantClient) -> int:
                 "locations": new_locations,
                 "stars": primary["stars"],
                 "ranking": primary["ranking"],
+                "language": primary["language"],
                 "sources": all_sources,
                 **new_rank_fields,
             }
@@ -507,6 +581,8 @@ def prune_stale_locations(client, current: set[str]) -> tuple[int, int]:
                 "skill_url": primary["skill_url"],
                 "stars": primary["stars"],
                 "ranking": primary["ranking"],
+                "language": primary.get("language", ""),
+                "agent_compatibility": sorted({a for loc in kept for a in loc.get("agent_compatibility", [])}),
                 "sources": all_sources,
                 "duplicate_count": len(kept),
             }

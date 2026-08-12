@@ -32,6 +32,8 @@ Every point's payload is a flat dict with these fields, set in
 | `sources` | `registry.source_types()` for this skill's `owner/repo` in `repo-seeds/registry.json` | sorted list of discovery channels (`seed`/`search`/`manual`/`marketplace`) that surfaced the repo; empty list if the repo isn't in the registry (shouldn't normally happen) — see the caveat below |
 | `content` | full raw file text, frontmatter included | used for embedding + full-text display/preview |
 | `content_hash` | `sha1(content)` hex digest | lets `index_qdrant.py` detect unchanged files and skip re-embedding them |
+| `language` | `index_qdrant.py`'s `_content_language()`, parsed from a `docs/<locale>/skills/...` path segment (e.g. `docs/ja-JP/skills/...`, `docs/zh-CN/skills/...` -- the translation-mirror convention some repos use, see `affaan-m/ECC`) | **spoken/content language of the SKILL.md text**, not the source repo's programming language; `"en"` (the untranslated original) when no such path segment is present |
+| `agent_compatibility` | `agent_target.classify_agent_target()` (filesystem-aware: plugin manifests, `agents/*.yaml` sidecars — used when the repo's `repos/<owner>/<repo>` clone is on disk) or `agent_target.classify_from_metadata()` (path/text-only fallback otherwise), unioned across every `locations` entry | sorted list of agent runtimes/tools this skill declares or is inferred to target (e.g. `claude-code`, `cursor`, `codex`, `generic`); `[]` when nothing was detected — never fabricated, see `agent_target.py`'s module docstring for the signal tiers and confidence levels |
 
 ### `sources` staleness caveat
 

@@ -18,5 +18,8 @@ echo "  REST API: http://localhost:6333"
 echo "  gRPC:     localhost:6334"
 echo "  Dashboard: http://localhost:6333/dashboard"
 echo
+echo "Query service (read-only, for Next.js) is starting up."
+echo "  API:      http://localhost:8000/query (POST), /health, /openapi.json"
+echo
 echo "Logs:   docker compose -f docker-compose.qdrant.yml logs -f"
 echo "Stop:   docker compose -f docker-compose.qdrant.yml down"

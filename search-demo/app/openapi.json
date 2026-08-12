@@ -1,0 +1,355 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "agent-skills query service",
+    "description": "Read-only hybrid search over the agent_skills Qdrant collection.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "boolean"
+                  },
+                  "type": "object",
+                  "title": "Response Health Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query": {
+      "post": {
+        "summary": "Query",
+        "operationId": "query_query_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Hit": {
+        "properties": {
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "rank": {
+            "type": "integer",
+            "title": "Rank"
+          },
+          "path": {
+            "type": "string",
+            "title": "Path"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "owner": {
+            "type": "string",
+            "title": "Owner"
+          },
+          "repo": {
+            "type": "string",
+            "title": "Repo"
+          },
+          "repo_url": {
+            "type": "string",
+            "title": "Repo Url"
+          },
+          "skill_url": {
+            "type": "string",
+            "title": "Skill Url"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "stars": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stars"
+          },
+          "ranking": {
+            "type": "string",
+            "title": "Ranking"
+          },
+          "search_rank": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Search Rank"
+          },
+          "duplicate_count": {
+            "type": "integer",
+            "title": "Duplicate Count"
+          },
+          "name_collision_count": {
+            "type": "integer",
+            "title": "Name Collision Count"
+          },
+          "name_shared_with": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Name Shared With"
+          },
+          "locations": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Locations"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language"
+          },
+          "agent_compatibility": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Agent Compatibility"
+          }
+        },
+        "type": "object",
+        "required": [
+          "score",
+          "rank",
+          "path",
+          "name",
+          "owner",
+          "repo",
+          "repo_url",
+          "skill_url",
+          "description",
+          "content",
+          "sources",
+          "stars",
+          "ranking",
+          "search_rank",
+          "duplicate_count",
+          "name_collision_count",
+          "name_shared_with",
+          "locations",
+          "language",
+          "agent_compatibility"
+        ],
+        "title": "Hit"
+      },
+      "QueryRequest": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Query",
+            "description": "Free-text search query; empty string browses instead.",
+            "default": ""
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 200.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 12
+          },
+          "min_stars": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Stars"
+          },
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sources",
+            "default": []
+          },
+          "rank_filters": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Rank Filters"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Languages",
+            "description": "Only return hits whose language is in this list.",
+            "default": []
+          },
+          "agent_compatibility": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Agent Compatibility",
+            "description": "Only return hits whose agent_compatibility overlaps this list.",
+            "default": []
+          }
+        },
+        "type": "object",
+        "title": "QueryRequest"
+      },
+      "QueryResponse": {
+        "properties": {
+          "index_ready": {
+            "type": "boolean",
+            "title": "Index Ready"
+          },
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "hits": {
+            "items": {
+              "$ref": "#/components/schemas/Hit"
+            },
+            "type": "array",
+            "title": "Hits"
+          }
+        },
+        "type": "object",
+        "required": [
+          "index_ready",
+          "query",
+          "hits"
+        ],
+        "title": "QueryResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

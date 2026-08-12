@@ -7,7 +7,7 @@ from pathlib import Path
 from secrets import choice
 from typing import Final
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from qdrant_client import QdrantClient, models
 
 ROOT_DIR: Final = Path(__file__).resolve().parent.parent
@@ -65,6 +65,20 @@ class SkillPayload(BaseModel):
     name_collision_count: int = 0
     name_shared_with: tuple[str, ...] = ()
     ranking: str = ""
+    # Full-payload fields (see docs/QUERY_INTERFACE.md's payload table) --
+    # not used by the Streamlit UI but needed to hand back the complete
+    # payload shape documented in docs/NEXTJS_INTEGRATION.md.
+    owner: str = ""
+    repo_url: str = ""
+    skill_url: str = ""
+    content: str = ""
+    content_hash: str = ""
+    locations: tuple[dict, ...] = Field(default_factory=tuple)
+    # Spoken/content language of the SKILL.md text (e.g. "en", "ja-JP",
+    # "zh-CN"), NOT the source repo's programming language -- see
+    # index_qdrant.py's _content_language().
+    language: str = ""
+    agent_compatibility: tuple[str, ...] = ()
 
 
 # Mirrors export_csv.py's `_SEARCH_RANK_TOKEN_RE` -- both parse the same
@@ -95,6 +109,14 @@ class SearchResult:
     name_collision_count: int
     name_shared_with: tuple[str, ...]
     search_rank: dict[str, int]
+    owner: str
+    repo_url: str
+    skill_url: str
+    content: str
+    ranking: str
+    locations: tuple[dict, ...]
+    language: str
+    agent_compatibility: tuple[str, ...]
 
 
 @dataclass(frozen=True, slots=True)
@@ -109,9 +131,17 @@ class SearchFilters:
     min_stars: int | None = None
     sources: tuple[str, ...] = ()
     rank_filters: dict[str, int] = field(default_factory=dict)
+    languages: tuple[str, ...] = ()
+    agent_compatibility: tuple[str, ...] = ()
 
     def is_active(self) -> bool:
-        return bool(self.min_stars or self.sources or self.rank_filters)
+        return bool(
+            self.min_stars
+            or self.sources
+            or self.rank_filters
+            or self.languages
+            or self.agent_compatibility
+        )
 
 
 def filters_to_qdrant_filter(filters: SearchFilters | None) -> models.Filter | None:
@@ -125,6 +155,19 @@ def filters_to_qdrant_filter(filters: SearchFilters | None) -> models.Filter | N
     if filters.sources:
         conditions.append(
             models.FieldCondition(key="sources", match=models.MatchAny(any=list(filters.sources)))
+        )
+    if filters.languages:
+        conditions.append(
+            models.FieldCondition(
+                key="language", match=models.MatchAny(any=list(filters.languages))
+            )
+        )
+    if filters.agent_compatibility:
+        conditions.append(
+            models.FieldCondition(
+                key="agent_compatibility",
+                match=models.MatchAny(any=list(filters.agent_compatibility)),
+            )
         )
     for metric, max_rank in filters.rank_filters.items():
         conditions.append(models.FieldCondition(key=metric, range=models.Range(lte=max_rank)))
@@ -155,6 +198,14 @@ def build_search_result(
         name_collision_count=payload.name_collision_count,
         name_shared_with=payload.name_shared_with,
         search_rank=parse_search_rank(payload.ranking),
+        owner=payload.owner,
+        repo_url=payload.repo_url,
+        skill_url=payload.skill_url,
+        content=payload.content,
+        ranking=payload.ranking,
+        locations=payload.locations,
+        language=payload.language,
+        agent_compatibility=payload.agent_compatibility,
     )
 
 

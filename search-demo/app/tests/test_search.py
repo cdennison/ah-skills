@@ -113,6 +113,32 @@ def test_filters_to_qdrant_filter_when_filters_set() -> None:
     assert rank_condition.range.lte == 50
 
 
+def test_filters_to_qdrant_filter_when_language_and_agent_compatibility_set() -> None:
+    # Given
+    filters = SearchFilters(
+        languages=("JavaScript", "Python"),
+        agent_compatibility=("claude-code", "codex"),
+    )
+
+    # When
+    qdrant_filter = filters_to_qdrant_filter(filters)
+
+    # Then
+    assert qdrant_filter is not None
+    must = qdrant_filter.must
+    assert isinstance(must, list)
+    assert len(must) == 2
+    language_condition, agent_condition = must
+    assert isinstance(language_condition, models.FieldCondition)
+    assert language_condition.key == "language"
+    assert isinstance(language_condition.match, models.MatchAny)
+    assert language_condition.match.any == ["JavaScript", "Python"]
+    assert isinstance(agent_condition, models.FieldCondition)
+    assert agent_condition.key == "agent_compatibility"
+    assert isinstance(agent_condition.match, models.MatchAny)
+    assert agent_condition.match.any == ["claude-code", "codex"]
+
+
 def test_browse_skills_when_local_index_exists() -> None:
     # Given
     filters = SearchFilters(min_stars=0)

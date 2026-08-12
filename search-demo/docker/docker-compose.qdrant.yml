@@ -24,6 +24,15 @@
 # Switching index_qdrant.py/query.py from embedded to this server means
 # swapping QdrantClient(path=str(DB_PATH)) for QdrantClient(url="http://localhost:6333")
 # — not done by this file; see docs/QUERY_INTERFACE.md before making that change.
+#
+# The query-service container is app/query_service.py: a thin, read-only
+# FastAPI wrapper around app/search.py's search_skills()/browse_skills(),
+# for non-Python callers (e.g. a Next.js app) that can't reproduce the
+# query-time fastembed embedding step themselves -- see
+# docs/NEXTJS_INTEGRATION.md. It talks to the qdrant service over the
+# compose network (SKILLS_QDRANT_URL=http://qdrant:6333), the same server
+# mode index_qdrant.py's batch job writes into -- it never touches the
+# embedded qdrant_db/ path.
 
 services:
   qdrant:
@@ -36,3 +45,15 @@ services:
     volumes:
       - ./qdrant_storage/storage:/qdrant/storage
       - ./qdrant_storage/snapshots:/qdrant/snapshots
+
+  query-service:
+    build:
+      context: ../app
+    container_name: search-demo-query-service
+    restart: unless-stopped
+    depends_on:
+      - qdrant
+    environment:
+      SKILLS_QDRANT_URL: http://qdrant:6333
+    ports:
+      - "8000:8000"

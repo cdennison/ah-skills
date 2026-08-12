@@ -615,6 +615,13 @@ the pull step itself never should be.
   `qdrant_db/` into `search_demo_data.zip` for upload to a GitHub Release
   (see below); `repo-seeds/` is included redundantly so the zip alone is a
   complete, self-contained snapshot even without git
+- `docker/` — optional standalone Qdrant **server** deploy (`docker-compose.qdrant.yml`
+  or `deploy-qdrant-docker.sh`), for when the default embedded `qdrant_db/`
+  mode's single-process path lock is no longer enough (concurrent
+  frontend + reindex, or a production deploy — see
+  [`docs/QUERY_INTERFACE.md`](docs/QUERY_INTERFACE.md) and
+  [`ROADMAP.md`](ROADMAP.md)). Not wired into `index_qdrant.py`/`query.py`
+  by default; `docker/qdrant_storage/` (generated, gitignored) holds its data
 
 ## Publishing the data bundle (maintainers)
 

@@ -15,7 +15,7 @@ from pathlib import Path
 
 from qdrant_client import QdrantClient
 
-from index_qdrant import COLLECTION, DB_PATH
+from index_qdrant import COLLECTION, get_client
 
 OUTPUT_FILE = Path(__file__).parent / "skills_export.csv"
 TOP_OUTPUT_FILE = Path(__file__).parent / "skills_export_top.csv"
@@ -40,11 +40,37 @@ FIELDS = [
 
 
 def best_rank(ranking: str) -> int | None:
-    """Lowest (best) value among every `*_rank=N` token in the `ranking`
-    string (e.g. "skills_sh_rank=778 search_rank=12" -> 12). None if no
+    """Lowest (best) value among every rank-typed token in the `ranking`
+    string (e.g. "skills_sh_rank=778 search_rank_claude_skills_stars=12" ->
+    12). Matches both the plain `*_rank=N` shape (skills_sh_rank) and the
+    per-query/sort `search_rank_<query>_<sort>=N` shape -- None if no
     rank-typed token is present (skill_count/top_installs etc don't count)."""
-    values = [int(v) for v in re.findall(r"(?:^|\s)\S*_rank=(\d+)", ranking or "")]
+    values = [int(v) for v in re.findall(r"(?:^|\s)\S*rank\S*=(\d+)", ranking or "")]
     return min(values) if values else None
+
+
+# The 6 known GitHub-search (query, sort) combos as of this writing -- see
+# index_qdrant.py's _ranking_string for how these tokens get produced.
+# Extracted here as dedicated CSV columns instead of leaving them buried in
+# the flattened `ranking` string, since that's what made an earlier bug (all
+# search sources colliding into one ambiguous `search_rank` field) hard to
+# spot. New (query, sort) combos show up automatically: SEARCH_RANK_COLUMNS
+# is derived from whatever `search_rank_*` tokens actually appear in the
+# data the first time export runs, not hardcoded.
+_SEARCH_RANK_TOKEN_RE = re.compile(r"(?:^|\s)(search_rank_\S+?)=(\d+)")
+
+
+def search_rank_columns(rows: list[dict]) -> list[str]:
+    names = set()
+    for r in rows:
+        for name, _ in _SEARCH_RANK_TOKEN_RE.findall(r.get("ranking") or ""):
+            names.add(name)
+    return sorted(names)
+
+
+def extract_search_ranks(ranking: str, columns: list[str]) -> dict:
+    found = dict(_SEARCH_RANK_TOKEN_RE.findall(ranking or ""))
+    return {col: found.get(col) for col in columns}
 
 
 def iter_rows(client: QdrantClient):
@@ -88,11 +114,16 @@ def main():
     parser.add_argument("--limit", type=int, help="Keep only the first N rows after sorting.")
     args = parser.parse_args()
 
-    client = QdrantClient(path=str(DB_PATH))
+    client = get_client()
     if not client.collection_exists(COLLECTION):
-        raise SystemExit(f"Collection {COLLECTION!r} not found at {DB_PATH} -- run index_qdrant.py first")
+        raise SystemExit(f"Collection {COLLECTION!r} not found -- run index_qdrant.py first")
 
     rows = list(iter_rows(client))
+    rank_columns = search_rank_columns(rows)
+    for r in rows:
+        r.update(extract_search_ranks(r.get("ranking"), rank_columns))
+    fieldnames = FIELDS + rank_columns
+
     if args.ranked_only:
         # best_rank(None) sorts to the end -- only reachable here if a row's
         # ranking string had skill_count/top_installs but no *_rank token.
@@ -110,7 +141,7 @@ def main():
 
     output_file = args.output or (TOP_OUTPUT_FILE if args.ranked_only else OUTPUT_FILE)
     with output_file.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS)
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 

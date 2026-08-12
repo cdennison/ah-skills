@@ -463,18 +463,37 @@ def mark_synced_from_disk() -> tuple[list[dict], list[dict]]:
     return synced, missing
 
 
+# How long a repo that just failed to clone (404, private, rename, etc.)
+# sits out before unsynced_today() offers it up again -- mirrors
+# clone_repos.py's RECLONE_COOLDOWN_SECONDS (30 days) for successful clones,
+# so a dead repo doesn't get retried on every single batch forever (it used
+# to: mark_sync_failure stamped a timestamp but nothing ever read it).
+FAILURE_RETRY_COOLDOWN_DAYS = 7
+
+
 def unsynced_today(registry: list[dict] | None = None) -> list[dict]:
     """Active entries whose last_synced isn't from today (or is missing
-    entirely -- never made it through a full clone+RAG pipeline run)."""
+    entirely -- never made it through a full clone+RAG pipeline run).
+
+    Entries with a recent last_sync_failure (within
+    FAILURE_RETRY_COOLDOWN_DAYS) are excluded -- they'll naturally resurface
+    once the cooldown expires, same as a repo that's due for its next
+    30-day reclone. This keeps a persistently-broken repo (deleted/renamed/
+    private upstream) from being re-selected on every batch forever."""
     registry = registry if registry is not None else load_registry()
     today = datetime.date.today().isoformat()
+    cutoff = datetime.datetime.now() - datetime.timedelta(days=FAILURE_RETRY_COOLDOWN_DAYS)
     result = []
     for r in registry:
         if r.get("status", "active") != "active":
             continue
         last_synced = r.get("last_synced")
-        if not last_synced or not last_synced.startswith(today):
-            result.append(r)
+        if last_synced and last_synced.startswith(today):
+            continue
+        last_failure = r.get("last_sync_failure")
+        if last_failure and datetime.datetime.fromisoformat(last_failure) > cutoff:
+            continue
+        result.append(r)
     return result
 
 

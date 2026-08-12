@@ -62,7 +62,7 @@ def run_stats_to_log(batch_num):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--batch-size", type=int, default=100)
+    parser.add_argument("--batch-size", type=int, default=50)
     parser.add_argument("--source", metavar="TYPE", help="Passed through to clone_repos.py --source")
     parser.add_argument(
         "--start-offset", type=int, default=0,

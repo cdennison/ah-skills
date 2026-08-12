@@ -8,10 +8,8 @@ import csv
 import datetime
 from pathlib import Path
 
-from qdrant_client import QdrantClient
-
 from export_csv import OUTPUT_FILE as CSV_FILE
-from index_qdrant import COLLECTION, DB_PATH, SEARCH_RAW_DIR, load_skills
+from index_qdrant import COLLECTION, SEARCH_RAW_DIR, get_client, load_skills
 from registry import load_registry
 
 
@@ -46,7 +44,7 @@ def main():
     disk_repos = {s["owner"] + "/" + s["repo"] for s in disk_skills}
     disk_skill_count = sum(1 for s in disk_skills if Path(s["path"]).name.lower() == "skill.md")
 
-    client = QdrantClient(path=str(DB_PATH))
+    client = get_client()
 
     if not client.collection_exists(COLLECTION):
         qdrant_count = 0
@@ -92,7 +90,7 @@ def main():
     print(f"Skills: {qdrant_skill_count:,}")
     print(f"Points: {qdrant_count:,}")
     print(f"Repos:  {len(qdrant_repos):,}")
-    print(f"DB:     {DB_PATH} (collection={COLLECTION!r})")
+    print(f"Collection: {COLLECTION!r}")
     print()
     print("--- diff ---")
     print(f"On disk but not indexed: {missing_from_qdrant:,}")

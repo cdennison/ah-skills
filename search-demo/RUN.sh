@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # RUN.sh -- full end-to-end pipeline in one command: repo discovery ->
-# registry -> batched clone/extract/index -> CSV export.
+# registry -> batched clone/extract (50 repos at a time) -> batched index
+# (10K skills at a time) -> CSV export.
 #
 # Steps (in order):
 #   1. refresh_seeds.py             -- re-vendors every seed list (e.g. the
@@ -24,10 +25,17 @@
 #                                       data from an EXISTING leaderboard-raw/ snapshot
 #   6. search_github.py             -- OPTIONAL (--with-search "query"): writes a
 #                                       review queue, does NOT auto-approve (see below)
-#   7. batch_pipeline.py            -- clone (bounded batches) -> extract -> index,
-#                                       --only-unsynced --stats so repos/ never
-#                                       accumulates more than one batch's clones
-#   8. export_csv.py                -- regenerate skills_export.csv
+#   7. batch_pipeline.py            -- clone + extract only (--skip-index), in
+#                                       fixed 50-repo batches so repos/ never
+#                                       accumulates more than one batch's clones,
+#                                       AND so there's clear per-batch progress
+#                                       instead of one opaque clone-everything run
+#   8. index_qdrant.py              -- embeds search-raw/ into Qdrant in 10K-skill
+#                                       chunks (--batch-size 10000), separately from
+#                                       cloning, so embedding progress is also visible
+#                                       instead of hidden inside step 7
+#   9. export_csv.py                -- regenerate skills_export.csv (everything)
+#                                       and skills_export_top.csv (ranked-only, top 50K)
 #
 # Every source needs its own refresh -- this is not just a sync-seed thing:
 #   - Seed lists (repo-seeds/repo_seeds.json, e.g. officialskills.sh's
@@ -56,7 +64,7 @@
 #     script -- there is no way to make this step non-interactive. The call
 #     below is commented out ON PURPOSE, not missing by oversight:
 #
-#       # python3 pull_leaderboard.py 1000
+#       # uv run python pull_leaderboard.py 1000
 #
 #     Run that line yourself, by hand, at the terminal, only when you
 #     deliberately want a fresh leaderboard snapshot. --with-leaderboard
@@ -74,16 +82,21 @@
 # etc.) this script doesn't attempt to replace.
 #
 # Usage:
-#   ./RUN.sh                                # refresh seeds + sync-seed + marketplace + batched clone/extract/index + csv
+#   ./RUN.sh                                # refresh seeds + sync-seed + marketplace + batched clone/extract + index + csv
 #   ./RUN.sh --with-search "agent skills"    # also run a GitHub search (still needs manual approval)
 #   ./RUN.sh --with-leaderboard              # also upsert ranks from an existing leaderboard-raw/ snapshot
-#   ./RUN.sh --batch-size 50                 # override the default batch size (100)
+#   ./RUN.sh --batch-size 25                 # override the default clone batch size (50)
+#   ./RUN.sh --index-batch-size 5000         # override the default index batch size (10000)
 set -euo pipefail
 cd "$(dirname "$0")"
 
+if ! command -v uv >/dev/null 2>&1; then
+  echo "[error] uv not found -- install it first: https://docs.astral.sh/uv/getting-started/installation/" >&2
+  exit 1
+fi
 if [[ ! -x .venv/bin/python ]]; then
-  echo "[error] .venv/bin/python not found -- run the Setup steps in README.md first:" >&2
-  echo "        python3 -m venv .venv && .venv/bin/python -m pip install \"qdrant-client[fastembed]\"" >&2
+  echo "[error] .venv not found -- run the Setup steps in README.md first:" >&2
+  echo "        uv sync" >&2
   exit 1
 fi
 
@@ -102,7 +115,8 @@ if ! mkdir "$LOCK_DIR" 2>/dev/null; then
 fi
 trap 'rmdir "$LOCK_DIR"' EXIT
 
-BATCH_SIZE=100
+BATCH_SIZE=50
+INDEX_BATCH_SIZE=10000
 WITH_SEARCH=""
 WITH_LEADERBOARD=0
 
@@ -114,24 +128,26 @@ while [[ $# -gt 0 ]]; do
       WITH_LEADERBOARD=1; shift ;;
     --batch-size)
       BATCH_SIZE="$2"; shift 2 ;;
+    --index-batch-size)
+      INDEX_BATCH_SIZE="$2"; shift 2 ;;
     *)
       echo "Unknown argument: $1" >&2
-      echo "Usage: ./RUN.sh [--with-search \"query\"] [--with-leaderboard] [--batch-size N]" >&2
+      echo "Usage: ./RUN.sh [--with-search \"query\"] [--with-leaderboard] [--batch-size N] [--index-batch-size N]" >&2
       exit 1 ;;
   esac
 done
 
-echo "[1/8] refresh_seeds.py (re-vendors seed lists like officialskills.sh from their upstream repos)"
-python3 refresh_seeds.py
+echo "[1/9] refresh_seeds.py (re-vendors seed lists like officialskills.sh from their upstream repos)"
+uv run python refresh_seeds.py
 
-echo "[2/8] registry.py sync-seed (additive: pick up new repos from the just-refreshed vendored copy)"
-python3 registry.py sync-seed
+echo "[2/9] registry.py sync-seed (additive: pick up new repos from the just-refreshed vendored copy)"
+uv run python registry.py sync-seed
 
-echo "[3/8] fetch_marketplace.py (additive: pick up new repos from the Claude plugin marketplace)"
-python3 fetch_marketplace.py
+echo "[3/9] fetch_marketplace.py (additive: pick up new repos from the Claude plugin marketplace)"
+uv run python fetch_marketplace.py
 
-echo "[4/8] pull_leaderboard.py -- NEVER run by this script, see the header comment. Skipping."
-# python3 pull_leaderboard.py 1000
+echo "[4/9] pull_leaderboard.py -- NEVER run by this script, see the header comment. Skipping."
+# uv run python pull_leaderboard.py 1000
 #
 # ^ Intentionally commented out -- MANUAL-ONLY, needs a hand-refreshed
 # VERCEL_OIDC_TOKEN a script can't renew itself. Uncomment and run this line
@@ -140,35 +156,40 @@ echo "[4/8] pull_leaderboard.py -- NEVER run by this script, see the header comm
 
 if [[ "$WITH_LEADERBOARD" == 1 ]]; then
   if [[ -f leaderboard-raw/combined.json ]]; then
-    echo "[5/8] add_skillsh_leaderboard.py (upserts rank data from the existing leaderboard-raw/ snapshot)"
-    python3 add_skillsh_leaderboard.py
+    echo "[5/9] add_skillsh_leaderboard.py (upserts rank data from the existing leaderboard-raw/ snapshot)"
+    uv run python add_skillsh_leaderboard.py
   else
-    echo "[5/8] --with-leaderboard given but leaderboard-raw/combined.json is missing." >&2
+    echo "[5/9] --with-leaderboard given but leaderboard-raw/combined.json is missing." >&2
     echo "       Run this by hand first (manual-only, needs a fresh VERCEL_OIDC_TOKEN):" >&2
-    echo "         python3 pull_leaderboard.py 1000" >&2
+    echo "         uv run python pull_leaderboard.py 1000" >&2
     echo "       Continuing without a leaderboard refresh."
   fi
 else
-  echo "[5/8] skipping skills.sh leaderboard sync (pass --with-leaderboard to run it," \
+  echo "[5/9] skipping skills.sh leaderboard sync (pass --with-leaderboard to run it," \
        "after pulling a fresh snapshot yourself with pull_leaderboard.py)"
 fi
 
 if [[ -n "$WITH_SEARCH" ]]; then
-  echo "[6/8] search_github.py \"$WITH_SEARCH\" (writes a review queue -- NOT auto-approved)"
-  python3 search_github.py "$WITH_SEARCH" --exact --format json --top 25 \
+  echo "[6/9] search_github.py \"$WITH_SEARCH\" (writes a review queue -- NOT auto-approved)"
+  uv run python search_github.py "$WITH_SEARCH" --exact --format json --top 25 \
       --out repo-seeds/github_search_results.json
   echo "      -> review repo-seeds/github_search_results.json yourself, then approve what you want:"
   echo "         ./registry.py add-search repo-seeds/github_search_results.json --approve owner/repo --approve owner2/repo2 ..."
 else
-  echo "[6/8] skipping GitHub search (pass --with-search \"query\" to run one)"
+  echo "[6/9] skipping GitHub search (pass --with-search \"query\" to run one)"
 fi
 
-echo "[7/8] batch_pipeline.py --batch-size $BATCH_SIZE --only-unsynced --stats (clone -> extract -> index, in batches)"
-.venv/bin/python batch_pipeline.py --batch-size "$BATCH_SIZE" --only-unsynced --stats
+echo "[7/9] batch_pipeline.py --batch-size $BATCH_SIZE --only-unsynced --skip-index (clone -> extract, in batches; indexing deferred to step 8)"
+uv run python batch_pipeline.py --batch-size "$BATCH_SIZE" --only-unsynced --skip-index
 
-echo "[8/8] export_csv.py (regenerate skills_export.csv)"
-.venv/bin/python export_csv.py
+echo "[8/9] index_qdrant.py --batch-size $INDEX_BATCH_SIZE (embed search-raw/ into Qdrant, in chunks so progress is visible)"
+uv run python index_qdrant.py --batch-size "$INDEX_BATCH_SIZE"
+
+echo "[9/9] export_csv.py (regenerate skills_export.csv and skills_export_top.csv)"
+uv run python export_csv.py
+uv run python export_csv.py --ranked-only --limit 50000
 
 echo
 echo "[done] RUN.sh finished at $(date)"
-echo "Run ./stats.py any time for a status snapshot; stats.log has the batch-by-batch trend from this run."
+echo "Run ./stats.py any time for a status snapshot. Step 7's clone/extract batches and step 8's index" \
+     "batches each print their own progress as they go (index_qdrant.py's is a live tqdm progress bar)."

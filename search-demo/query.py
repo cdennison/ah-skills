@@ -1,22 +1,19 @@
 #!/usr/bin/env python3
-"""CLI to semantically search indexed SKILL.md files.
+"""CLI to semantically search indexed SKILL.md files -- thin wrapper around
+the same `search_skills()` the Streamlit app uses (app/search.py), so the
+CLI and the UI never drift on prefetch/fusion/filter behavior.
 
 Usage:
-    .venv/bin/python query.py "excel spreadsheets" [-n 5]
+    uv run python query.py "excel spreadsheets" [-n 5]
 """
 
 import argparse
+import sys
+from pathlib import Path
 
-from qdrant_client import QdrantClient, models
+sys.path.insert(0, str(Path(__file__).resolve().parent / "app"))
 
-from index_qdrant import (
-    COLLECTION,
-    DB_PATH,
-    DENSE_VECTOR_NAME,
-    MODEL_NAME,
-    SPARSE_MODEL_NAME,
-    SPARSE_VECTOR_NAME,
-)
+from search import search_skills  # noqa: E402
 
 
 def main():
@@ -25,31 +22,11 @@ def main():
     parser.add_argument("-n", "--limit", type=int, default=5, help="number of results (default 5)")
     args = parser.parse_args()
 
-    client = QdrantClient(path=str(DB_PATH))
-    results = client.query_points(
-        collection_name=COLLECTION,
-        prefetch=[
-            models.Prefetch(
-                query=models.Document(text=args.query, model=MODEL_NAME),
-                using=DENSE_VECTOR_NAME,
-                limit=20,
-            ),
-            models.Prefetch(
-                query=models.Document(text=args.query, model=SPARSE_MODEL_NAME),
-                using=SPARSE_VECTOR_NAME,
-                limit=20,
-            ),
-        ],
-        query=models.FusionQuery(fusion=models.Fusion.RRF),
-        limit=args.limit,
-    )
-
-    for hit in results.points:
-        print(f"{hit.score:.3f}  {hit.payload['path']}")
-        if hit.payload.get("description"):
-            print(f"       {hit.payload['description']}")
-        if hit.payload.get("skill_url"):
-            print(f"       {hit.payload['skill_url']}")
+    for result in search_skills(args.query, limit=args.limit):
+        score = f"{result.score:.3f}" if result.score is not None else "  n/a"
+        print(f"{score}  {result.path}")
+        if result.description:
+            print(f"       {result.description}")
 
 
 if __name__ == "__main__":

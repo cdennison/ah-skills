@@ -1,0 +1,8 @@
+[project]
+name = "search-demo"
+version = "0.1.0"
+description = "Agent-skills semantic/hybrid search pipeline"
+requires-python = ">=3.10"
+dependencies = [
+    "qdrant-client[fastembed]",
+]

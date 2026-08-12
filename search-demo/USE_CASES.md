@@ -97,6 +97,6 @@ size (~5k docs, mostly narrow single-purpose skills) today.
 ## Try it
 
 ```bash
-.venv/bin/python query.py "kicad pcb design"
-.venv/bin/python query.py "extract structured data from a PDF" -n 10
+uv run python query.py "kicad pcb design"
+uv run python query.py "extract structured data from a PDF" -n 10
 ```

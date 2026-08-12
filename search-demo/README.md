@@ -165,31 +165,30 @@ flow.
 ### 1. Install everything
 
 ```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install "qdrant-client[fastembed]"
+uv sync
 cp .env.example .env   # then add your GITHUB_PAT
 ```
 
 ### 2. Query only (assumes `qdrant_db/` already exists)
 
 ```bash
-.venv/bin/python query.py "excel spreadsheets"
+uv run python query.py "excel spreadsheets"
 ```
 
 ### 3. Index only (assumes `repos/` already exists)
 
 ```bash
-python3 extract_search_raw.py
-.venv/bin/python index_qdrant.py
+uv run python extract_search_raw.py
+uv run python index_qdrant.py
 ```
 
 ### 4. Full end-to-end (clone → extract → index → query)
 
 ```bash
-python3 clone_repos.py
-python3 extract_search_raw.py
-.venv/bin/python index_qdrant.py
-.venv/bin/python query.py "excel spreadsheets"
+uv run python clone_repos.py
+uv run python extract_search_raw.py
+uv run python index_qdrant.py
+uv run python query.py "excel spreadsheets"
 ```
 
 **For any large run (the full registry, or hundreds of repos at once), use
@@ -203,22 +202,43 @@ bounded batch, extracts it into `search-raw/`, deletes `repos/` via
 batch's worth of clones regardless of total registry size:
 
 ```bash
-python3 batch_pipeline.py --batch-size 100 --only-unsynced --stats
+# clone + extract, 50 repos per batch, no indexing yet
+uv run python batch_pipeline.py --batch-size 50 --only-unsynced --skip-index
+
+# index search-raw/ into Qdrant, 10,000 skills per embed/upload call --
+# fast filename-based check by default (only new files get embedded), a
+# live tqdm progress bar so long runs aren't a silent black box
+uv run python index_qdrant.py --batch-size 10000
+
+# regenerate both CSVs
+uv run python export_csv.py
+uv run python export_csv.py --ranked-only --limit 50000
 ```
 
-- `--batch-size N` — repos cloned per batch before `repos/` gets wiped
-  (default 100).
+Cloning/extraction and indexing are separate, separately batched steps (not
+one `--stats` run that does both per-batch) so each phase shows clear
+progress instead of one opaque run — see [`DAILY_JOB.md`](DAILY_JOB.md#4-rerun-the-pipeline-cloneextract-in-batches-of-50--index-in-batches-of-10k--csv)
+for the full rationale and every flag.
+
+- `--batch-size N` (clone step, default 50) — repos cloned per batch before
+  `repos/` gets wiped.
 - `--only-unsynced` — skip repos already synced today
   (`registry.unsynced_today()`), so a same-day rerun doesn't re-walk repos
   it already processed.
-- `--stats` — append a timestamped snapshot (`stats.py`'s output) to
-  `stats.log` after every batch, so you can watch the counts climb. Best
-  paired with a small `--batch-size` (e.g. `2`) when debugging.
+- `--skip-index` — the standard flag now; indexing happens separately via
+  `index_qdrant.py` afterward. (`--stats` still exists if you want the old
+  per-batch index+`stats.log` behavior for a small one-off run.)
+- `--batch-size N` (index step, default 10000) — skills per Qdrant
+  `upload_collection` call; each one commits independently with progress
+  shown via `tqdm`.
+- `--hash` (index step) — full content-hash diff instead of the default
+  fast filename check; catches an edited file at an already-indexed path,
+  at the cost of reading+hashing every file in `search-raw/` every run.
 
 See [`clean_repos.sh`](clean_repos.sh) (a guarded, dedicated script for
 deleting `repos/` — pinned to that exact path so it can't be pointed
-anywhere else) and [`batch_pipeline.py`](batch_pipeline.py) for the full
-option list.
+anywhere else), [`batch_pipeline.py`](batch_pipeline.py), and
+[`index_qdrant.py`](index_qdrant.py) for the full option lists.
 
 ## Architecture
 
@@ -329,14 +349,13 @@ candidates to approve.
 
 ## Setup
 
-`index_qdrant.py` and `query.py` need `qdrant-client[fastembed]`, installed in a local venv:
+Dependencies are managed with [uv](https://docs.astral.sh/uv/) — `pyproject.toml` / `uv.lock` pin `qdrant-client[fastembed]`:
 
 ```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install "qdrant-client[fastembed]"
+uv sync
 ```
 
-Use `.venv/bin/python` in place of `python3` for those two scripts (shown below). `clone_repos.py` and `extract_search_raw.py` have no extra dependencies and can run with the system `python3`.
+Use `uv run python <script>.py` for every script in this repo (shown below) — it runs inside the `.venv` uv manages, so there's no separate activation step.
 
 ## Pipeline
 
@@ -356,9 +375,9 @@ clone_repos.py  -->  extract_search_raw.py  -->  index_qdrant.py
    skipped.
 
    ```bash
-   python3 clone_repos.py                # clone every repo in registry.json
-   python3 clone_repos.py 10             # clone only the first 10
-   python3 clone_repos.py <github-url>   # clone a single repo one-off (bypasses the registry)
+   uv run python clone_repos.py                # clone every repo in registry.json
+   uv run python clone_repos.py 10             # clone only the first 10
+   uv run python clone_repos.py <github-url>   # clone a single repo one-off (bypasses the registry)
    ```
 
    If a `GITHUB_PAT` is set (see [Authentication](#authentication)), clones
@@ -374,7 +393,7 @@ clone_repos.py  -->  extract_search_raw.py  -->  index_qdrant.py
    lines, characters, size) when it finishes.
 
    ```bash
-   python3 extract_search_raw.py
+   uv run python extract_search_raw.py
    ```
 
 3. **`index_qdrant.py`** — reads every file in `search-raw/`, parses its
@@ -387,13 +406,13 @@ clone_repos.py  -->  extract_search_raw.py  -->  index_qdrant.py
    from scratch.
 
    ```bash
-   .venv/bin/python index_qdrant.py
+   uv run python index_qdrant.py
    ```
 
 Run all three in sequence to rebuild everything from a clean checkout:
 
 ```bash
-python3 clone_repos.py && python3 extract_search_raw.py && .venv/bin/python index_qdrant.py
+uv run python clone_repos.py && uv run python extract_search_raw.py && uv run python index_qdrant.py
 ```
 
 ## Querying
@@ -401,8 +420,8 @@ python3 clone_repos.py && python3 extract_search_raw.py && .venv/bin/python inde
 Once `qdrant_db/` is built, search it with `query.py`:
 
 ```bash
-.venv/bin/python query.py "excel spreadsheets"
-.venv/bin/python query.py "excel spreadsheets" -n 10   # change result count (default 5)
+uv run python query.py "excel spreadsheets"
+uv run python query.py "excel spreadsheets" -n 10   # change result count (default 5)
 ```
 
 Prints each hit's similarity score, file path, and description. See
@@ -416,7 +435,7 @@ it always drops and recreates the collection from scratch, so it's safe to
 re-run any time:
 
 ```bash
-.venv/bin/python index_qdrant.py
+uv run python index_qdrant.py
 ```
 
 ### How embeddings work (no API key required)
@@ -526,14 +545,14 @@ scheduled job on its own. Run it yourself, at the terminal, only when you
 deliberately want a fresh leaderboard snapshot.
 
 ```bash
-python3 pull_leaderboard.py 1000
+uv run python pull_leaderboard.py 1000
 ```
 
 Paginates through the leaderboard 500 entries at a time (skills.sh's max
 page size) with a 1s sleep between pages to avoid rate limiting. Saves each
 raw page as `leaderboard-raw/page-N.json` plus a combined
 `leaderboard-raw/combined.json`. Pass a different total as the first
-argument (e.g. `python3 pull_leaderboard.py 200`), or `--out DIR` to change
+argument (e.g. `uv run python pull_leaderboard.py 200`), or `--out DIR` to change
 the output directory.
 
 Everything downstream of the raw pull — `add_skillsh_leaderboard.py`,
@@ -582,7 +601,7 @@ the pull step itself never should be.
 - `repos/` — cloned repos (**generated** by `clone_repos.py` from `repo-seeds/registry.json`; gitignored)
 - `search-raw/` — extracted `SKILL.md` files (**generated** by `extract_search_raw.py`; gitignored)
 - `qdrant_db/` — local Qdrant vector store (**generated** by `index_qdrant.py`; gitignored)
-- `.venv/` — Python virtualenv with `qdrant-client[fastembed]` installed
+- `.venv/` — uv-managed virtualenv (created by `uv sync`), has `qdrant-client[fastembed]` installed
 - `.env` / `.env.example` — `GITHUB_PAT` config (actual / template)
 - `.clone_state.json` — last-cloned timestamps, used to skip recent re-clones
 - `query.py` — CLI for hybrid (dense + BM25 sparse) search over `qdrant_db/`

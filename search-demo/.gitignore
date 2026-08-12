@@ -2,7 +2,9 @@
 .venv/
 repos/
 search-raw/
+test-data/
 qdrant_db/
 .clone_state.json
 __pycache__/
 *.pyc
+stats.log

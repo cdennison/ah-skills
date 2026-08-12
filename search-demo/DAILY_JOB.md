@@ -191,13 +191,28 @@ how many registry sources led to that repo being cloned. `sources` answers
 "where did we hear about this from," never "how many times is this
 indexed" — that's always once.
 
-## 4. Rerun the pipeline (clone → extract → index)
+## 4. Rerun the pipeline (clone+extract in batches of 50 → index in batches of 10K → CSV)
+
+**As of now, cloning/extraction and indexing are two separate, separately
+batched steps** — not one `--stats` run that does both per-batch. This is so
+each phase shows clear, granular progress instead of one opaque run (cloning
+is network-bound and can have thousands of small steps; indexing is
+CPU-bound and used to run as one silent multi-hour call). `RUN.sh` runs both
+in this order automatically (steps 7-9); by hand it's:
 
 ```bash
-python3 batch_pipeline.py --batch-size 100 --only-unsynced --stats
+# 1) clone + extract only, 50 repos per batch, no indexing yet
+uv run python batch_pipeline.py --batch-size 50 --only-unsynced --skip-index
+
+# 2) index search-raw/ into Qdrant, 10,000 skills per embed/upload call
+uv run python index_qdrant.py --batch-size 10000
+
+# 3) regenerate both CSVs
+uv run python export_csv.py
+uv run python export_csv.py --ranked-only --limit 50000
 ```
 
-This is the standard way to rerun the pipeline now, for any size run.
+**Step 1 — clone + extract, 50 repos at a time:**
 `clone_repos.py` on its own clones *everything* matching into `repos/` (full
 git clones) before `extract_search_raw.py` ever runs — for the full
 registry that's several GB+ sitting on disk at once, and has filled the
@@ -205,16 +220,52 @@ disk before. `batch_pipeline.py` clones in bounded batches, extracts each
 batch into `search-raw/` (the only thing that actually needs to persist),
 then deletes `repos/` via `clean_repos.sh` before the next batch — so
 `repos/` never holds more than one batch's clones regardless of registry
-size.
+size. It also checks free disk space before starting each new batch and
+stops cleanly (finishing the in-flight batch's extract+clean-repos steps
+first) if free space drops below 1GB.
 
 - `--only-unsynced` limits it to repos step 0's `unsynced` check would
   flag, and skips by content (not registry position) so it correctly picks
   up the remaining backlog on a resumed run.
-- `--stats` logs a running `stats.py` snapshot to `stats.log` after every
-  batch, so you can watch the sync/index/CSV counts climb instead of
-  waiting on one big opaque run.
-- `--batch-size N` (default 100) — smaller for a slow/careful catch-up or
-  debugging, larger if the delta is small and you just want it done.
+- `--skip-index` is the default expectation now — indexing happens
+  separately in step 2, not per-batch here. (`--stats` still exists and
+  still indexes every batch if you specifically want that old behavior —
+  e.g. a small one-off run where you want sync+index+CSV counts in
+  `stats.log` together — but it's no longer the standard path.)
+- `--batch-size N` (default 50) — the standard size going forward, chosen
+  so each batch is small enough to show meaningful progress; smaller still
+  for a slow/careful catch-up or debugging, larger if the delta is small
+  and you just want it done.
+
+**Step 2 — index, 10,000 skills at a time:**
+`index_qdrant.py` reads only from `search-raw/` and `registry.json` — it
+has no dependency on `repos/` still existing, so it's safe to run any time
+after step 1's batches have cleaned up their clones. By default it uses a
+**fast filename-based check**: any `owner/repo/path` already recorded on an
+existing point is skipped entirely (no read, no hash) and only genuinely
+new files get embedded — this is what makes a large backlog affordable to
+index at all, instead of re-hashing every file in `search-raw/` on every
+run. The tradeoff: it won't catch a file whose *content* changed at a path
+that was already indexed — pass `--hash` for the older, slower full
+content-hash diff when that matters (e.g. after editing an already-indexed
+`SKILL.md` in place, or after a blacklist change per step 2 above).
+
+- `--batch-size N` (default 10000) — skills per `upload_collection` call.
+  Each batch commits independently and prints a live `tqdm` progress bar
+  with an ETA, so long runs are no longer a silent multi-hour black box.
+  Lower it for a smoother/finer-grained bar; there's no other downside to a
+  smaller size beyond slightly more overhead per call.
+- `--metadata-only` skips content extraction/embedding entirely and just
+  re-derives stars/sources/ranking on points already indexed, from
+  `registry.json` — use this after a ranking-only change (e.g. `registry.py
+  update-skillsh`, or a fresh `add_skillsh_leaderboard.py` run) with no new
+  skill content to embed. Finishes in seconds even at 100k+ points.
+
+**Step 3 — CSVs:** `export_csv.py` regenerates `skills_export.csv` (every
+point). `export_csv.py --ranked-only --limit 50000` regenerates
+`skills_export_top.csv` — only rows with non-empty `ranking` data, sorted by
+best (lowest) numeric `*_rank` value across every source, capped at 50,000
+rows. Use `--output PATH` on either to write somewhere else instead.
 
 It's safe and cheap to run multiple times a day:
 
@@ -225,12 +276,11 @@ It's safe and cheap to run multiple times a day:
 - **`extract_search_raw.py`** — a full rescan of the *current batch's*
   `repos/` every time (not incremental across the whole registry), so it's
   seconds even at thousands of files.
-- **`index_qdrant.py`** — incremental (hashes each file's content, only
-  re-embeds new/changed files, and removes points for files that
-  disappeared from `search-raw/`), so a same-day rerun with nothing new
-  finishes almost instantly.
+- **`index_qdrant.py`** — incremental by filename (default) or content hash
+  (`--hash`); either way a same-day rerun with nothing new finishes almost
+  instantly, since already-known paths are skipped without being read.
 - **`mark_synced_pairs()`** (called internally by `batch_pipeline.py` after
-  each batch's extract+index) — stamps `last_synced` for exactly that
+  each batch's clone+extract) — stamps `last_synced` for exactly that
   batch's confirmed-cloned repos. This is what step 0's `unsynced` check
   reads, so a run that dies mid-batch only leaves *that* batch's repos
   unstamped, not the whole run.
@@ -239,6 +289,14 @@ It's safe and cheap to run multiple times a day:
 longer chained into this step automatically — run it separately as part of
 [step 3](#3-update-the-repo-list-always-additive-never-deletes) before
 rerunning the pipeline if you want fresh marketplace repos included.
+
+**⚠️ A repo directory that is itself named like a `.md` file** (e.g. a repo
+with a literal `soul.md/` directory containing a nested `SKILL.md`) will
+match `index_qdrant.py`'s `*.md` glob by name even though it's a directory,
+not a file — `index_qdrant.py` skips these with a `[warn] skipping
+non-file ...` line rather than crashing (this used to be an unhandled
+`IsADirectoryError`). Nothing to do about these; they're just noted in the
+run output.
 
 **Legacy: `archived/run_pipeline.sh`.** The original single-shot pipeline
 runner (fetch marketplace → clone everything → extract → index →

@@ -1,11 +1,29 @@
 .env
+.env.local
 .venv/
 repos/
 search-raw/
 test-data/
 qdrant_db/
+qdrant_db_*/
 docker/qdrant_storage/
 .clone_state.json
+.clone_state.json.bak-*
 __pycache__/
 *.pyc
 stats.log
+
+# mcp-search/ pipeline -- raw scraped dumps (~100MB+, one JSON blob per
+# source plus one README per server) and readmes are regeneratable from
+# registry.json via download_readmes.py/pull_*.py, not meant to be
+# versioned; run logs/pidfiles from supervise.sh and supervisor.sh are
+# local-run state, not source.
+mcp-search-raw/
+mcp-search/.overnight_logs/
+mcp-search/.supervisor_logs/
+mcp-search/claude_supervisor.log
+mcp-search/claude_supervisor.log.driver
+mcp-search/mcp_servers.db
+
+# large generated registry (see registry.json.example for shape)
+mcp-repo-seeds/registry.json

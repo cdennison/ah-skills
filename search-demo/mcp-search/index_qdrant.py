@@ -1,0 +1,325 @@
+#!/usr/bin/env python3
+"""Index mcp-repo-seeds/registry.json + downloaded readmes into a Qdrant
+collection, separate from the skills pipeline's `agent_skills` collection --
+own name (`mcp_servers`), own env-var namespace (MCP_QDRANT_URL/
+MCP_QDRANT_DB_PATH/MCP_EMBED_THREADS/MCP_EMBED_BATCH_SIZE), own storage when
+running embedded. See PROPOSED_PIPELINE.md's "why separate storage isn't
+just tidiness" for why these two pipelines never share a collection or an
+env-var namespace, even though they share the *mechanical* indexing code in
+../shared/qdrant.py (client construction, bounded-memory embedding models,
+size-capped batch upsert).
+
+Much simpler dedup story than the skills indexer: mcp_registry.py already
+produces exactly one row per unique server (deduped across the official
+registry/Glama/seed-list sources by GitHub repo, or a source-scoped id when
+no repo resolves) -- so this is one Qdrant point per registry row, no
+locations/duplicate_count/name-collision machinery needed.
+
+Incremental: each row's point id is a stable UUID5 of its registry `id`
+(e.g. "github:owner/repo"), and a content_hash over name+description+readme
+text decides whether a row needs (re-)embedding. A row whose readme just
+finished downloading, or whose classification changed, naturally gets
+picked up on the next run; a row removed from registry.json (shouldn't
+normally happen -- the registry is additive) gets pruned.
+
+Payload fields reuse export_mcp_csv.py's `first_descriptor_value` for the
+same source-descriptor flattening the CSV export uses (registry_type,
+package_identifier, package_url, deployment, license, ...) rather than
+re-deriving it -- see that module for the field list and its rationale.
+
+Usage:
+    python index_qdrant.py                  # incremental (default)
+    python index_qdrant.py --hash            # full content-hash re-diff
+    python index_qdrant.py --limit 100       # quick test run
+"""
+
+import argparse
+import hashlib
+import os
+import sys
+import uuid
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from qdrant_client import models
+from tqdm import tqdm
+
+import mcp_registry
+from export_mcp_csv import first_descriptor_value
+from shared.qdrant import get_client as _shared_get_client, get_embedder, upsert_size_capped
+
+COLLECTION = "mcp_servers"
+MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+SPARSE_MODEL_NAME = "Qdrant/bm25"
+DENSE_VECTOR_NAME = "dense"
+SPARSE_VECTOR_NAME = "sparse"
+
+# Own env-var namespace, deliberately never reusing the skills pipeline's
+# SKILLS_* names -- see module docstring.
+DEFAULT_EMBED_THREADS = int(os.environ.get("MCP_EMBED_THREADS", "2"))
+DEFAULT_EMBED_BATCH_SIZE = int(os.environ.get("MCP_EMBED_BATCH_SIZE", "16"))
+
+POINT_ID_NAMESPACE = uuid.UUID("6ba7b810-9dad-11d1-80b4-00c04fd430c9")  # distinct
+# from index_qdrant.py's skills namespace (...430c8) -- deliberately one
+# digit different so a colliding registry `id` string and a colliding
+# skill content-hash could never map to the same point id even by
+# coincidence, though the two are never in the same collection anyway.
+
+
+def get_client():
+    return _shared_get_client("MCP_QDRANT_URL", "MCP_QDRANT_DB_PATH")
+
+
+def point_id(registry_id: str) -> str:
+    return str(uuid.uuid5(POINT_ID_NAMESPACE, registry_id))
+
+
+def content_hash(text: str) -> str:
+    return hashlib.sha1(text.encode("utf-8")).hexdigest()
+
+
+def readme_text(entry: dict) -> str:
+    readme_path = entry.get("readme_path")
+    if not readme_path:
+        return ""
+    full_path = mcp_registry.MCP_DIR.parent / readme_path
+    if not full_path.exists():
+        return ""
+    return full_path.read_text(errors="ignore")
+
+
+def load_points(registry_rows: list[dict], skip_ids: set[str] | None = None):
+    skip_ids = skip_ids or set()
+    for entry in registry_rows:
+        if entry["id"] in skip_ids:
+            continue
+        name = entry.get("name") or entry["id"]
+        description = entry.get("description") or ""
+        readme = readme_text(entry)
+        h = content_hash(f"{name}\n{description}\n{readme}")
+
+        yield {
+            "id": point_id(entry["id"]),
+            "mcp_id": entry["id"],
+            "content_hash": h,
+            "name": name,
+            "description": description,
+            "readme": readme,
+            "repo_url": entry.get("repo_url"),
+            "status": entry.get("status"),
+            "mcp_category": entry.get("mcp_category"),
+            "mcp_category_source": entry.get("mcp_category_source"),
+            # Real list (not export_mcp_csv.py's "+".join string) so Qdrant
+            # can natively filter with MatchAny, same pattern as the skills
+            # collection's `sources` field.
+            "sources": [s["type"] for s in entry.get("sources", [])],
+            "source_count": len(entry.get("sources", [])),
+            "registry_type": first_descriptor_value(entry, "registry_type"),
+            "package_identifier": first_descriptor_value(entry, "package_identifier"),
+            "package_url": first_descriptor_value(entry, "package_url"),
+            "deployment": first_descriptor_value(entry, "deployment"),
+            "has_installable_package": bool(first_descriptor_value(entry, "has_installable_package")),
+            "has_remote": bool(first_descriptor_value(entry, "has_remote")),
+            "attributes": first_descriptor_value(entry, "attributes") or [],
+            "license": first_descriptor_value(entry, "license"),
+            "added": entry.get("added"),
+            # Backfilled by fetch_mcp_rankings.py, not part of the embedding
+            # text -- doesn't affect content_hash, so a stars/downloads
+            # refresh alone never forces a re-embed. See --rankings-only for
+            # pushing a fresh value onto an already-indexed point cheaply.
+            "stars": entry.get("stars"),
+            "weekly_downloads": entry.get("weekly_downloads"),
+            "monthly_downloads": entry.get("monthly_downloads"),
+            "npm_dependents": entry.get("npm_dependents"),
+            "npm_score_final": entry.get("npm_score_final"),
+            "downloads_source": entry.get("downloads_source"),
+        }
+
+
+def existing_hashes(client) -> dict:
+    hashes = {}
+    offset = None
+    while True:
+        points, offset = client.scroll(
+            COLLECTION, with_payload=["content_hash"], with_vectors=False, limit=1000, offset=offset
+        )
+        for p in points:
+            hashes[p.id] = (p.payload or {}).get("content_hash")
+        if offset is None:
+            break
+    return hashes
+
+
+def existing_mcp_ids(client) -> dict[str, str]:
+    """point_id -> mcp_id for every point currently indexed -- the fast
+    default "already indexed" check (mirrors ../index_qdrant.py's
+    known_paths()), no content read needed."""
+    ids = {}
+    offset = None
+    while True:
+        points, offset = client.scroll(
+            COLLECTION, with_payload=["mcp_id"], with_vectors=False, limit=1000, offset=offset
+        )
+        for p in points:
+            mcp_id = (p.payload or {}).get("mcp_id")
+            if mcp_id:
+                ids[p.id] = mcp_id
+        if offset is None:
+            break
+    return ids
+
+
+RANKING_FIELDS = (
+    "stars", "weekly_downloads", "monthly_downloads", "npm_dependents", "npm_score_final", "downloads_source",
+)
+RANKING_OP_BATCH = 1000  # operations per batch_update_points call -- these
+# carry no vectors, so a much larger batch than upsert's byte-capped chunks
+# is safe; 1000 is just a round, comfortably-small number of ops per call.
+
+
+def sync_ranking_payload(client, registry_rows: list[dict]) -> int:
+    """Push fresh stars/weekly_downloads/downloads_source onto points that
+    are ALREADY indexed, via a batch of per-point SetPayloadOperations --
+    no vectors touched, no re-embed, and doesn't go through content_hash at
+    all (ranking data was deliberately kept out of it -- see load_points()).
+    This is the cheap path for a ranking-only refresh between full
+    re-index runs; a point not yet indexed picks up ranking data naturally
+    whenever it's first embedded instead. Returns the number of points
+    updated."""
+    existing = existing_mcp_ids(client)  # point_id -> mcp_id
+    by_registry_id = {r["id"]: r for r in registry_rows}
+
+    ops = []
+    updated = 0
+    for point_id, registry_id in existing.items():
+        entry = by_registry_id.get(registry_id)
+        if entry is None:
+            continue
+        payload = {field: entry.get(field) for field in RANKING_FIELDS}
+        ops.append(models.SetPayloadOperation(set_payload=models.SetPayload(payload=payload, points=[point_id])))
+        updated += 1
+        if len(ops) >= RANKING_OP_BATCH:
+            client.batch_update_points(COLLECTION, update_operations=ops)
+            ops = []
+    if ops:
+        client.batch_update_points(COLLECTION, update_operations=ops)
+    return updated
+
+
+def upload_in_batches(client, points: list[dict], batch_size: int, embed_batch_size: int, embed_threads: int) -> None:
+    dense_model = get_embedder(MODEL_NAME, sparse=False, threads=embed_threads)
+    sparse_model = get_embedder(SPARSE_MODEL_NAME, sparse=True, threads=embed_threads)
+
+    total = len(points)
+    with tqdm(total=total, unit="server", desc="embedding", smoothing=0.1) as bar:
+        for i in range(0, total, batch_size):
+            chunk = points[i : i + batch_size]
+            texts = [f"{p['name']}: {p['description']}\n\n{p['readme']}" for p in chunk]
+
+            dense_vecs = list(dense_model.embed(texts, batch_size=embed_batch_size))
+            sparse_vecs = list(sparse_model.embed(texts, batch_size=embed_batch_size))
+
+            qdrant_points = [
+                models.PointStruct(
+                    id=p["id"],
+                    vector={
+                        DENSE_VECTOR_NAME: dense_vecs[j].tolist(),
+                        SPARSE_VECTOR_NAME: models.SparseVector(
+                            indices=sparse_vecs[j].indices.tolist(),
+                            values=sparse_vecs[j].values.tolist(),
+                        ),
+                    },
+                    payload=p,
+                )
+                for j, p in enumerate(chunk)
+            ]
+            upsert_size_capped(client, COLLECTION, qdrant_points)
+            bar.update(len(chunk))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument(
+        "--hash", action="store_true",
+        help="Diff every row by content hash instead of the default fast id-based check "
+        "(catches a row whose readme/description changed at an id already indexed).",
+    )
+    parser.add_argument(
+        "--rankings-only", action="store_true",
+        help="Push fresh stars/weekly_downloads onto already-indexed points via payload-only "
+        "update (no embedding, no vector touch). Does not add newly-discovered rows -- run "
+        "without this flag first if there are unindexed rows.",
+    )
+    parser.add_argument("--batch-size", type=int, default=10_000, help="Points per upsert call (default 10000)")
+    parser.add_argument("--limit", type=int, default=None, help="Cap points indexed, e.g. for a quick test run")
+    parser.add_argument("--embed-threads", type=int, default=DEFAULT_EMBED_THREADS)
+    parser.add_argument("--embed-batch-size", type=int, default=DEFAULT_EMBED_BATCH_SIZE)
+    args = parser.parse_args()
+
+    client = get_client()
+
+    if not client.collection_exists(COLLECTION):
+        client.create_collection(
+            COLLECTION,
+            vectors_config={
+                DENSE_VECTOR_NAME: models.VectorParams(
+                    size=client.get_embedding_size(MODEL_NAME), distance=models.Distance.COSINE
+                ),
+            },
+            sparse_vectors_config={
+                SPARSE_VECTOR_NAME: models.SparseVectorParams(modifier=models.Modifier.IDF),
+            },
+        )
+
+    registry_rows = mcp_registry.load_registry()
+
+    if args.rankings_only:
+        updated = sync_ranking_payload(client, registry_rows)
+        print(f"Synced ranking payload (stars/weekly_downloads) onto {updated} already-indexed point(s).")
+        return
+
+    if args.hash:
+        points = list(load_points(registry_rows))
+        if args.limit is not None:
+            points = points[: args.limit]
+        current_point_ids = {p["id"] for p in points}
+        old_hashes = existing_hashes(client)
+
+        changed = [p for p in points if old_hashes.get(p["id"]) != p["content_hash"]]
+        stale_ids = [pid for pid in old_hashes if pid not in current_point_ids]
+
+        if stale_ids:
+            client.delete(COLLECTION, points_selector=models.PointIdsList(points=stale_ids))
+        if changed:
+            upload_in_batches(client, changed, args.batch_size, args.embed_batch_size, args.embed_threads)
+
+        print(
+            f"Indexed {len(points)} MCP server(s) into collection={COLLECTION!r}: "
+            f"{len(changed)} new/changed, {len(stale_ids)} removed, {len(points) - len(changed)} unchanged"
+        )
+    else:
+        existing = existing_mcp_ids(client)
+        known_registry_ids = set(existing.values())
+        current_registry_ids = {r["id"] for r in registry_rows}
+
+        new_points = list(load_points(registry_rows, skip_ids=known_registry_ids))
+        if args.limit is not None:
+            new_points = new_points[: args.limit]
+
+        stale_point_ids = [pid for pid, rid in existing.items() if rid not in current_registry_ids]
+        if stale_point_ids:
+            client.delete(COLLECTION, points_selector=models.PointIdsList(points=stale_point_ids))
+
+        if new_points:
+            upload_in_batches(client, new_points, args.batch_size, args.embed_batch_size, args.embed_threads)
+
+        print(
+            f"Indexed {len(new_points)} new MCP server(s) by id check "
+            f"(skipped {len(known_registry_ids)} already-known id(s)); pruned {len(stale_point_ids)} stale point(s). "
+            f"Use --hash to also catch rows whose readme/description changed at an already-indexed id."
+        )
+
+
+if __name__ == "__main__":
+    main()

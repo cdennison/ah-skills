@@ -100,13 +100,15 @@ def is_stale(updated_iso: str | None, stale_days: int) -> bool:
     return (datetime.datetime.now() - updated) > datetime.timedelta(days=stale_days)
 
 
-def fetch_stars(registry, index, limiter, *, limit, rescan, stale_days) -> None:
+def fetch_stars(registry, index, limiter, *, limit, rescan, stale_days, only_ids=None) -> None:
     candidates = []
     for r in registry:
+        if only_ids is not None and r["id"] not in only_ids:
+            continue
         owner_repo = mcp_registry.parse_github_repo_url(r.get("repo_url") or "")
         if not owner_repo:
             continue
-        if not rescan and not is_stale(r.get("stars_updated"), stale_days):
+        if only_ids is None and not rescan and not is_stale(r.get("stars_updated"), stale_days):
             continue
         candidates.append((r["id"], owner_repo))
     if limit is not None:
@@ -117,7 +119,9 @@ def fetch_stars(registry, index, limiter, *, limit, rescan, stale_days) -> None:
     for i, (entry_id, (owner, repo)) in enumerate(candidates, start=1):
         try:
             data = get_json(f"https://api.github.com/repos/{owner}/{repo}", limiter)
-            mcp_registry.set_stars(registry, entry_id, data.get("stargazers_count"), index=index)
+            mcp_registry.set_stars(
+                registry, entry_id, data.get("stargazers_count"), index=index, language=data.get("language")
+            )
             ok += 1
         except urllib.error.HTTPError as e:
             mcp_registry.record_error(registry, entry_id, "github_stars", f"{e.code} {e.reason}", index=index)
@@ -170,15 +174,17 @@ def fetch_npm_point(pkg: str, limiter) -> dict:
     return {"weekly_downloads": data.get("downloads")}
 
 
-def fetch_downloads(registry, index, limiter, *, limit, rescan, stale_days) -> None:
+def fetch_downloads(registry, index, limiter, *, limit, rescan, stale_days, only_ids=None) -> None:
     candidates = []
     for r in registry:
+        if only_ids is not None and r["id"] not in only_ids:
+            continue
         if first_descriptor_value(r, "registry_type") != "npm":
             continue
         pkg = first_descriptor_value(r, "package_identifier")
         if not pkg:
             continue
-        if not rescan and not is_stale(r.get("downloads_updated"), stale_days):
+        if only_ids is None and not rescan and not is_stale(r.get("downloads_updated"), stale_days):
             continue
         candidates.append((r["id"], pkg))
     if limit is not None:
@@ -222,18 +228,27 @@ def main():
         "--stale-days", type=int, default=DEFAULT_STALE_DAYS,
         help=f"Skip rows refreshed within this many days unless --rescan (default {DEFAULT_STALE_DAYS})",
     )
+    parser.add_argument(
+        "--ids", type=str, default=None,
+        help="Comma-separated registry ids to refresh (ignores --stale-days/--rescan freshness gating, "
+        "always refetches exactly these rows) -- for targeted re-runs, e.g. backfilling a field added after "
+        "these rows were already fetched.",
+    )
     args = parser.parse_args()
 
     registry = mcp_registry.load_registry()
     index = mcp_registry.build_index(registry)
+    only_ids = set(args.ids.split(",")) if args.ids else None
 
     if not args.downloads_only:
         fetch_stars(
-            registry, index, github_limiter(), limit=args.limit, rescan=args.rescan, stale_days=args.stale_days
+            registry, index, github_limiter(), limit=args.limit, rescan=args.rescan, stale_days=args.stale_days,
+            only_ids=only_ids,
         )
     if not args.stars_only:
         fetch_downloads(
-            registry, index, default_limiter(), limit=args.limit, rescan=args.rescan, stale_days=args.stale_days
+            registry, index, default_limiter(), limit=args.limit, rescan=args.rescan, stale_days=args.stale_days,
+            only_ids=only_ids,
         )
 
 

@@ -3,14 +3,34 @@
 # official MCP registry and Glama (both will simply exhaust their own
 # pagination cursor and stop early if the real total is under 100K -- see
 # pull_official_registry.py/pull_glama.py's fetch_all()), then download
-# readmes for every newly-discovered unique repo, then reclassify, export,
-# and snapshot stats. Expected to take hours, potentially ~20+ -- that's
-# fine, it's meant to run unattended overnight.
+# readmes for every newly-discovered unique repo, then reclassify, then
+# backfill GitHub stars/npm ranking data and OSV.dev security-scan data
+# (see fetch_mcp_rankings.py/fetch_mcp_security.py -- both used to be
+# separate, manually-invoked scripts; wiring them in here is what makes
+# them a real part of "the pipeline" instead of something that only runs
+# when someone remembers to kick it off by hand), then export and snapshot
+# stats. Expected to take a long time, potentially 20+ hours -- the
+# rankings step alone is that order of magnitude (see its own docstring) --
+# that's fine, it's meant to run unattended overnight.
 #
 # Rate limits are enforced inside each script (shared/http.py: 10/s+100/min+
 # 10000/hr for the two registry APIs, 4000/hr shared across every GitHub
 # host for readme downloads, 70-minute sleep-and-retry on any 429) -- this
 # wrapper adds no pacing of its own, only sequencing and crash resilience.
+#
+# rankings and security run through supervise.sh (their own retry-on-crash
+# wrapper, invoked here WITHOUT & so this script blocks on each in turn)
+# rather than a bare `python3 -u ...` -- both scripts' own docstrings say
+# "meant to be run under supervise.sh." Deliberately sequenced, never
+# concurrent with each other or with the pull/readme/classify steps above:
+# every one of these steps reads the whole registry into memory and writes
+# the whole file back out, so two of them running at once silently clobber
+# whichever one saves last -- confirmed painfully in practice (a supervised
+# rankings job got SIGTERM'd mid-write once and left registry.json
+# completely empty; see mcp_registry.save_registry()'s docstring for the
+# atomic-write fix that followed, and rebuild_registry_from_raw.py for the
+# recovery path that incident needed). Sequencing here is what keeps a
+# routine overnight run from ever needing that recovery path.
 #
 # NOT `set -e`: a non-zero exit from download_readmes.py (e.g. an
 # unexpected network exception mid-run, hours in) should be retried, not
@@ -58,6 +78,12 @@ done
 
 echo "--- reclassify ---"
 python3 -u classify_mcp_registry.py
+
+echo "--- rankings (github stars + npm downloads/score, ~20h) ---"
+./supervise.sh start rankings python3 -u fetch_mcp_rankings.py
+
+echo "--- security scan (osv.dev, direct-dependency pass included) ---"
+./supervise.sh start security python3 -u fetch_mcp_security.py
 
 echo "--- csv export ---"
 python3 -u export_mcp_csv.py

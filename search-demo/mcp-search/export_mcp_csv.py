@@ -22,6 +22,8 @@ FIELDS = [
     "id",
     "name",
     "description",
+    "glama_description",
+    "readme_description",
     "repo_url",
     "status",
     "mcp_category",
@@ -49,8 +51,18 @@ FIELDS = [
     "npm_score_maintenance",
     "downloads_source",
     "downloads_updated",
+    "language",
+    "security_vuln_count",
+    "security_vuln_ids",
+    "security_max_severity",
+    "security_direct_deps_scanned",
+    "security_direct_deps_vuln_count",
+    "security_direct_deps_with_vulns",
+    "security_source",
+    "security_updated",
     "readme_path",
     "readme_source",
+    "readme_fetched",
     "error_count",
     "last_error",
     "added",
@@ -80,14 +92,27 @@ def first_descriptor_value(entry: dict, field: str):
     return None
 
 
+def _readme_text(entry: dict) -> str:
+    readme_path = entry.get("readme_path")
+    if not readme_path:
+        return ""
+    full_path = mcp_registry.MCP_DIR.parent / readme_path
+    if not full_path.exists():
+        return ""
+    return full_path.read_text(errors="ignore")
+
+
 def to_row(entry: dict) -> dict:
     sources = entry.get("sources", [])
     errors = entry.get("errors", [])
+    glama_source = next((s for s in sources if s["type"] == "glama"), None)
 
     row = {
         "id": entry.get("id"),
         "name": entry.get("name"),
         "description": entry.get("description"),
+        "glama_description": glama_source.get("description") if glama_source else None,
+        "readme_description": mcp_registry.extract_readme_description(_readme_text(entry)),
         "repo_url": entry.get("repo_url"),
         "status": entry.get("status"),
         "mcp_category": entry.get("mcp_category"),
@@ -105,8 +130,20 @@ def to_row(entry: dict) -> dict:
         "npm_score_maintenance": entry.get("npm_score_maintenance"),
         "downloads_source": entry.get("downloads_source"),
         "downloads_updated": entry.get("downloads_updated"),
+        "language": entry.get("language"),
+        "security_vuln_count": entry.get("security_vuln_count"),
+        "security_vuln_ids": json.dumps(entry.get("security_vuln_ids"), ensure_ascii=False)
+        if entry.get("security_vuln_ids") is not None else None,
+        "security_max_severity": entry.get("security_max_severity"),
+        "security_direct_deps_scanned": entry.get("security_direct_deps_scanned"),
+        "security_direct_deps_vuln_count": entry.get("security_direct_deps_vuln_count"),
+        "security_direct_deps_with_vulns": json.dumps(entry.get("security_direct_deps_with_vulns"), ensure_ascii=False)
+        if entry.get("security_direct_deps_with_vulns") is not None else None,
+        "security_source": entry.get("security_source"),
+        "security_updated": entry.get("security_updated"),
         "readme_path": entry.get("readme_path"),
         "readme_source": entry.get("readme_source"),
+        "readme_fetched": entry.get("readme_fetched"),
         "error_count": len(errors),
         "last_error": errors[-1]["message"] if errors else "",
         "added": entry.get("added"),

@@ -31,6 +31,14 @@ Usage:
     python index_qdrant.py                  # incremental (default)
     python index_qdrant.py --hash            # full content-hash re-diff
     python index_qdrant.py --limit 100       # quick test run
+    python index_qdrant.py --rankings-only   # payload-only stars/downloads sync, no re-embed
+
+    # Wipe-and-rebuild, reviewed before going wide (see ensure_collection()/
+    # select_ranked_sample() -- this is the reusable path for both, not a
+    # one-off client.delete_collection() call):
+    python index_qdrant.py --rebuild --sample-ranked 50   # empty collection, index 50 ranked rows
+    #   ...review the 50 points (payload, ranking fields, embeddings)...
+    python index_qdrant.py                                 # then index everything else, unflagged
 """
 
 import argparse
@@ -99,12 +107,31 @@ def load_points(registry_rows: list[dict], skip_ids: set[str] | None = None):
         readme = readme_text(entry)
         h = content_hash(f"{name}\n{description}\n{readme}")
 
+        # Glama alone isn't enough as a description source -- confirmed by
+        # hand (test-data/openzim-mcp-cluster/DESCRIPTION_COMPARISON.md,
+        # test_e2e_pipeline.py's TestDescriptionCapture): it sometimes
+        # synthesizes real signal beyond the README, sometimes just echoes
+        # the README's own tagline verbatim, adding nothing. Both signals
+        # are captured here distinctly rather than trusting the single
+        # merged `description` field above, which is genuinely lossy (only
+        # ever one source's text, decided by mcp_registry.upsert()'s
+        # priority rule, not "the best available description"). Neither is
+        # part of content_hash -- glama_description already lives inside a
+        # `sources[]` entry that changing would already re-embed via a
+        # different path if it mattered there, and readme_description is
+        # purely derived from `readme`, which IS already hashed above.
+        glama_source = next((s for s in entry.get("sources", []) if s["type"] == "glama"), None)
+        glama_description = glama_source.get("description") if glama_source else None
+        readme_description = mcp_registry.extract_readme_description(readme)
+
         yield {
             "id": point_id(entry["id"]),
             "mcp_id": entry["id"],
             "content_hash": h,
             "name": name,
             "description": description,
+            "glama_description": glama_description,
+            "readme_description": readme_description,
             "readme": readme,
             "repo_url": entry.get("repo_url"),
             "status": entry.get("status"),
@@ -134,6 +161,44 @@ def load_points(registry_rows: list[dict], skip_ids: set[str] | None = None):
             "npm_dependents": entry.get("npm_dependents"),
             "npm_score_final": entry.get("npm_score_final"),
             "downloads_source": entry.get("downloads_source"),
+            # GitHub's own repo-level language detection (fetch_mcp_rankings.py,
+            # captured free off the same call as stars) -- "programming
+            # language," separate from `registry_type` ("package manager": npm/
+            # pypi/oci/nuget/cargo/... -- a package manager, not a language;
+            # npm serves both JS and TS packages, so registry_type alone
+            # can't stand in for language). package_manager below is just a
+            # clearer alias of registry_type for payload consumers that want
+            # this concept under an unambiguous name rather than inferring
+            # it's "package manager" from a field literally called
+            # registry_type.
+            "language": entry.get("language"),
+            "package_manager": first_descriptor_value(entry, "registry_type"),
+            # Backfilled by fetch_mcp_security.py (OSV.dev) -- a clean
+            # package is a real {0, []} result, not an absent field; absent
+            # fields here mean "never scanned," not "no vulns found."
+            "security_vuln_count": entry.get("security_vuln_count"),
+            "security_vuln_ids": entry.get("security_vuln_ids"),
+            "security_max_severity": entry.get("security_max_severity"),
+            "security_source": entry.get("security_source"),
+            # Direct dependencies only, not a full transitive tree -- see
+            # fetch_mcp_security.py's "DEPENDENCY COVERAGE" docstring
+            # section for exactly what this does and doesn't cover.
+            "security_direct_deps_scanned": entry.get("security_direct_deps_scanned"),
+            "security_direct_deps_vuln_count": entry.get("security_direct_deps_vuln_count"),
+            "security_direct_deps_with_vulns": entry.get("security_direct_deps_with_vulns"),
+            # Three independent "last checked" clocks -- deliberately not
+            # collapsed into one "last_updated" field, since each reflects a
+            # different fetch running on its own schedule against a
+            # different upstream (download_readmes.py's readme pull vs.
+            # fetch_mcp_rankings.py's two GitHub/npm phases vs.
+            # fetch_mcp_security.py's OSV scan), and none of them were
+            # actually reaching this payload before -- a real gap, not by
+            # design: registry.json has always tracked all three, this
+            # function just never surfaced them.
+            "readme_updated": entry.get("readme_fetched"),
+            "stars_updated": entry.get("stars_updated"),
+            "downloads_updated": entry.get("downloads_updated"),
+            "security_updated": entry.get("security_updated"),
         }
 
 
@@ -172,10 +237,54 @@ def existing_mcp_ids(client) -> dict[str, str]:
 
 RANKING_FIELDS = (
     "stars", "weekly_downloads", "monthly_downloads", "npm_dependents", "npm_score_final", "downloads_source",
+    "language", "security_vuln_count", "security_vuln_ids", "security_max_severity", "security_source",
+    "security_direct_deps_scanned", "security_direct_deps_vuln_count", "security_direct_deps_with_vulns",
+    "stars_updated", "downloads_updated", "security_updated",
 )
 RANKING_OP_BATCH = 1000  # operations per batch_update_points call -- these
 # carry no vectors, so a much larger batch than upsert's byte-capped chunks
 # is safe; 1000 is just a round, comfortably-small number of ops per call.
+
+
+def ensure_collection(client, *, rebuild: bool) -> None:
+    """Create COLLECTION if it doesn't exist; with rebuild=True, delete it
+    first regardless of whether it exists, then create fresh. This is the
+    reusable, scriptable path for wiping and rebuilding the collection --
+    see --rebuild's help text for why that matters: the collection was
+    previously found contaminated with a different pipeline's data (skills
+    payloads under the "mcp_servers" name) by a one-off manual client call
+    during this pipeline's development, not through this function. Routing
+    every rebuild through here from now on means it's always this same,
+    reviewed schema -- never a fresh ad hoc snippet run once and forgotten."""
+    if rebuild and client.collection_exists(COLLECTION):
+        info = client.get_collection(COLLECTION)
+        print(f"[rebuild] deleting existing collection={COLLECTION!r} ({info.points_count} point(s))")
+        client.delete_collection(COLLECTION)
+
+    if not client.collection_exists(COLLECTION):
+        print(f"[rebuild] creating collection={COLLECTION!r}")
+        client.create_collection(
+            COLLECTION,
+            vectors_config={
+                DENSE_VECTOR_NAME: models.VectorParams(
+                    size=client.get_embedding_size(MODEL_NAME), distance=models.Distance.COSINE
+                ),
+            },
+            sparse_vectors_config={
+                SPARSE_VECTOR_NAME: models.SparseVectorParams(modifier=models.Modifier.IDF),
+            },
+        )
+
+
+def select_ranked_sample(registry_rows: list[dict], n: int) -> list[dict]:
+    """Rows that already carry ranking data (fetch_mcp_rankings.py), highest
+    GitHub stars first, npm-only rows (no stars) after -- the "small batch
+    for human review before indexing everything" set, so the sample
+    actually exercises the ranking payload fields end to end instead of
+    picking arbitrary rows that might all have stars=None."""
+    ranked = [r for r in registry_rows if r.get("stars") is not None or r.get("weekly_downloads") is not None]
+    ranked.sort(key=lambda r: (r.get("stars") if r.get("stars") is not None else -1), reverse=True)
+    return ranked[:n]
 
 
 def sync_ranking_payload(client, registry_rows: list[dict]) -> int:
@@ -197,6 +306,14 @@ def sync_ranking_payload(client, registry_rows: list[dict]) -> int:
         if entry is None:
             continue
         payload = {field: entry.get(field) for field in RANKING_FIELDS}
+        # Not a literal field on entry (derived from a source descriptor,
+        # same as load_points()) -- set separately rather than added to
+        # RANKING_FIELDS, which assumes a direct entry.get() lookup.
+        payload["package_manager"] = first_descriptor_value(entry, "registry_type")
+        payload["readme_updated"] = entry.get("readme_fetched")
+        glama_source = next((s for s in entry.get("sources", []) if s["type"] == "glama"), None)
+        payload["glama_description"] = glama_source.get("description") if glama_source else None
+        payload["readme_description"] = mcp_registry.extract_readme_description(readme_text(entry))
         ops.append(models.SetPayloadOperation(set_payload=models.SetPayload(payload=payload, points=[point_id])))
         updated += 1
         if len(ops) >= RANKING_OP_BATCH:
@@ -247,32 +364,60 @@ def main():
     )
     parser.add_argument(
         "--rankings-only", action="store_true",
-        help="Push fresh stars/weekly_downloads onto already-indexed points via payload-only "
-        "update (no embedding, no vector touch). Does not add newly-discovered rows -- run "
-        "without this flag first if there are unindexed rows.",
+        help="Push fresh stars/weekly_downloads/language/security-scan fields onto already-indexed "
+        "points via payload-only update (no embedding, no vector touch). Does not add "
+        "newly-discovered rows -- run without this flag first if there are unindexed rows.",
     )
     parser.add_argument("--batch-size", type=int, default=10_000, help="Points per upsert call (default 10000)")
     parser.add_argument("--limit", type=int, default=None, help="Cap points indexed, e.g. for a quick test run")
+    parser.add_argument(
+        "--rebuild", action="store_true",
+        help="Delete the collection first (if it exists) and recreate it empty before indexing. "
+        "Use when the collection is suspected contaminated/stale, not for routine re-indexing.",
+    )
+    parser.add_argument(
+        "--sample-ranked", type=int, default=None, metavar="N",
+        help="Index only the N rows that already have ranking data (highest stars first), instead of the "
+        "full registry -- the small-batch-for-human-review step before a real --rebuild run indexes everything.",
+    )
+    parser.add_argument(
+        "--ids", type=str, default=None,
+        help="Comma-separated registry ids to index, instead of the full registry -- for indexing/reviewing "
+        "a specific, targeted set of rows (e.g. after fetch_mcp_security.py --ids on the same set).",
+    )
     parser.add_argument("--embed-threads", type=int, default=DEFAULT_EMBED_THREADS)
     parser.add_argument("--embed-batch-size", type=int, default=DEFAULT_EMBED_BATCH_SIZE)
     args = parser.parse_args()
 
     client = get_client()
-
-    if not client.collection_exists(COLLECTION):
-        client.create_collection(
-            COLLECTION,
-            vectors_config={
-                DENSE_VECTOR_NAME: models.VectorParams(
-                    size=client.get_embedding_size(MODEL_NAME), distance=models.Distance.COSINE
-                ),
-            },
-            sparse_vectors_config={
-                SPARSE_VECTOR_NAME: models.SparseVectorParams(modifier=models.Modifier.IDF),
-            },
-        )
+    ensure_collection(client, rebuild=args.rebuild)
 
     registry_rows = mcp_registry.load_registry()
+
+    # `restricted` matters for pruning below: --ids/--sample-ranked narrow
+    # registry_rows to a deliberate subset, but the default/--hash branches'
+    # stale-point cleanup treats "not in registry_rows" as "removed from the
+    # registry, delete it" -- which is correct against the FULL registry,
+    # but wrong against a deliberately narrowed one (it would delete every
+    # previously-indexed point outside this run's subset). Confirmed this
+    # live: an --ids run against an already-populated collection pruned 50
+    # points from an earlier --sample-ranked run that were never meant to be
+    # touched. Fix is to simply skip pruning whenever this run is a
+    # restricted subset, not to try to compute "staleness" against a set
+    # that was never meant to represent the whole registry.
+    restricted = False
+    if args.ids is not None:
+        wanted = set(args.ids.split(","))
+        registry_rows = [r for r in registry_rows if r["id"] in wanted]
+        restricted = True
+        print(f"[ids] restricting this run to {len(registry_rows)}/{len(wanted)} requested row(s) found in registry")
+    elif args.sample_ranked is not None:
+        registry_rows = select_ranked_sample(registry_rows, args.sample_ranked)
+        restricted = True
+        print(
+            f"[sample-ranked] restricting this run to {len(registry_rows)} row(s) with existing ranking data "
+            f"-- review the result before running a full (unflagged) index."
+        )
 
     if args.rankings_only:
         updated = sync_ranking_payload(client, registry_rows)
@@ -287,7 +432,7 @@ def main():
         old_hashes = existing_hashes(client)
 
         changed = [p for p in points if old_hashes.get(p["id"]) != p["content_hash"]]
-        stale_ids = [pid for pid in old_hashes if pid not in current_point_ids]
+        stale_ids = [] if restricted else [pid for pid in old_hashes if pid not in current_point_ids]
 
         if stale_ids:
             client.delete(COLLECTION, points_selector=models.PointIdsList(points=stale_ids))
@@ -307,7 +452,7 @@ def main():
         if args.limit is not None:
             new_points = new_points[: args.limit]
 
-        stale_point_ids = [pid for pid, rid in existing.items() if rid not in current_registry_ids]
+        stale_point_ids = [] if restricted else [pid for pid, rid in existing.items() if rid not in current_registry_ids]
         if stale_point_ids:
             client.delete(COLLECTION, points_selector=models.PointIdsList(points=stale_point_ids))
 

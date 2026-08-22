@@ -31,7 +31,6 @@ Usage:
 
 import argparse
 import json
-import re
 import sys
 import urllib.error
 import urllib.parse
@@ -41,6 +40,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from manual_classifications import MANUAL_CLASSIFICATIONS
+from shared.mcp_keywords import CLIENT_WORD_RE, SERVER_KEYWORD_RE, THIRD_PARTY_FRAMEWORK_RE, TOOLING_KEYWORD_RE
 from shared.rate_limit import sleep_if_more
 
 DATA_PATH = Path(__file__).parent / "npm_mcp_candidates.json"
@@ -54,22 +54,6 @@ SERVER_SIGNAL_PACKAGES = {
     "@modelcontextprotocol/hono",
 }
 CLIENT_SIGNAL_PACKAGES = {"@modelcontextprotocol/client"}
-THIRD_PARTY_FRAMEWORK_RE = re.compile(r"^(mcp-framework|fastmcp|tmcp|@tmcp/.*|@rekog/mcp-nest)$")
-
-TOOLING_KEYWORD_RE = re.compile(
-    r"\b(adapter|middleware|instrumentation|inspector|proxy|tunnel|utils?|plugin|toolkit|"
-    r"cli|generator|framework|sdk|client)\b",
-    re.IGNORECASE,
-)
-# Hyphen OR space between "mcp"/"server" -- package names use "mcp-server",
-# prose uses "mcp server"; the original space-only regex missed the former
-# (e.g. "fiori-mcp-server", "mcp-server-kubernetes").
-SERVER_KEYWORD_RE = re.compile(r"mcp[\s-]server|server[\s-]mcp|model context protocol[\s-]server", re.IGNORECASE)
-# A bare "client" mention anywhere nearby ("...connect to MCP servers..." in
-# a package that calls *itself* an "MCP client") means the server-keyword
-# match above is describing what the package talks to, not what it is --
-# suppress the server match in that case rather than trust raw substring hits.
-CLIENT_WORD_RE = re.compile(r"\bclient\b", re.IGNORECASE)
 
 
 def fetch_full_detail(name: str) -> dict:

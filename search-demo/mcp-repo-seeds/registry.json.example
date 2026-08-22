@@ -1,0 +1,130 @@
+[
+  {
+    "id": "github:0-co/agent-friend",
+    "name": "agent-friend",
+    "description": "General purpose toolbox for AI applications",
+    "repo_url": "https://github.com/0-co/agent-friend",
+    "added": "2026-08-16",
+    "status": "active",
+    "sources": [
+      {
+        "type": "glama",
+        "added": "2026-08-16",
+        "glama_id": "s5tfkku5ng",
+        "glama_url": "https://glama.ai/mcp/servers/s5tfkku5ng",
+        "attributes": [
+          "hosting:hybrid"
+        ],
+        "env_vars_schema_json": "{\"properties\": {}, \"type\": \"object\", \"required\": []}",
+        "license": "MIT License",
+        "tools": []
+      }
+    ],
+    "errors": [],
+    "readme_last_attempt": "2026-08-16T02:41:45",
+    "readme_path": "mcp-search-raw/readmes/0-co__agent-friend.md",
+    "readme_source": "github-raw",
+    "readme_fetched": "2026-08-16T02:41:45",
+    "mcp_category": "server",
+    "mcp_category_source": "source-default",
+    "mcp_category_signals": {
+      "is_third_party_framework": false,
+      "server_keyword_hit": false,
+      "client_keyword_hit": false,
+      "tooling_keyword_hit": false,
+      "used_readme": false
+    },
+    "stars": 3,
+    "stars_updated": "2026-08-16T23:38:07"
+  },
+  {
+    "id": "github:0-don/unorouter-mcp",
+    "name": "com.unorouter/mcp",
+    "description": "MCP server for UnoRouter, an OpenAI-compatible gateway with 200+ models, providing search_models, get_pricing, and chat tools to interact with various AI models through natural language.",
+    "repo_url": "https://github.com/0-don/unorouter-mcp",
+    "added": "2026-08-15",
+    "status": "active",
+    "sources": [
+      {
+        "type": "official_registry",
+        "added": "2026-08-15",
+        "version": "0.2.1",
+        "status_upstream": "active",
+        "published_at": "2026-07-10T09:22:48.017445Z",
+        "updated_at": "2026-07-10T09:22:48.017445Z",
+        "registry_type": "npm",
+        "package_identifier": "unorouter-mcp",
+        "has_installable_package": true,
+        "has_remote": true
+      },
+      {
+        "type": "glama",
+        "added": "2026-08-15",
+        "glama_id": "d0wugfhj39",
+        "glama_url": "https://glama.ai/mcp/servers/d0wugfhj39",
+        "attributes": [
+          "hosting:remote-capable"
+        ],
+        "env_vars_schema_json": "{\"properties\": {\"UNOROUTER_API_KEY\": {\"description\": \"API key for UnoRouter. Create one at https://unorouter.com/token\", \"type\": \"string\", \"default\": \"\"}, \"UNOROUTER_BASE_URL\": {\"description\": \"Base URL for the UnoRouter API. Defaults to https://api.unorouter.com\", \"type\": \"string\", \"default\": \"https://api.unorouter.com\"}}, \"type\": \"object\", \"required\": [\"UNOROUTER_API_KEY\"]}",
+        "license": "AGPL 3.0",
+        "tools": []
+      }
+    ],
+    "errors": [],
+    "readme_path": "mcp-search-raw/readmes/0-don__unorouter-mcp.md",
+    "readme_source": "github:0-don/unorouter-mcp",
+    "readme_fetched": "2026-08-15T23:21:09",
+    "mcp_category": "server",
+    "mcp_category_source": "rule",
+    "mcp_category_signals": {
+      "is_third_party_framework": false,
+      "server_keyword_hit": true,
+      "client_keyword_hit": false,
+      "tooling_keyword_hit": false,
+      "used_readme": false
+    },
+    "stars": 0,
+    "stars_updated": "2026-08-16T23:38:07",
+    "weekly_downloads": 143,
+    "downloads_source": "npm",
+    "downloads_updated": "2026-08-16T23:38:09"
+  },
+  {
+    "id": "github:0-shiv/google-ads-gateway-mcp",
+    "name": "Google Ads Gateway MCP",
+    "description": "A Codex MCP server that wraps the Google Ads Gateway Worker to provide list_accounts and run_gaql tools, enabling natural language querying of Google Ads accounts and running GAQL queries without storing credentials.",
+    "repo_url": "https://github.com/0-shiv/google-ads-gateway-mcp",
+    "added": "2026-08-16",
+    "status": "active",
+    "sources": [
+      {
+        "type": "glama",
+        "added": "2026-08-16",
+        "glama_id": "ahrclzp39m",
+        "glama_url": "https://glama.ai/mcp/servers/ahrclzp39m",
+        "attributes": [
+          "hosting:remote-capable"
+        ],
+        "env_vars_schema_json": "{\"properties\": {\"GADS_GATEWAY_URL\": {\"description\": \"The URL of the Google Ads Gateway Worker\", \"type\": \"string\"}, \"GADS_GATEWAY_TOKEN\": {\"description\": \"The shared team token\", \"type\": \"string\"}}, \"type\": \"object\", \"required\": [\"GADS_GATEWAY_URL\", \"GADS_GATEWAY_TOKEN\"]}",
+        "license": null,
+        "tools": []
+      }
+    ],
+    "errors": [],
+    "readme_last_attempt": "2026-08-16T02:41:45",
+    "readme_path": "mcp-search-raw/readmes/0-shiv__google-ads-gateway-mcp.md",
+    "readme_source": "github-raw",
+    "readme_fetched": "2026-08-16T02:41:45",
+    "mcp_category": "server",
+    "mcp_category_source": "rule",
+    "mcp_category_signals": {
+      "is_third_party_framework": false,
+      "server_keyword_hit": true,
+      "client_keyword_hit": false,
+      "tooling_keyword_hit": false,
+      "used_readme": false
+    },
+    "stars": 0,
+    "stars_updated": "2026-08-16T23:38:07"
+  }
+]

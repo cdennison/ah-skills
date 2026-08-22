@@ -1,0 +1,8 @@
+[
+  {
+    "name": "awesome-mcp-servers",
+    "upstream_repo": "https://github.com/punkpeye/awesome-mcp-servers",
+    "vendored_path": "mcp-repo-seeds/awesome-mcp-servers/README.md",
+    "last_pulled": "2026-08-15T22:27:04+00:00"
+  }
+]

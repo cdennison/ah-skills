@@ -73,7 +73,9 @@ import os
 import re
 import uuid
 from collections import defaultdict
+from collections.abc import Mapping
 from pathlib import Path
+from typing import TypeAlias, assert_never
 
 from fastembed import SparseTextEmbedding, TextEmbedding
 from qdrant_client import QdrantClient, models
@@ -113,6 +115,12 @@ DEFAULT_EMBED_THREADS = int(os.environ.get("SKILLS_EMBED_THREADS", "2"))
 DEFAULT_EMBED_BATCH_SIZE = int(os.environ.get("SKILLS_EMBED_BATCH_SIZE", "16"))
 
 _embedder_cache: dict[str, TextEmbedding | SparseTextEmbedding] = {}
+
+JsonValue: TypeAlias = (
+    str | int | float | bool | None | list["JsonValue"] | list["LocationPayload"] | dict[str, "JsonValue"]
+)
+LocationPayload: TypeAlias = dict[str, JsonValue]
+SkillPayload: TypeAlias = dict[str, JsonValue]
 
 
 def get_embedder(model_name: str, sparse: bool, threads: int) -> TextEmbedding | SparseTextEmbedding:
@@ -596,9 +604,90 @@ def prune_stale_locations(client, current: set[str]) -> tuple[int, int]:
     return deleted, updated
 
 
+def _location_payload(value: JsonValue) -> LocationPayload | None:
+    match value:
+        case dict() as location:
+            return location
+        case str() | int() | float() | bool() | list() | None:
+            return None
+        case unreachable:
+            assert_never(unreachable)
+
+
+def _location_path(location: LocationPayload) -> str | None:
+    match location.get("path"):
+        case str() as path:
+            return path
+        case int() | float() | bool() | list() | dict() | None:
+            return None
+        case unreachable:
+            assert_never(unreachable)
+
+
+def _stored_locations(payload: Mapping[str, JsonValue] | None) -> list[LocationPayload]:
+    if payload is None:
+        return []
+    match payload.get("locations"):
+        case list() as values:
+            return [location for value in values if (location := _location_payload(value)) is not None]
+        case str() | int() | float() | bool() | dict() | None:
+            return []
+        case unreachable:
+            assert_never(unreachable)
+
+
+def _preserve_scan_publications(
+    client: QdrantClient, skills: list[SkillPayload], retain_existing_locations: bool = False
+) -> None:
+    existing_points = client.retrieve(
+        COLLECTION,
+        ids=[str(skill["id"]) for skill in skills],
+        with_payload=["locations"],
+        with_vectors=False,
+    )
+    locations_by_point_id: dict[str, list[LocationPayload]] = {}
+    for existing_point in existing_points:
+        stored_locations = _stored_locations(existing_point.payload)
+        if stored_locations:
+            locations_by_point_id[str(existing_point.id)] = stored_locations
+
+    for skill in skills:
+        stored_locations = locations_by_point_id.get(str(skill["id"]))
+        if stored_locations is None:
+            continue
+        stored_by_path: dict[str, LocationPayload] = {}
+        for stored_location in stored_locations:
+            path = _location_path(stored_location)
+            if path is not None:
+                stored_by_path[path] = stored_location
+        incoming_locations = _stored_locations(skill)
+        for location in incoming_locations:
+            path = _location_path(location)
+            if path is None:
+                continue
+            stored_location = stored_by_path.get(path)
+            if stored_location is not None and "vettd_scan_publications" in stored_location:
+                location["vettd_scan_publications"] = stored_location["vettd_scan_publications"]
+        if retain_existing_locations:
+            incoming_paths: set[str] = set()
+            for location in incoming_locations:
+                path = _location_path(location)
+                if path is not None:
+                    incoming_paths.add(path)
+            skill["locations"] = [
+                *[
+                    stored_location
+                    for stored_location in stored_locations
+                    if (path := _location_path(stored_location)) is not None and path not in incoming_paths
+                ],
+                *incoming_locations,
+            ]
+
+
 def upload_in_batches(
-    client, skills: list[dict], batch_size: int,
+    client: QdrantClient, skills: list[SkillPayload], batch_size: int,
     embed_batch_size: int = DEFAULT_EMBED_BATCH_SIZE, embed_threads: int = DEFAULT_EMBED_THREADS,
+    retain_existing_locations: bool = False,
 ) -> None:
     """batch_size groups points per upsert()/progress-bar tick (network-call
     granularity); embed_batch_size groups documents per onnxruntime
@@ -615,10 +704,11 @@ def upload_in_batches(
 
             dense_vecs = list(dense_model.embed(texts, batch_size=embed_batch_size))
             sparse_vecs = list(sparse_model.embed(texts, batch_size=embed_batch_size))
+            _preserve_scan_publications(client, chunk, retain_existing_locations)
 
             points = [
                 models.PointStruct(
-                    id=s["id"],
+                    id=str(s["id"]),
                     vector={
                         DENSE_VECTOR_NAME: dense_vecs[j].tolist(),
                         SPARSE_VECTOR_NAME: models.SparseVector(
@@ -705,7 +795,14 @@ def main():
         if stale_ids:
             client.delete(COLLECTION, points_selector=models.PointIdsList(points=stale_ids))
         if changed:
-            upload_in_batches(client, changed, args.batch_size, args.embed_batch_size, args.embed_threads)
+            upload_in_batches(
+                client,
+                changed,
+                args.batch_size,
+                args.embed_batch_size,
+                args.embed_threads,
+                retain_existing_locations=False,
+            )
 
         print(
             f"Indexed {len(skills)} skill files into collection={COLLECTION!r}: "
@@ -721,7 +818,14 @@ def main():
         deleted, updated = prune_stale_locations(client, current)
 
         if new_skills:
-            upload_in_batches(client, new_skills, args.batch_size, args.embed_batch_size, args.embed_threads)
+            upload_in_batches(
+                client,
+                new_skills,
+                args.batch_size,
+                args.embed_batch_size,
+                args.embed_threads,
+                retain_existing_locations=True,
+            )
 
         print(
             f"Indexed {len(new_skills)} new skill file(s) by filename check "

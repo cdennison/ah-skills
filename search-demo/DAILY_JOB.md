@@ -305,6 +305,191 @@ matching set into `repos/` in one shot with no batching, which is exactly
 the disk-filling failure mode `batch_pipeline.py` was built to avoid. Kept
 around for reference only; don't run it as part of the regular workflow.
 
+## 5. Optional scan publication (`--publish-scans`)
+
+Scan publication is an explicit opt-in stage. It is off by default; add
+`--publish-scans` to `batch_pipeline.py` only after the ordinary clone and
+index inputs are ready. The publisher operates on the current batch's
+`SKILL.md` files and publishes only locations that already exist in the
+`agent_skills` Qdrant collection. A skill that is not indexed is skipped —
+the publisher never creates a Qdrant collection or indexes a skill as a side
+effect. The stage skips unindexed skills. Successful or duplicate publication
+receipts are stored on the matching point under
+`locations[].vettd_scan_publications`. Failed attempts remain in the
+per-run failure summary/log and are retried on a later run; they do not create
+a durable receipt.
+
+Publication is best-effort per skill: one failed scan or submit does not stop
+the remaining skills or the indexing stage, but any publication failure makes
+the final process exit nonzero. Treat a nonzero exit as a partial result and
+inspect the per-location receipts before retrying.
+
+**Rescan interval.** A skill is not rescanned on every run just because the
+pipeline touched it again — see `docs/ARCHITECTURE_PUBLISHING_SCANS.md` for
+the full algorithm. In short: no prior receipt for the configured target
+means an unconditional scan (nothing to compare against); otherwise a time
+gate applies first (`VETTD_RESCAN_INTERVAL_DAYS`, default **7**) before the
+folder's content hash is even computed, and only past that interval does an
+unchanged hash actually skip the rescan. Lower it (e.g. `0`) for a
+same-run/testing loop where every content change should be caught
+immediately; raise it to reduce scan volume on a large, slow-changing
+registry.
+
+**Verified so far:** `publish_scans.py` has been run directly (not through
+`batch_pipeline.py`) against a real local `vettd` backend and the real
+`vettd-cli` binary, over real skills from `search-raw/affaan-m/ECC` and its
+rename `affaan-m/everything-claude-code` — first-scan, idempotent rerun, and
+all four rescan-gating branches (recent+changed, stale+unchanged,
+stale+changed, never-scanned) all behaved as documented, confirmed against
+the dev-server's own access log and Postgres, not just this script's exit
+code. Two real bugs were found and fixed this way (an `AuthStatus` schema
+that rejected real CLI output, and a `ScanReport` type too shallow for a
+real scan report) — both were invisible to the unit test suite alone, which
+mocks `vettd-cli`'s output. **Not yet verified:** a live run through
+`batch_pipeline.py --publish-scans` itself (only unit-tested with mocks),
+and any run against a real production `VETTD_API_KEY`/endpoint or at real
+registry scale — mint and test both before relying on this in an unattended
+daily job.
+
+### Runtime matrix and environment
+
+The Python scripts derive their checkout root from `Path(__file__).parent`.
+Shell wrappers should do the same rather than embedding a workstation path:
+
+```bash
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$ROOT"
+```
+
+Use the following matrix. `SKILLS_QDRANT_DB_PATH` takes precedence when it is
+set, so it must be explicitly unset in every Docker/server invocation.
+
+| Runtime | Checkout root | Qdrant configuration |
+|---|---|---|
+| Local embedded | `ROOT` derived from the script above | `SKILLS_QDRANT_DB_PATH="$ROOT/qdrant_db"`; `SKILLS_QDRANT_URL` unset |
+| Local Docker/server | `ROOT` derived from the script above | `SKILLS_QDRANT_URL=http://localhost:6333`; `SKILLS_QDRANT_DB_PATH` explicitly unset |
+| Direct EC2 checkout | e.g. `/home/ec2-user/ah-skills/search-demo` | Docker Qdrant at `SKILLS_QDRANT_URL=http://localhost:6333`; `SKILLS_QDRANT_DB_PATH` explicitly unset |
+
+On every host, set `VETTD_CLI_BIN` to that host's absolute `vettd-cli`
+executable. Set `VETTD_SCAN_ENDPOINT` to the complete backend route ending
+in `/api/scans/ingest` (not just a hostname). `VETTD_API_KEY` must belong to
+the backend account intended to own these scans, and the non-secret
+`VETTD_EXPECTED_ACCOUNT_EMAIL` must name that same account.
+`VETTD_RESCAN_INTERVAL_DAYS` (default `7`, must be a non-negative integer)
+controls the rescan gate described above; leave it unset for the default.
+The preflight
+compares `vettd auth status --json` fields `configured`, `api_key_set`,
+`reachable`, and `account.email` with that expected email. This status check
+does **not** prove that the full ingest URL is correct; only a successful
+submit acknowledgement (`Scan accepted: ...` or
+`Scan already submitted (duplicate).`) proves the ingest route worked. Give
+the scanner an isolated,
+writable `HOME`; do not reuse a shared home when jobs can overlap. Never put
+real keys, private addresses, or host-specific credentials in this document
+or `.env.example`.
+
+Local embedded example (the root and all derived paths are local to the
+checkout; replace only the placeholders):
+
+```bash
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$ROOT"
+export HOME="$ROOT/.runtime-home"
+export VETTD_CLI_BIN="$ROOT/.local/bin/vettd-cli"  # absolute after ROOT resolves
+export VETTD_SCAN_ENDPOINT="http://localhost:3000/api/scans/ingest"
+export VETTD_API_KEY="replace-with-vettd-api-key"
+export VETTD_EXPECTED_ACCOUNT_EMAIL="dev@localhost"
+export SKILLS_QDRANT_DB_PATH="$ROOT/qdrant_db"
+unset SKILLS_QDRANT_URL
+mkdir -p "$HOME"
+
+uv run python batch_pipeline.py --batch-size 50 --only-unsynced \
+  --publish-scans
+```
+
+Local Docker/server example:
+
+```bash
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$ROOT"
+export HOME="$ROOT/.runtime-home"
+export VETTD_CLI_BIN="$ROOT/.local/bin/vettd-cli"  # absolute after ROOT resolves
+export VETTD_SCAN_ENDPOINT="http://localhost:3000/api/scans/ingest"
+export VETTD_API_KEY="replace-with-vettd-api-key"
+export VETTD_EXPECTED_ACCOUNT_EMAIL="dev@localhost"
+export SKILLS_QDRANT_URL="http://localhost:6333"
+unset SKILLS_QDRANT_DB_PATH
+mkdir -p "$HOME"
+
+curl --fail --silent --show-error "$SKILLS_QDRANT_URL/healthz" >/dev/null
+uv run python batch_pipeline.py --batch-size 50 --only-unsynced \
+  --publish-scans
+```
+
+Direct EC2/Docker example (this block intentionally has no workstation
+absolute paths):
+
+```bash
+ROOT="/home/ec2-user/ah-skills/search-demo"
+cd "$ROOT"
+export HOME="$ROOT/.runtime-home"
+export VETTD_CLI_BIN="/home/ec2-user/.local/bin/vettd-cli"  # absolute on EC2
+export VETTD_SCAN_ENDPOINT="https://backend.example.invalid/api/scans/ingest"
+export VETTD_API_KEY="replace-with-vettd-api-key"
+export VETTD_EXPECTED_ACCOUNT_EMAIL="replace-with-production-account-email"
+export SKILLS_QDRANT_URL="http://localhost:6333"
+unset SKILLS_QDRANT_DB_PATH
+mkdir -p "$HOME"
+
+curl --fail --silent --show-error "$SKILLS_QDRANT_URL/healthz" >/dev/null
+uv run python batch_pipeline.py --batch-size 50 --only-unsynced \
+  --publish-scans
+```
+
+### Preflight and health checks
+
+Run these before a publish-enabled job. They fail without printing the API
+key, and the Qdrant check works only for server mode; embedded mode instead
+checks that the configured path is present and writable:
+
+```bash
+set -eu
+: "${VETTD_CLI_BIN:?set an absolute VETTD_CLI_BIN for this host}"
+: "${VETTD_SCAN_ENDPOINT:?set the full /api/scans/ingest endpoint}"
+: "${VETTD_API_KEY:?set the intended backend account API key}"
+: "${VETTD_EXPECTED_ACCOUNT_EMAIL:?set the intended backend account email}"
+: "${HOME:?set an isolated writable HOME}"
+case "$VETTD_SCAN_ENDPOINT" in
+  */api/scans/ingest) ;;
+  *) echo "VETTD_SCAN_ENDPOINT must end in /api/scans/ingest" >&2; exit 2 ;;
+esac
+test -x "$VETTD_CLI_BIN"
+test -d "$HOME" && test -w "$HOME"
+if [ -n "${SKILLS_QDRANT_URL:-}" ]; then
+  test -z "${SKILLS_QDRANT_DB_PATH:-}"
+  curl --fail --silent --show-error "$SKILLS_QDRANT_URL/healthz" >/dev/null
+else
+  : "${SKILLS_QDRANT_DB_PATH:?set SKILLS_QDRANT_DB_PATH for embedded mode}"
+  test -d "$SKILLS_QDRANT_DB_PATH" && test -w "$SKILLS_QDRANT_DB_PATH"
+fi
+"$VETTD_CLI_BIN" --version >/dev/null
+AUTH_STATUS="$("$VETTD_CLI_BIN" auth status --json)"
+printf '%s\n' "$AUTH_STATUS" | jq -e \
+  --arg expected "$VETTD_EXPECTED_ACCOUNT_EMAIL" \
+  '(.configured == true) and (.api_key_set == true) and
+   (.reachable == true) and (.account.email == $expected)' >/dev/null
+uv run python batch_pipeline.py --help | grep -F -- '--publish-scans'
+```
+
+For a dry configuration parse without contacting EC2 or a backend, copy one
+of the blocks above into `env -i` with a known `PATH`, then run the preflight
+variable checks while replacing `test -x "$VETTD_CLI_BIN"`, the `curl` line,
+and the `vettd auth status --json`/`jq` lines with `printf 'configured\n'`.
+Do not copy a local `VETTD_CLI_BIN`, `HOME`, `VETTD_EXPECTED_ACCOUNT_EMAIL`, or
+`SKILLS_QDRANT_DB_PATH` into the EC2 block; all four are host-local or
+environment-specific values. Keep the real values in an untracked `.env`, and
+source it with `set -a; . .env; set +a` before running the checks.
+
 ## Non-obvious issues / things that can bite you
 
 - **Registry `skip` does nothing yet (see step 1).** If you're trying to

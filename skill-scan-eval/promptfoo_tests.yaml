@@ -1,0 +1,44 @@
+- description: simple-math
+  vars:
+    skill_name: simple-math
+    skill_payload: file://promptfoo_payloads/simple-math.txt
+- description: charlies-lotl-skill
+  vars:
+    skill_name: charlies-lotl-skill
+    skill_payload: file://promptfoo_payloads/charlies-lotl-skill.txt
+- description: cis-ubuntu2004-v300-1-6-2
+  vars:
+    skill_name: cis-ubuntu2004-v300-1-6-2
+    skill_payload: file://promptfoo_payloads/cis-ubuntu2004-v300-1-6-2.txt
+- description: devcontainer-setup
+  vars:
+    skill_name: devcontainer-setup
+    skill_payload: file://promptfoo_payloads/devcontainer-setup.txt
+- description: diagnosing-failed-warehouse-syncs
+  vars:
+    skill_name: diagnosing-failed-warehouse-syncs
+    skill_payload: file://promptfoo_payloads/diagnosing-failed-warehouse-syncs.txt
+- description: minecraft-resource-pack
+  vars:
+    skill_name: minecraft-resource-pack
+    skill_payload: file://promptfoo_payloads/minecraft-resource-pack.txt
+- description: ml-paper-writing
+  vars:
+    skill_name: ml-paper-writing
+    skill_payload: file://promptfoo_payloads/ml-paper-writing.txt
+- description: ov_dream
+  vars:
+    skill_name: ov_dream
+    skill_payload: file://promptfoo_payloads/ov_dream.txt
+- description: playwright-cli
+  vars:
+    skill_name: playwright-cli
+    skill_payload: file://promptfoo_payloads/playwright-cli.txt
+- description: recoup-research-weekly-brief
+  vars:
+    skill_name: recoup-research-weekly-brief
+    skill_payload: file://promptfoo_payloads/recoup-research-weekly-brief.txt
+- description: verification-quality
+  vars:
+    skill_name: verification-quality
+    skill_payload: file://promptfoo_payloads/verification-quality.txt

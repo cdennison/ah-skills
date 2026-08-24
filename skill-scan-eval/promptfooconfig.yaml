@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+#
+# Normal-path skill-scanner eval, for human review in the promptfoo web UI.
+# Unlike red-teaming/ (adversarial probes), this just runs the scanner's own
+# threat-analysis prompt against real skill packages and lets reviewers mark
+# each verdict pass/fail with comments in `promptfoo view`.
+#
+# Compares 3 prompts from the upstream skill-scanner project side-by-side
+# against the same 11 skill payloads:
+#   - skill_threat_analysis_prompt.md         (primary threat scanner)
+#   - skill_meta_analysis_prompt.md           (consolidates/validates findings from
+#                                               other analyzers — run here directly
+#                                               against raw skill content since we
+#                                               aren't wiring up the full multi-stage
+#                                               pipeline; treat its output as a rough
+#                                               standalone comparison, not its intended
+#                                               use case)
+#   - code_alignment_threat_analysis_prompt.md (SKILL.md-vs-code behavioral mismatch)
+#
+# Regenerate test cases after editing evals/skills/:
+#   python gen_promptfoo_tests.py
+#
+# Run + review:
+#   export ANTHROPIC_API_KEY=sk-ant-api0...
+#   npx promptfoo@latest eval -c promptfooconfig.yaml
+#   npx promptfoo@latest view
+
+description: Skill threat-analysis eval (human review) — 3-prompt comparison
+
+prompts:
+  - id: file://prompt_threat_analysis.json
+    label: threat_analysis
+  - id: file://prompt_meta_analysis.json
+    label: meta_analysis
+  - id: file://prompt_code_alignment.json
+    label: code_alignment
+
+providers:
+  - id: anthropic:messages:claude-haiku-4-5-20251001
+
+defaultTest:
+  vars:
+    system_prompt_threat: file://../prompts/skill_threat_analysis_prompt.md
+    system_prompt_meta: file://../prompts/skill_meta_analysis_prompt.md
+    system_prompt_alignment: file://../prompts/code_alignment_threat_analysis_prompt.md
+
+tests: file://promptfoo_tests.yaml

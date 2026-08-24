@@ -1,0 +1,4 @@
+[
+  { "role": "system", "content": "{{system_prompt_meta}}" },
+  { "role": "user", "content": "Analyze the following Agent Skill package (directory: {{skill_name}}):\n\n{{skill_payload}}" }
+]

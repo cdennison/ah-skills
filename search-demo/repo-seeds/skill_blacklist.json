@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "path": "boomsystel-code/openclaw-workspace/skills/klaviyoapi/SKILL.md",
+    "reason": "corrupt/garbage content: file is 21MB, essentially all one line of a repeating ' 9HW ;A' byte pattern, not real skill content -- breaks Qdrant's 32MB request limit on its own regardless of upload batching",
+    "added": "2026-08-14"
+  }
+]

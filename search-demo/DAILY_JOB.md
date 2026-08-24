@@ -14,6 +14,31 @@ and rerunning the pipeline, in one command. It does **not** automate steps 0-2
 those stay a human judgment call by design. Run `./RUN.sh` for the mechanical
 part of a daily/recurring pass, then still walk steps 0-2 below yourself.
 
+**Order of operations: everything below is a pre-flight step, to be done and
+human-reviewed, *before* step 4 actually clones/indexes anything.** Concretely,
+before you run `batch_pipeline.py` (or `./RUN.sh`, or its step 4/7-9):
+
+1. Check step 0's `./registry.py unsynced` — including whether the registry's
+   `last_synced` timestamps are even trustworthy on this machine (see the
+   "stale local clone state" warning under Non-obvious issues below; a fresh
+   checkout of this repo, e.g. a new box, can show everything as "synced"
+   while `repos/`/`search-raw/` are actually empty).
+2. Walk step 1 (registry review / skip) and step 2 (blacklist review).
+3. Refresh every source in step 3 — `refresh_seeds.py` + `sync-seed`,
+   `fetch_marketplace.py`, and if you're doing a deliberate full refresh
+   rather than a quick daily pass, the manual-only ones too:
+   `pull_leaderboard.py` + `add_skillsh_leaderboard.py`, and a
+   `search_github.py` pass per query (see step 3(c) below) followed by a
+   **human read of the results before approving anything** with
+   `registry.py add-search --approve`.
+4. Only after all of the above is done and reviewed, run step 4 (clone +
+   extract + index + CSV export, by hand or via `./RUN.sh`).
+
+Skipping straight to step 4 without this pass means you're cloning/indexing
+against a registry that may be missing a day's (or more) worth of newly
+discovered repos, or re-trusting `last_synced`/`.clone_state.json` timestamps
+that no longer reflect what's actually on disk.
+
 ## 0. Check what didn't sync
 
 Every registry entry carries a `last_synced` timestamp, stamped by
@@ -148,12 +173,26 @@ registry row:
 ./refresh_seeds.py
 ./registry.py sync-seed
 
-# c) GitHub search -- requires a human review step before anything is added
-./search_github.py "agents skills" --exact --format json --top 25 \
-    --out repo-seeds/github_search_results.json
-# (read repo-seeds/github_search_results.json yourself, then:)
-./registry.py add-search repo-seeds/github_search_results.json \
+# c) GitHub search -- requires a human review step before anything is added.
+#    Three recurring queries are tracked, each run with both `stars` and
+#    `best-match` sort (six runs total); `agent skills` also uses --exact,
+#    matching how each was originally run. Output goes to
+#    repo-seeds/search-runs/<query-slug>-<sort>.json, overwriting the
+#    previous snapshot for that query+sort each time -- these files are a
+#    point-in-time review queue, not an append-only history. (If you ever
+#    need to confirm exactly which query/sort/exact combo originally found
+#    a given repo, check the `search` descriptor(s) on its registry entry --
+#    `registry.py list` or repo-seeds/registry.json directly.)
+./search_github.py "agent skills"  --exact --sort stars      --top 100 --format json --out repo-seeds/search-runs/agent-skills-stars.json
+./search_github.py "agent skills"  --exact --sort best-match --top 100 --format json --out repo-seeds/search-runs/agent-skills-best-match.json
+./search_github.py "claude skills" --sort stars      --top 100 --format json --out repo-seeds/search-runs/claude-skills-stars.json
+./search_github.py "claude skills" --sort best-match --top 100 --format json --out repo-seeds/search-runs/claude-skills-best-match.json
+./search_github.py "codex skills"  --sort stars      --top 100 --format json --out repo-seeds/search-runs/codex-skills-stars.json
+./search_github.py "codex skills"  --sort best-match --top 100 --format json --out repo-seeds/search-runs/codex-skills-best-match.json
+# (read each file yourself, then approve per-file, e.g.:)
+./registry.py add-search repo-seeds/search-runs/agent-skills-stars.json \
     --approve owner/repo --approve owner2/repo2
+# ...repeat add-search against whichever of the six files have repos you approve
 
 # d) One-off manual add, always with a reason
 ./registry.py add-manual owner/repo "found it linked from a blog post"
@@ -236,6 +275,12 @@ first) if free space drops below 1GB.
   so each batch is small enough to show meaningful progress; smaller still
   for a slow/careful catch-up or debugging, larger if the delta is small
   and you just want it done.
+- **Self-imposed cap: 1000 clones/hour**, well under GitHub's own quota,
+  enforced by `clone_repos.py`'s `enforce_hourly_cap()` — it sleeps once the
+  cap is hit rather than erroring. This is tracked off `.clone_state.json`'s
+  per-repo timestamps (not an in-memory counter), so the cap correctly
+  persists across `batch_pipeline.py`'s one-subprocess-per-batch invocations
+  instead of resetting every batch.
 
 **Step 2 — index, 10,000 skills at a time:**
 `index_qdrant.py` reads only from `search-raw/` and `registry.json` — it
@@ -531,3 +576,18 @@ source it with `set -a; . .env; set +a` before running the checks.
   rescan unless it's specifically blacklisted (blacklist removal is the one
   case that's handled). This is a pre-existing gap, not something this
   daily job fixes.
+- **Stale local clone state on a new/rebuilt machine.** `repo-seeds/registry.json`
+  is tracked in git, so `last_synced` timestamps travel with the repo to a
+  fresh checkout even though `repos/`, `search-raw/`, and `.clone_state.json`
+  (all gitignored, local-only) do not. Two separate staleness clocks can
+  disagree as a result: `registry.unsynced_today()` (step 0) only checks
+  whether `last_synced` matches *today's* date, so an old timestamp still
+  correctly flags a repo as due for resync — but `clone_repos.py`'s own
+  independent `RECLONE_COOLDOWN_SECONDS` (30 days, tracked in
+  `.clone_state.json`) will silently skip re-cloning anything cloned within
+  the last month *regardless* of `--only-unsynced`, printing `[skip] ...
+  cloned within the last 30 days` — even when `repos/`/`search-raw/` are
+  actually empty on this machine because they were never carried over from
+  wherever `.clone_state.json` was last written. On a new box (or after
+  losing local state some other way), back up and clear `.clone_state.json`
+  before step 4, or the run will look successful while doing nothing.

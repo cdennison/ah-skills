@@ -1,12 +1,22 @@
 #!/usr/bin/env python3
-"""Compare /search-raw on disk vs what's actually indexed in Qdrant.
+"""Compare /search-raw on disk vs what's actually indexed in Qdrant, plus a
+breakdown of what's actually in the index -- ranking coverage, language,
+agent-target classification, source channel, and duplication.
 
-Run any time to sanity-check that the last index_qdrant.py run is caught up.
+Run any time to sanity-check that the last index_qdrant.py run is caught up,
+or just to get a snapshot of what the index currently looks like.
 """
 
 import csv
 import datetime
+from collections import Counter
 from pathlib import Path
+
+csv.field_size_limit(10_000_000)  # export_csv.py's writer has no such cap on
+# write, so a single large "content" (or duplicate-heavy "locations") field
+# can exceed the csv module's read-side default (128KB) -- raise it well past
+# the largest skill file we've actually seen (~567KB) so counting rows here
+# doesn't crash on legitimately large-but-not-corrupted content.
 
 from export_csv import OUTPUT_FILE as CSV_FILE
 from index_qdrant import COLLECTION, SEARCH_RAW_DIR, get_client, load_skills
@@ -46,6 +56,12 @@ def main():
 
     client = get_client()
 
+    language_counts: Counter = Counter()
+    agent_counts: Counter = Counter()
+    source_counts: Counter = Counter()
+    ranked_skill_count = 0
+    duplicate_skill_count = 0
+
     if not client.collection_exists(COLLECTION):
         qdrant_count = 0
         qdrant_ids = set()
@@ -60,25 +76,49 @@ def main():
         while True:
             points, offset = client.scroll(
                 COLLECTION,
-                with_payload=["owner", "repo", "path"],
+                with_payload=[
+                    "owner", "repo", "path", "language", "agent_compatibility",
+                    "ranking", "sources", "duplicate_count",
+                ],
                 with_vectors=False,
                 limit=1000,
                 offset=offset,
             )
             for p in points:
                 qdrant_ids.add(p.id)
-                owner = p.payload.get("owner")
-                repo = p.payload.get("repo")
+                payload = p.payload or {}
+                owner = payload.get("owner")
+                repo = payload.get("repo")
                 if owner and repo:
                     qdrant_repos.add(f"{owner}/{repo}")
-                path = p.payload.get("path")
-                if path and Path(path).name.lower() == "skill.md":
+                path = payload.get("path")
+                is_skill = bool(path) and Path(path).name.lower() == "skill.md"
+                if is_skill:
                     qdrant_skill_count += 1
+                    # Breakdowns below are skill-level (one vote per SKILL.md),
+                    # not per-point -- an "extra README" point would otherwise
+                    # double-count its repo's language/agent/source/ranking.
+                    language_counts[payload.get("language") or "en"] += 1
+                    agents = payload.get("agent_compatibility") or []
+                    if agents:
+                        for a in agents:
+                            agent_counts[a] += 1
+                    else:
+                        agent_counts["(unclassified)"] += 1
+                    if payload.get("ranking"):
+                        ranked_skill_count += 1
+                    for s in payload.get("sources") or []:
+                        source_counts[s] += 1
+                    if (payload.get("duplicate_count") or 1) > 1:
+                        duplicate_skill_count += 1
             if offset is None:
                 break
 
     missing_from_qdrant = len(disk_ids - qdrant_ids)
     stale_in_qdrant = len(qdrant_ids - disk_ids)
+
+    def pct(n):
+        return f"{n:,} ({100 * n / qdrant_skill_count:.1f}%)" if qdrant_skill_count else f"{n:,}"
 
     print("--- search-raw (disk) ---")
     print(f"Skills: {disk_skill_count:,}")
@@ -91,6 +131,25 @@ def main():
     print(f"Points: {qdrant_count:,}")
     print(f"Repos:  {len(qdrant_repos):,}")
     print(f"Collection: {COLLECTION!r}")
+    print()
+    print("--- ranking coverage ---")
+    print(f"Skills with any ranking/popularity data: {pct(ranked_skill_count)}")
+    print(f"Skills with no ranking data (seed/manual/marketplace only): {pct(qdrant_skill_count - ranked_skill_count)}")
+    print()
+    print("--- by source channel (a skill can count toward more than one) ---")
+    for source, count in source_counts.most_common():
+        print(f"{source:<20} {pct(count)}")
+    print()
+    print("--- by content language ---")
+    for language, count in language_counts.most_common():
+        print(f"{language:<20} {pct(count)}")
+    print()
+    print("--- by agent-target classification (a skill can count toward more than one) ---")
+    for agent, count in agent_counts.most_common():
+        print(f"{agent:<20} {pct(count)}")
+    print()
+    print("--- duplication ---")
+    print(f"Same content found under >1 repo/path: {pct(duplicate_skill_count)}")
     print()
     print("--- diff ---")
     print(f"On disk but not indexed: {missing_from_qdrant:,}")

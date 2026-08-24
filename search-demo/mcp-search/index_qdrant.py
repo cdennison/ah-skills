@@ -43,6 +43,7 @@ Usage:
 
 import argparse
 import hashlib
+import itertools
 import os
 import sys
 import uuid
@@ -324,14 +325,34 @@ def sync_ranking_payload(client, registry_rows: list[dict]) -> int:
     return updated
 
 
-def upload_in_batches(client, points: list[dict], batch_size: int, embed_batch_size: int, embed_threads: int) -> None:
+def upload_in_batches(client, points, batch_size: int, embed_batch_size: int, embed_threads: int,
+                       total: int | None = None) -> None:
+    """`points` is an ITERATOR (typically a generator from load_points()),
+    not a list -- deliberately never materialized in full before this
+    function runs. Confirmed the hard way why that matters: each point
+    payload carries a full README (up to tens of KB), and this pipeline's
+    box has 3.7GB RAM total -- `list(load_points(all_81914_rows))` alone
+    was observed pushing RSS past 1.3GB and climbing, on a box already
+    under memory pressure from concurrent processes, well before a single
+    point had been embedded or uploaded. Chunking `points` here (via
+    itertools.islice, one `batch_size`-sized slice at a time) means at most
+    one batch's worth of full README text is ever resident in memory,
+    regardless of how many rows the whole run covers.
+
+    `total`, if given, is only for the tqdm progress bar's ETA display --
+    computing it from a materialized list would defeat the whole point of
+    this function taking an iterator in the first place, so the caller is
+    expected to have it cheaply (e.g. a registry row count) rather than
+    this function deriving it from `points` itself."""
     dense_model = get_embedder(MODEL_NAME, sparse=False, threads=embed_threads)
     sparse_model = get_embedder(SPARSE_MODEL_NAME, sparse=True, threads=embed_threads)
 
-    total = len(points)
+    points_iter = iter(points)
     with tqdm(total=total, unit="server", desc="embedding", smoothing=0.1) as bar:
-        for i in range(0, total, batch_size):
-            chunk = points[i : i + batch_size]
+        while True:
+            chunk = list(itertools.islice(points_iter, batch_size))
+            if not chunk:
+                break
             texts = [f"{p['name']}: {p['description']}\n\n{p['readme']}" for p in chunk]
 
             dense_vecs = list(dense_model.embed(texts, batch_size=embed_batch_size))
@@ -368,7 +389,13 @@ def main():
         "points via payload-only update (no embedding, no vector touch). Does not add "
         "newly-discovered rows -- run without this flag first if there are unindexed rows.",
     )
-    parser.add_argument("--batch-size", type=int, default=10_000, help="Points per upsert call (default 10000)")
+    parser.add_argument(
+        "--batch-size", type=int, default=500,
+        help="Points per upsert call, AND per in-memory chunk while streaming (default 500 -- lowered from an "
+        "earlier 10000 default after that was observed pushing RSS past 1.3GB and climbing on this pipeline's "
+        "3.7GB box; see upload_in_batches()'s docstring). Each point carries a full README (up to tens of KB), "
+        "so this is the real memory-vs-throughput knob, not just an upsert-call-count one.",
+    )
     parser.add_argument("--limit", type=int, default=None, help="Cap points indexed, e.g. for a quick test run")
     parser.add_argument(
         "--rebuild", action="store_true",
@@ -425,42 +452,66 @@ def main():
         return
 
     if args.hash:
-        points = list(load_points(registry_rows))
-        if args.limit is not None:
-            points = points[: args.limit]
-        current_point_ids = {p["id"] for p in points}
+        # Streams load_points() once rather than materializing every point
+        # up front -- each point carries a full README (up to tens of KB),
+        # and this pipeline's box has 3.7GB RAM total. An unchanged point's
+        # full dict (readme text included) is discarded immediately after
+        # its hash is checked, never retained -- only `changed` (the
+        # subset actually needing re-embedding) stays resident, same
+        # memory discipline as the default branch below and
+        # upload_in_batches() itself. See upload_in_batches()'s docstring
+        # for the incident that made this matter.
         old_hashes = existing_hashes(client)
+        changed: list[dict] = []
+        current_point_ids: set[str] = set()
+        total_points = 0
+        for i, p in enumerate(load_points(registry_rows)):
+            if args.limit is not None and i >= args.limit:
+                break
+            total_points += 1
+            current_point_ids.add(p["id"])
+            if old_hashes.get(p["id"]) != p["content_hash"]:
+                changed.append(p)
 
-        changed = [p for p in points if old_hashes.get(p["id"]) != p["content_hash"]]
         stale_ids = [] if restricted else [pid for pid in old_hashes if pid not in current_point_ids]
 
         if stale_ids:
             client.delete(COLLECTION, points_selector=models.PointIdsList(points=stale_ids))
         if changed:
-            upload_in_batches(client, changed, args.batch_size, args.embed_batch_size, args.embed_threads)
+            upload_in_batches(
+                client, changed, args.batch_size, args.embed_batch_size, args.embed_threads, total=len(changed)
+            )
 
         print(
-            f"Indexed {len(points)} MCP server(s) into collection={COLLECTION!r}: "
-            f"{len(changed)} new/changed, {len(stale_ids)} removed, {len(points) - len(changed)} unchanged"
+            f"Indexed {total_points} MCP server(s) into collection={COLLECTION!r}: "
+            f"{len(changed)} new/changed, {len(stale_ids)} removed, {total_points - len(changed)} unchanged"
         )
     else:
         existing = existing_mcp_ids(client)
         known_registry_ids = set(existing.values())
         current_registry_ids = {r["id"] for r in registry_rows}
 
-        new_points = list(load_points(registry_rows, skip_ids=known_registry_ids))
+        # Generator, not a materialized list -- see upload_in_batches()'s
+        # docstring. `new_count` is computed from id membership only (no
+        # readme text touched) so the tqdm total/print statement don't need
+        # the list realized either.
+        new_points_gen = load_points(registry_rows, skip_ids=known_registry_ids)
+        new_count = sum(1 for r in registry_rows if r["id"] not in known_registry_ids)
         if args.limit is not None:
-            new_points = new_points[: args.limit]
+            new_points_gen = itertools.islice(new_points_gen, args.limit)
+            new_count = min(new_count, args.limit)
 
         stale_point_ids = [] if restricted else [pid for pid, rid in existing.items() if rid not in current_registry_ids]
         if stale_point_ids:
             client.delete(COLLECTION, points_selector=models.PointIdsList(points=stale_point_ids))
 
-        if new_points:
-            upload_in_batches(client, new_points, args.batch_size, args.embed_batch_size, args.embed_threads)
+        if new_count:
+            upload_in_batches(
+                client, new_points_gen, args.batch_size, args.embed_batch_size, args.embed_threads, total=new_count
+            )
 
         print(
-            f"Indexed {len(new_points)} new MCP server(s) by id check "
+            f"Indexed {new_count} new MCP server(s) by id check "
             f"(skipped {len(known_registry_ids)} already-known id(s)); pruned {len(stale_point_ids)} stale point(s). "
             f"Use --hash to also catch rows whose readme/description changed at an already-indexed id."
         )

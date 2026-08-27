@@ -27,3 +27,4 @@ mcp-search/mcp_servers.db
 
 # large generated registry (see registry.json.example for shape)
 mcp-repo-seeds/registry.json
+search-demo/repo-seeds/skills.json

@@ -45,10 +45,20 @@ SECURITY_STATUS_OPTIONS: Final = tuple(SecurityStatus)
 _client: QdrantClient | None = None
 
 
+CLIENT_TIMEOUT_SECONDS: Final = 300  # qdrant-client's own default (5s) is
+# too short for a scroll/query against a large collection under load --
+# observed directly: a browse_skills() scroll timed out at the 5s default
+# while a concurrent indexing job was competing for CPU, on a request that
+# would have succeeded given a few more seconds. Matches ../index_qdrant.py's
+# own CLIENT_TIMEOUT_SECONDS.
+
+
 def _get_client() -> QdrantClient:
     global _client
     if _client is None:
-        _client = QdrantClient(path=str(DB_PATH)) if DB_PATH else QdrantClient(url=QDRANT_URL)
+        _client = (
+            QdrantClient(path=str(DB_PATH)) if DB_PATH else QdrantClient(url=QDRANT_URL, timeout=CLIENT_TIMEOUT_SECONDS)
+        )
     return _client
 
 

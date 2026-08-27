@@ -29,6 +29,8 @@ STATE_FILE = Path(__file__).parent / ".clone_state.json"
 MIN_DELAY_SECONDS = 5  # floor pause between clones even when rate limit is healthy
 RECLONE_COOLDOWN_SECONDS = 30 * 24 * 60 * 60  # don't re-clone a repo within a month
 RATE_LIMIT_SAFETY_MARGIN = 5  # stop and wait when this few requests remain
+MAX_CLONES_PER_HOUR = 1000  # self-imposed cap, independent of (and stricter than) GitHub's own quota
+HOUR_SECONDS = 60 * 60
 # Extra flat pause after every successful clone, on top of the rate-limit
 # pacing above -- stay conservative with GitHub even when the API says we
 # have quota to spare. Skipped for skips/errors since those don't hit the
@@ -77,6 +79,24 @@ def recently_cloned(state, owner, repo):
     if ts is None:
         return False
     return (time.time() - ts) < RECLONE_COOLDOWN_SECONDS
+
+
+def enforce_hourly_cap(state):
+    """Self-imposed cap of MAX_CLONES_PER_HOUR, independent of GitHub's own
+    rate limit. Reuses the per-repo timestamps already recorded in
+    .clone_state.json (updated on every successful clone) rather than an
+    in-memory counter -- batch_pipeline.py invokes this script as a fresh
+    subprocess per batch, so an in-memory window would silently reset every
+    batch instead of tracking clones across the whole run."""
+    now = time.time()
+    recent = sorted(ts for ts in state.values() if now - ts < HOUR_SECONDS)
+    if len(recent) < MAX_CLONES_PER_HOUR:
+        return
+    oldest_in_cap = recent[-MAX_CLONES_PER_HOUR]
+    wait = HOUR_SECONDS - (now - oldest_in_cap) + 1
+    if wait > 0:
+        print(f"[rate-limit] self-imposed cap of {MAX_CLONES_PER_HOUR} clones/hour reached -- sleeping {wait:.0f}s")
+        time.sleep(wait)
 
 
 def check_rate_limit():
@@ -288,6 +308,7 @@ def main():
         # Only pace against the rate limit when a clone actually happened --
         # skips (already-cloned repos) don't touch the GitHub API.
         if result == "cloned" and i < len(repos) - 1:
+            enforce_hourly_cap(state)
             time.sleep(POST_CLONE_DELAY_SECONDS)
             delay = check_rate_limit()
             time.sleep(delay)

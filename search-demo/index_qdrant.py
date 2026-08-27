@@ -69,6 +69,7 @@ of token/output arrays is live at a time.
 
 import argparse
 import hashlib
+import json
 import os
 import re
 import uuid
@@ -77,13 +78,13 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import TypeAlias, assert_never
 
-from fastembed import SparseTextEmbedding, TextEmbedding
 from qdrant_client import QdrantClient, models
 from tqdm import tqdm
 
 import registry
 from agent_target import classify_agent_target, classify_from_metadata
 from frontmatter import parse_frontmatter
+from shared.qdrant import CLIENT_TIMEOUT_SECONDS, get_client as _shared_get_client, get_embedder, upsert_size_capped
 
 SEARCH_RAW_DIR = Path(__file__).parent / "search-raw"
 # clone_repos.py's clone destination -- when a repo's local checkout is
@@ -114,8 +115,6 @@ QDRANT_URL = os.environ.get("SKILLS_QDRANT_URL", "http://localhost:6333")
 DEFAULT_EMBED_THREADS = int(os.environ.get("SKILLS_EMBED_THREADS", "2"))
 DEFAULT_EMBED_BATCH_SIZE = int(os.environ.get("SKILLS_EMBED_BATCH_SIZE", "16"))
 
-_embedder_cache: dict[str, TextEmbedding | SparseTextEmbedding] = {}
-
 JsonValue: TypeAlias = (
     str | int | float | bool | None | list["JsonValue"] | list["LocationPayload"] | dict[str, "JsonValue"]
 )
@@ -123,30 +122,15 @@ LocationPayload: TypeAlias = dict[str, JsonValue]
 SkillPayload: TypeAlias = dict[str, JsonValue]
 
 
-def get_embedder(model_name: str, sparse: bool, threads: int) -> TextEmbedding | SparseTextEmbedding:
-    """Construct (once) and cache the dense/sparse fastembed model with an
-    explicit thread count and the CPU memory arena disabled. Going through
-    fastembed directly -- rather than qdrant_client's automatic
-    `models.Document` inference -- is what makes these onnxruntime knobs
-    reachable at all; see the module docstring."""
-    cache_key = f"{model_name}:{threads}"
-    if cache_key not in _embedder_cache:
-        cls = SparseTextEmbedding if sparse else TextEmbedding
-        _embedder_cache[cache_key] = cls(
-            model_name=model_name, threads=threads, enable_cpu_mem_arena=False
-        )
-    return _embedder_cache[cache_key]
-
-
 def get_client() -> QdrantClient:
     """Shared entry point for constructing the Qdrant client used by every
     script in this pipeline. Defaults to the Docker server at localhost:6333;
     set SKILLS_QDRANT_URL to point elsewhere, or SKILLS_QDRANT_DB_PATH (see
-    app/search.py) to use an embedded on-disk store instead."""
-    db_path_override = os.environ.get("SKILLS_QDRANT_DB_PATH")
-    if db_path_override:
-        return QdrantClient(path=db_path_override)
-    return QdrantClient(url=QDRANT_URL)
+    app/search.py) to use an embedded on-disk store instead. Thin wrapper
+    around shared.qdrant.get_client -- kept as a local function so every
+    existing call site (`get_client()`) and test mock keeps working
+    unchanged."""
+    return _shared_get_client("SKILLS_QDRANT_URL", "SKILLS_QDRANT_DB_PATH", default_url=QDRANT_URL)
 
 # Qdrant point ids must be an unsigned int or a UUID -- an arbitrary hex
 # digest is rejected, so derive a stable UUID5 from the content hash instead
@@ -303,10 +287,17 @@ def _primary_location(locations: list[dict]) -> dict:
     return max(locations, key=lambda loc: (loc["stars"] or 0, loc["owner"], loc["repo"], loc["path"]))
 
 
-def load_skills(skip_paths: set[str] | None = None):
+def load_skills(skip_paths: set[str] | None = None, ranked_only: bool = False):
     """skip_paths: relative-path strings (as produced by str(rel) below) to
     skip entirely -- no read, no hash. Used by the fast filename-based mode
-    to avoid touching files already known to be indexed."""
+    to avoid touching files already known to be indexed.
+
+    ranked_only: skip any file whose owning repo has no ranking/popularity
+    data (empty `_ranking_string()` -- i.e. never surfaced by search_github.py
+    or the skills.sh leaderboard, only found via seed/manual/marketplace).
+    Checked before the file is even read, so filtered-out files cost nothing
+    beyond the registry lookup. Mirrors export_csv.py's --ranked-only filter,
+    applied at index time instead of export time."""
     skip_paths = skip_paths or set()
     registry_by_repo = {
         (r["owner"].lower(), r["repo"].lower()): r for r in registry.load_registry()
@@ -322,9 +313,12 @@ def load_skills(skip_paths: set[str] | None = None):
             continue
         owner, repo = rel.parts[0], rel.parts[1]
         subpath = "/".join(rel.parts[2:])
+        registry_entry = registry_by_repo.get((owner.lower(), repo.lower()))
+        ranking = _ranking_string(registry_entry)
+        if ranked_only and not ranking:
+            continue
         text = path.read_text(encoding="utf-8")
         meta = parse_frontmatter(text)
-        registry_entry = registry_by_repo.get((owner.lower(), repo.lower()))
         # sources: every registry.json discovery channel (seed/search/manual/
         # marketplace) that surfaced this repo -- see registry.py. Re-derived
         # from registry.json on every index run, so a repo that gains a new
@@ -332,7 +326,6 @@ def load_skills(skip_paths: set[str] | None = None):
         sources = sorted(registry.source_types(registry_entry)) if registry_entry else []
         stars = registry_entry.get("stars") if registry_entry else None
         language = _content_language(str(rel))
-        ranking = _ranking_string(registry_entry)
         h = content_hash(text)
 
         skill_name = meta.get("name", path.parent.name)
@@ -720,7 +713,7 @@ def upload_in_batches(
                 )
                 for j, s in enumerate(chunk)
             ]
-            client.upsert(collection_name=COLLECTION, points=points)
+            upsert_size_capped(client, COLLECTION, points)
             bar.update(len(chunk))
 
 
@@ -755,6 +748,12 @@ def main():
         help="Documents embedded per onnxruntime inference call (default 16, or $SKILLS_EMBED_BATCH_SIZE). "
         "Raise on boxes with more RAM for faster throughput.",
     )
+    parser.add_argument(
+        "--ranked-only", action="store_true",
+        help="Only index files whose repo has ranking/popularity data (non-empty `ranking`, e.g. "
+        "skills.sh rank or a search_github.py rank -- see export_csv.py's --ranked-only). Repos found "
+        "only via seed/manual/marketplace with no such signal are skipped entirely, before being read.",
+    )
     args = parser.parse_args()
 
     client = get_client()
@@ -783,7 +782,7 @@ def main():
         )
 
     if args.hash:
-        skills = list(load_skills())
+        skills = list(load_skills(ranked_only=args.ranked_only))
         if args.limit is not None:
             skills = skills[: args.limit]
         current_ids = {s["id"] for s in skills}
@@ -812,7 +811,7 @@ def main():
     else:
         current = current_paths()
         known = known_paths(client)
-        new_skills = list(load_skills(skip_paths=known))
+        new_skills = list(load_skills(skip_paths=known, ranked_only=args.ranked_only))
         if args.limit is not None:
             new_skills = new_skills[: args.limit]
         deleted, updated = prune_stale_locations(client, current)

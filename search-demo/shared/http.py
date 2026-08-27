@@ -20,7 +20,10 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-from shared.github_auth import GITHUB_HOSTS, auth_headers
+from shared.github_auth import GITHUB_HOSTS
+from shared.github_auth import auth_headers as github_auth_headers
+from shared.npm_auth import NPM_HOSTS
+from shared.npm_auth import auth_headers as npm_auth_headers
 from shared.rate_limit import RateLimiter
 
 USER_AGENT = "ah-skills-mcp-search/0.1 (+https://github.com/cdennison/ah-skills; contact: dennison.ch@gmail.com)"
@@ -65,10 +68,14 @@ def _request(url: str, limiter: RateLimiter, *, data: bytes | None, extra_header
     docstring for the retry/rate-limit semantics; this is that logic,
     extracted once POST needed to share it rather than duplicate it."""
     headers = {"User-Agent": USER_AGENT, **extra_headers}
-    if urllib.parse.urlsplit(url).netloc in GITHUB_HOSTS:
-        headers.update(auth_headers())
+    netloc = urllib.parse.urlsplit(url).netloc
+    if netloc in GITHUB_HOSTS:
+        headers.update(github_auth_headers())
+    elif netloc in NPM_HOSTS:
+        headers.update(npm_auth_headers())
 
     attempts = 0
+    rate_limit_attempts = 0
     while True:
         limiter.wait()
         req = urllib.request.Request(url, data=data, headers=headers)
@@ -92,11 +99,45 @@ def _request(url: str, limiter: RateLimiter, *, data: bytes | None, extra_header
             # would just waste an hour to fail the same way again.
             is_github_quota_403 = e.code == 403 and e.headers.get("X-RateLimit-Remaining") == "0"
             if e.code == 429 or is_github_quota_403:
+                # Short backoff first, full RATE_LIMIT_SLEEP_SECONDS only
+                # once those are exhausted -- found the hard way that a 429
+                # isn't always the sustained, needs-a-full-hour kind.
+                # registry.npmjs.org was observed 429ing on EVERY single
+                # request (not occasionally -- confirmed on 18 consecutive
+                # different packages in a live run), then succeeding on the
+                # very next retry, every single time, while an identical
+                # one-off manual request against the same URL always
+                # succeeded on the first try -- consistent with some
+                # per-request (not per-IP-sustained) Cloudflare-level
+                # heuristic that a single quick retry reliably clears.
+                # Starts at 1s (not the 5xx path's 4s) specifically because
+                # of that observation: overpaying the backoff here is pure
+                # waste multiplied by every request in the run (6503
+                # requests x an extra 3s each is ~5.4h of nothing), not
+                # caution -- still grows if one retry genuinely isn't
+                # enough, and still falls back to the full sleep for a
+                # REAL sustained block (confirmed separately for GitHub:
+                # a self-imposed-budget exhaustion that only clears once
+                # the rolling window actually rolls over) -- that path
+                # isn't skipped, just no longer the first response to any
+                # 429.
+                rate_limit_attempts += 1
+                if rate_limit_attempts <= max_retries:
+                    backoff = min(2 ** (rate_limit_attempts - 1), 30)
+                    print(
+                        f"[rate-limit] {e.code} from {url} -- short retry {rate_limit_attempts}/{max_retries} "
+                        f"in {backoff}s before falling back to a {RATE_LIMIT_SLEEP_SECONDS // 60}min sleep",
+                        file=sys.stderr,
+                    )
+                    time.sleep(backoff)
+                    continue
                 print(
-                    f"[rate-limit] {e.code} from {url} -- sleeping {RATE_LIMIT_SLEEP_SECONDS // 60} min before retrying",
+                    f"[rate-limit] {e.code} from {url} -- still failing after {max_retries} short retries, "
+                    f"sleeping {RATE_LIMIT_SLEEP_SECONDS // 60} min before retrying",
                     file=sys.stderr,
                 )
                 time.sleep(RATE_LIMIT_SLEEP_SECONDS)
+                rate_limit_attempts = 0  # give the next cycle its own fresh short-retry budget
                 continue
             if 500 <= e.code < 600:
                 attempts += 1
@@ -121,9 +162,13 @@ def get(url: str, limiter: RateLimiter, max_retries: int = 4, timeout: float = 3
 
     Requests to a GitHub host (raw.githubusercontent.com, api.github.com,
     codeload.github.com) automatically carry the GITHUB_PAT bearer token
-    when one is configured (see shared/github_auth.py) -- every other host
-    (glama.ai, registry.modelcontextprotocol.io, api.osv.dev) is left
-    unauthenticated, since a GitHub token has no business being sent there."""
+    when one is configured (see shared/github_auth.py); requests to
+    registry.npmjs.org likewise carry an NPM_TOKEN bearer token when
+    configured (see shared/npm_auth.py -- npm rate-limits anonymous
+    registry API callers more aggressively than authenticated ones).
+    Every other host (glama.ai, registry.modelcontextprotocol.io,
+    api.osv.dev, api.npmjs.org, pypi.org) is left unauthenticated, since
+    neither token has any business being sent there."""
     return _request(url, limiter, data=None, extra_headers={}, max_retries=max_retries, timeout=timeout)
 
 

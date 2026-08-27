@@ -57,14 +57,22 @@ node --version || curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bas
 cd skill-scan-eval   # if not already there
 python gen_promptfoo_tests.py       # rebuild test cases from skills/
 
-export ANTHROPIC_API_KEY=sk-ant-api0...   # real API key (sk-ant-api...), NOT a Claude Code oauth token (sk-ant-oat...)
+echo 'OPENROUTER_API_KEY=sk-or-v1-...' > .env   # your real OpenRouter key
 npx promptfoo@latest eval -c promptfooconfig.yaml
 ```
 
-The current config runs **3 prompts × every skill under `skills/`**
-(`skill_threat_analysis_prompt.md`, `skill_meta_analysis_prompt.md`,
-`code_alignment_threat_analysis_prompt.md`, all loaded from `../prompts/`),
-so make sure that sibling directory came along with the clone.
+All 3 providers in `promptfooconfig.yaml` route through OpenRouter
+(`openrouter:<provider>/<model>`), so a single `OPENROUTER_API_KEY` covers
+every model — no direct `ANTHROPIC_API_KEY`/`OPENAI_API_KEY`/etc needed.
+promptfoo loads `.env` from the working directory automatically.
+
+The current config runs **4 prompts × 3 models × every skill under `skills/`**
+(`skill_threat_analysis_prompt.md`, `code_alignment_threat_analysis_prompt.md`,
+`semantic_security_discovery_prompt.md`, `semantic_quality_policy_prompt.md`,
+all loaded from `../prompts/`, against Gemini 3.7 Flash, GPT-5.4 Mini, and
+DeepSeek V3.2), so make sure that sibling `prompts/` directory came along with
+the clone. See this directory's README.md for why `skill_meta_analysis_prompt.md`
+isn't wired into this config.
 
 Re-run `gen_promptfoo_tests.py` any time you add/change a skill under
 `skills/` (each needs a `SKILL.md`, and optionally `_expected.json`), then
@@ -82,7 +90,7 @@ added), add a cron entry or systemd timer that does steps above non-interactivel
 set -euo pipefail
 cd /opt/ah-skills/skill-scan-eval
 source .venv/bin/activate
-export ANTHROPIC_API_KEY=sk-ant-api0...
+# OPENROUTER_API_KEY is read from .env in this directory -- no export needed
 python gen_promptfoo_tests.py
 npx promptfoo@latest eval -c promptfooconfig.yaml
 ```

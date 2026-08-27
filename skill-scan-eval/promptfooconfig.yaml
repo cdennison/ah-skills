@@ -2,46 +2,69 @@
 #
 # Normal-path skill-scanner eval, for human review in the promptfoo web UI.
 # Unlike red-teaming/ (adversarial probes), this just runs the scanner's own
-# threat-analysis prompt against real skill packages and lets reviewers mark
-# each verdict pass/fail with comments in `promptfoo view`.
+# detection prompts against real skill packages and lets reviewers mark each
+# verdict pass/fail with comments in `promptfoo view`. See README.md in this
+# directory for the overall setup and how to add a new scanner prompt.
 #
-# Compares 3 prompts from the upstream skill-scanner project side-by-side
-# against the same 11 skill payloads:
-#   - skill_threat_analysis_prompt.md         (primary threat scanner)
-#   - skill_meta_analysis_prompt.md           (consolidates/validates findings from
-#                                               other analyzers — run here directly
-#                                               against raw skill content since we
-#                                               aren't wiring up the full multi-stage
-#                                               pipeline; treat its output as a rough
-#                                               standalone comparison, not its intended
-#                                               use case)
-#   - code_alignment_threat_analysis_prompt.md (SKILL.md-vs-code behavioral mismatch)
+# Runs these standalone detector prompts side-by-side against the same 11
+# skill payloads. Labels are prefixed by originating project so results in
+# `promptfoo view` are unambiguous about provenance:
+#   - cisco_threat_analysis            (skill_threat_analysis_prompt.md -- primary
+#                                        threat scanner, Cisco skill-scanner project)
+#   - cisco_code_alignment             (code_alignment_threat_analysis_prompt.md --
+#                                        SKILL.md-vs-code behavioral mismatch, same project)
+#   - nvidia_semantic_security_discovery (semantic_security_discovery_prompt.md --
+#                                        intent/phrasing-based attacks that slip past
+#                                        regex: disguised prompt injection, paraphrased
+#                                        jailbreaks, narrative manipulation; NVIDIA
+#                                        SkillSpector project)
+#   - nvidia_semantic_quality_policy   (semantic_quality_policy_prompt.md -- quality/
+#                                        policy audit: vague trigger phrases, missing
+#                                        risk warnings, natural-language policy
+#                                        violations; same project)
+#
+# Each prompt_<name>.js reads its system prompt straight from ../prompts/ at
+# load time (see the file for which one) instead of threading it through a
+# test `var` -- vars become columns in `promptfoo view`, and a full prompt's
+# worth of text isn't a variable, it's fixed content. Edit the .md file in
+# ../prompts/ to change a prompt's instructions; the .js wrapper doesn't need
+# to change.
+#
+# NOT included (deliberately) -- "scanner of scanners" prompts that triage
+# findings from the *other* prompts above, rather than analyzing the skill
+# directly. They need real findings data from a prior scan pass to have
+# anything to review, which this standalone eval doesn't produce yet:
+#   - skill_meta_analysis_prompt.md (../prompts/, Cisco skill-scanner)
+#   - meta_analyzer.md (../prompts/, NVIDIA SkillSpector)
+#   Both are on disk, unreferenced here, for whenever a prior scan pass's
+#   findings are available to feed them.
 #
 # Regenerate test cases after editing evals/skills/:
 #   python gen_promptfoo_tests.py
 #
-# Run + review:
-#   export ANTHROPIC_API_KEY=sk-ant-api0...
+# Run + review (all providers go through OpenRouter -- no direct ANTHROPIC_API_KEY
+# needed. Put OPENROUTER_API_KEY in .env, or export it in your shell):
 #   npx promptfoo@latest eval -c promptfooconfig.yaml
 #   npx promptfoo@latest view
 
-description: Skill threat-analysis eval (human review) — 3-prompt comparison
+description: Skill threat-analysis eval (human review) — 4-prompt comparison
 
 prompts:
-  - id: file://prompt_threat_analysis.json
-    label: threat_analysis
-  - id: file://prompt_meta_analysis.json
-    label: meta_analysis
-  - id: file://prompt_code_alignment.json
-    label: code_alignment
+  - id: file://prompt_threat_analysis.js
+    label: cisco_threat_analysis
+  - id: file://prompt_code_alignment.js
+    label: cisco_code_alignment
+  - id: file://prompt_semantic_security_discovery.js
+    label: nvidia_semantic_security_discovery
+  - id: file://prompt_semantic_quality_policy.js
+    label: nvidia_semantic_quality_policy
 
+# All prompts above run against each of these 3 models -- one eval covers
+# every (prompt, model) pair. Model ids/pricing verified live against
+# https://openrouter.ai/api/v1/models on 2026-08-27.
 providers:
-  - id: anthropic:messages:claude-haiku-4-5-20251001
-
-defaultTest:
-  vars:
-    system_prompt_threat: file://../prompts/skill_threat_analysis_prompt.md
-    system_prompt_meta: file://../prompts/skill_meta_analysis_prompt.md
-    system_prompt_alignment: file://../prompts/code_alignment_threat_analysis_prompt.md
+  - id: openrouter:google/gemini-3.7-flash
+  - id: openrouter:openai/gpt-5.4-mini
+  - id: openrouter:deepseek/deepseek-v3.2
 
 tests: file://promptfoo_tests.yaml

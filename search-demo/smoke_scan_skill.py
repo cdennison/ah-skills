@@ -54,8 +54,10 @@ QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")
 
 # A real indexed skill whose Qdrant point already has a published Vettd scan
 # (deterministic: grade B, VTD-0088 "references external URL" security finding).
-TARGET_SKILL_PATH = "steipete/clawdis/.agents/skills/crabbox/SKILL.md"
-QUERY_TEXT = "crabbox"
+# Deliberately NOT an openclaw / hermes skill -- see EXCLUDE_AGENTS.
+TARGET_SKILL_PATH = "affaan-m/everything-claude-code/skills/homelab-pihole-dns/SKILL.md"
+QUERY_TEXT = "homelab pihole dns"
+EXCLUDE_AGENTS = ("openclaw", "hermes", "clawdis", "steipete")
 
 
 # ── step 1: locate the hard-coded skill ─────────────────────────────────────
@@ -65,7 +67,7 @@ def locate(client: QdrantClient) -> dict[str, Any]:
     while True:
         points, offset = client.scroll(
             COLLECTION,
-            with_payload=["name", "content", "content_hash", "locations"],
+            with_payload=["name", "content", "content_hash", "locations", "agent_compatibility"],
             with_vectors=False,
             limit=512,
             offset=offset,
@@ -73,17 +75,43 @@ def locate(client: QdrantClient) -> dict[str, Any]:
         for point in points:
             payload = point.payload or {}
             for location in payload.get("locations") or []:
-                if location.get("path") == TARGET_SKILL_PATH:
-                    return {
-                        "point_id": str(point.id),
-                        "name": payload.get("name") or "",
-                        "content": payload.get("content") or "",
-                        "content_hash": payload.get("content_hash") or "",
-                        "location": location,
-                    }
+                if location.get("path") != TARGET_SKILL_PATH:
+                    continue
+                _assert_not_excluded_agent(payload)
+                return {
+                    "point_id": str(point.id),
+                    "name": payload.get("name") or "",
+                    "content": payload.get("content") or "",
+                    "content_hash": payload.get("content_hash") or "",
+                    "location": location,
+                }
         if offset is None:
             break
     raise SystemExit(f"skill {TARGET_SKILL_PATH!r} not found in {COLLECTION}")
+
+
+def _assert_not_excluded_agent(payload: dict[str, Any]) -> None:
+    """Guard against picking an openclaw/hermes skill -- check the name,
+    agent_compatibility, and *every* location (a point can be shared across
+    repos), not just the one that matched TARGET_SKILL_PATH."""
+    blob = " ".join(
+        str(value).lower()
+        for value in (
+            payload.get("name"),
+            *(payload.get("agent_compatibility") or []),
+            *(
+                f"{loc.get('owner', '')}/{loc.get('repo', '')}/{loc.get('path', '')}"
+                for loc in payload.get("locations") or []
+            ),
+        )
+        if value
+    )
+    hit = next((bad for bad in EXCLUDE_AGENTS if bad in blob), None)
+    if hit is not None:
+        raise SystemExit(
+            f"target skill looks openclaw/hermes-related ({hit!r} in its metadata) -- "
+            "pick a different TARGET_SKILL_PATH"
+        )
 
 
 def assert_vettd_scan(location: dict[str, Any]) -> None:

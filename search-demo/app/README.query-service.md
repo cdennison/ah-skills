@@ -33,13 +33,13 @@ network call (to the LLM provider).
 ```bash
 curl -sS -X POST http://localhost:8000/scan/skill \
   -H 'Content-Type: application/json' \
-  -d '{"point_id": "39fc8269-f014-51e3-858c-42316cf1465b", "force": true}'
-# -> {"point_id": "...", "skipped": false, "llm_scan": {"max_severity": "MEDIUM",
-#     "finding_count": 4, "model": "openrouter/deepseek/deepseek-v3.2", ...}}
+  -d '{"point_id": "83a8b1b8-d47b-5c42-9578-adee890b6d9f", "force": true}'
+# -> {"point_id": "...", "skipped": false, "llm_scan": {"max_severity": "LOW",
+#     "finding_count": 1, "model": "openrouter/deepseek/deepseek-v3.2", ...}}
 
 curl -sS -X POST http://localhost:8000/query \
   -H 'Content-Type: application/json' \
-  -d '{"query": "crabbox", "asset_type": "skill", "limit": 25}'
+  -d '{"query": "homelab pihole dns", "asset_type": "skill", "limit": 25}'
 # -> hit.llm_scan            : the non-deterministic verdict just written
 #    hit.locations[].vettd_scan_findings / .vettd_scan_publications : the
 #                              deterministic Vettd scan (published separately)

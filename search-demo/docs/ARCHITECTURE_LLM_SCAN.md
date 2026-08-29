@@ -208,33 +208,34 @@ one-liner to undo it.
 ## Worked example — one `/query`, both scans
 
 Real output from `smoke_scan_skill.py` against
-`steipete/clawdis/.agents/skills/crabbox/SKILL.md` (point
-`39fc8269-…`), a skill with a published Vettd scan (grade B, VTD-0088
-"references external URL" — a `security`-category medium finding).
+`affaan-m/everything-claude-code/skills/homelab-pihole-dns/SKILL.md` (point
+`83a8b1b8-…`), a skill with a published Vettd scan (grade B, VTD-0088
+"references external URL" — a `security`-category medium finding). Not an
+openclaw/hermes skill.
 
 **Scan it** — the endpoint scans *and* records the verdict:
 
 ```
 $ curl -sS -X POST http://localhost:8000/scan/skill \
     -H 'Content-Type: application/json' \
-    -d '{"point_id": "39fc8269-f014-51e3-858c-42316cf1465b", "force": true}'
+    -d '{"point_id": "83a8b1b8-d47b-5c42-9578-adee890b6d9f", "force": true}'
 
 {
-  "point_id": "39fc8269-f014-51e3-858c-42316cf1465b",
+  "point_id": "83a8b1b8-d47b-5c42-9578-adee890b6d9f",
   "skipped": false,
   "reason": null,
   "llm_scan": {
     "model": "openrouter/deepseek/deepseek-v3.2",
     "prompt_version": "37243f9d5700",
-    "scanned_at": "2026-08-29T16:14:57.300794+00:00",
-    "content_sha256": "fbd238da4cd53c6e7f53b892f2b300875aea548aa721e4ab6ba2bc62199103c2",
-    "max_severity": "MEDIUM",
-    "finding_count": 4,
-    "primary_threats": ["Potential Command Execution", "Resource Allocation Risks", "Missing Tool Restrictions"],
-    "overall_assessment": "The 'crabbox' skill is a detailed operational guide ...",
+    "scanned_at": "2026-08-29T16:29:06.784348+00:00",
+    "content_sha256": "23a801545a4839c4fc04dc287e1122cc3913016a116b2cb5c7720e193edfa6c2",
+    "max_severity": "LOW",
+    "finding_count": 1,
+    "primary_threats": [],
+    "overall_assessment": "This skill package ('homelab-pihole-dns') is a legitimate, well-documented guide ...",
     "findings": [
-      {"severity": "MEDIUM", "aitech": "AITech-9.1", "title": "Potential Command Execution via Arbitrary Shell Commands", "location": "SKILL.md:instructions", "...": "..."},
-      "... 3 more ..."
+      {"severity": "LOW", "aitech": "AITech-4.3", "title": "Missing allowed-tools Manifest Field",
+       "location": "SKILL.md", "description": "...", "remediation": "..."}
     ]
   }
 }
@@ -251,31 +252,31 @@ existing `llm_scan` when it is still fresh. The scan is non-deterministic —
 ```
 $ curl -sS -X POST http://localhost:8000/query \
     -H 'Content-Type: application/json' \
-    -d '{"query": "crabbox", "asset_type": "skill", "limit": 25}'
+    -d '{"query": "homelab pihole dns", "asset_type": "skill", "limit": 25}'
 
 {
-  "index_ready": true, "query": "crabbox", "asset_type": "skill",
+  "index_ready": true, "query": "homelab pihole dns", "asset_type": "skill",
   "hits": [
     {
-      "name": "crabbox",
-      "path": "steipete/clawdis/.agents/skills/crabbox/SKILL.md",
-      "stars": 386317,
+      "name": "homelab-pihole-dns",
+      "path": "affaan-m/everything-claude-code/skills/homelab-pihole-dns/SKILL.md",
+      "stars": 240095,
       "content": "... SKILL.md text ...",
       "llm_scan": {
         "model": "openrouter/deepseek/deepseek-v3.2",
         "prompt_version": "37243f9d5700",
-        "max_severity": "MEDIUM", "finding_count": 4,
-        "primary_threats": ["Potential Command Execution", "..."],
+        "max_severity": "LOW", "finding_count": 1,
+        "primary_threats": [],
         "findings": [ /* ... */ ]
       },
       "locations": [
         {
-          "path": "steipete/clawdis/.agents/skills/crabbox/SKILL.md",
+          "path": "affaan-m/everything-claude-code/skills/homelab-pihole-dns/SKILL.md",
           "vettd_scan_findings": {
-            "scan_id": "6845914b-6515-46e2-9bfb-9d1d4d2f0fc9",
+            "scan_id": "6d5fed87-097d-4b08-87c6-a72867058344",
             "overall_grade": "B", "trust_level": "Conditional",
-            "has_malicious_findings": false, "finding_count": 14,
-            "severity_counts": {"critical": 0, "high": 0, "medium": 1, "low": 0, "info": 13},
+            "has_malicious_findings": false, "finding_count": 13,
+            "severity_counts": {"critical": 0, "high": 0, "medium": 1, "low": 0, "info": 12},
             "categories_flagged": ["security"],
             "top_findings": [
               {"rule_id": "VTD-0088", "category": "security", "severity": "medium",
@@ -283,12 +284,11 @@ $ curl -sS -X POST http://localhost:8000/query \
             ]
           },
           "vettd_scan_publications": [
-            {"scan_id": "6845914b-6515-46e2-9bfb-9d1d4d2f0fc9", "status": "accepted",
+            {"scan_id": "6d5fed87-097d-4b08-87c6-a72867058344", "status": "accepted",
              "scanner_version": "0.9.0", "endpoint": "http://localhost:3000/api/scans/ingest",
-             "published_at": "2026-08-29T14:33:27.998184+00:00", "...": "..."}
+             "published_at": "2026-08-29T16:26:38.466145+00:00", "...": "..."}
           ]
-        },
-        { "path": "openclaw/openclaw/.agents/skills/crabbox/SKILL.md", "...": "no scan data" }
+        }
       ]
     }
   ]
@@ -354,7 +354,7 @@ deterministic one, from a single query.
 5. Re-run step 3 → `skipped=5`; with `--force` → `scanned=5`.
 6. Re-run `index_qdrant.py` (or targeted `--ids`), re-retrieve — `llm_scan`
    preserved.
-7. `curl :8000/query -d '{"query":"crabbox","asset_type":"skill"}'` — the hit
-   carries a `llm_scan` object.
+7. `curl :8000/query -d '{"query":"homelab pihole dns","asset_type":"skill"}'`
+   — the hit carries a `llm_scan` object.
 8. `uv run pytest test_scan_top_skills.py test_index_qdrant_publications.py`
    plus the existing `app/tests/test_scan_index.py`.

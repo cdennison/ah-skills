@@ -35,14 +35,16 @@ and the prompt eval harness (`../skill-scan-eval/`).
   Vettd data already rides in `SkillHit.locations`, so one `/query` response
   now carries both scans. `app/openapi.json` regenerated.
 - **End-to-end smoke test** — `smoke_scan_skill.py` (repo root), hard-coded to
-  `steipete/clawdis/.agents/skills/crabbox/SKILL.md` (point `39fc8269-…`), a
-  skill with a **published** Vettd scan (grade B, VTD-0088 security finding).
-  It: (1) confirms the Vettd `vettd_scan_findings` + `vettd_scan_publications`
-  on the point; (2) `POST /scan/skill {point_id, force}` — asserts the endpoint
-  returned a well-formed `llm_scan`; (3) `POST /query "crabbox"` — asserts the
+  `affaan-m/everything-claude-code/skills/homelab-pihole-dns/SKILL.md` (point
+  `83a8b1b8-…`), a skill with a **published** Vettd scan (grade B, VTD-0088
+  security finding) that is **not** openclaw/hermes-related (asserted: name,
+  agent_compatibility, and every location checked). It: (1) confirms the Vettd
+  `vettd_scan_findings` + `vettd_scan_publications` on the point; (2)
+  `POST /scan/skill {point_id, force}` — asserts the endpoint returned a
+  well-formed `llm_scan`; (3) `POST /query "homelab pihole dns"` — asserts the
   one hit carries **both** `llm_scan` and the Vettd scan. Spawns a throwaway
   service if none serves `/scan/skill`; key falls back to
-  `../skill-scan-eval/.env`. **PASS** (deepseek, ~27s, one real `set_payload`).
+  `../skill-scan-eval/.env`. **PASS** (deepseek, ~16s, one real `set_payload`).
   Worked-example curl req/resp is in `docs/ARCHITECTURE_LLM_SCAN.md`.
 - **Design + pipeline docs** — `docs/ARCHITECTURE_LLM_SCAN.md` (this step, incl.
   worked example), pointer from `docs/ARCHITECTURE.md`, "Running this now" +
@@ -67,9 +69,10 @@ and the prompt eval harness (`../skill-scan-eval/`).
 
 ### Observations from the smoke runs
 
-- The scan is genuinely non-deterministic: back-to-back `crabbox` runs returned
-  `LOW`/2 findings then `MEDIUM`/4 findings. `primary_threats` also come back as
-  free-text phrases, not the prompt's short threat-type names. Model/prompt
+- The scan is genuinely non-deterministic: back-to-back runs of the same skill
+  returned different `max_severity` / `finding_count` (e.g. `LOW`/1, `MEDIUM`/4,
+  `NONE`/0). `primary_threats` also come back as free-text phrases, not the
+  prompt's short threat-type names. Model/prompt
   choice is tracked in `../skill-scan-eval/PROMPT_SELECTION_CURRENT.md`; revisit
   before a wide run.
 - The long-running `:8000` (docker) / `:8001` (local `.venv`) query services

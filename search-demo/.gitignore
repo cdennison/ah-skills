@@ -27,4 +27,15 @@ mcp-search/mcp_servers.db
 
 # large generated registry (see registry.json.example for shape)
 mcp-repo-seeds/registry.json
-search-demo/repo-seeds/skills.json
+repo-seeds/skills.json
+
+# local run scratch: logs, CSV exports, and quarantine/leaderboard state
+# produced by running the pipeline, not source
+.DS_Store
+*.log
+*.csv
+*.csv.bak
+.skip-quarantine/
+leaderboard-raw/
+leaderboard-temp/
+repo-seeds/search-runs/

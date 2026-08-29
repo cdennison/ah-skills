@@ -396,6 +396,40 @@ and any run against a real production `VETTD_API_KEY`/endpoint or at real
 registry scale — mint and test both before relying on this in an unattended
 daily job.
 
+### LLM threat scan — partially prototyped, not wired into the pipeline
+
+A second scan step: select the top skills by stars that already carry a Vettd
+**security** finding, run the non-deterministic LLM threat scan
+(`POST /scan` on the FastAPI app), and record each verdict as a top-level
+`llm_scan` payload field on the skill's Qdrant point. Target design folds the
+Qdrant write into the API (`POST /scan/skill`) so the whole thing is one call.
+
+Status and roadmap: `LLM_SCANNING_PROJECT_PLAN.md`. Design:
+`docs/ARCHITECTURE_LLM_SCAN.md`. The selection step (`scan_top_skills.py`) and
+the `--with-scan` wiring do **not** exist yet.
+
+**How to run it now** (one skill, end to end, via `smoke_scan_top_skills.py`):
+
+```bash
+# Qdrant up + agent_skills indexed
+uv run python stats.py
+
+# a FastAPI instance that serves /scan  (the long-running :8000/:8001 servers
+# predate the /scan wiring, so start a fresh one)
+export OPENROUTER_API_KEY=...          # or SKILL_SCANNER_LLM_API_KEY;
+                                       # falls back to ../skill-scan-eval/.env
+( cd app && uv run uvicorn query_service:app --host 127.0.0.1 --port 8000 & )
+
+# pick one top skill with a Vettd security finding, scan it via the API,
+# write llm_scan to its Qdrant point, read back and assert
+uv run python smoke_scan_top_skills.py
+```
+
+The smoke test spawns its own throwaway service if none serves `/scan`, so the
+`uvicorn` line is optional for the test itself but is what a real run needs. It
+makes one real write to `agent_skills` and prints a `delete_payload` one-liner
+to undo it.
+
 ### Runtime matrix and environment
 
 The Python scripts derive their checkout root from `Path(__file__).parent`.

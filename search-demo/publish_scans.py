@@ -246,6 +246,66 @@ def _matching_receipt(
     )
 
 
+_SEVERITY_RANK: Final = {"info": 0, "low": 1, "medium": 2, "high": 3, "critical": 4}
+_SEVERITY_COUNT_KEYS: Final = ("critical", "high", "medium", "low", "info")
+
+
+def _findings_summary(report: ScanReport) -> dict[str, JsonValue]:
+    """High-level rollup of a scan report for Qdrant: grade/trust/severity
+    counts and up to 5 non-info findings (rule_id/category/severity/label
+    only). Deliberately excludes each finding's `detail` text (often embeds
+    file/line snippets), permissions/dependencies/consumers, and the raw
+    externalScannerResults dump -- those stay in the vettd backend, not here."""
+    severity_counts: dict[str, int] = dict.fromkeys(_SEVERITY_COUNT_KEYS, 0)
+    categories_flagged: set[str] = set()
+    all_findings: list[dict[str, Any]] = []
+    grade: JsonValue = None
+    trust: JsonValue = None
+    for skill in report.skills:
+        if grade is None:
+            grade = skill.get("overallGrade")
+        if trust is None:
+            trust = skill.get("trustLevel")
+        for scanner_result in skill.get("externalScannerResults") or []:
+            for finding in scanner_result.get("findings") or []:
+                if not isinstance(finding, dict):
+                    continue
+                severity = finding.get("severity", "info")
+                if severity in severity_counts:
+                    severity_counts[severity] += 1
+                category = finding.get("category")
+                if severity != "info" and category:
+                    categories_flagged.add(category)
+                all_findings.append(finding)
+    has_malicious = any(
+        finding.get("severity") == "critical" or finding.get("intent") == "malicious"
+        for finding in all_findings
+    )
+    top_findings = sorted(
+        (finding for finding in all_findings if finding.get("severity", "info") != "info"),
+        key=lambda finding: _SEVERITY_RANK.get(finding.get("severity", "info"), -1),
+        reverse=True,
+    )[:5]
+    return {
+        "scan_id": report.scan_meta.scan_id,
+        "overall_grade": grade,
+        "trust_level": trust,
+        "has_malicious_findings": has_malicious,
+        "finding_count": len(all_findings),
+        "severity_counts": severity_counts,
+        "categories_flagged": sorted(categories_flagged),
+        "top_findings": [
+            {
+                "rule_id": finding.get("ruleId", ""),
+                "category": finding.get("category", ""),
+                "severity": finding.get("severity", ""),
+                "label": finding.get("label", ""),
+            }
+            for finding in top_findings
+        ],
+    }
+
+
 def _publish_one(skill_dir: Path, prepared: PreparedPublisher) -> Literal["succeeded", "skipped"]:
     resolved = skill_dir.resolve()
     if not resolved.is_dir():
@@ -322,6 +382,12 @@ def _publish_one(skill_dir: Path, prepared: PreparedPublisher) -> Literal["succe
             "published_at": datetime.now(UTC).isoformat(),
         }
     ]
+    # Latest-only, not appended: vettd_scan_publications above is an
+    # append-only history with no pruning (one entry per rescan, indefinitely),
+    # so a findings summary attached to every historical receipt would grow
+    # this point's payload without bound. This field is overwritten on every
+    # publish and only ever reflects the most recent scan.
+    location["vettd_scan_findings"] = _findings_summary(report)
     _ = prepared.client.set_payload(COLLECTION, {"locations": match[1]}, points=[match[0]])
     return "succeeded"
 

@@ -81,6 +81,13 @@
 # for the recurring maintenance workflow (registry review, blacklisting,
 # etc.) this script doesn't attempt to replace.
 #
+# NOT a step here yet: the non-deterministic LLM threat scan of top skills
+# (selects top-by-stars skills with a Vettd security finding -> scans each via
+# the FastAPI /scan endpoint -> writes an `llm_scan` payload field). Prototyped
+# but not wired; run it by hand for now -- see LLM_SCANNING_PROJECT_PLAN.md and
+# docs/ARCHITECTURE_LLM_SCAN.md ("Running this now"). A later --with-scan flag
+# would slot it in between step 8 (index) and step 9 (csv).
+#
 # Usage:
 #   ./RUN.sh                                # refresh seeds + sync-seed + marketplace + batched clone/extract + index + csv
 #   ./RUN.sh --with-search "agent skills"    # also run a GitHub search (still needs manual approval)

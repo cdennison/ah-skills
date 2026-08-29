@@ -38,6 +38,13 @@
   [`../README.md`](../README.md#architecture) so it also displays for
   viewers whose Markdown renderer doesn't support Mermaid fences.
 
+Companion design docs for scan steps that hang off the indexed collection:
+[`ARCHITECTURE_PUBLISHING_SCANS.md`](ARCHITECTURE_PUBLISHING_SCANS.md) (Vettd
+deterministic scan, implemented) and
+[`ARCHITECTURE_LLM_SCAN.md`](ARCHITECTURE_LLM_SCAN.md) (non-deterministic LLM
+threat scan of top skills → `llm_scan` payload field — **proposed, not
+implemented**).
+
 **The two must be kept in sync by hand.** GitHub renders `.mmd`/Mermaid
 fences live, but the `.jpg` does not auto-update — whenever you edit
 `architecture.mmd` (new script, new directory, new consumer, etc.),

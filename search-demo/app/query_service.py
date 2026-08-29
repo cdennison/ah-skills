@@ -21,18 +21,28 @@ OpenAPI schema is served automatically at /openapi.json (FastAPI).
 
 from typing import Any, Literal
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 import mcp_search
 import search
 from mcp_search import McpSearchFilters, McpSearchResult, browse_mcp_servers, search_mcp_servers
+from scan_service import (
+    ScanConfigError,
+    ScanRequest,
+    ScanResponse,
+    ScanUpstreamError,
+    scan_skill_text,
+)
 from search import SearchFilters, SearchResult, browse_skills, search_skills
 
 app = FastAPI(
     title="agent-skills / mcp-servers query service",
-    description="Read-only hybrid search over the agent_skills and mcp_servers Qdrant collections.",
-    version="1.1.0",
+    description=(
+        "Read-only hybrid search over the agent_skills and mcp_servers Qdrant "
+        "collections, plus a non-deterministic LLM threat scan for skill text."
+    ),
+    version="1.2.0",
 )
 
 AssetType = Literal["skill", "mcp"]
@@ -231,3 +241,23 @@ def query(request: QueryRequest) -> QueryResponse:
     return QueryResponse(
         index_ready=True, query=request.query, asset_type="skill", hits=[_to_skill_hit(r) for r in skill_results]
     )
+
+
+@app.post(
+    "/scan",
+    response_model=ScanResponse,
+    responses={
+        502: {"description": "Upstream LLM call failed or returned unparseable output"},
+        503: {"description": "Scan LLM not configured (no API key)"},
+    },
+)
+def scan(request: ScanRequest) -> ScanResponse:
+    """Non-deterministic threat scan: send the skill text to an LLM (litellm /
+    OpenRouter) with the Cisco threat-analysis prompt and return its structured
+    findings / overall_assessment / primary_threats verdict. See scan_service."""
+    try:
+        return scan_skill_text(request.skill_text, request.skill_name, request.model)
+    except ScanConfigError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except ScanUpstreamError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc

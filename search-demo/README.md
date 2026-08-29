@@ -82,6 +82,7 @@ out, kept as a reference for where it *would* go, not omitted by oversight.
 |---|---|
 | [`query.py`](query.py) | CLI hybrid search over `qdrant_db/` |
 | [`app/streamlit_app.py`](app/README.md) | Web UI, same search backend |
+| [`app/query_service.py`](app/README.query-service.md) | HTTP API — same search backend, plus a non-deterministic LLM threat scan |
 
 **Utilities:**
 

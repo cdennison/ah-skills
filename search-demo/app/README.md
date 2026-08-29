@@ -4,6 +4,10 @@ This isolated app searches the existing `../qdrant_db/` collection without
 modifying or rebuilding it. Results use the same dense + BM25 reciprocal-rank
 fusion as the repository's `query.py` script.
 
+> This directory also contains the **[Query & Scan Service](README.query-service.md)**
+> — a FastAPI app (`query_service.py`) exposing the same search backend over
+> HTTP plus a non-deterministic LLM threat scan.
+
 From the repository root:
 
 ```bash

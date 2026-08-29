@@ -1,26 +1,50 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "agent-skills query service",
-    "description": "Read-only hybrid search over the agent_skills Qdrant collection.",
-    "version": "1.0.0"
+    "title": "agent-skills / mcp-servers query service",
+    "description": "Read-only hybrid search over the agent_skills and mcp_servers Qdrant collections, plus a non-deterministic LLM threat scan for skill text.",
+    "version": "1.2.0"
   },
   "paths": {
     "/health": {
       "get": {
         "summary": "Health",
         "operationId": "health_health_get",
+        "parameters": [
+          {
+            "name": "asset_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "skill",
+                "mcp"
+              ],
+              "type": "string",
+              "default": "skill",
+              "title": "Asset Type"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "additionalProperties": {
-                    "type": "boolean"
-                  },
                   "type": "object",
+                  "additionalProperties": true,
                   "title": "Response Health Health Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -65,6 +89,51 @@
           }
         }
       }
+    },
+    "/scan": {
+      "post": {
+        "summary": "Scan",
+        "description": "Non-deterministic threat scan: send the skill text to an LLM (litellm /\nOpenRouter) with the Cisco threat-analysis prompt and return its structured\nfindings / overall_assessment / primary_threats verdict. See scan_service.",
+        "operationId": "scan_scan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScanRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScanResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Upstream LLM call failed or returned unparseable output"
+          },
+          "503": {
+            "description": "Scan LLM not configured (no API key)"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -82,7 +151,485 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
-      "Hit": {
+      "McpHit": {
+        "properties": {
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "rank": {
+            "type": "integer",
+            "title": "Rank"
+          },
+          "mcp_id": {
+            "type": "string",
+            "title": "Mcp Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "readme": {
+            "type": "string",
+            "title": "Readme"
+          },
+          "repo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Repo Url"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "mcp_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mcp Category"
+          },
+          "mcp_category_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mcp Category Source"
+          },
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "registry_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registry Type"
+          },
+          "package_identifier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Package Identifier"
+          },
+          "package_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Package Url"
+          },
+          "deployment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deployment"
+          },
+          "has_installable_package": {
+            "type": "boolean",
+            "title": "Has Installable Package"
+          },
+          "has_remote": {
+            "type": "boolean",
+            "title": "Has Remote"
+          },
+          "attributes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Attributes"
+          },
+          "license": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License"
+          },
+          "added": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Added"
+          }
+        },
+        "type": "object",
+        "required": [
+          "score",
+          "rank",
+          "mcp_id",
+          "name",
+          "description",
+          "readme",
+          "repo_url",
+          "status",
+          "mcp_category",
+          "mcp_category_source",
+          "sources",
+          "registry_type",
+          "package_identifier",
+          "package_url",
+          "deployment",
+          "has_installable_package",
+          "has_remote",
+          "attributes",
+          "license",
+          "added"
+        ],
+        "title": "McpHit"
+      },
+      "QueryRequest": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Query",
+            "description": "Free-text search query; empty string browses instead.",
+            "default": ""
+          },
+          "asset_type": {
+            "type": "string",
+            "enum": [
+              "skill",
+              "mcp"
+            ],
+            "title": "Asset Type",
+            "description": "Which collection to search: 'skill' (agent_skills) or 'mcp' (mcp_servers).",
+            "default": "skill"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 200.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 12
+          },
+          "min_stars": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Stars"
+          },
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sources",
+            "default": []
+          },
+          "rank_filters": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Rank Filters"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Languages",
+            "description": "skill only: only return hits whose language is in this list.",
+            "default": []
+          },
+          "agent_compatibility": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Agent Compatibility",
+            "description": "skill only: only return hits whose agent_compatibility overlaps this list.",
+            "default": []
+          },
+          "mcp_category": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Mcp Category",
+            "description": "mcp only: filter to server/client/framework/tooling.",
+            "default": []
+          },
+          "deployment": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Deployment",
+            "description": "mcp only: filter to local/remote/hybrid.",
+            "default": []
+          },
+          "registry_type": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Registry Type",
+            "description": "mcp only: filter to npm/pypi/oci/etc.",
+            "default": []
+          }
+        },
+        "type": "object",
+        "title": "QueryRequest"
+      },
+      "QueryResponse": {
+        "properties": {
+          "index_ready": {
+            "type": "boolean",
+            "title": "Index Ready"
+          },
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "asset_type": {
+            "type": "string",
+            "enum": [
+              "skill",
+              "mcp"
+            ],
+            "title": "Asset Type"
+          },
+          "hits": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SkillHit"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/McpHit"
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Hits"
+          }
+        },
+        "type": "object",
+        "required": [
+          "index_ready",
+          "query",
+          "asset_type",
+          "hits"
+        ],
+        "title": "QueryResponse"
+      },
+      "ScanFinding": {
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "CRITICAL",
+              "HIGH",
+              "MEDIUM",
+              "LOW"
+            ],
+            "title": "Severity"
+          },
+          "aitech": {
+            "type": "string",
+            "title": "Aitech"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "aisubtech": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Aisubtech"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "evidence": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence"
+          },
+          "remediation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remediation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "severity",
+          "aitech",
+          "title",
+          "description"
+        ],
+        "title": "ScanFinding"
+      },
+      "ScanRequest": {
+        "properties": {
+          "skill_text": {
+            "type": "string",
+            "maxLength": 600000,
+            "minLength": 1,
+            "title": "Skill Text",
+            "description": "Raw concatenated skill package text (SKILL.md plus any scripts). Internal layout is not interpreted; the '### FILE: <path>' convention from scanner.py is fine but not required."
+          },
+          "skill_name": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Skill Name",
+            "description": "Optional label, interpolated into the analysis prompt only.",
+            "default": ""
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model",
+            "description": "Optional per-request litellm model id override (default: env SKILL_SCANNER_LLM_MODEL or 'openrouter/deepseek/deepseek-v3.2')."
+          }
+        },
+        "type": "object",
+        "required": [
+          "skill_text"
+        ],
+        "title": "ScanRequest"
+      },
+      "ScanResponse": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model",
+            "description": "litellm model id the scan actually used."
+          },
+          "findings": {
+            "items": {
+              "$ref": "#/components/schemas/ScanFinding"
+            },
+            "type": "array",
+            "title": "Findings"
+          },
+          "overall_assessment": {
+            "type": "string",
+            "title": "Overall Assessment"
+          },
+          "primary_threats": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Primary Threats"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model",
+          "findings",
+          "overall_assessment",
+          "primary_threats"
+        ],
+        "title": "ScanResponse"
+      },
+      "SkillHit": {
         "properties": {
           "score": {
             "anyOf": [
@@ -218,97 +765,7 @@
           "language",
           "agent_compatibility"
         ],
-        "title": "Hit"
-      },
-      "QueryRequest": {
-        "properties": {
-          "query": {
-            "type": "string",
-            "title": "Query",
-            "description": "Free-text search query; empty string browses instead.",
-            "default": ""
-          },
-          "limit": {
-            "type": "integer",
-            "maximum": 200.0,
-            "minimum": 1.0,
-            "title": "Limit",
-            "default": 12
-          },
-          "min_stars": {
-            "anyOf": [
-              {
-                "type": "integer",
-                "minimum": 0.0
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Min Stars"
-          },
-          "sources": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Sources",
-            "default": []
-          },
-          "rank_filters": {
-            "additionalProperties": {
-              "type": "integer"
-            },
-            "type": "object",
-            "title": "Rank Filters"
-          },
-          "languages": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Languages",
-            "description": "Only return hits whose language is in this list.",
-            "default": []
-          },
-          "agent_compatibility": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Agent Compatibility",
-            "description": "Only return hits whose agent_compatibility overlaps this list.",
-            "default": []
-          }
-        },
-        "type": "object",
-        "title": "QueryRequest"
-      },
-      "QueryResponse": {
-        "properties": {
-          "index_ready": {
-            "type": "boolean",
-            "title": "Index Ready"
-          },
-          "query": {
-            "type": "string",
-            "title": "Query"
-          },
-          "hits": {
-            "items": {
-              "$ref": "#/components/schemas/Hit"
-            },
-            "type": "array",
-            "title": "Hits"
-          }
-        },
-        "type": "object",
-        "required": [
-          "index_ready",
-          "query",
-          "hits"
-        ],
-        "title": "QueryResponse"
+        "title": "SkillHit"
       },
       "ValidationError": {
         "properties": {

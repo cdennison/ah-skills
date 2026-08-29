@@ -5,6 +5,7 @@ description = "Minimal Streamlit UI for the local agent skills Qdrant index"
 requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.118,<1",
+  "litellm>=1.55,<2",
   "pydantic>=2.12,<3",
   "qdrant-client[fastembed]>=1.19,<2",
   "streamlit>=1.54,<2",
@@ -31,4 +32,4 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 [tool.basedpyright]
 typeCheckingMode = "strict"
 pythonVersion = "3.11"
-include = ["search.py", "streamlit_app.py", "query_service.py", "tests"]
+include = ["search.py", "streamlit_app.py", "query_service.py", "scan_service.py", "tests"]

@@ -33,18 +33,6 @@ Agent: *uses simple-math skill* The result is 42.
 
 ```
 
-### FILE: _expected.json
-```
-{
-  "skill_name": "simple-math",
-  "expected_safe": true,
-  "expected_severity": "SAFE",
-  "expected_findings": [],
-  "notes": "Clean implementation using operator module, no eval/exec, proper validation"
-}
-
-```
-
 ### FILE: math_ops.py
 ```
 # Copyright 2026 Cisco Systems, Inc. and its affiliates

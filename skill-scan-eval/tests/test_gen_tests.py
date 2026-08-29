@@ -4,12 +4,17 @@ Regenerates the artifact fresh (same as CI/a human would before running an
 eval) rather than trusting whatever is currently checked out, then verifies:
 
   - every skills/**/SKILL.md produced exactly one test case
-  - each test case only carries the two vars the prompt_*.js wrappers expect
-    (skill_name, skill_payload) -- guards against a future change piling
-    more fields into `vars`, which is the same anti-pattern that caused the
-    template-substitution bug documented in tests/test_prompts.js (a `var`
-    silently not being what a template expects)
+  - each test case only carries vars the prompt_*.js wrappers or the shared
+    assertion actually expect (skill_name, skill_payload, and optionally
+    expected_safe for skills with a checked-in _expected.json) -- guards
+    against a future change piling arbitrary fields into `vars`, which is
+    the same anti-pattern that caused the template-substitution bug
+    documented in tests/test_prompts.js (a `var` silently not being what a
+    template expects)
+  - every skill with expected_safe also carries the shared
+    assert_expected_verdict.js assertion (see README's "Known limitations")
   - every referenced payload file actually exists and is non-empty
+  - no payload file leaks _expected.json content into the model's input
 
 Run: python -m unittest discover -s tests
 (or: python tests/test_gen_tests.py)
@@ -32,7 +37,9 @@ SKILLS_DIR = ROOT / "skills"
 TESTS_PATH = ROOT / "promptfoo_tests.yaml"
 PAYLOADS_DIR = ROOT / "promptfoo_payloads"
 
-EXPECTED_VAR_KEYS = {"skill_name", "skill_payload"}
+REQUIRED_VAR_KEYS = {"skill_name", "skill_payload"}
+OPTIONAL_VAR_KEYS = {"expected_safe"}
+ALLOWED_VAR_KEYS = REQUIRED_VAR_KEYS | OPTIONAL_VAR_KEYS
 
 
 class TestGeneratedTestCases(unittest.TestCase):
@@ -65,15 +72,56 @@ class TestGeneratedTestCases(unittest.TestCase):
             "number of generated test cases doesn't match number of SKILL.md files",
         )
 
-    def test_each_test_case_has_exactly_the_expected_vars(self):
+    def test_each_test_case_has_only_expected_vars(self):
         for test in self.tests:
             var_keys = set(test["vars"].keys())
-            self.assertEqual(
-                var_keys,
-                EXPECTED_VAR_KEYS,
+            self.assertTrue(
+                REQUIRED_VAR_KEYS <= var_keys,
                 f"test {test.get('description')!r} has vars {var_keys}, "
-                f"expected exactly {EXPECTED_VAR_KEYS} -- prompt text belongs "
-                f"in the prompt_*.js wrapper, not in per-test vars",
+                f"missing required {REQUIRED_VAR_KEYS}",
+            )
+            self.assertTrue(
+                var_keys <= ALLOWED_VAR_KEYS,
+                f"test {test.get('description')!r} has vars {var_keys}, "
+                f"unexpected extras beyond {ALLOWED_VAR_KEYS} -- prompt text "
+                f"belongs in the prompt_*.js wrapper, not in per-test vars",
+            )
+
+    def test_expected_safe_skills_carry_the_shared_assertion(self):
+        for test in self.tests:
+            if "expected_safe" not in test["vars"]:
+                self.assertNotIn(
+                    "assert",
+                    test,
+                    f"test {test.get('description')!r} has an assert block but no "
+                    f"expected_safe var -- assert_expected_verdict.js needs it",
+                )
+                continue
+            self.assertIsInstance(
+                test["vars"]["expected_safe"],
+                bool,
+                f"test {test.get('description')!r} expected_safe must be a bool",
+            )
+            asserts = test.get("assert", [])
+            self.assertTrue(
+                any(
+                    a.get("type") == "javascript"
+                    and a.get("value") == "file://assert_expected_verdict.js"
+                    for a in asserts
+                ),
+                f"test {test.get('description')!r} has expected_safe but is missing "
+                f"the assert_expected_verdict.js assertion",
+            )
+
+    def test_payloads_never_contain_expected_json_content(self):
+        for payload_path in PAYLOADS_DIR.glob("*.txt"):
+            content = payload_path.read_text(encoding="utf-8")
+            self.assertNotIn(
+                "FILE: _expected.json",
+                content,
+                f"{payload_path} leaks _expected.json (ground truth) into the "
+                f"model's input -- scanner.build_skill_payload must skip "
+                f"leading-underscore files",
             )
 
     def test_every_payload_file_exists_and_is_non_empty(self):

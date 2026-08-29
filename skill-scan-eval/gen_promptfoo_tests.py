@@ -6,6 +6,7 @@ Run this whenever skills are added/changed under evals/skills/, then
 and `npx promptfoo@latest view` to review/rate them in the browser.
 """
 
+import json
 import sys
 from pathlib import Path
 
@@ -31,15 +32,28 @@ def main():
             continue
         payload_path = PAYLOADS_DIR / f"{name}.txt"
         payload_path.write_text(payload, encoding="utf-8")
-        tests.append(
-            {
-                "description": name,
-                "vars": {
-                    "skill_name": name,
-                    "skill_payload": f"file://promptfoo_payloads/{name}.txt",
-                },
-            }
-        )
+        test = {
+            "description": name,
+            "vars": {
+                "skill_name": name,
+                "skill_payload": f"file://promptfoo_payloads/{name}.txt",
+            },
+        }
+
+        # _expected.json (ground truth, never sent to the model -- see the
+        # leading-underscore skip in scanner.build_skill_payload) drives a
+        # high-level-only assertion: does the model's verdict agree on
+        # safe-vs-flagged? Nothing about finding count/severity/wording is
+        # asserted -- see assert_expected_verdict.js for why.
+        expected_path = skill_dir / "_expected.json"
+        if expected_path.exists():
+            expected = json.loads(expected_path.read_text(encoding="utf-8"))
+            test["vars"]["expected_safe"] = expected["expected_safe"]
+            test["assert"] = [
+                {"type": "javascript", "value": "file://assert_expected_verdict.js"}
+            ]
+
+        tests.append(test)
 
     TESTS_PATH.write_text(yaml.dump(tests, sort_keys=False), encoding="utf-8")
     print(f"wrote {len(tests)} test case(s) to {TESTS_PATH}")

@@ -66,6 +66,11 @@ def build_skill_payload(skill_dir: Path) -> str:
     for path in sorted(skill_dir.rglob("*")):
         if not path.is_file() or path.suffix.lower() not in TEXT_EXTS:
             continue
+        if path.name.startswith("_"):
+            # Eval-harness-only metadata (e.g. _expected.json ground truth) —
+            # never part of the skill package itself, and must not leak into
+            # the model's input or it grades its own answer key.
+            continue
         rel = path.relative_to(skill_dir)
         try:
             content = path.read_text(encoding="utf-8")

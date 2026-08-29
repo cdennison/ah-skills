@@ -1,0 +1,5 @@
+{
+  "skill_name": "diagnosing-failed-warehouse-syncs",
+  "expected_safe": true,
+  "notes": "Data-warehouse-sync troubleshooting playbook. Pure diagnostic/advisory instructions, no scripts, no network or credential access. Unanimous clean verdict (0/6 threat_analysis+code_alignment runs) in the 2026-08-27 run."
+}

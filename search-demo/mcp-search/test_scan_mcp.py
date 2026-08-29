@@ -6,6 +6,7 @@ import pytest
 from scan_mcp import (
     derive_package_url,
     extract_from_package_json,
+    extract_from_pyproject,
     extract_from_server_json,
     find_readme_package_links,
     local_fetcher,
@@ -69,6 +70,59 @@ def test_extract_from_package_json_fallback():
     entry = extract_from_package_json(data, "package.json")
     assert entry["name"] == "io.github.example/example-server"
     assert entry["registry_type"] == "npm"
+
+
+PYPROJECT_TOML = """\
+[project]
+name = "daytona-mcp-interpreter"
+version = "0.1.1"
+description = "A Daytona MCP server for Python code interpretation"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.0.0",
+    "pydantic>=2.10.6",
+    "httpx>=0.24.0",
+    "pytest>=8 ; extra == 'dev'",
+]
+
+[project.scripts]
+daytona-interpreter = "daytona_mcp_interpreter.server:main"
+
+[build-system]
+requires = ["hatchling"]
+"""
+
+
+def test_extract_from_pyproject():
+    import tomllib
+
+    entry = extract_from_pyproject(tomllib.loads(PYPROJECT_TOML), "pyproject.toml")
+
+    assert entry["name"] == "daytona-mcp-interpreter"
+    assert entry["registry_type"] == "pypi"
+    assert entry["package_identifier"] == "daytona-mcp-interpreter"
+    assert entry["deployment"] == "local"
+    assert entry["has_installable_package"] is True
+    assert entry["console_scripts"] == ["daytona-interpreter"]
+    # env-marker-gated requirement (pytest) is dropped; the rest keep just
+    # the distribution name, no version specifier.
+    assert entry["pyproject_dependencies"] == ["mcp", "pydantic", "httpx"]
+
+
+def test_scan_entry_falls_back_to_pyproject():
+    """A repo with neither server.json nor package.json but a pyproject.toml
+    (PyPI/uv/pipx MCP server) must extract, not raise."""
+    files = {"pyproject.toml": PYPROJECT_TOML}
+    entry = scan_entry(lambda path: files.get(path), "nibzard/daytona-mcp-interpreter")
+
+    assert entry["package_identifier"] == "daytona-mcp-interpreter"
+    assert entry["registry_type"] == "pypi"
+    assert entry["package_url"] == "https://pypi.org/project/daytona-mcp-interpreter/"
+
+
+def test_scan_entry_still_raises_when_no_manifest_at_all():
+    with pytest.raises(ValueError):
+        scan_entry(lambda path: None, "someone/empty-repo")
 
 
 def test_derive_package_url():

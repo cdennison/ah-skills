@@ -88,6 +88,43 @@ def content_hash(text: str) -> str:
     return hashlib.sha1(text.encode("utf-8")).hexdigest()
 
 
+# Glama exposes a coarse hosting hint as an attribute string. scan_mcp's
+# derived `deployment` (from a real server.json packages[]/remotes[] split,
+# merged by enrich_from_repo_scan.py) is more precise and wins whenever
+# present -- this mapping only fills the gap for a Glama-only row that was
+# never repo-scanned, so the payload's `deployment`/`has_remote` aren't just
+# null while the hosting fact sits unused in `attributes`.
+_GLAMA_HOSTING_DEPLOYMENT = {
+    "hosting:hybrid": "hybrid",
+    "hosting:remote-only": "remote",
+    "hosting:local-only": "local",
+    # "hosting:remote-capable" -> a remote endpoint exists but local install
+    # is still the primary path; flips has_remote, not deployment.
+}
+_GLAMA_REMOTE_ATTRS = {"hosting:hybrid", "hosting:remote-only", "hosting:remote-capable"}
+
+
+def _attributes(entry: dict) -> list:
+    return first_descriptor_value(entry, "attributes") or []
+
+
+def resolve_deployment(entry: dict) -> str | None:
+    scanned = first_descriptor_value(entry, "deployment")
+    if scanned:
+        return scanned
+    for attr in _attributes(entry):
+        mapped = _GLAMA_HOSTING_DEPLOYMENT.get(attr)
+        if mapped:
+            return mapped
+    return None
+
+
+def resolve_has_remote(entry: dict) -> bool:
+    if bool(first_descriptor_value(entry, "has_remote")):
+        return True
+    return any(attr in _GLAMA_REMOTE_ATTRS for attr in _attributes(entry))
+
+
 def readme_text(entry: dict) -> str:
     readme_path = entry.get("readme_path")
     if not readme_path:
@@ -146,9 +183,13 @@ def load_points(registry_rows: list[dict], skip_ids: set[str] | None = None):
             "registry_type": first_descriptor_value(entry, "registry_type"),
             "package_identifier": first_descriptor_value(entry, "package_identifier"),
             "package_url": first_descriptor_value(entry, "package_url"),
-            "deployment": first_descriptor_value(entry, "deployment"),
+            # scan_mcp-derived deployment/transport (enrich_from_repo_scan.py),
+            # with a Glama `hosting:` attribute as the deployment/has_remote
+            # fallback -- see resolve_deployment()/resolve_has_remote().
+            "deployment": resolve_deployment(entry),
+            "transport": first_descriptor_value(entry, "transport"),
             "has_installable_package": bool(first_descriptor_value(entry, "has_installable_package")),
-            "has_remote": bool(first_descriptor_value(entry, "has_remote")),
+            "has_remote": resolve_has_remote(entry),
             "attributes": first_descriptor_value(entry, "attributes") or [],
             "license": first_descriptor_value(entry, "license"),
             "added": entry.get("added"),
@@ -412,6 +453,12 @@ def main():
         help="Comma-separated registry ids to index, instead of the full registry -- for indexing/reviewing "
         "a specific, targeted set of rows (e.g. after fetch_mcp_security.py --ids on the same set).",
     )
+    parser.add_argument(
+        "--no-prune", action="store_true",
+        help="Never delete points whose registry id isn't in this run's row set. Implied by "
+        "--ids/--sample-ranked (a deliberately narrowed run never represents the whole registry); "
+        "this flag adds the same protection to an unflagged run.",
+    )
     parser.add_argument("--embed-threads", type=int, default=DEFAULT_EMBED_THREADS)
     parser.add_argument("--embed-batch-size", type=int, default=DEFAULT_EMBED_BATCH_SIZE)
     args = parser.parse_args()
@@ -432,7 +479,7 @@ def main():
     # touched. Fix is to simply skip pruning whenever this run is a
     # restricted subset, not to try to compute "staleness" against a set
     # that was never meant to represent the whole registry.
-    restricted = False
+    restricted = bool(args.no_prune)
     if args.ids is not None:
         wanted = set(args.ids.split(","))
         registry_rows = [r for r in registry_rows if r["id"] in wanted]

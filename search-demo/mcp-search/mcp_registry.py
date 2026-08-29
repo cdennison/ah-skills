@@ -49,6 +49,31 @@ README_DIR = RAW_DIR / "readmes"
 
 VALID_SOURCES = {"official_registry", "glama", "awesome-mcp-servers"}
 
+# Not a discovery channel like the three above -- `repo_scan` is an
+# enrichment pass (enrich_from_repo_scan.py runs scan_mcp.py's extraction
+# over a row's own GitHub repo and merges the result). It's stored as a
+# source descriptor so first_descriptor_value()/export_mcp_csv.py/
+# index_qdrant.py pick its fields up through the exact same path every other
+# source-contributed field flows through, rather than a parallel one.
+REPO_SCAN_SOURCE = "repo_scan"
+
+# Fields enrich_from_repo_scan.py merges from scan_mcp.scan_entry() onto the
+# repo_scan descriptor. Additive + provenance-stamped: a null/empty scan
+# value never overwrites an existing descriptor value (see merge_repo_scan).
+REPO_SCAN_FIELDS = (
+    "registry_type",
+    "package_identifier",
+    "package_url",
+    "deployment",
+    "transport",
+    "env_vars_json",
+    "has_installable_package",
+    "has_remote",
+    "remote_urls",
+    "console_scripts",
+    "pyproject_dependencies",
+)
+
 
 def parse_github_repo_url(url: str) -> tuple[str, str] | None:
     match = GITHUB_REPO_RE.search(url or "")
@@ -396,6 +421,60 @@ def set_security_scan(
     entry.update(scan)
     entry["security_source"] = "osv"
     entry["security_updated"] = datetime.datetime.now().isoformat(timespec="seconds")
+    return entry
+
+
+def merge_repo_scan(
+    registry: list[dict], entry_id: str, scan: dict, index: dict[str, dict] | None = None
+) -> dict | None:
+    """Merge scan_mcp.scan_entry() output onto a row's `repo_scan` source
+    descriptor (enrich_from_repo_scan.py). No-ops (returns None) if entry_id
+    isn't in the registry.
+
+    Contract:
+      - ADDITIVE: only REPO_SCAN_FIELDS keys the scan actually produced a
+        value for are written; a None/""/[]/{} scan value never clobbers an
+        existing descriptor value from an earlier scan.
+      - PROVENANCE-STAMPED: the descriptor carries `type: "repo_scan"`,
+        `manifest_source` (server.json / package.json / pyproject.toml),
+        `scanned_at`; the row carries `repo_scan_source: "scan_mcp"` and a
+        `repo_scan_updated` clock, same shape as the stars/downloads/security
+        passes.
+      - `has_remote` is derived from remote_urls when the scan didn't set it
+        explicitly (package.json / pyproject paths don't).
+    """
+    entry = find(registry, entry_id, index=index)
+    if entry is None:
+        return None
+
+    descriptor = get_source(entry, REPO_SCAN_SOURCE)
+    if descriptor is None:
+        descriptor = {"type": REPO_SCAN_SOURCE, "added": datetime.date.today().isoformat()}
+        # Prepended, not appended: first_descriptor_value() (what
+        # export_mcp_csv.py / index_qdrant.py flatten descriptors through)
+        # returns the first source carrying a value, so a repo-scan-derived
+        # deployment / transport / has_remote / registry_type must sit ahead
+        # of a discovery source's coarser or stale value -- "scan_mcp wins
+        # when present," Glama/official are the fallback (E2E Test Plan 03,
+        # Finding 8).
+        entry.setdefault("sources", []).insert(0, descriptor)
+
+    merged = dict(scan)
+    if merged.get("has_remote") is None and merged.get("remote_urls"):
+        merged["has_remote"] = True
+
+    for field in REPO_SCAN_FIELDS:
+        value = merged.get(field)
+        if value not in (None, "", [], {}):
+            descriptor[field] = value
+
+    if scan.get("source_file"):
+        descriptor["manifest_source"] = scan["source_file"]
+    descriptor["scanned_at"] = datetime.date.today().isoformat()
+
+    entry["repo_scan_source"] = "scan_mcp"
+    entry["repo_scan_updated"] = datetime.datetime.now().isoformat(timespec="seconds")
+    entry["status"] = "active"
     return entry
 
 

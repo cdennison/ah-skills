@@ -68,11 +68,28 @@ class McpPayload(BaseModel):
     package_identifier: str | None = None
     package_url: str | None = None
     deployment: str | None = None
+    transport: str | None = None
     has_installable_package: bool = False
     has_remote: bool = False
     attributes: tuple[str, ...] = ()
     license: str | None = None
     added: str | None = None
+
+    # Ranking signal, backfilled by fetch_mcp_rankings.py (GitHub stars +
+    # GitHub's own primary-language detection + npm download counts). Absent
+    # for a row that predates that pass or has no resolvable repo/package.
+    stars: int | None = None
+    language: str | None = None
+    weekly_downloads: int | None = None
+    monthly_downloads: int | None = None
+
+    # OSV.dev scan (fetch_mcp_security.py). A clean package is a real
+    # {0, []} result -- `security_source == "osv"` with vuln_count 0 means
+    # "checked, nothing known"; all-null means "never scanned".
+    security_source: str | None = None
+    security_vuln_count: int | None = None
+    security_vuln_ids: tuple[str, ...] | None = None
+    security_max_severity: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -92,11 +109,20 @@ class McpSearchResult:
     package_identifier: str | None
     package_url: str | None
     deployment: str | None
+    transport: str | None
     has_installable_package: bool
     has_remote: bool
     attributes: tuple[str, ...]
     license: str | None
     added: str | None
+    stars: int | None
+    language: str | None
+    weekly_downloads: int | None
+    monthly_downloads: int | None
+    security_source: str | None
+    security_vuln_count: int | None
+    security_vuln_ids: tuple[str, ...] | None
+    security_max_severity: str | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -108,9 +134,16 @@ class McpSearchFilters:
     deployment: tuple[str, ...] = ()
     registry_type: tuple[str, ...] = ()
     sources: tuple[str, ...] = ()
+    min_stars: int | None = None
 
     def is_active(self) -> bool:
-        return bool(self.mcp_category or self.deployment or self.registry_type or self.sources)
+        return bool(
+            self.mcp_category
+            or self.deployment
+            or self.registry_type
+            or self.sources
+            or self.min_stars
+        )
 
 
 def filters_to_qdrant_filter(filters: McpSearchFilters | None) -> models.Filter | None:
@@ -125,6 +158,13 @@ def filters_to_qdrant_filter(filters: McpSearchFilters | None) -> models.Filter 
         conditions.append(models.FieldCondition(key="registry_type", match=models.MatchAny(any=list(filters.registry_type))))
     if filters.sources:
         conditions.append(models.FieldCondition(key="sources", match=models.MatchAny(any=list(filters.sources))))
+    if filters.min_stars is not None:
+        # Native Qdrant range push-down, same as search.py's min_stars -- a
+        # row with stars=null (never ranked) is correctly excluded by a
+        # numeric range condition rather than silently kept.
+        conditions.append(
+            models.FieldCondition(key="stars", range=models.Range(gte=filters.min_stars))
+        )
     return models.Filter(must=conditions) if conditions else None
 
 
@@ -145,11 +185,20 @@ def build_search_result(*, rank: int, payload: McpPayload, score: float | None) 
         package_identifier=payload.package_identifier,
         package_url=payload.package_url,
         deployment=payload.deployment,
+        transport=payload.transport,
         has_installable_package=payload.has_installable_package,
         has_remote=payload.has_remote,
         attributes=payload.attributes,
         license=payload.license,
         added=payload.added,
+        stars=payload.stars,
+        language=payload.language,
+        weekly_downloads=payload.weekly_downloads,
+        monthly_downloads=payload.monthly_downloads,
+        security_source=payload.security_source,
+        security_vuln_count=payload.security_vuln_count,
+        security_vuln_ids=payload.security_vuln_ids,
+        security_max_severity=payload.security_max_severity,
     )
 
 
@@ -189,9 +238,10 @@ def search_mcp_servers(
 
 
 def browse_mcp_servers(*, limit: int = 12, filters: McpSearchFilters) -> list[McpSearchResult]:
-    """Filter-only browsing for a blank query -- ordered by name (no
-    stars-equivalent popularity signal indexed yet for MCP servers, unlike
-    search.py's browse_skills(), which sorts by stars)."""
+    """Filter-only browsing for a blank query -- ordered by GitHub stars
+    (descending), same popularity ordering as search.py's browse_skills().
+    Rows with no star count (never ranked by fetch_mcp_rankings.py) sort
+    last, then ties break by name."""
     qdrant_filter = filters_to_qdrant_filter(filters)
     client = _get_client()
     candidates: list[McpPayload] = []
@@ -212,7 +262,7 @@ def browse_mcp_servers(*, limit: int = 12, filters: McpSearchFilters) -> list[Mc
         if offset is None:
             break
 
-    candidates.sort(key=lambda p: p.name.lower())
+    candidates.sort(key=lambda p: (-(p.stars if p.stars is not None else -1), p.name.lower()))
 
     return [
         build_search_result(rank=rank, payload=payload, score=None)

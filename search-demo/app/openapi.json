@@ -3,7 +3,7 @@
   "info": {
     "title": "agent-skills / mcp-servers query service",
     "description": "Hybrid search over the agent_skills and mcp_servers Qdrant collections (read-only), a non-deterministic LLM threat scan for skill text (POST /scan), and a scan-and-record path that writes the verdict onto the skill's Qdrant point (POST /scan/skill).",
-    "version": "1.3.0"
+    "version": "1.4.0"
   },
   "paths": {
     "/health": {
@@ -387,6 +387,17 @@
             ],
             "title": "Deployment"
           },
+          "transport": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transport"
+          },
           "has_installable_package": {
             "type": "boolean",
             "title": "Has Installable Package"
@@ -423,6 +434,97 @@
               }
             ],
             "title": "Added"
+          },
+          "stars": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stars"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language"
+          },
+          "weekly_downloads": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weekly Downloads"
+          },
+          "monthly_downloads": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monthly Downloads"
+          },
+          "security_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Security Source"
+          },
+          "security_vuln_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Security Vuln Count"
+          },
+          "security_vuln_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Security Vuln Ids"
+          },
+          "security_max_severity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Security Max Severity"
           }
         },
         "type": "object",
@@ -442,11 +544,20 @@
           "package_identifier",
           "package_url",
           "deployment",
+          "transport",
           "has_installable_package",
           "has_remote",
           "attributes",
           "license",
-          "added"
+          "added",
+          "stars",
+          "language",
+          "weekly_downloads",
+          "monthly_downloads",
+          "security_source",
+          "security_vuln_count",
+          "security_vuln_ids",
+          "security_max_severity"
         ],
         "title": "McpHit"
       },

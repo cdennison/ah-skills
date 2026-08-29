@@ -21,6 +21,10 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# app/ is a flat module layout (search.py, query_service.py, mcp_search.py at
+# the root) with no package dir -- put it on sys.path so `uv run pytest`
+# collects the same way `uv run python -m pytest` does.
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 100

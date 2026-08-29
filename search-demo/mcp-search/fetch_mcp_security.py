@@ -155,17 +155,26 @@ def fetch_direct_dependencies(pkg: str, ecosystem: str, limiter) -> list[str]:
     return []
 
 
-def fetch_osv_scan_with_deps(pkg: str, ecosystem: str, limiter) -> dict:
+def fetch_osv_scan_with_deps(pkg: str, ecosystem: str, limiter, fallback_deps: list[str] | None = None) -> dict:
     """fetch_osv_scan() on `pkg` itself, PLUS a pass over its direct
     dependencies (fetch_direct_dependencies()) -- each dependency name is
     checked against OSV the same way `pkg` is. Adds security_direct_deps_
     scanned/vuln_count/with_vulns to the result; a dependency contributing
     a vuln is named explicitly (with_vulns), not just counted, so a human
     reviewing this row knows WHICH dependency to look at, not just that
-    "something downstream" is flagged."""
+    "something downstream" is flagged.
+
+    `fallback_deps` (enrich_from_repo_scan.py's `pyproject_dependencies`) is
+    used when the package manager registry has no manifest to read -- i.e. a
+    server that ships a pyproject.toml but was never actually published to
+    PyPI. The package's own OSV query then legitimately finds nothing, but
+    its declared direct deps are still real and still worth checking; this
+    is the "scan the deps even when the thing itself isn't a package" case."""
     own = fetch_osv_scan(pkg, ecosystem, limiter)
 
     dep_names = fetch_direct_dependencies(pkg, ecosystem, limiter)
+    if not dep_names and fallback_deps:
+        dep_names = list(dict.fromkeys(fallback_deps))[:MAX_DIRECT_DEPS_SCANNED]
     deps_with_vulns = []
     dep_vuln_total = 0
     for dep_name in dep_names:
@@ -195,7 +204,8 @@ def fetch_security(registry, index, limiter, *, limit, random_sample, rescan, st
             continue
         if only_ids is None and not rescan and not is_stale(r.get("security_updated"), stale_days):
             continue
-        candidates.append((r["id"], pkg, ecosystem))
+        fallback_deps = first_descriptor_value(r, "pyproject_dependencies")
+        candidates.append((r["id"], pkg, ecosystem, fallback_deps))
 
     if random_sample is not None:
         candidates = random.sample(candidates, min(random_sample, len(candidates)))
@@ -204,9 +214,13 @@ def fetch_security(registry, index, limiter, *, limit, random_sample, rescan, st
 
     print(f"[security] {len(candidates)} row(s) to scan")
     ok = failed = with_vulns = 0
-    for i, (entry_id, pkg, ecosystem) in enumerate(candidates, start=1):
+    for i, (entry_id, pkg, ecosystem, fallback_deps) in enumerate(candidates, start=1):
         try:
-            scan = fetch_osv_scan_with_deps(pkg, ecosystem, limiter) if with_deps else fetch_osv_scan(pkg, ecosystem, limiter)
+            scan = (
+                fetch_osv_scan_with_deps(pkg, ecosystem, limiter, fallback_deps=fallback_deps)
+                if with_deps
+                else fetch_osv_scan(pkg, ecosystem, limiter)
+            )
             mcp_registry.set_security_scan(registry, entry_id, scan, index=index)
             ok += 1
             if scan["security_vuln_count"] > 0:

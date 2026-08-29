@@ -53,7 +53,7 @@ app = FastAPI(
         "(POST /scan), and a scan-and-record path that writes the verdict onto "
         "the skill's Qdrant point (POST /scan/skill)."
     ),
-    version="1.3.0",
+    version="1.4.0",
 )
 
 AssetType = Literal["skill", "mcp"]
@@ -68,7 +68,9 @@ class QueryRequest(BaseModel):
     )
     limit: int = Field(default=12, ge=1, le=200)
 
-    # skill-only filters (ignored when asset_type="mcp")
+    # min_stars applies to BOTH asset types (skills always; mcp since the
+    # mcp_servers payload carries `stars` -- pushed down as a native Qdrant
+    # range filter in each collection).
     min_stars: int | None = Field(default=None, ge=0)
     sources: tuple[str, ...] = ()
     rank_filters: dict[str, int] = Field(default_factory=dict)
@@ -135,11 +137,25 @@ class McpHit(BaseModel):
     package_identifier: str | None
     package_url: str | None
     deployment: str | None
+    transport: str | None
     has_installable_package: bool
     has_remote: bool
     attributes: tuple[str, ...]
     license: str | None
     added: str | None
+    # Ranking signal from fetch_mcp_rankings.py (null if the row predates
+    # that pass or has no resolvable repo/package).
+    stars: int | None
+    language: str | None
+    weekly_downloads: int | None
+    monthly_downloads: int | None
+    # OSV.dev scan from fetch_mcp_security.py. security_source == "osv" with
+    # security_vuln_count 0 means "scanned, nothing known"; all-null means
+    # "never scanned".
+    security_source: str | None
+    security_vuln_count: int | None
+    security_vuln_ids: tuple[str, ...] | None
+    security_max_severity: str | None
 
 
 class QueryResponse(BaseModel):
@@ -192,11 +208,20 @@ def _to_mcp_hit(result: McpSearchResult) -> McpHit:
         package_identifier=result.package_identifier,
         package_url=result.package_url,
         deployment=result.deployment,
+        transport=result.transport,
         has_installable_package=result.has_installable_package,
         has_remote=result.has_remote,
         attributes=result.attributes,
         license=result.license,
         added=result.added,
+        stars=result.stars,
+        language=result.language,
+        weekly_downloads=result.weekly_downloads,
+        monthly_downloads=result.monthly_downloads,
+        security_source=result.security_source,
+        security_vuln_count=result.security_vuln_count,
+        security_vuln_ids=result.security_vuln_ids,
+        security_max_severity=result.security_max_severity,
     )
 
 
@@ -233,6 +258,7 @@ def query(request: QueryRequest) -> QueryResponse:
             deployment=request.deployment,
             registry_type=request.registry_type,
             sources=request.sources,
+            min_stars=request.min_stars,
         )
         mcp_results = (
             browse_mcp_servers(limit=request.limit, filters=mcp_filters)

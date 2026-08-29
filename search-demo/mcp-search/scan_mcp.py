@@ -12,6 +12,10 @@ Extraction priority:
   1. server.json (official MCP registry manifest -- name, description,
      repository, packages[].registryType/transport/version, env vars)
   2. package.json fallback (name, description, repository, engines)
+  3. pyproject.toml fallback ([project].name/description/dependencies,
+     [project.scripts]) -- so a PyPI/uv/pipx/git-install MCP server (no
+     server.json, no package.json) still yields a package identifier +
+     ecosystem + declared direct deps instead of nothing.
 
 package_url (e.g. npmjs.com/pypi.org landing page) is derived from
 registryType + identifier; if that's unavailable, falls back to a direct
@@ -25,6 +29,7 @@ Usage:
 import argparse
 import json
 import re
+import tomllib
 import urllib.error
 import urllib.request
 from collections.abc import Callable
@@ -127,6 +132,36 @@ def _read_json(fetch: Fetcher, path: str) -> dict | None:
         return None
 
 
+def _read_toml(fetch: Fetcher, path: str) -> dict | None:
+    text = fetch(path)
+    if text is None:
+        return None
+    try:
+        return tomllib.loads(text)
+    except tomllib.TOMLDecodeError:
+        return None
+
+
+# PEP 508: a requirement string starts with the distribution name, optionally
+# followed by [extras], (version specifiers), and ; environment markers.
+_PEP508_NAME_RE = re.compile(r"^([A-Za-z0-9][A-Za-z0-9._-]*)")
+
+
+def _pep508_names(deps) -> list[str]:
+    """Distribution names from a list of PEP 508 requirement strings
+    ([project].dependencies), dropping extras-/marker-gated entries (a plain
+    `pip install <pkg>` doesn't pull those in) -- same rule
+    fetch_mcp_security.fetch_direct_dependencies() applies to PyPI deps."""
+    names = []
+    for spec in deps or []:
+        if not isinstance(spec, str) or ";" in spec:
+            continue
+        match = _PEP508_NAME_RE.match(spec.strip())
+        if match:
+            names.append(match.group(1))
+    return names
+
+
 def extract_from_server_json(data: dict, source_file: str) -> dict:
     # A server.json can list installable packages (packages[]), remote
     # endpoints (remotes[]), both, or -- per the MCP registry schema --
@@ -198,6 +233,43 @@ def extract_from_package_json(data: dict, source_file: str) -> dict:
     }
 
 
+def extract_from_pyproject(data: dict, source_file: str) -> dict:
+    """Third fallback, for a Python-packaged MCP server (PyPI / uv / pipx /
+    `pip install git+...`) that ships neither a server.json nor a
+    package.json. Reads [project].name/description/version/dependencies and
+    [project.scripts] -- enough to give the row a package identifier, the
+    `pypi` ecosystem (what OSV/pip use for a pyproject dist, even when we
+    can't confirm it was actually published), and its declared direct deps
+    for a downstream dependency-only vuln scan."""
+    project = data.get("project") or {}
+    name = project.get("name")
+    urls = project.get("urls") or {}
+    repo_url = (
+        urls.get("Repository") or urls.get("repository")
+        or urls.get("Source") or urls.get("source")
+        or urls.get("Homepage") or urls.get("homepage")
+    )
+    console_scripts = sorted((project.get("scripts") or {}).keys())
+    dependencies = _pep508_names(project.get("dependencies"))
+    return {
+        "name": name,
+        "description": project.get("description"),
+        "repo_url": repo_url,
+        "version": project.get("version"),
+        "registry_type": "pypi" if name else None,
+        "transport": None,
+        "package_identifier": name,
+        "env_vars_json": None,
+        "source_file": source_file,
+        # A pyproject dist runs locally over stdio by default; a hosted
+        # endpoint, if any, isn't discoverable from pyproject.toml alone.
+        "deployment": "local" if name else None,
+        "has_installable_package": bool(name),
+        "console_scripts": console_scripts or None,
+        "pyproject_dependencies": dependencies or None,
+    }
+
+
 def scan_entry(fetch: Fetcher, label: str) -> dict:
     """Shared extraction logic: given a Fetcher (local or GitHub-raw) and a
     human-readable label for the source (repo path or "owner/repo"), return
@@ -207,9 +279,15 @@ def scan_entry(fetch: Fetcher, label: str) -> dict:
         entry = extract_from_server_json(server_json, "server.json")
     else:
         package_json = _read_json(fetch, "package.json")
-        if package_json is None:
-            raise ValueError(f"no server.json or package.json found in {label}")
-        entry = extract_from_package_json(package_json, "package.json")
+        if package_json is not None:
+            entry = extract_from_package_json(package_json, "package.json")
+        else:
+            pyproject = _read_toml(fetch, "pyproject.toml")
+            if pyproject is None:
+                raise ValueError(
+                    f"no server.json, package.json, or pyproject.toml found in {label}"
+                )
+            entry = extract_from_pyproject(pyproject, "pyproject.toml")
 
     if not entry["name"]:
         raise ValueError(f"could not determine MCP server name from {label}")

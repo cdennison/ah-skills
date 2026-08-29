@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir uv
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev --no-install-project
 
-COPY search.py mcp_search.py query_service.py scan_service.py ./
+COPY search.py mcp_search.py query_service.py scan_service.py scan_index.py ./
 COPY prompts ./prompts
 
 ENV SKILLS_QDRANT_URL=http://qdrant:6333

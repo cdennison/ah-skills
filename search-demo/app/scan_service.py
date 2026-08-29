@@ -23,8 +23,10 @@ stays self-contained for its Dockerfile. Keep them in sync.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+from functools import cache
 from pathlib import Path
 from typing import Any, Literal
 
@@ -42,6 +44,24 @@ MAX_SKILL_TEXT_CHARS = 600_000
 LLM_TIMEOUT_SECONDS = 120
 
 Severity = Literal["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+
+# Ascending order; index into this list ranks a finding's severity. "NONE" is
+# the max_severity of an empty findings list (a clean verdict).
+_SEVERITY_ORDER = ("LOW", "MEDIUM", "HIGH", "CRITICAL")
+MaxSeverity = Literal["CRITICAL", "HIGH", "MEDIUM", "LOW", "NONE"]
+
+
+@cache
+def prompt_version() -> str:
+    """Short digest of the threat-analysis prompt file, recorded on every
+    verdict so a caller can tell which prompt produced it (and gate rescans
+    on a prompt change). Cached -- the file does not change at runtime."""
+    return hashlib.sha256(PROMPT_PATH.read_bytes()).hexdigest()[:12]
+
+
+def max_severity(findings: list[ScanFinding]) -> MaxSeverity:
+    ranks = [_SEVERITY_ORDER.index(f.severity) for f in findings]
+    return _SEVERITY_ORDER[max(ranks)] if ranks else "NONE"
 
 # Structured output schema matching the format the threat-analysis prompt
 # describes. Mirrors RESPONSE_SCHEMA in skill-scan-eval/scanner.py.
@@ -126,6 +146,10 @@ class ScanFinding(BaseModel):
 
 class ScanResponse(BaseModel):
     model: str = Field(description="litellm model id the scan actually used.")
+    prompt_version: str = Field(
+        default_factory=prompt_version,
+        description="Short digest of the threat-analysis prompt that produced this verdict.",
+    )
     findings: list[ScanFinding]
     overall_assessment: str
     primary_threats: list[str]

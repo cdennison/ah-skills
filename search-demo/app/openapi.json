@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "agent-skills / mcp-servers query service",
-    "description": "Read-only hybrid search over the agent_skills and mcp_servers Qdrant collections, plus a non-deterministic LLM threat scan for skill text.",
-    "version": "1.2.0"
+    "description": "Hybrid search over the agent_skills and mcp_servers Qdrant collections (read-only), a non-deterministic LLM threat scan for skill text (POST /scan), and a scan-and-record path that writes the verdict onto the skill's Qdrant point (POST /scan/skill).",
+    "version": "1.3.0"
   },
   "paths": {
     "/health": {
@@ -134,6 +134,54 @@
           }
         }
       }
+    },
+    "/scan/skill": {
+      "post": {
+        "summary": "Scan Skill",
+        "description": "Scan an already-indexed skill and record the verdict on its Qdrant point.\n\nIdentify the skill by `point_id` (or `content_hash`); the service reads its\nSKILL.md text, runs the same non-deterministic scan as POST /scan, writes a\ntop-level `llm_scan` payload field, and returns it. A recent scan for\nunchanged content + model + prompt is reused (`skipped: true`) unless\n`force: true`. See scan_index.",
+        "operationId": "scan_skill_scan_skill_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScanSkillRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScanSkillResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No agent_skills point matched point_id / content_hash"
+          },
+          "502": {
+            "description": "Upstream LLM call failed or returned unparseable output"
+          },
+          "503": {
+            "description": "Scan LLM not configured (no API key)"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -150,6 +198,73 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "LlmScan": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "prompt_version": {
+            "type": "string",
+            "title": "Prompt Version"
+          },
+          "scanned_at": {
+            "type": "string",
+            "title": "Scanned At"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          },
+          "max_severity": {
+            "type": "string",
+            "enum": [
+              "CRITICAL",
+              "HIGH",
+              "MEDIUM",
+              "LOW",
+              "NONE"
+            ],
+            "title": "Max Severity"
+          },
+          "finding_count": {
+            "type": "integer",
+            "title": "Finding Count"
+          },
+          "primary_threats": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Primary Threats"
+          },
+          "overall_assessment": {
+            "type": "string",
+            "title": "Overall Assessment"
+          },
+          "findings": {
+            "items": {
+              "$ref": "#/components/schemas/ScanFinding"
+            },
+            "type": "array",
+            "title": "Findings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model",
+          "prompt_version",
+          "scanned_at",
+          "content_sha256",
+          "max_severity",
+          "finding_count",
+          "primary_threats",
+          "overall_assessment",
+          "findings"
+        ],
+        "title": "LlmScan",
+        "description": "The `llm_scan` payload field written onto the Qdrant point. Latest\nverdict only -- no history."
       },
       "McpHit": {
         "properties": {
@@ -601,6 +716,11 @@
             "title": "Model",
             "description": "litellm model id the scan actually used."
           },
+          "prompt_version": {
+            "type": "string",
+            "title": "Prompt Version",
+            "description": "Short digest of the threat-analysis prompt that produced this verdict."
+          },
           "findings": {
             "items": {
               "$ref": "#/components/schemas/ScanFinding"
@@ -628,6 +748,87 @@
           "primary_threats"
         ],
         "title": "ScanResponse"
+      },
+      "ScanSkillRequest": {
+        "properties": {
+          "point_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Point Id",
+            "description": "Qdrant point id of the skill in agent_skills."
+          },
+          "content_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Hash",
+            "description": "Alternative lookup: the skill's content_hash payload value."
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model",
+            "description": "Optional litellm model id override for the scan."
+          },
+          "force": {
+            "type": "boolean",
+            "title": "Force",
+            "description": "Rescan even if a recent matching llm_scan exists.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "ScanSkillRequest"
+      },
+      "ScanSkillResponse": {
+        "properties": {
+          "point_id": {
+            "type": "string",
+            "title": "Point Id"
+          },
+          "skipped": {
+            "type": "boolean",
+            "title": "Skipped"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "llm_scan": {
+            "$ref": "#/components/schemas/LlmScan"
+          }
+        },
+        "type": "object",
+        "required": [
+          "point_id",
+          "skipped",
+          "llm_scan"
+        ],
+        "title": "ScanSkillResponse"
       },
       "SkillHit": {
         "properties": {
@@ -740,6 +941,18 @@
             },
             "type": "array",
             "title": "Agent Compatibility"
+          },
+          "llm_scan": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llm Scan"
           }
         },
         "type": "object",
@@ -763,7 +976,8 @@
           "name_shared_with",
           "locations",
           "language",
-          "agent_compatibility"
+          "agent_compatibility",
+          "llm_scan"
         ],
         "title": "SkillHit"
       },

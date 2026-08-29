@@ -22,25 +22,31 @@ and the prompt eval harness (`../skill-scan-eval/`).
   `openrouter/deepseek/deepseek-v3.2`, no temperature/seed), returns
   `{model, findings[], overall_assessment, primary_threats}`. Touches no
   Qdrant. `litellm` is in `app/.venv`.
-- **End-to-end smoke test** — `smoke_scan_top_skills.py` (repo root). Proves
-  the whole loop against the **live** `agent_skills` collection:
-  1. scroll Qdrant for the highest-star skill with a Vettd **security** finding
-     (`locations[].vettd_scan_findings.categories_flagged ∋ "security"`),
-     excluding openclaw/hermes;
-  2. scan its `content` via the `/scan` HTTP API (spawns a throwaway
-     `uvicorn query_service:app` if nothing serves `/scan`; key falls back to
-     `../skill-scan-eval/.env`);
-  3. write the verdict to that point as a top-level `llm_scan` field via
-     `set_payload`;
-  4. read the point back and assert `llm_scan` is present and well-formed.
-
-  Last run: target `crabbox` (`steipete/clawdis`, point
-  `39fc8269-f014-51e3-858c-42316cf1465b`, 386k stars), deepseek, 3 findings,
-  ~28s, **PASS**. One real write was left on that point (smoke test prints the
-  `delete_payload` undo one-liner).
-- **Design + pipeline docs** — `docs/ARCHITECTURE_LLM_SCAN.md` (this step),
-  pointer from `docs/ARCHITECTURE.md`, "Running this now" in
-  `docs/ARCHITECTURE_LLM_SCAN.md` and a section in `DAILY_JOB.md`.
+- **`POST /scan/skill` endpoint** — `app/scan_index.py::scan_and_record`, wired
+  in `app/query_service.py` (v1.3.0). Looks up an `agent_skills` point by
+  `point_id` (or `content_hash`), rescan-gates against the existing `llm_scan`
+  (content sha + model + `prompt_version` + age; `force` bypasses), runs the
+  same scan as `/scan`, and **writes the `llm_scan` payload key itself** via
+  `set_payload` — the service's only Qdrant write. Adds `prompt_version` to
+  `ScanResponse`. Hermetic tests in `app/tests/test_scan_index.py` (LLM mocked,
+  in-memory QdrantClient).
+- **`/query` exposes `llm_scan`** — `SkillHit.llm_scan` (nullable `LlmScan`
+  object), through `search.SkillPayload` / `SearchResult` / `_to_skill_hit`.
+  Vettd data already rides in `SkillHit.locations`, so one `/query` response
+  now carries both scans. `app/openapi.json` regenerated.
+- **End-to-end smoke test** — `smoke_scan_skill.py` (repo root), hard-coded to
+  `steipete/clawdis/.agents/skills/crabbox/SKILL.md` (point `39fc8269-…`), a
+  skill with a **published** Vettd scan (grade B, VTD-0088 security finding).
+  It: (1) confirms the Vettd `vettd_scan_findings` + `vettd_scan_publications`
+  on the point; (2) `POST /scan/skill {point_id, force}` — asserts the endpoint
+  returned a well-formed `llm_scan`; (3) `POST /query "crabbox"` — asserts the
+  one hit carries **both** `llm_scan` and the Vettd scan. Spawns a throwaway
+  service if none serves `/scan/skill`; key falls back to
+  `../skill-scan-eval/.env`. **PASS** (deepseek, ~27s, one real `set_payload`).
+  Worked-example curl req/resp is in `docs/ARCHITECTURE_LLM_SCAN.md`.
+- **Design + pipeline docs** — `docs/ARCHITECTURE_LLM_SCAN.md` (this step, incl.
+  worked example), pointer from `docs/ARCHITECTURE.md`, "Running this now" +
+  `DAILY_JOB.md` section.
 - **Selection query patterns** — `TEST_PLAN_FINDINGS_SUMMARY_TOP1000.md` §5
   (top-N by stars; skills with Vettd security findings; the
   `agent_compatibility` degraded-classifier caveat).
@@ -51,24 +57,24 @@ and the prompt eval harness (`../skill-scan-eval/`).
 
 ### Not done
 
-- `scan_top_skills.py` — the selection + fan-out step.
-- `POST /scan/skill` — the endpoint that also **writes** `llm_scan` to Qdrant
-  (see the decision below).
+- `scan_top_skills.py` — the selection + fan-out step (select point ids →
+  `POST /scan/skill` per skill, bounded concurrency).
 - `_preserve_scan_publications()` extension for `llm_scan` in `index_qdrant.py`.
-- `/query` (`SkillHit`) + `openapi.json` + Next.js docs for `llm_scan`.
+- `NEXTJS_INTEGRATION.md` / `QUERY_INTERFACE.md` prose for the `llm_scan` field
+  (the field + `openapi.json` are done; the prose isn't).
+- `export_csv.py` severity/count columns.
 - Any wiring into `batch_pipeline.py` / `RUN.sh`.
-- Committing the uncommitted `/scan` work.
 
-### Observations from the smoke run
+### Observations from the smoke runs
 
-- deepseek returned `primary_threats` as full sentences rather than the short
-  threat-type names the schema expects, and `max_severity` came out `LOW`
-  despite the prose reading more serious — the model isn't strictly honoring
-  the prompt's AITech severity taxonomy. Model/prompt choice is tracked in
-  `../skill-scan-eval/PROMPT_SELECTION_CURRENT.md`; revisit before a wide run.
+- The scan is genuinely non-deterministic: back-to-back `crabbox` runs returned
+  `LOW`/2 findings then `MEDIUM`/4 findings. `primary_threats` also come back as
+  free-text phrases, not the prompt's short threat-type names. Model/prompt
+  choice is tracked in `../skill-scan-eval/PROMPT_SELECTION_CURRENT.md`; revisit
+  before a wide run.
 - The long-running `:8000` (docker) / `:8001` (local `.venv`) query services
-  predate the `/scan` wiring and don't expose it — a real run needs a fresh
-  `uvicorn`.
+  predate this wiring and don't expose `/scan` or `/scan/skill` — a real run
+  needs a fresh `uvicorn` (or let the smoke test spawn its own).
 
 ---
 
@@ -86,10 +92,9 @@ then only *selects* point ids and calls this endpoint per skill.
 - This makes the FastAPI service a Qdrant **writer** for the first time —
   scoped to the single `llm_scan` key via `set_payload`, never vectors or
   collection creation.
-- **There must be a smoke test for that API**: `POST /scan/skill {point_id}`
-  → assert the *endpoint* wrote a well-formed `llm_scan` to Qdrant → re-POST
-  → assert `skipped: true`. Retarget `smoke_scan_top_skills.py` at
-  `/scan/skill` once it exists (it currently does the Qdrant write itself).
+- **There must be a smoke test for that API** — done: `smoke_scan_skill.py`
+  hits `POST /scan/skill` and asserts the *endpoint* did the write, then shows
+  it via `POST /query`.
 
 ### 2. Pipeline docs must make it clear how to run this now
 
@@ -106,13 +111,13 @@ then only *selects* point ids and calls this endpoint per skill.
 | # | Item | Notes |
 |---|---|---|
 | 1 | ~~Commit the `/scan` work~~ | done — `a658323` |
-| 2 | `POST /scan/skill` (scan + write `llm_scan`) | new-requirement #1; service becomes a scoped Qdrant writer |
-| 3 | Retarget the smoke test at `/scan/skill` | new-requirement #1; assert the endpoint did the write; add the `skipped:true` re-POST case |
-| 4 | `prompt_version` on `ScanResponse` | `sha256(prompt)[:12]`; needed for rescan gating |
-| 5 | `scan_top_skills.py` — select + fan out | stars desc, Vettd-security filter, exclude openclaw/hermes, bounded concurrency, `--dry-run` / `--force` / `--top-n` |
-| 6 | `_preserve_scan_publications()` → also carry `llm_scan` | `index_qdrant.py`; add `"llm_scan"` to the `retrieve` `with_payload` |
-| 7 | `test_scan_top_skills.py` + extend `test_index_qdrant_publications.py` | mirror `test_publish_scans*.py` |
-| 8 | `/query` `SkillHit` + `openapi.json` + `NEXTJS_INTEGRATION.md` / `QUERY_INTERFACE.md` | so the frontend can render the real verdict |
+| 2 | ~~`POST /scan/skill` (scan + write `llm_scan`)~~ | done — `app/scan_index.py`; scoped `set_payload` |
+| 3 | ~~Smoke test for that API~~ | done — `smoke_scan_skill.py` + `app/tests/test_scan_index.py` |
+| 4 | ~~`prompt_version` on `ScanResponse`~~ | done — `sha256(prompt)[:12]` |
+| 5 | ~~`/query` `SkillHit.llm_scan` + `openapi.json`~~ | done; `NEXTJS_INTEGRATION.md` / `QUERY_INTERFACE.md` prose still open |
+| 6 | `scan_top_skills.py` — select + fan out | stars desc, Vettd-security filter, exclude openclaw/hermes, bounded concurrency, `--dry-run` / `--force` / `--top-n`; per skill → `POST /scan/skill` |
+| 7 | `_preserve_scan_publications()` → also carry `llm_scan` | `index_qdrant.py`; add `"llm_scan"` to the `retrieve` `with_payload` |
+| 8 | `test_scan_top_skills.py` + extend `test_index_qdrant_publications.py` | mirror `test_publish_scans*.py` |
 | 9 | `export_csv.py` severity/count columns | follow-up |
 | 10 | Wire `--scan-top-skills` into `batch_pipeline.py`; opt-in `--with-scan` in `RUN.sh` | run once after the final index |
 

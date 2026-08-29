@@ -89,6 +89,12 @@ class SkillPayload(BaseModel):
     # index_qdrant.py's _content_language().
     language: str = ""
     agent_compatibility: tuple[str, ...] = ()
+    # Latest non-deterministic LLM threat-scan verdict, written by
+    # scan_index.scan_and_record (POST /scan/skill). Absent until a skill has
+    # been scanned. Shape: scan_index.LlmScan. Deterministic Vettd scan data
+    # lives separately, inside each `locations[]` entry
+    # (vettd_scan_findings / vettd_scan_publications).
+    llm_scan: dict | None = None
 
 
 # Mirrors export_csv.py's `_SEARCH_RANK_TOKEN_RE` -- both parse the same
@@ -127,6 +133,7 @@ class SearchResult:
     locations: tuple[dict, ...]
     language: str
     agent_compatibility: tuple[str, ...]
+    llm_scan: dict | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -216,6 +223,7 @@ def build_search_result(
         locations=payload.locations,
         language=payload.language,
         agent_compatibility=payload.agent_compatibility,
+        llm_scan=payload.llm_scan,
     )
 
 

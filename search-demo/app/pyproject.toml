@@ -32,4 +32,4 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 [tool.basedpyright]
 typeCheckingMode = "strict"
 pythonVersion = "3.11"
-include = ["search.py", "streamlit_app.py", "query_service.py", "scan_service.py", "tests"]
+include = ["search.py", "streamlit_app.py", "query_service.py", "scan_service.py", "scan_index.py", "tests"]

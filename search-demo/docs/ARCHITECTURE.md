@@ -42,8 +42,8 @@ Companion design docs for scan steps that hang off the indexed collection:
 [`ARCHITECTURE_PUBLISHING_SCANS.md`](ARCHITECTURE_PUBLISHING_SCANS.md) (Vettd
 deterministic scan, implemented) and
 [`ARCHITECTURE_LLM_SCAN.md`](ARCHITECTURE_LLM_SCAN.md) (non-deterministic LLM
-threat scan of top skills → `llm_scan` payload field — **proposed, not
-implemented**).
+threat scan → `llm_scan` payload field via `POST /scan/skill` — endpoints
+built, selection step + pipeline wiring not).
 
 **The two must be kept in sync by hand.** GitHub renders `.mmd`/Mermaid
 fences live, but the `.jpg` does not auto-update — whenever you edit

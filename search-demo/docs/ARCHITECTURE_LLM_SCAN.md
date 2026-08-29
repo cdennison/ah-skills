@@ -1,11 +1,11 @@
 # LLM threat-scan step for top skills
 
-> **Status: partially prototyped.** The pure `POST /scan` endpoint is committed
-> (`a658323`); an end-to-end smoke test (`smoke_scan_top_skills.py`) proves the
-> full loop against the live collection. The selection step
-> (`scan_top_skills.py`), the Qdrant-writing endpoint (`POST /scan/skill`), and
-> the re-index preservation hook are **not built yet**. Running status and roadmap:
-> [`../LLM_SCANNING_PROJECT_PLAN.md`](../LLM_SCANNING_PROJECT_PLAN.md).
+> **Status: endpoints built, pipeline step not.** `POST /scan` (pure) and
+> `POST /scan/skill` (scan + write `llm_scan` to Qdrant) both exist, `/query`
+> exposes `llm_scan`, and `smoke_scan_skill.py` proves the whole loop against
+> the live collection. Still to build: the selection step (`scan_top_skills.py`),
+> the re-index preservation hook, and the `--with-scan` wiring. Running status
+> and roadmap: [`../LLM_SCANNING_PROJECT_PLAN.md`](../LLM_SCANNING_PROJECT_PLAN.md).
 
 ## Purpose
 
@@ -33,7 +33,7 @@ Two endpoints:
 | Endpoint | Qdrant | Use |
 |---|---|---|
 | `POST /scan` | none — pure `text → verdict` | eval harness (`skill-scan-eval/`), ad-hoc scans, reproducibility. **Stays pure.** |
-| `POST /scan/skill` *(to build)* | reads the point, writes `llm_scan` | the pipeline step, the frontend, the smoke test |
+| `POST /scan/skill` | reads the point, writes `llm_scan` | the pipeline step, the frontend, the smoke test |
 
 ## How it relates to the two existing scan systems
 
@@ -99,28 +99,31 @@ stars; revisit the agent exclusions). Do **not** reuse
 `export_csv.py --ranked-only` — that orders by `best_rank` (skills.sh install
 rank + GitHub search rank), not stars.
 
-## The `/scan/skill` endpoint (to build)
+## The `/scan/skill` endpoint
 
-Request: `{ "point_id": "...", "model": null, "force": false }`
-(accept `content_hash` as an alternative to `point_id`).
+`app/scan_index.py::scan_and_record`, wired at `POST /scan/skill` in
+`app/query_service.py`.
 
-1. `client.retrieve("agent_skills", ids=[point_id], with_payload=["content","name","content_hash","llm_scan"])`.
-   404 if absent.
-2. **Rescan gate** (mirrors `publish_scans.py`'s algorithm): skip — return
-   `{skipped: true, llm_scan: <existing>}` — when the existing `llm_scan` has
-   `content_sha256` == sha256 of the point's current `content`, **and**
+Request: `{ "point_id": "...", "model": null, "force": false }` — or
+`{ "content_hash": "..." }` instead of `point_id` (exactly one selector).
+
+1. Look up the point: `client.retrieve(..., ids=[point_id])`, or a
+   `content_hash` field-match scroll. `SkillNotFound` → **404**.
+2. **Rescan gate** (mirrors `publish_scans.py`'s algorithm): return
+   `{skipped: true, reason, llm_scan: <existing>}` when the existing `llm_scan`
+   has `content_sha256` == sha256 of the point's current `content`, **and**
    `now - scanned_at` < `SCAN_RESCAN_INTERVAL_DAYS` (default 7), **and**
    `model` + `prompt_version` unchanged. `force: true` bypasses. Never skip on
    age alone — the scan is non-deterministic.
-3. `scan_skill_text(content, name, model)` — reuse the existing function.
+3. `scan_skill_text(content, name, model)` — the same function `POST /scan` uses.
 4. Build the `llm_scan` object (below) and
    `client.set_payload("agent_skills", {"llm_scan": {…}}, points=[point_id])`.
-5. Return `{point_id, skipped: false, llm_scan}`.
+5. Return `{point_id, skipped: false, reason: null, llm_scan}`.
+   `ScanConfigError` → **503**, `ScanUpstreamError` → **502**.
 
-This makes the FastAPI service a **Qdrant writer** for the first time
-(`query_service.py` is read-only today). Scope the write to the single
-`llm_scan` key via `set_payload`; the service still never creates a collection
-or upserts vectors.
+This is the FastAPI service's **only Qdrant write**. It is scoped to the
+single `llm_scan` payload key via `set_payload` — never a vector, never a
+collection. `query_service.py`'s module docstring records the exception.
 
 ### The `llm_scan` payload field
 
@@ -165,47 +168,136 @@ Return `prompt_version` (`sha256(PROMPT_PATH.read_bytes())[:12]`) on
 `ScanResponse` so callers can record what produced a verdict. Otherwise
 unchanged: text in → verdict out, no Qdrant.
 
-### `POST /scan/skill` — new (see above)
+### `POST /scan/skill` — see above
 
-### `POST /query` — expose `llm_scan` for the Next.js app
+### `POST /query` — `llm_scan` is exposed on `SkillHit`
 
-The Next.js frontend consumes the `/query` response (`SkillHit` in
-`app/query_service.py`; see `NEXTJS_INTEGRATION.md`, `QUERY_INTERFACE.md`).
-Once `llm_scan` is on the payload:
-
-- Add `llm_scan_max_severity`, `llm_scan_finding_count`, `llm_scan_scanned_at`
-  to `SkillHit` (optionally the full findings list behind a flag).
-- Populate them in `app/search.py` (`SkillPayload` / `SearchResult` / row
-  mapping, plus `browse_skills()`).
-- Regenerate `app/openapi.json`; update `NEXTJS_INTEGRATION.md` /
-  `QUERY_INTERFACE.md`.
-- Optionally retire `pick_random_security_status()` for the real value.
+`SkillHit` (in `app/query_service.py`) carries a `llm_scan` field: `null`
+until the skill has been through `/scan/skill`, otherwise the full `LlmScan`
+object. It rides through `search.SkillPayload` → `search.SearchResult` →
+`_to_skill_hit` alongside `locations` (which already carries the Vettd
+`vettd_scan_findings` / `vettd_scan_publications`), so **one `/query` response
+carries both scans**. `app/openapi.json` regenerated. Still open: update
+`NEXTJS_INTEGRATION.md` / `QUERY_INTERFACE.md` prose, and optionally retire
+`pick_random_security_status()` for the real value.
 
 ## Running this now
 
-Nothing is wired into `RUN.sh` yet. The manual loop, proven by
-`smoke_scan_top_skills.py`:
+Nothing is wired into `RUN.sh` yet. `smoke_scan_skill.py` runs the whole loop
+against one hard-coded skill:
 
 ```bash
 # 1. Qdrant up, agent_skills indexed
-curl -s localhost:6333/collections | grep agent_skills
 uv run python stats.py
 
-# 2. a FastAPI instance that serves /scan  (the long-running :8000 / :8001
-#    servers predate the /scan wiring — start a fresh one)
+# 2. (optional) a FastAPI instance that serves /scan/skill — the long-running
+#    :8000 / :8001 servers predate this wiring. The smoke test spawns its own
+#    throwaway service if none is reachable, so this is only needed for a real run:
 export OPENROUTER_API_KEY=...            # or SKILL_SCANNER_LLM_API_KEY
-cd app && uv run uvicorn query_service:app --host 127.0.0.1 --port 8000
+( cd app && uv run uvicorn query_service:app --host 127.0.0.1 --port 8000 & )
 
-# 3. end-to-end smoke test: pick one top skill with a Vettd security finding,
-#    scan it via the API, write llm_scan to its Qdrant point, read back + assert
-cd .. && uv run python smoke_scan_top_skills.py
+# 3. scan a skill via POST /scan/skill, then see the verdict + the Vettd scan
+#    together in a POST /query response
+uv run python smoke_scan_skill.py
 ```
 
-`smoke_scan_top_skills.py` spawns its own throwaway service if none is
-reachable (`SCAN_SERVICE_URL` unset or missing `/scan`), so step 2 is optional
-for the smoke test but is what a real run needs. It falls back to
-`../skill-scan-eval/.env` for the API key. The test makes one real write to
-`agent_skills` and prints a `delete_payload` one-liner to undo it.
+`smoke_scan_skill.py` falls back to `../skill-scan-eval/.env` for the API key,
+makes one real `llm_scan` write to `agent_skills`, and prints a `delete_payload`
+one-liner to undo it.
+
+## Worked example — one `/query`, both scans
+
+Real output from `smoke_scan_skill.py` against
+`steipete/clawdis/.agents/skills/crabbox/SKILL.md` (point
+`39fc8269-…`), a skill with a published Vettd scan (grade B, VTD-0088
+"references external URL" — a `security`-category medium finding).
+
+**Scan it** — the endpoint scans *and* records the verdict:
+
+```
+$ curl -sS -X POST http://localhost:8000/scan/skill \
+    -H 'Content-Type: application/json' \
+    -d '{"point_id": "39fc8269-f014-51e3-858c-42316cf1465b", "force": true}'
+
+{
+  "point_id": "39fc8269-f014-51e3-858c-42316cf1465b",
+  "skipped": false,
+  "reason": null,
+  "llm_scan": {
+    "model": "openrouter/deepseek/deepseek-v3.2",
+    "prompt_version": "37243f9d5700",
+    "scanned_at": "2026-08-29T16:14:57.300794+00:00",
+    "content_sha256": "fbd238da4cd53c6e7f53b892f2b300875aea548aa721e4ab6ba2bc62199103c2",
+    "max_severity": "MEDIUM",
+    "finding_count": 4,
+    "primary_threats": ["Potential Command Execution", "Resource Allocation Risks", "Missing Tool Restrictions"],
+    "overall_assessment": "The 'crabbox' skill is a detailed operational guide ...",
+    "findings": [
+      {"severity": "MEDIUM", "aitech": "AITech-9.1", "title": "Potential Command Execution via Arbitrary Shell Commands", "location": "SKILL.md:instructions", "...": "..."},
+      "... 3 more ..."
+    ]
+  }
+}
+```
+
+(`"force": true` bypasses the rescan gate so the demo always shows a fresh
+verdict; a plain `{"point_id": "..."}` returns `"skipped": true` with the
+existing `llm_scan` when it is still fresh. The scan is non-deterministic —
+`max_severity` / `finding_count` vary run to run.)
+
+**Query it back** — the hit carries `llm_scan` *and* the Vettd scan (inside
+`locations[]`):
+
+```
+$ curl -sS -X POST http://localhost:8000/query \
+    -H 'Content-Type: application/json' \
+    -d '{"query": "crabbox", "asset_type": "skill", "limit": 25}'
+
+{
+  "index_ready": true, "query": "crabbox", "asset_type": "skill",
+  "hits": [
+    {
+      "name": "crabbox",
+      "path": "steipete/clawdis/.agents/skills/crabbox/SKILL.md",
+      "stars": 386317,
+      "content": "... SKILL.md text ...",
+      "llm_scan": {
+        "model": "openrouter/deepseek/deepseek-v3.2",
+        "prompt_version": "37243f9d5700",
+        "max_severity": "MEDIUM", "finding_count": 4,
+        "primary_threats": ["Potential Command Execution", "..."],
+        "findings": [ /* ... */ ]
+      },
+      "locations": [
+        {
+          "path": "steipete/clawdis/.agents/skills/crabbox/SKILL.md",
+          "vettd_scan_findings": {
+            "scan_id": "6845914b-6515-46e2-9bfb-9d1d4d2f0fc9",
+            "overall_grade": "B", "trust_level": "Conditional",
+            "has_malicious_findings": false, "finding_count": 14,
+            "severity_counts": {"critical": 0, "high": 0, "medium": 1, "low": 0, "info": 13},
+            "categories_flagged": ["security"],
+            "top_findings": [
+              {"rule_id": "VTD-0088", "category": "security", "severity": "medium",
+               "label": "References external URL — review for indirect prompt injection risk"}
+            ]
+          },
+          "vettd_scan_publications": [
+            {"scan_id": "6845914b-6515-46e2-9bfb-9d1d4d2f0fc9", "status": "accepted",
+             "scanner_version": "0.9.0", "endpoint": "http://localhost:3000/api/scans/ingest",
+             "published_at": "2026-08-29T14:33:27.998184+00:00", "...": "..."}
+          ]
+        },
+        { "path": "openclaw/openclaw/.agents/skills/crabbox/SKILL.md", "...": "no scan data" }
+      ]
+    }
+  ]
+}
+```
+
+So a client reads `hit.llm_scan` for the non-deterministic verdict and
+`hit.locations[].vettd_scan_findings` / `vettd_scan_publications` for the
+deterministic one, from a single query.
 
 ## Configuration
 
@@ -214,10 +306,11 @@ for the smoke test but is what a real run needs. It falls back to
 | `SCAN_SERVICE_URL` | no | `http://localhost:8000` | FastAPI base URL |
 | `SCAN_TOP_N` | no | `100` | how many top-by-stars skills to consider |
 | `SCAN_REQUIRE_SECURITY_SIGNAL` | no | `1` | apply the "has a Vettd security finding" filter |
-| `SCAN_RESCAN_INTERVAL_DAYS` | no | `7` | rescan gate; mirrors `VETTD_RESCAN_INTERVAL_DAYS` |
-| `SCAN_MODEL` | no | — | litellm model id passed through to the scan |
-| `SKILLS_QDRANT_URL` / `SKILLS_QDRANT_DB_PATH` | one, not both | — | Qdrant selection; the service now needs write access |
-| `OPENROUTER_API_KEY` / `SKILL_SCANNER_LLM_API_KEY` (on the *service*) | yes | — | consumed by the scan endpoint |
+| `SCAN_RESCAN_INTERVAL_DAYS` | no | `7` | `/scan/skill` rescan gate; mirrors `VETTD_RESCAN_INTERVAL_DAYS` |
+| `SCAN_MODEL` | no | — | litellm model id passed through to the scan (step-side) |
+| `SKILL_SCANNER_LLM_MODEL` | no | `openrouter/deepseek/deepseek-v3.2` | model the *service* uses when the request sets none |
+| `SKILLS_QDRANT_URL` / `SKILLS_QDRANT_DB_PATH` | one, not both | — | Qdrant selection; the service now also **writes** the `llm_scan` key |
+| `OPENROUTER_API_KEY` / `SKILL_SCANNER_LLM_API_KEY` (on the *service*) | yes | — | consumed by the scan endpoints |
 
 ## Wiring into the larger pipeline (later)
 
@@ -232,11 +325,16 @@ for the smoke test but is what a real run needs. It falls back to
 
 ## Smoke tests
 
-- **`smoke_scan_top_skills.py`** (exists) — the full loop on one real skill:
-  Qdrant query → `/scan` API → write `llm_scan` → read back + assert.
-- **When `/scan/skill` lands**, retarget the smoke test at it: `POST
-  /scan/skill {point_id}` → assert the endpoint (not the test) wrote a
-  well-formed `llm_scan`, then re-POST and assert `skipped: true`.
+- **`smoke_scan_skill.py`** (repo root) — hard-coded to one real skill with a
+  published Vettd scan. Calls `POST /scan/skill`, asserts the *endpoint* wrote
+  a well-formed `llm_scan`, then `POST /query` and asserts the one response
+  carries both scans. Prints the worked-example curl req/resp above. Live —
+  one real OpenRouter call, one real `set_payload`.
+- **`app/tests/test_scan_index.py`** — hermetic (LLM mocked, in-memory
+  QdrantClient): scan-and-write, `skipped`/`force`, rescan on content change,
+  rescan on stale verdict, `content_hash` lookup, 404 / 503 routes.
+- **`app/tests/test_scan_service.py`** — the pure `/scan` path (pre-existing).
+- **`app/smoke_scan.py`** — one-shot live `/scan` check (pre-existing).
 
 ## Out of scope
 
@@ -256,6 +354,7 @@ for the smoke test but is what a real run needs. It falls back to
 5. Re-run step 3 → `skipped=5`; with `--force` → `scanned=5`.
 6. Re-run `index_qdrant.py` (or targeted `--ids`), re-retrieve — `llm_scan`
    preserved.
-7. `curl :8000/query -d '{"query":"","asset_type":"skill"}'` — hits carry
-   `llm_scan_max_severity` / `llm_scan_finding_count`.
-8. `uv run pytest test_scan_top_skills.py test_index_qdrant_publications.py`.
+7. `curl :8000/query -d '{"query":"crabbox","asset_type":"skill"}'` — the hit
+   carries a `llm_scan` object.
+8. `uv run pytest test_scan_top_skills.py test_index_qdrant_publications.py`
+   plus the existing `app/tests/test_scan_index.py`.

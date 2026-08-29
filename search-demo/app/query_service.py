@@ -6,10 +6,13 @@ request. For non-Python callers (e.g. a Next.js Route Handler) that can't
 reproduce the query-time fastembed embedding step themselves -- see
 docs/NEXTJS_INTEGRATION.md's "recommended" option.
 
-Never calls upsert/set_payload/delete/create_collection -- read-only,
-full stop, for either collection. Connects to Qdrant the same way
-search.py/mcp_search.py do: server mode via SKILLS_QDRANT_URL/MCP_QDRANT_URL
-by default (same server, two collections), or embedded on-disk mode via
+Read-only for search and browse -- never upsert/delete/create_collection.
+The one exception is POST /scan/skill (scan_index.scan_and_record), which
+writes a single top-level `llm_scan` payload key back onto one agent_skills
+point via set_payload; it still never touches a vector or creates a
+collection. Connects to Qdrant the same way search.py/mcp_search.py do:
+server mode via SKILLS_QDRANT_URL/MCP_QDRANT_URL by default (same server,
+two collections), or embedded on-disk mode via
 SKILLS_QDRANT_DB_PATH/MCP_QDRANT_DB_PATH if set.
 
 Run locally:
@@ -27,6 +30,12 @@ from pydantic import BaseModel, Field
 import mcp_search
 import search
 from mcp_search import McpSearchFilters, McpSearchResult, browse_mcp_servers, search_mcp_servers
+from scan_index import (
+    ScanSkillRequest,
+    ScanSkillResponse,
+    SkillNotFound,
+    scan_and_record,
+)
 from scan_service import (
     ScanConfigError,
     ScanRequest,
@@ -39,10 +48,12 @@ from search import SearchFilters, SearchResult, browse_skills, search_skills
 app = FastAPI(
     title="agent-skills / mcp-servers query service",
     description=(
-        "Read-only hybrid search over the agent_skills and mcp_servers Qdrant "
-        "collections, plus a non-deterministic LLM threat scan for skill text."
+        "Hybrid search over the agent_skills and mcp_servers Qdrant collections "
+        "(read-only), a non-deterministic LLM threat scan for skill text "
+        "(POST /scan), and a scan-and-record path that writes the verdict onto "
+        "the skill's Qdrant point (POST /scan/skill)."
     ),
-    version="1.2.0",
+    version="1.3.0",
 )
 
 AssetType = Literal["skill", "mcp"]
@@ -101,6 +112,11 @@ class SkillHit(BaseModel):
     locations: tuple[dict[str, Any], ...]
     language: str
     agent_compatibility: tuple[str, ...]
+    # Latest LLM threat-scan verdict (scan_index.LlmScan shape) once the skill
+    # has been through POST /scan/skill; null otherwise. The deterministic
+    # Vettd scan is separate -- it rides inside each `locations[]` entry as
+    # `vettd_scan_findings` / `vettd_scan_publications`.
+    llm_scan: dict[str, Any] | None
 
 
 class McpHit(BaseModel):
@@ -155,6 +171,7 @@ def _to_skill_hit(result: SearchResult) -> SkillHit:
         locations=result.locations,
         language=result.language,
         agent_compatibility=result.agent_compatibility,
+        llm_scan=result.llm_scan,
     )
 
 
@@ -257,6 +274,33 @@ def scan(request: ScanRequest) -> ScanResponse:
     findings / overall_assessment / primary_threats verdict. See scan_service."""
     try:
         return scan_skill_text(request.skill_text, request.skill_name, request.model)
+    except ScanConfigError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except ScanUpstreamError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@app.post(
+    "/scan/skill",
+    response_model=ScanSkillResponse,
+    responses={
+        404: {"description": "No agent_skills point matched point_id / content_hash"},
+        502: {"description": "Upstream LLM call failed or returned unparseable output"},
+        503: {"description": "Scan LLM not configured (no API key)"},
+    },
+)
+def scan_skill(request: ScanSkillRequest) -> ScanSkillResponse:
+    """Scan an already-indexed skill and record the verdict on its Qdrant point.
+
+    Identify the skill by `point_id` (or `content_hash`); the service reads its
+    SKILL.md text, runs the same non-deterministic scan as POST /scan, writes a
+    top-level `llm_scan` payload field, and returns it. A recent scan for
+    unchanged content + model + prompt is reused (`skipped: true`) unless
+    `force: true`. See scan_index."""
+    try:
+        return scan_and_record(request)
+    except SkillNotFound as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
     except ScanConfigError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     except ScanUpstreamError as exc:

@@ -19,22 +19,35 @@ wiring up a new frontend (Streamlit, etc.) on top of `qdrant_db/`.
 Every point's payload is a flat dict with these fields, set in
 `index_qdrant.py`'s `load_skills()`:
 
+Fields marked **primary-location** are the single "best" `(owner, repo, path, …)`
+tuple flattened out of `locations[]` — `index_qdrant._primary_location()` picks
+it most-starred first, then alphabetically. The complete list of every place
+this exact content was found lives in `locations[]`.
+
 | Field | Source | Notes |
 |---|---|---|
-| `id` | `uuid5(path)` | stable point id (Qdrant requires int or UUID), used to upsert/delete on re-index without disturbing unrelated points |
-| `path` | file path relative to `search-raw/`, e.g. `owner/repo/skills/foo/SKILL.md` | stable identifier, also usable as a GitHub-style breadcrumb |
-| `owner` | `rel.parts[0]` | GitHub org/user that owns the repo |
-| `repo` | `rel.parts[1]` | one repo can contribute many skills |
-| `repo_url` | `https://github.com/{owner}/{repo}` | link to the repo itself |
-| `skill_url` | `https://github.com/{owner}/{repo}/blob/HEAD/{subpath}` | direct link to the `SKILL.md` (or extra README) on GitHub; `blob/HEAD` resolves to whichever branch is currently default, so it survives a `main`/`master` rename |
+| `id` | `str(uuid5(POINT_ID_NAMESPACE, content_hash))` — `index_qdrant.point_id()` | stable point id (Qdrant requires int or UUID). Derived from **`content_hash`, not `path`** — identical `SKILL.md` content at two different paths collapses to one point (both recorded in `locations[]`). Also stored as a payload field, not just the Qdrant point id. Used to upsert/delete on re-index without disturbing unrelated points |
+| `path` | primary-location file path relative to `search-raw/`, e.g. `owner/repo/skills/foo/SKILL.md` | breadcrumb-style identifier for the primary location; every location's path is in `locations[]` |
+| `owner` | primary-location `rel.parts[0]` | GitHub org/user that owns the (primary) repo |
+| `repo` | primary-location `rel.parts[1]` | one repo can contribute many skills; other repos carrying this same content are in `locations[]` |
+| `repo_url` | `https://github.com/{owner}/{repo}` (primary location) | link to the repo itself |
+| `skill_url` | `https://github.com/{owner}/{repo}/blob/HEAD/{subpath}` (primary location) | direct link to the `SKILL.md` (or extra README) on GitHub; `blob/HEAD` resolves to whichever branch is currently default, so it survives a `main`/`master` rename |
 | `name` | frontmatter `name:`, falls back to the parent directory name | short slug/title |
 | `description` | frontmatter `description:` | **plain-text only** (see below), empty string if the file has no description |
-| `sources` | `registry.source_types()` for this skill's `owner/repo` in `repo-seeds/registry.json` | sorted list of discovery channels (`seed`/`search`/`manual`/`marketplace`) that surfaced the repo; empty list if the repo isn't in the registry (shouldn't normally happen) — see the caveat below |
+| `sources` | union of every location's `registry.source_types()` for its `owner/repo` in `repo-seeds/registry.json` | sorted list of discovery channels (`seed`/`search`/`manual`/`marketplace`) that surfaced the repo; empty list if the repo isn't in the registry (shouldn't normally happen) — see the caveat below |
 | `content` | full raw file text, frontmatter included | used for embedding + full-text display/preview |
-| `content_hash` | `sha1(content)` hex digest | lets `index_qdrant.py` detect unchanged files and skip re-embedding them |
-| `language` | `index_qdrant.py`'s `_content_language()`, parsed from a `docs/<locale>/skills/...` path segment (e.g. `docs/ja-JP/skills/...`, `docs/zh-CN/skills/...` -- the translation-mirror convention some repos use, see `affaan-m/ECC`) | **spoken/content language of the SKILL.md text**, not the source repo's programming language; `"en"` (the untranslated original) when no such path segment is present |
-| `agent_compatibility` | `agent_target.classify_agent_target()` (filesystem-aware: plugin manifests, `agents/*.yaml` sidecars — used when the repo's `repos/<owner>/<repo>` clone is on disk) or `agent_target.classify_from_metadata()` (path/text-only fallback otherwise), unioned across every `locations` entry | sorted list of agent runtimes/tools this skill declares or is inferred to target (e.g. `claude-code`, `cursor`, `codex`, `generic`); `[]` when nothing was detected — never fabricated, see `agent_target.py`'s module docstring for the signal tiers and confidence levels |
-| `cli_security` | `cli-security-scan/build_cli_export.py` (`set_payload`, post-index) — grep install commands, classify npm/pip packages as CLI, audit against OSV.dev | **optional, additive.** Absent unless the skill installs a confirmed-CLI package. `{grade: "A"\|"B"\|"C", packages: [{package, ecosystem, classification, install_command, vuln_count, max_severity, advisory_ids}], scanned_at, osv_snapshot_date}`. `grade` = worst package (C also covers an advisory OSV left unlabeled). Means "a tool this skill installs has a security history" — OSV is queried version-less — not "vulnerable". See [`ARCHITECTURE_CLI_SECURITY_SCAN.md`](ARCHITECTURE_CLI_SECURITY_SCAN.md). Carried across re-index by `index_qdrant._preserve_scan_publications`. |
+| `content_hash` | `sha1(` whitespace-normalized `content)` hex digest — `index_qdrant.content_hash()` | whitespace runs are collapsed before hashing so two copies differing only by wrapping still dedupe; the original (un-normalized) text is what `content` stores and what gets embedded. Lets `index_qdrant.py` detect unchanged files and skip re-embedding them |
+| `stars` | primary-location GitHub star count | `int` or `null` (unknown). Filterable via `min_stars` (native `Range` push-down) |
+| `ranking` | primary-location flattened `key=value` popularity string, e.g. `skills_sh_rank=2799 skills_sh_top_installs=4038 search_rank_agent_skills_stars=12` — `index_qdrant._ranking_string()` | space-separated tokens; parsed by `app/search.py`'s `parse_search_rank()` and `export_csv.py`. Includes `search_rank_<query_slug>_<sort_slug>=N` tokens mirroring the native fields below |
+| `search_rank_<query_slug>_<sort_slug>` | `index_qdrant._search_rank_fields()` from the primary repo's registry entry | **dynamic, 0+ top-level `int` fields, present only where data exists.** The skill's rank (0 = best) in a specific upstream `(search query, sort)` list. Native fields so they're usable in a Qdrant `FieldCondition` — `/query`'s `rank_filters` (`{metric: max_rank}`) pushes these down. New (query, sort) sources add new field names automatically |
+| `duplicate_count` | `len(locations)` | how many `locations[]` entries collapsed into this one point (1 = found in exactly one place) |
+| `name_collision_count` | `index_qdrant.load_skills()` post-pass | count of **other** points that share this `name` but have **different content** — never silently merged (could be a coincidental generic name or a reworded fork); `0` normally |
+| `name_shared_with` | same post-pass | sorted `owner/repo` list for those colliding points; `[]` normally |
+| `locations` | every `(owner, repo, path, repo_url, skill_url, sources, stars, ranking, language, agent_compatibility, …)` this exact content was found at | `object[]`. The flattened top-level `owner`/`repo`/`path`/… above are just the primary entry. Also where the **deterministic Vettd scan** rides: `locations[].vettd_scan_findings` (grade/trust/severity rollup) and `locations[].vettd_scan_publications` (ingest receipts) — per-location, preserved separately from the top-level scan keys. See [`ARCHITECTURE_PUBLISHING_SCANS.md`](ARCHITECTURE_PUBLISHING_SCANS.md) |
+| `language` | `index_qdrant.py`'s `_content_language()`, parsed from a `docs/<locale>/skills/...` path segment (e.g. `docs/ja-JP/skills/...`, `docs/zh-CN/skills/...` -- the translation-mirror convention some repos use, see `affaan-m/ECC`) | **spoken/content language of the SKILL.md text**, not the source repo's programming language; `"en"` (the untranslated original) when no such path segment is present. Filterable via `/query`'s `languages` (native `MatchAny`) |
+| `agent_compatibility` | `agent_target.classify_agent_target()` (filesystem-aware: plugin manifests, `agents/*.yaml` sidecars — used when the repo's `repos/<owner>/<repo>` clone is on disk) or `agent_target.classify_from_metadata()` (path/text-only fallback otherwise), unioned across every `locations` entry | sorted list of agent runtimes/tools this skill declares or is inferred to target (e.g. `claude-code`, `cursor`, `codex`, `generic`); `[]` when nothing was detected — never fabricated, see `agent_target.py`'s module docstring for the signal tiers and confidence levels. Filterable via `/query`'s `agent_compatibility` (native `MatchAny`) |
+| `llm_scan` | `app/scan_index.py`'s `scan_and_record()`, written **post-index** by `POST /scan/skill` via `set_payload` (never by `index_qdrant.py`) | **optional, additive.** Absent until the skill has been scanned. Latest non-deterministic LLM threat-scan verdict, no history. Shape: `{model, prompt_version, scanned_at, content_sha256, max_severity: "CRITICAL"\|"HIGH"\|"MEDIUM"\|"LOW"\|"NONE", finding_count, primary_threats: [...], overall_assessment, findings: [{severity, aitech, title, description, aisubtech?, location?, evidence?, remediation?}]}`. See [`ARCHITECTURE_LLM_SCAN.md`](ARCHITECTURE_LLM_SCAN.md). **NOT carried across a re-index yet** (unlike `cli_security`) — `_PRESERVED_TOP_LEVEL_KEYS` does not include it until its pipeline step lands, so a verdict survives only until the next `index_qdrant.py` run |
+| `cli_security` | `cli-security-scan/build_cli_export.py` (`set_payload`, post-index) — grep install commands, classify npm/pip packages as CLI, audit against OSV.dev | **optional, additive.** Absent unless the skill installs a confirmed-CLI package. `{grade: "A"\|"B"\|"C", packages: [{package, ecosystem, classification, install_command, vuln_count, max_severity, advisory_ids}], scanned_at, osv_snapshot_date}`. `grade` = worst package (C also covers an advisory OSV left unlabeled). Means "a tool this skill installs has a security history" — OSV is queried version-less — not "vulnerable". See [`ARCHITECTURE_CLI_SECURITY_SCAN.md`](ARCHITECTURE_CLI_SECURITY_SCAN.md). Carried across re-index by `index_qdrant._preserve_scan_publications` (`_PRESERVED_TOP_LEVEL_KEYS`). |
 
 ### `sources` staleness caveat
 
@@ -145,6 +158,51 @@ Notes:
   see `client.scroll(..., scroll_filter=...)` in ad-hoc payload lookups for
   the same filter syntax.
 
+## HTTP access (the query service)
+
+The Python snippet above is the in-process path (Streamlit, `query.py`). For
+**non-Python callers** (a Next.js Route Handler, a Go service, `curl`), the
+supported entry point is the read-only FastAPI query service in `app/`
+(`app/query_service.py`), and its **authoritative HTTP contract is
+[`app/openapi.json`](../app/openapi.json)** — FastAPI-generated, committed, and
+regenerated on every field change (`info.version` is `1.4.0` as of this
+writing).
+
+- `POST /query` with a JSON body — `asset_type` selects the collection:
+  `"skill"` (default) queries `agent_skills` and returns `SkillHit[]`; `"mcp"`
+  queries `mcp_servers` and returns `McpHit[]` (see the next section). Response
+  is `{index_ready, query, asset_type, hits}`.
+- `GET /health?asset_type=skill|mcp` → `{asset_type, index_ready}` — use this
+  (or the `index_ready` field on a `/query` response) to tell a
+  missing/empty collection apart from a genuine zero-match query.
+- `POST /scan` (pure `text → verdict`) and `POST /scan/skill` (scan an indexed
+  point and write its `llm_scan` payload field) — see
+  [`ARCHITECTURE_LLM_SCAN.md`](ARCHITECTURE_LLM_SCAN.md).
+
+Do **not** hand-transcribe the request/response field lists into another
+language — generate a typed client from `openapi.json` (`/docs` serves the
+interactive UI). The consumer-side guidance for the Next.js case —
+connection mode, the embedding asymmetry, the repo-URL join, empty-collection
+handling — is in [`NEXTJS_INTEGRATION.md`](NEXTJS_INTEGRATION.md), which reads
+from this document and `openapi.json`.
+
+## The `mcp_servers` collection
+
+`POST /query` with `asset_type: "mcp"` searches a **separate Qdrant
+collection**, `mcp_servers`, with its **own payload shape** —
+`app/mcp_search.py`'s `McpPayload` / the `McpHit` schema in `openapi.json`
+(`mcp_id`, `stars`, `language`, `weekly_downloads`/`monthly_downloads`,
+`transport`, `registry_type`, `package_identifier`/`package_url`,
+`deployment`, `has_installable_package`/`has_remote`, and the OSV
+`security_*` / `security_direct_deps_*` fields). It is populated by a
+**different pipeline** (`mcp-search/`, not `clone_repos.py` →
+`extract_search_raw.py` → `index_qdrant.py`) and shares only the embedding
+models, the hybrid-RRF query shape, and the query service. Its producer-side
+contract lives in [`../mcp-search/MCP_PIPELINE.md`](../mcp-search/MCP_PIPELINE.md)
+and [`../mcp-search/E2E_ARCHITECTURE.md`](../mcp-search/E2E_ARCHITECTURE.md);
+the rest of this document (payload table, re-index rules, the audit below)
+is about `agent_skills` only.
+
 ## Keeping the index and frontends in sync
 
 This document is the contract between the index writer (`index_qdrant.py`),
@@ -178,6 +236,7 @@ consumers, stored collection, and tests agree.
 | Dense/sparse model, vector name, vector size, distance, or sparse modifier changes | canonical constants/config, this document, `query.py`, frontend query adapter, tests | **full rebuild** |
 | Hybrid query shape, fusion method, prefetch size, filters, or result default changes | querying section above, `query.py`, frontend adapter/UI controls, tests | no rebuild unless indexed vectors/payload also change |
 | GitHub URL/path convention changes | payload derivation, payload table, frontend link rendering, tests | **full rebuild** because URLs are derived payload |
+| Scan-verdict payload fields change (`llm_scan`, `cli_security`, `locations[].vettd_scan_*`) | the **post-index producer** (`app/scan_index.py` / `cli-security-scan/build_cli_export.py` / `publish_scans.py`), the payload table above, `SkillHit`/`openapi.json`, `NEXTJS_INTEGRATION.md`, and `index_qdrant._PRESERVED_TOP_LEVEL_KEYS` / `_preserve_scan_publications` (preservation is per-key, not automatic) | no rebuild — these are written by a separate scan step *after* `index_qdrant.py`, not by it. A re-index only preserves the keys named in `_PRESERVED_TOP_LEVEL_KEYS` (`cli_security` today, **not `llm_scan`**) plus per-`locations` `vettd_scan_*` |
 | UI-only layout or copy changes | frontend and frontend tests | no rebuild |
 
 The indexer decides whether a point changed from the raw file's `content_hash`.
@@ -263,41 +322,71 @@ rebuild rather than relying on the incremental path.
       incrementally updated collection.
 - [ ] Empty-index, empty-description fallback, score-label, result-limit, and
       GitHub-link behavior were exercised through the UI.
+- [ ] If a scan-verdict field changed (`llm_scan`, `cli_security`,
+      `locations[].vettd_scan_*`): its post-index producer, the payload table,
+      `openapi.json`/`SkillHit`, `NEXTJS_INTEGRATION.md`, and the
+      preservation list (`_PRESERVED_TOP_LEVEL_KEYS` /
+      `_preserve_scan_publications`) were updated together — the producer is
+      **not** `index_qdrant.py`.
 - [ ] This document and user-facing setup/run instructions were updated.
 
-## Current synchronization audit (2026-08-01)
+## Current synchronization audit (2026-08-30)
 
-The indexer and reference CLI have moved ahead of the current Streamlit
-frontend. Before treating the frontend as an implementation of this contract,
-sync these open items:
+Since the 2026-08-01 audit the **primary consumer changed**: the read-only
+FastAPI query service (`app/query_service.py`, `openapi.json` v1.4.0) is now
+the synchronized implementation of this contract — its `SkillHit` carries
+every payload field in the table above (including `llm_scan` / `cli_security`),
+it distinguishes a missing/empty collection via `_index_ready`, and it adds
+the `mcp_servers` collection behind `asset_type: "mcp"`. The **Streamlit app
+(`app/streamlit_app.py`) still lags** and should not be treated as a reference
+implementation.
 
-- [ ] Replace the duplicated constants in `app/search.py` with imports from the
-      canonical source.
-- [ ] Extend the frontend payload/result models to carry `owner`, `content`,
-      `repo_url`, and `skill_url`; render a `content` snippet when `description`
-      is empty and use `skill_url` for the source link.
-- [ ] Cache one local `QdrantClient` with `st.cache_resource` instead of opening
-      and closing the embedded store for every search.
-- [ ] Add a result-count control whose default is 5, and pass that value to the
-      outer `query_points(limit=...)` call while keeping prefetch limits large
-      enough.
-- [ ] Replace the results dataframe with the documented card/expander view and
-      label `hit.score` as a relative RRF rank signal, not generic "Match."
-- [ ] Distinguish a missing/empty collection from a valid zero-match query and
-      show the rebuild sequence for the former.
-- [ ] Remove the randomized `Security Scan` field or make its mock status
-      unmistakable in the UI; it is not part of the Qdrant payload contract.
+Verified against the live server-mode collection on 2026-08-30: `agent_skills`
+holds **62,329 points**, named vectors `dense` + `sparse`, and sampled
+payloads carry every field in the table above (`llm_scan` and `cli_security`
+present only on scanned points, as documented).
+
+Query-service state (synchronized):
+
+- [x] `SkillPayload` / `SearchResult` / `SkillHit` carry `owner`, `content`,
+      `repo_url`, `skill_url`, `locations`, `language`, `agent_compatibility`,
+      `llm_scan`, `cli_security` — full payload shape round-trips through
+      `/query`.
+- [x] One `QdrantClient` cached for the process lifetime
+      (`search._get_client()` / `mcp_search._get_client()` module global) —
+      the `st.cache_resource` TODO, solved at the library layer.
+- [x] Missing/empty collection distinguished from a zero-match query
+      (`query_service._index_ready()` → `index_ready: false`), per the
+      "Empty or missing collection" guidance in `NEXTJS_INTEGRATION.md`.
+- [x] `sources` backfilled — the live collection's sampled points all carry a
+      populated `sources` list.
+
+Streamlit app (`app/streamlit_app.py`) — still open:
+
+- [ ] Add a result-count control (still hardcoded to `search_skills`'s
+      `limit=12` default; no widget).
+- [ ] Replace the results `st.dataframe` with the documented card/expander
+      view and label `hit.score` as a relative RRF rank signal.
+- [ ] Distinguish a missing/empty collection from a valid zero-match query
+      in the UI (the query *service* does; the Streamlit app still shows a
+      generic error / "no matching skills").
+- [ ] The randomized `Security_Scan` column is now labelled a placeholder in
+      its `column_config` help text but is still rendered — remove it, or
+      replace it with the real `llm_scan` / `cli_security` / `vettd_scan_*`
+      verdicts now on the payload.
+- [ ] Surface `llm_scan` / `cli_security` in the UI at all (currently
+      dropped).
 - [ ] Update frontend tests and README instructions to cover the synchronized
-      behavior rather than the current 12-row dataframe.
-- [x] Rebuild `qdrant_db/` after the parser/payload/URL changes. Verified on
-      2026-08-01: the local collection contains 15,813 points and sampled
-      payloads include all ten fields documented above.
-- [x] Add `sources` (registry discovery channels) to `index_qdrant.py`'s
-      payload, `app/search.py`'s `SkillPayload`/`SearchResult`, and render
-      it as a "Discovered via" column in `app/streamlit_app.py`. 2026-08-03.
-- [ ] `qdrant_db/` needs a **full rebuild** to backfill `sources` on
-      existing points (see the staleness caveat above) — not yet run in
-      this environment.
+      behavior rather than the current dataframe.
+
+Deliberate non-items:
+
+- Duplicated constants in `app/search.py` / `app/mcp_search.py` (`COLLECTION`,
+  `MODEL_NAME`, vector names): `app/` is a separately dependency-managed,
+  separately Dockerized project whose build context does not include
+  `../shared/` — the duplication is a documented exception (see
+  `app/mcp_search.py`'s and `shared/qdrant.py`'s docstrings), not drift to
+  fix. The values must still be kept identical by hand.
 
 ## Reference implementation
 

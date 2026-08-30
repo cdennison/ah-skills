@@ -10,6 +10,7 @@ what's actually searchable -- no re-deriving fields from disk.
 
 import argparse
 import csv
+import json
 import re
 from pathlib import Path
 
@@ -36,6 +37,12 @@ FIELDS = [
     "name_collision_count",
     "name_shared_with",
     "content_hash",
+    # CLI/dependency security scan (cli-security-scan/build_cli_export.py writes
+    # the `cli_security` payload key; see docs/ARCHITECTURE_CLI_SECURITY_SCAN.md).
+    # Empty for skills that don't install a confirmed-CLI package.
+    "cli",
+    "cli_security_grade",
+    "cli_security_scan",
 ]
 
 
@@ -73,6 +80,28 @@ def extract_search_ranks(ranking: str, columns: list[str]) -> dict:
     return {col: found.get(col) for col in columns}
 
 
+def _apply_cli_security(row: dict, cli_security: dict | None) -> None:
+    """Flatten the `cli_security` payload object (written by
+    cli-security-scan/build_cli_export.py) into the three CSV columns. Left
+    empty when the skill installs no confirmed-CLI package."""
+    if not cli_security:
+        row["cli"] = row["cli_security_grade"] = row["cli_security_scan"] = None
+        return
+    packages = cli_security.get("packages") or []
+    row["cli"] = json.dumps(
+        [{"package": p.get("package"), "ecosystem": p.get("ecosystem"),
+          "install_command": p.get("install_command", "")} for p in packages],
+        ensure_ascii=False,
+    )
+    row["cli_security_grade"] = cli_security.get("grade")
+    row["cli_security_scan"] = json.dumps(
+        [{"package": p.get("package"), "ecosystem": p.get("ecosystem"),
+          "vuln_count": p.get("vuln_count", 0), "max_severity": p.get("max_severity", "NONE"),
+          "advisory_ids": p.get("advisory_ids") or []} for p in packages],
+        ensure_ascii=False,
+    )
+
+
 def iter_rows(client: QdrantClient):
     offset = None
     while True:
@@ -98,6 +127,7 @@ def iter_rows(client: QdrantClient):
             primary_path = payload.get("path")
             others = [loc for loc in locations if loc.get("path") != primary_path]
             row["also_in"] = "; ".join(f"{loc['owner']}/{loc['repo']}:{loc['path']}" for loc in others)
+            _apply_cli_security(row, payload.get("cli_security"))
             yield row
         if offset is None:
             break

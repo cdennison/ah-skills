@@ -95,6 +95,13 @@ class SkillPayload(BaseModel):
     # lives separately, inside each `locations[]` entry
     # (vettd_scan_findings / vettd_scan_publications).
     llm_scan: dict | None = None
+    # CLI/dependency security scan of the third-party command-line tools this
+    # skill tells you to install (npm/pip). Written by
+    # cli-security-scan/build_cli_export.py; see
+    # docs/ARCHITECTURE_CLI_SECURITY_SCAN.md. Absent unless the skill installs
+    # a confirmed-CLI package. Shape: {grade: "A"|"B"|"C", packages: [...],
+    # scanned_at, osv_snapshot_date}.
+    cli_security: dict | None = None
 
 
 # Mirrors export_csv.py's `_SEARCH_RANK_TOKEN_RE` -- both parse the same
@@ -134,6 +141,7 @@ class SearchResult:
     language: str
     agent_compatibility: tuple[str, ...]
     llm_scan: dict | None
+    cli_security: dict | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -224,6 +232,7 @@ def build_search_result(
         language=payload.language,
         agent_compatibility=payload.agent_compatibility,
         llm_scan=payload.llm_scan,
+        cli_security=payload.cli_security,
     )
 
 

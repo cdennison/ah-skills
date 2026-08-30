@@ -119,6 +119,11 @@ class SkillHit(BaseModel):
     # Vettd scan is separate -- it rides inside each `locations[]` entry as
     # `vettd_scan_findings` / `vettd_scan_publications`.
     llm_scan: dict[str, Any] | None
+    # CLI/dependency security scan of the command-line tools this skill tells
+    # you to install (cli-security-scan/build_cli_export.py; see
+    # docs/ARCHITECTURE_CLI_SECURITY_SCAN.md). Null unless the skill installs a
+    # confirmed-CLI package. {grade, packages[], scanned_at, osv_snapshot_date}.
+    cli_security: dict[str, Any] | None
 
 
 class McpHit(BaseModel):
@@ -197,6 +202,7 @@ def _to_skill_hit(result: SearchResult) -> SkillHit:
         language=result.language,
         agent_compatibility=result.agent_compatibility,
         llm_scan=result.llm_scan,
+        cli_security=result.cli_security,
     )
 
 

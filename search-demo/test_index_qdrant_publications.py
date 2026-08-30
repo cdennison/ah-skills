@@ -282,6 +282,64 @@ def test_upload_does_not_copy_receipt_to_content_changed_point(monkeypatch) -> N
     assert "vettd_scan_publications" not in new_location
 
 
+def test_upload_preserves_top_level_cli_security(monkeypatch) -> None:
+    # Given a point that already carries a `cli_security` verdict (written
+    # post-index by cli-security-scan/build_cli_export.py).
+    client = _client_with_collection()
+    point_id = "00000000-0000-0000-0000-0000000000c1"
+    path = "owner/repo/skills/example/SKILL.md"
+    verdict = {"grade": "C", "osv_snapshot_date": "2026-08-30",
+               "packages": [{"package": "wrangler", "ecosystem": "npm"}]}
+    client.upsert(
+        index_qdrant.COLLECTION,
+        points=[_point(point_id, {"locations": [_location(path)], "cli_security": verdict})],
+    )
+    monkeypatch.setattr(
+        index_qdrant, "get_embedder",
+        lambda _name, sparse, threads: _SparseEmbedder() if sparse else _DenseEmbedder(),
+    )
+    monkeypatch.setattr(index_qdrant, "tqdm", _Progress)
+    # Same content hash -> same point id -> a plain re-index rebuilds the
+    # payload from disk with no cli_security.
+    reindexed: index_qdrant.SkillPayload = {
+        "id": point_id, "name": "Example", "description": "d", "content": "c",
+        "locations": [_location(path)],
+    }
+
+    # When
+    index_qdrant.upload_in_batches(client, [reindexed], batch_size=1)
+
+    # Then the verdict survives.
+    stored = client.retrieve(index_qdrant.COLLECTION, ids=[point_id], with_payload=True)[0]
+    assert (stored.payload or {})["cli_security"] == verdict
+
+
+def test_upload_does_not_copy_cli_security_to_content_changed_point(monkeypatch) -> None:
+    client = _client_with_collection()
+    old_id = "00000000-0000-0000-0000-0000000000c2"
+    new_id = "00000000-0000-0000-0000-0000000000c3"
+    path = "owner/repo/skills/example/SKILL.md"
+    client.upsert(
+        index_qdrant.COLLECTION,
+        points=[_point(old_id, {"locations": [_location(path)],
+                                "cli_security": {"grade": "C", "packages": []}})],
+    )
+    monkeypatch.setattr(
+        index_qdrant, "get_embedder",
+        lambda _name, sparse, threads: _SparseEmbedder() if sparse else _DenseEmbedder(),
+    )
+    monkeypatch.setattr(index_qdrant, "tqdm", _Progress)
+    replacement: index_qdrant.SkillPayload = {
+        "id": new_id, "name": "Changed", "description": "d", "content": "new",
+        "locations": [_location(path)],
+    }
+
+    index_qdrant.upload_in_batches(client, [replacement], batch_size=1)
+
+    stored = client.retrieve(index_qdrant.COLLECTION, ids=[new_id], with_payload=True)[0]
+    assert "cli_security" not in (stored.payload or {})
+
+
 def test_filename_fast_index_retains_existing_duplicate_content_locations(monkeypatch) -> None:
     # Given
     client = _client_with_collection()

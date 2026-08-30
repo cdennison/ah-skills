@@ -34,7 +34,16 @@
 #                                       chunks (--batch-size 10000), separately from
 #                                       cloning, so embedding progress is also visible
 #                                       instead of hidden inside step 7
-#   9. export_csv.py                -- regenerate skills_export.csv (everything)
+#   8.5 cli-security-scan/         -- OPTIONAL (--with-cli-scan): grep search-raw/
+#                                       for install commands, classify npm/pip
+#                                       packages as CLI vs library, audit them
+#                                       against OSV.dev, and write a `cli_security`
+#                                       verdict onto each affected skill's Qdrant
+#                                       point. Runs once here (needs the finished
+#                                       index), non-fatal. See
+#                                       docs/ARCHITECTURE_CLI_SECURITY_SCAN.md.
+#   9. export_csv.py                -- regenerate skills_export.csv (everything, now
+#                                       incl. cli/cli_security_grade/cli_security_scan)
 #                                       and skills_export_top.csv (ranked-only, top 50K)
 #
 # Every source needs its own refresh -- this is not just a sync-seed thing:
@@ -93,6 +102,7 @@
 #   ./RUN.sh                                # refresh seeds + sync-seed + marketplace + batched clone/extract + index + csv
 #   ./RUN.sh --with-search "agent skills"    # also run a GitHub search (still needs manual approval)
 #   ./RUN.sh --with-leaderboard              # also upsert ranks from an existing leaderboard-raw/ snapshot
+#   ./RUN.sh --with-cli-scan                 # also run the CLI/dependency security scan (step 8.5)
 #   ./RUN.sh --batch-size 25                 # override the default clone batch size (50)
 #   ./RUN.sh --index-batch-size 5000         # override the default index batch size (10000)
 set -euo pipefail
@@ -127,6 +137,7 @@ BATCH_SIZE=50
 INDEX_BATCH_SIZE=10000
 WITH_SEARCH=""
 WITH_LEADERBOARD=0
+WITH_CLI_SCAN=0
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -134,13 +145,15 @@ while [[ $# -gt 0 ]]; do
       WITH_SEARCH="$2"; shift 2 ;;
     --with-leaderboard)
       WITH_LEADERBOARD=1; shift ;;
+    --with-cli-scan)
+      WITH_CLI_SCAN=1; shift ;;
     --batch-size)
       BATCH_SIZE="$2"; shift 2 ;;
     --index-batch-size)
       INDEX_BATCH_SIZE="$2"; shift 2 ;;
     *)
       echo "Unknown argument: $1" >&2
-      echo "Usage: ./RUN.sh [--with-search \"query\"] [--with-leaderboard] [--batch-size N] [--index-batch-size N]" >&2
+      echo "Usage: ./RUN.sh [--with-search \"query\"] [--with-leaderboard] [--with-cli-scan] [--batch-size N] [--index-batch-size N]" >&2
       exit 1 ;;
   esac
 done
@@ -192,6 +205,19 @@ uv run python batch_pipeline.py --batch-size "$BATCH_SIZE" --only-unsynced --ski
 
 echo "[8/9] index_qdrant.py --batch-size $INDEX_BATCH_SIZE (embed search-raw/ into Qdrant, in chunks so progress is visible)"
 uv run python index_qdrant.py --batch-size "$INDEX_BATCH_SIZE"
+
+if [[ "$WITH_CLI_SCAN" == 1 ]]; then
+  echo "[8.5/9] cli-security-scan (grep install cmds -> classify npm/pip CLIs -> OSV audit -> cli_security payload)"
+  # Reads the collection step 8 just indexed, so it runs once here, not per batch.
+  # Non-fatal: a network hiccup in the OSV/registry pass shouldn't block the CSV export.
+  if cli-security-scan/run.sh && uv run python cli-security-scan/build_cli_export.py; then
+    echo "        cli_security written; step 9 will carry it into skills_export.csv"
+  else
+    echo "[8.5/9] cli-security-scan failed -- continuing to CSV export without refreshed cli_security." >&2
+  fi
+else
+  echo "[8.5/9] skipping CLI/dependency security scan (pass --with-cli-scan to run it)"
+fi
 
 echo "[9/9] export_csv.py (regenerate skills_export.csv and skills_export_top.csv)"
 uv run python export_csv.py

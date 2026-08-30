@@ -1130,6 +1130,18 @@
               }
             ],
             "title": "Llm Scan"
+          },
+          "cli_security": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cli Security"
           }
         },
         "type": "object",
@@ -1154,7 +1166,8 @@
           "locations",
           "language",
           "agent_compatibility",
-          "llm_scan"
+          "llm_scan",
+          "cli_security"
         ],
         "title": "SkillHit"
       },

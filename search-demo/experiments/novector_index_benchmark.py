@@ -3,6 +3,12 @@ compare on-disk size + query latency against the vector-backed original.
 
 Read-only against the source DB: scrolls with with_vectors=False and never
 opens qdrant_db_small/ for writing.
+
+One-off experiment, not part of any pipeline. It needs a populated
+`qdrant_db_small/` (build one with `make_small_index.py`). The `DST_PATH`
+snapshot it writes is disposable and gitignored (`qdrant_db_*/`); re-run to
+regenerate. Was `temp/make_small_index_novectors.py` before the temp/
+cleanup.
 """
 
 from __future__ import annotations
@@ -16,7 +22,7 @@ from qdrant_client import QdrantClient, models
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC_PATH = ROOT / "qdrant_db_small"
-DST_PATH = ROOT / "temp" / "qdrant_db_small_novectors"
+DST_PATH = ROOT / "experiments" / "qdrant_db_small_novectors"
 COLLECTION = "agent_skills"
 
 N_RUNS = 30

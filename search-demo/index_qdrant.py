@@ -76,7 +76,7 @@ import uuid
 from collections import defaultdict
 from collections.abc import Mapping
 from pathlib import Path
-from typing import TypeAlias, assert_never
+from typing import Final, TypeAlias, assert_never
 
 from qdrant_client import QdrantClient, models
 from tqdm import tqdm
@@ -629,22 +629,42 @@ def _stored_locations(payload: Mapping[str, JsonValue] | None) -> list[LocationP
             assert_never(unreachable)
 
 
+# Top-level payload keys written by a post-index scan step (not derived from
+# search-raw/), so a plain re-index -- which rebuilds each PointStruct from
+# disk -- must copy them forward or silently drop them. `cli_security` is
+# written by cli-security-scan/build_cli_export.py; see
+# docs/ARCHITECTURE_CLI_SECURITY_SCAN.md. (`llm_scan`, once its pipeline step
+# exists, belongs here too -- see docs/ARCHITECTURE_LLM_SCAN.md.)
+_PRESERVED_TOP_LEVEL_KEYS: Final = ("cli_security",)
+
+
 def _preserve_scan_publications(
     client: QdrantClient, skills: list[SkillPayload], retain_existing_locations: bool = False
 ) -> None:
     existing_points = client.retrieve(
         COLLECTION,
         ids=[str(skill["id"]) for skill in skills],
-        with_payload=["locations"],
+        with_payload=["locations", *_PRESERVED_TOP_LEVEL_KEYS],
         with_vectors=False,
     )
     locations_by_point_id: dict[str, list[LocationPayload]] = {}
+    top_level_by_point_id: dict[str, dict[str, JsonValue]] = {}
     for existing_point in existing_points:
         stored_locations = _stored_locations(existing_point.payload)
         if stored_locations:
             locations_by_point_id[str(existing_point.id)] = stored_locations
+        preserved = {
+            key: value
+            for key in _PRESERVED_TOP_LEVEL_KEYS
+            if (value := (existing_point.payload or {}).get(key)) is not None
+        }
+        if preserved:
+            top_level_by_point_id[str(existing_point.id)] = preserved
 
     for skill in skills:
+        for key, value in top_level_by_point_id.get(str(skill["id"]), {}).items():
+            skill.setdefault(key, value)
+
         stored_locations = locations_by_point_id.get(str(skill["id"]))
         if stored_locations is None:
             continue

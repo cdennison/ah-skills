@@ -35,11 +35,50 @@ Design: [`docs/ARCHITECTURE_CLI_SECURITY_SCAN.md`](docs/ARCHITECTURE_CLI_SECURIT
 - [ ] `stats.py` clean; findings written to the run log.
 
 Rough budget: **8–12 h** for the re-clone + embed + OSV scan (§1), then the
-Vettd pass (§3b) is **on top** — potentially another 6–14 h at full scale
-and unverified there (see §3b). It is resumable across nights (the 7-day
+Vettd pass (§3B) is **on top** — potentially another 6–14 h at full scale
+and unverified there (see §3B). It is resumable across nights (the 7-day
 rescan gate means a re-run only picks up skills not yet scanned), so it's
-fine to let §1 finish tonight and start §3b tomorrow, or cap §3b's first
+fine to let §1 finish tonight and start §3B tomorrow, or cap §3B's first
 slice. Start §1 before you stop for the day.
+
+---
+
+## Batched driver — `dual_scan_batched.py`
+
+For a run you want to watch batch-by-batch with a both-scans check after
+each, `cli-security-scan/dual_scan_batched.py` wraps §3 + §3B:
+
+```bash
+uv run python cli-security-scan/build_cli_export.py         # §3 — write cli_security
+nohup uv run python cli-security-scan/dual_scan_batched.py --batch 500 \
+  > cli-security-scan/work/dual_scan_run.log 2>&1 &         # §3B, batched + verified
+```
+
+Each batch runs `publish_scans.py` over ~500 CLI-installing skill folders,
+then re-reads every point under them and asserts **both** `cli_security` and
+a `vettd_scan_publications` receipt are present. One JSON line per batch to
+`work/dual_scan_progress.jsonl`; per-batch scanner output in
+`work/vettd_batch_logs/`. Resumable (folders with a receipt are skipped),
+aborts if 3 batches in a row come back mostly unscanned. Folders whose
+SKILL.md was content-deduped into another point (no own point to hang a
+receipt on) are listed in `work/dual_scan_no_skillmd_point.txt` and skipped
+— currently ~96 of ~11.2k.
+
+Monitor:
+
+```bash
+tail -f cli-security-scan/work/dual_scan_run.log
+python3 -c 'import json;[print(l.strip()) for l in open("cli-security-scan/work/dual_scan_progress.jsonl")]' | tail
+```
+
+> **The index already exists.** A Qdrant *server* is running on `:6333` with
+> `agent_skills` = 62,329 points (that's what `get_client()` connects to when
+> no `SKILLS_QDRANT_*` env is set — the empty embedded `./qdrant_db` is a
+> leftover, not what the pipeline uses). So §1's re-clone/re-index is
+> **optional** — only needed to refresh stale content or add new repos. The
+> first `cli_security` + Vettd pass runs straight against the existing 62k.
+> 12,431 points got `cli_security`; 11,141 of those are Vettd-scannable
+> folders.
 
 ---
 

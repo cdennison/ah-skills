@@ -1,14 +1,19 @@
 # CLI_OVERNIGHT_1ST — first full run: `cli_security` on every CLI-installing skill
 
-**Goal.** Get a `cli_security` OSV verdict onto **every skill point in
-`agent_skills` that installs a confirmed CLI tool** — the whole collection,
-not a sample. This is the first end-to-end run of the
-[`cli-security-scan/`](cli-security-scan/) pipeline against a freshly
-re-cloned, freshly re-indexed corpus.
+**Goal.** For **every skill point in `agent_skills` that installs a confirmed
+CLI tool** — the whole collection, not a sample:
 
-Pipeline design: [`docs/ARCHITECTURE_CLI_SECURITY_SCAN.md`](docs/ARCHITECTURE_CLI_SECURITY_SCAN.md).
-Standard maintenance workflow this builds on: [`DAILY_JOB.md`](DAILY_JOB.md),
-[`RUN.sh`](RUN.sh).
+1. a `cli_security` OSV advisory verdict on the *packages* it installs
+   (§1–§3, the [`cli-security-scan/`](cli-security-scan/) pipeline), and
+2. a `vettd` deterministic scan of the skill *folder* itself
+   (§3B, `publish_scans.py`).
+
+Against a freshly re-cloned, freshly re-indexed corpus.
+
+Design: [`docs/ARCHITECTURE_CLI_SECURITY_SCAN.md`](docs/ARCHITECTURE_CLI_SECURITY_SCAN.md)
+(OSV) and [`docs/ARCHITECTURE_PUBLISHING_SCANS.md`](docs/ARCHITECTURE_PUBLISHING_SCANS.md)
+(Vettd). Standard maintenance workflow this builds on:
+[`DAILY_JOB.md`](DAILY_JOB.md), [`RUN.sh`](RUN.sh).
 
 ---
 
@@ -22,13 +27,19 @@ Standard maintenance workflow this builds on: [`DAILY_JOB.md`](DAILY_JOB.md),
       (`wrote N / skipped 0` on the first pass).
 - [ ] `skills_export.csv` regenerated — `cli_security_grade` populated for
       exactly those N skills.
+- [ ] **Vettd deterministic scan** run over every one of those N
+      CLI-installing skills (§3B) — each has a `vettd_scan_publications`
+      receipt for the configured target, or is in the failure log for retry.
 - [ ] A spot `POST /query` for a known CLI-installing skill returns a
-      `cli_security` object.
+      `cli_security` object **and** `locations[].vettd_scan_findings`.
 - [ ] `stats.py` clean; findings written to the run log.
 
-Rough budget: **8–12 h wall-clock**, mostly the re-clone (~2 h, capped at
-1000 clones/h) and the full embed (~3–6 h, CPU-bound). Start it before you
-stop for the day.
+Rough budget: **8–12 h** for the re-clone + embed + OSV scan (§1), then the
+Vettd pass (§3b) is **on top** — potentially another 6–14 h at full scale
+and unverified there (see §3b). It is resumable across nights (the 7-day
+rescan gate means a re-run only picks up skills not yet scanned), so it's
+fine to let §1 finish tonight and start §3b tomorrow, or cap §3b's first
+slice. Start §1 before you stop for the day.
 
 ---
 
@@ -169,6 +180,123 @@ uv run python export_csv.py --ranked-only --limit 50000
 
 ---
 
+## 3B. Vettd deterministic scan of every CLI-installing skill
+
+`cli_security` (§3) is the OSV advisory check on the *packages* a skill
+installs. This is the **other** scanner — `publish_scans.py` runs the
+`vettd` binary over each skill *folder* and submits the result to the Vettd
+backend, landing a `vettd_scan_findings` / `vettd_scan_publications` block on
+the skill's `locations[]` entry. Design:
+[`docs/ARCHITECTURE_PUBLISHING_SCANS.md`](docs/ARCHITECTURE_PUBLISHING_SCANS.md),
+[`DAILY_JOB.md` §5](DAILY_JOB.md).
+
+Here we point it at exactly the skills that install a CLI — the same set §3
+graded — rather than the whole corpus.
+
+### Preconditions
+
+- §1/§2 done: `agent_skills` indexed (`publish_scans.py` finds each skill's
+  point to attach the receipt; unindexed skills are skipped).
+- §3 done: the `cli_security` payloads exist (that's how we enumerate "skills
+  with a CLI").
+- **The Vettd backend is reachable.** `.env` has it at
+  `VETTD_SCAN_ENDPOINT=http://localhost:3000/...` with
+  `VETTD_CLI_BIN=/home/ec2-user/vettd-cli/target/release/vettd`. That's a
+  **local dev backend** — it must be running. Start it however that repo
+  starts it, then:
+
+  ```bash
+  cd search-demo
+  set -a; . ./.env; set +a
+  "$VETTD_CLI_BIN" --version
+  "$VETTD_CLI_BIN" auth --key "$VETTD_API_KEY" --endpoint "$VETTD_SCAN_ENDPOINT" --allow-public-endpoint
+  "$VETTD_CLI_BIN" auth status --json    # endpoint + account email must match .env
+  curl -sS -o /dev/null -w '%{http_code}\n' "$VETTD_SCAN_ENDPOINT"   # reachable
+  ```
+
+  `publish_scans.py preflight()` re-checks all of this and aborts before
+  scanning anything if it doesn't verify.
+
+> **Scale + risk.** `publish_scans.py` has been verified by hand on a handful
+> of real skills against a real local backend (all four rescan-gate branches),
+> **but not at registry scale and not against a production key** (see
+> `DAILY_JOB.md` §5 "Not yet verified"). Expect this to be the long pole:
+> each skill is a folder hash + upload + scanner run. Budget **hours**. It is
+> safe to interrupt.
+
+### Run it
+
+```bash
+cd search-demo
+
+# 1. enumerate every skill folder that got a cli_security verdict, straight
+#    from Qdrant (authoritative — this is exactly the §3 set).
+set -a; . ./.env; set +a
+python3 - <<'EOF' > cli_skill_dirs.txt
+import os
+from qdrant_client import QdrantClient
+url, path = os.environ.get("SKILLS_QDRANT_URL"), os.environ.get("SKILLS_QDRANT_DB_PATH")
+client = QdrantClient(path=path) if path else QdrantClient(url=url or "http://localhost:6333")
+dirs, offset = set(), None
+while True:
+    pts, offset = client.scroll("agent_skills", with_payload=["locations", "cli_security"],
+                                with_vectors=False, limit=1000, offset=offset)
+    for p in pts:
+        pl = p.payload or {}
+        if not pl.get("cli_security"):
+            continue
+        for loc in pl.get("locations") or []:
+            path = (loc or {}).get("path")
+            if path and path.endswith("SKILL.md"):
+                dirs.add("search-raw/" + path.rsplit("/", 1)[0])
+    if offset is None:
+        break
+for d in sorted(dirs):
+    print(d)
+EOF
+wc -l cli_skill_dirs.txt          # expect ~10k–15k
+
+# 2. sanity: every listed dir exists and holds a SKILL.md
+missing=$(while read -r d; do [ -f "$d/SKILL.md" ] || echo "$d"; done < cli_skill_dirs.txt)
+[ -z "$missing" ] && echo "all dirs OK" || { echo "MISSING:"; echo "$missing" | head; }
+
+# 3. scan them. xargs batches so argv stays sane and a batch that exits
+#    nonzero (any per-skill failure) doesn't abort the rest. publish_scans.py
+#    also catches per-skill failures internally and logs them for retry.
+nohup bash -c '
+  set -a; . ./.env; set +a
+  xargs -a cli_skill_dirs.txt -n 400 -r uv run python publish_scans.py
+' > vettd_cli_1st.log 2>&1 &
+echo $! > vettd_cli_1st.pid
+```
+
+### Monitoring
+
+```bash
+tail -f vettd_cli_1st.log
+grep -c 'published\|accepted\|duplicate' vettd_cli_1st.log     # progress
+grep -Ei 'fail|error' vettd_cli_1st.log | tail                 # failures (retried next run)
+ps -p "$(cat vettd_cli_1st.pid)" >/dev/null && echo RUNNING || echo STOPPED
+```
+
+### If it doesn't finish / dies
+
+**Just re-run step 3.** The rescan gate makes it self-resuming: a skill that
+got a receipt in this run is inside the 7-day window and is skipped next
+time; only the not-yet-scanned (and failed) skills get attempted. So a
+first pass that covers, say, 60% of the list followed by a second run the
+next night completes the set with no bookkeeping.
+
+To deliberately cap the first slice (e.g. only the skills that scored a
+`C` from OSV, or the top-stars ones), filter `cli_skill_dirs.txt` before
+step 3 — grep the `C`-grade paths out of `skills_export.csv`, or
+`head -n 2000 cli_skill_dirs.txt`.
+
+`VETTD_RESCAN_INTERVAL_DAYS=0` in the environment forces a rescan of
+everything every run — don't set that here; it defeats the resume behaviour.
+
+---
+
 ## 4. Verify (~10 min)
 
 ```bash
@@ -199,6 +327,32 @@ curl -sS localhost:8012/query -H 'Content-Type: application/json' \
 # the context7 smoke test (live npm + OSV, one package)
 uv run python smoke_cli_security_context7.py
 
+# Vettd coverage of the CLI set (§3B): how many of the graded skills now
+# carry a vettd receipt, and how many are still outstanding
+set -a; . ./.env; set +a
+python3 - <<'EOF'
+import os
+from qdrant_client import QdrantClient
+url, path = os.environ.get("SKILLS_QDRANT_URL"), os.environ.get("SKILLS_QDRANT_DB_PATH")
+c = QdrantClient(path=path) if path else QdrantClient(url=url or "http://localhost:6333")
+have_cli = scanned = 0
+offset = None
+while True:
+    pts, offset = c.scroll("agent_skills", with_payload=["locations", "cli_security"],
+                           with_vectors=False, limit=1000, offset=offset)
+    for p in pts:
+        pl = p.payload or {}
+        if not pl.get("cli_security"):
+            continue
+        have_cli += 1
+        if any((loc or {}).get("vettd_scan_publications") for loc in pl.get("locations") or []):
+            scanned += 1
+    if offset is None:
+        break
+print(f"CLI skills: {have_cli}  |  with a vettd receipt: {scanned}  |  outstanding: {have_cli - scanned}")
+#   outstanding > 0 -> re-run §3B step 3; it resumes via the rescan gate
+EOF
+
 # tests
 uv run pytest cli-security-scan/ -q
 ( cd app && uv run pytest -q )
@@ -222,8 +376,10 @@ cd search-demo
 gh release upload <tag> search_demo_data.zip --clobber   # or: gh release create <tag> ...
 
 # tidy scratch logs (all gitignored, but keep the box clean)
-rm -f clone_1st.log index_1st.log cli_scan_1st.log cli_overnight_1st.pid
-#   keep cli_overnight_1st.log / CLI_OVERNIGHT_1ST_RESULTS.md until reviewed
+rm -f clone_1st.log index_1st.log cli_scan_1st.log cli_overnight_1st.pid \
+      vettd_cli_1st.pid cli_skill_dirs.txt
+#   keep cli_overnight_1st.log / vettd_cli_1st.log / CLI_OVERNIGHT_1ST_RESULTS.md
+#   until reviewed — and vettd_cli_1st.log until §3B's "outstanding" count is 0
 ```
 
 Nothing new to commit from the run itself — `repos/`, `search-raw/`,
@@ -258,6 +414,17 @@ incorporation commit).
   (marketplace, awesome-list). New repos → new skills → they get indexed and
   scanned in the same run. Expected, not a problem; just note the point
   count will differ from the last known number.
+- **Vettd scan (§3B) is the biggest unknown.** It's unverified at scale and
+  against a production key (`DAILY_JOB.md` §5), it needs a local backend up
+  on `:3000` for the whole pass, and it will likely outrun a single night.
+  Treat it as its own multi-night effort: run §1 first, confirm `cli_security`
+  is right, *then* start §3B. The 7-day rescan gate makes each subsequent run
+  a pure continuation. If the backend or box can't take the full ~10–15k, cap
+  the first slice (C-grade or top-stars) and widen later.
+- **`publish_scans.py` exits nonzero if any skill failed.** Under `xargs`
+  that's expected on a large run — it's a partial-result signal, not a stop.
+  Check `vettd_scan_publications` receipts / the failure log, not the exit
+  code; failed skills carry no receipt and are retried on the next run.
 - **`test_index_qdrant_publications.py` has 4 pre-existing failures on
   `main`** (stale `load_skills` monkeypatch — unrelated to this work). The
   `cli-security-scan/` suite and the 2 added `cli_security` preservation

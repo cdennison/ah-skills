@@ -1,0 +1,1110 @@
+package,mentions,example
+@runcomfy/cli,305,1. **RunComfy CLI** — `npm i -g @runcomfy/cli`
+playwright,207,| `playwright` + Chromium | `render_cover.js` | `npm install -g playwright && npx playwright install chromium` |
+docx,201,"Generate .docx files with JavaScript, then validate. Install: `npm install -g docx`"
+@apify/mcpc,177,- `mcpc` CLI tool: `npm install -g @apify/mcpc`
+pptxgenjs,168,- `npm install -g pptxgenjs` — creating from scratch
+react,139,- `npm install -g react-icons react react-dom sharp` — icons (optional)
+react-dom,138,- `npm install -g react-icons react react-dom sharp` — icons (optional)
+sharp,138,- `npm install -g react-icons react react-dom sharp` — icons (optional)
+react-icons,133,- `npm install -g react-icons react react-dom sharp` — icons (optional)
+agent-browser,83,"The CLI uses Chrome/Chromium via CDP directly. Install via `npm i -g agent-browser`, `brew install agent-browser`, or `c"
+@openai/codex,57,| `codex: command not found` | Tell user: `npm i -g @openai/codex` |
+wrangler,51,- Wrangler CLI (`npm install -g wrangler`)
+@anthropic-ai/claude-code,47,`npm i -g @anthropic-ai/claude-code`. The eval tier needs model auth. If the
+meitu-cli,46,- Install: `npm install -g meitu-cli`（包名 meitu-cli，非 meitu-ai）
+appium,42,"**Requirements:** macOS with Xcode, Appium (`npm install -g appium && appium driver install xcuitest`)"
+date-fns,40,- **`packageManager`** → use this for any non-shadcn-vue dependency installs (e.g. `pnpm add date-fns` vs `npm install d
+@mermaid-js/mermaid-cli,39,- Mermaid CLI — `npm install -g @mermaid-js/mermaid-cli` then `mmdc -i input.mmd -o output.png`
+@google/genai,39,- **JavaScript/TypeScript**: `@google/genai` install with `npm install @google/genai`
+@playwright/test,38,> Playwright is required. Install it with: `npm install -D playwright` or `npm install -D @playwright/test`
+browse,33,compatibility: Requires browse CLI (`npm install -g browse`) and BROWSERBASE_API_KEY env var
+pkg,31,"- Expand `<PackageManagerTabs command=""add pkg -D"" />` to a `bash` code block using `pnpm add pkg -D`."
+claude-flow,31,- Claude Flow CLI installed (`npm install -g claude-flow@alpha`)
+vercel,29,- **CLI**: `vercel` (Install via `npm i -g vercel`)
+@google/gemini-cli,27,| `gemini: command not found` | Tell user: `npm i -g @google/gemini-cli` |
+twilio,26,- SDK: `pip install twilio flask` / `npm install twilio express`
+cclsp,24,| Python     | pyright                    | `npm install -g pyright`                                   | `npx cclsp inst
+@fission-ai/openspec,19,本流程要求 **OpenSpec >= 1.5.0**。版本低于 1.5.0、无法解析版本、命令不可用或返回非零退出码时立即停止，并提示运行 `npm install -g @fission-ai/openspec@latest` 后重试；
+typescript,18,| 配套脚本 `init.sh`包含 `npm install -g typescript@5.0.0` | ❌**不报告** | skill自动执行全局安装但**版本已固定**，无投毒风险                         
+ai,17,- **OpenAI API & Vercel AI SDK:** Install OpenAI's library or the Vercel AI SDK. We will use **Vercel's AI SDK** (`npm i
+zod,17,Also ensure `zod` is installed in the homepage project (`npm install zod` if needed).
+@salesforce/cli,17,- Install: `npm install -g @salesforce/cli`
+@iblai/cli,17,- npm: `npm install -g @iblai/cli@latest`
+jest,16,3. Install test runner deps: `pnpm add -wD jest jest-environment-jsdom ts-jest @types/jest`
+eas-cli,16,- `eas-cli` installed (`npm install -g eas-cli`).
+firebase-tools,16,- `firebase` CLI installed (`which firebase`; auto-installs via `npm install -g firebase-tools` if missing)
+agent-device,15,"Require `agent-device >= 0.20.0`; older CLIs lack the current help topics and Vega OS routing. If older, stop and tell t"
+package-name,15,"* **DEPENDENCY VERIFICATION [MANDATORY]:** Before importing ANY 3rd party library (e.g. `framer-motion`, `lucide-react`,"
+puppeteer,15,> ⚠️ 此步驟為**必要步驟**，每次 build 完成後都**必須**執行，不可省略。需要 Puppeteer（`npm install --save-dev puppeteer`）。
+defuddle,15,If not installed: `npm install -g defuddle`
+viem,14,- **MPP**: 7 direct read routes accept accountless payments. SDK: `npm i mppx@0.8.12 viem@2.55.4`.
+@stripe/link-cli,14,"Once the user picks, silently run `which <tool> 2>/dev/null` to check if it’s installed. If not installed, offer to inst"
+@ionic/cli,14,2. **Ionic CLI** installed globally (`npm install -g @ionic/cli`).
+tailwindcss,14,| Upgrading only one of the two packages               | Mismatched peer dependencies cause cryptic PostCSS errors      
+@github/copilot-sdk,14,| Node.js/TypeScript | `npm install @github/copilot-sdk`         |
+@aomi-labs/client,14,"- **Requires `@aomi-labs/client` v0.1.30 or newer.** Older versions lack `--aa`, `--aa-provider`, `--aa-mode` and the si"
+@youmind-ai/cli,14,Conduct deep research on any topic using [YouMind](https://youmind.com?utm_source=youmind-deep-research)'s AI research a
+chromium,13,"| `Error: playwright not installed` | `npm install` never ran in the skill dir | Run `npm install`, then `npx playwright"
+marked,12,- Install marked globally for CLI: `npm install -g marked`
+@tobilu/qmd,12,- qmd: `npm i -g @tobilu/qmd`
+@capawesome/capacitor-live-update,12,- **Capacitor 8**: `npm install @capawesome/capacitor-live-update@latest`
+diffity,12,"1. Check that `diffity` is available: run `which diffity`. If not found, install it with `npm install -g diffity`."
+zerion-cli,12,Trails handles the bridge + vault deposit; the Zerion CLI handles funding the wallet beforehand and confirming the vault
+@saleor/macaw-ui,12,Install via `npm install @saleor/macaw-ui` -- fetch live docs for the current version and available components.
+scripts,12,"- Node.js, Playwright, and Chrome/Chromium for screenshot evidence capture (`npm install --prefix scripts`)"
+mppx,11,- **MPP**: 7 direct read routes accept accountless payments. SDK: `npm i mppx@0.8.12 viem@2.55.4`.
+apify-cli,11,- Apify CLI v1.5.0+ (`npm install -g apify-cli`)
+gitnexus,11,"> **Not analyzed yet, or `node .gitnexus/run.cjs` reports `Cannot find module`** (the gitignored runner is absent — e.g."
+@llamaindex/liteparse,11,"Otherwise if installing globally, use `pnpm install -g @llamaindex/liteparse` and then run `lit <args>`."
+hyperframes,11,2. Installs the `hyperframes` CLI globally (`npm install -g hyperframes@>=0.4.2`).
+bun,11,| Bun runtime | `brew install oven-sh/bun/bun` (macOS) or `npm install -g bun` |
+@emblemvault/agentwallet,11,**Requires the CLI**: `npm install -g @emblemvault/agentwallet`
+sonner,11,(`pnpm add sonner @iblai/iblai-web-mentor`)
+@iblai/iblai-web-mentor,11,(`pnpm add sonner @iblai/iblai-web-mentor`)
+apify,10,| JS/TS | `npm install apify` | `await Actor.init()` ... `await Actor.exit()` |
+eslint,10,1. Install ESLint deps first: `pnpm add -wD eslint@^9 @nx/eslint-plugin typescript-eslint` (plus framework-specific plug
+portless,10,Named URLs are stable across restarts and self-documenting in performance reports. Install Portless with `npm i -g portl
+pyright,10,| Python   | `pyright`                    | `npm i -g pyright`                            |
+@labring/sealos-desktop-sdk,10,Use `npm install @labring/sealos-desktop-sdk` or `yarn add @labring/sealos-desktop-sdk` when the project uses a differen
+vibium,10,| Platform | `npm install -g vibium` | `vibium go <url>` | smoke-test.sh |
+@cloudbase/js-sdk,9,"- For React, Vue, Vite, Webpack, and other modern frontend projects, prefer `npm install @cloudbase/js-sdk`"
+@azure/cosmos,9,| `@azure/cosmos` | Data plane (this SDK) | `npm install @azure/cosmos` |
+@azure/arm-cosmosdb,9,| `@azure/arm-cosmosdb` | Management plane (ARM) | `npm install @azure/arm-cosmosdb` |
+@azure/identity,9,| `@azure/identity` | Authentication | `npm install @azure/identity` |
+@x402/evm,9,"| `pip install ""browser-use-sdk[x402]""` | `npm install browser-use-sdk @x402/fetch @x402/evm viem` |"
+better-auth,9,**Core:** `npm install better-auth`
+@jackwener/opencli,9,1. 安装 opencli: `npm install -g @jackwener/opencli`
+mint,9,"Install with `npm i -g mint`. Key commands: `mint dev` (local preview), `mint validate`, `mint broken-links`, `mint a11y"
+@vapi-ai/server-sdk,9,- **TypeScript** — `npm install @vapi-ai/server-sdk`
+@vapi-ai/web,9,"- **Web SDK** — `npm install @vapi-ai/web` (client-side, uses public API key)"
+vitest,9,- **Install:** `npm install --save-dev vitest`
+@shopify/cli,8,| CLI install      | `npm install -g @shopify/cli`                                       |
+@actionbookdev/json-ui,8,"2. To install the renderer, run: `npm install -g @actionbookdev/json-ui`"
+@lambdatest/smartui-cli,8,| Install | `npm install @lambdatest/smartui-cli` |
+newman-reporter-htmlextra,8,Optional HTML reporter: `npm install -g newman-reporter-htmlextra`
+vite-plugin-neon-new,8,"For Vite projects, `vite-plugin-neon-new` auto-provisions a database on `vite dev` if `DATABASE_URL` is missing. Install"
+@getpara/cli,8,- Prereqs: `npm install -g @getpara/cli` + `para login`. The monskills hook gates `para` commands until both are satisfi
+agentwallet-sdk,8,> **Prerequisites**: Install the package before adding the MCP config — `npx` without `-y` will prompt for confirmation 
+oh-my-claude-sisyphus,8,- **Terminal CLI commands**: run `omc ...` from your shell after installing the npm/runtime path (`npm i -g oh-my-claude
+jsonwebtoken,8,"Good: ""Run `npm install jsonwebtoken`, then edit `src/auth.ts:42`."""
+@composio/core,7,| Vercel AI | `npm install @composio/core @composio/vercel` |
+@composio/vercel,7,| Vercel AI | `npm install @composio/core @composio/vercel` |
+@types/jest,7,3. Install test runner deps: `pnpm add -wD jest jest-environment-jsdom ts-jest @types/jest`
+akf-format,7,- npm: `npm install akf-format`
+@raydenui/ui,7,- Install `@raydenui/ui` in your project first (`npm install @raydenui/ui`)
+@noble/ed25519,7,"- `@noble/ed25519` (for the witness verifier — a single runtime dep, `npm i @noble/ed25519`)"
+pdfjs-dist,7,**PDF tables not detected** — Line-based detection requires pdfjs-dist installed. Install it: `npm install pdfjs-dist`. 
+open-agreements,7,- Alternative: install Node.js 20+ and `npm install -g open-agreements`
+genkit-cli,7,"-   If not found or if an older version (1.x < 1.29.0) is present, install/upgrade it: `npm install -g genkit-cli@^1.29."
+wagmi,7,2. Install peer dependencies: `npm install wagmi viem @tanstack/react-query`
+@tailwindcss/postcss,7,2. Install: `npm install tailwindcss @tailwindcss/postcss postcss`
+postcss,7,2. Install: `npm install tailwindcss @tailwindcss/postcss postcss`
+@moonpay/cli,7,2. **MoonPay CLI** — `npm install -g @moonpay/cli`
+sfw,7,| npm | `npm install -g sfw` |
+@ucp-js/sdk,7,- **JS/TS**: `npm install @ucp-js/sdk` for TypeScript types and Zod schemas.
+express,6,- SDK: `pip install twilio flask` / `npm install twilio express`
+@nodeops-createos/integration-oauth,6,- npm: `npm install @nodeops-createos/integration-oauth`
+playwright-chromium,6,**Export prerequisite**: `pnpm add -D playwright-chromium` is required for PDF/PPTX/PNG export. If export fails with a b
+@microsoft/workiq,6,- `npm install -g @microsoft/workiq` (or `npx -y @microsoft/workiq mcp`).
+opencode-ai,6,| OpenCode | `npm install -g opencode-ai` or `brew install anomalyco/tap/opencode` |
+@nx/eslint-plugin,6,1. Install ESLint deps first: `pnpm add -wD eslint@^9 @nx/eslint-plugin typescript-eslint` (plus framework-specific plug
+typescript-eslint,6,1. Install ESLint deps first: `pnpm add -wD eslint@^9 @nx/eslint-plugin typescript-eslint` (plus framework-specific plug
+@nx/react,6,**Fix**: `pnpm add -wD @nx/react`
+jest-environment-jsdom,6,3. Install test runner deps: `pnpm add -wD jest jest-environment-jsdom ts-jest @types/jest`
+ts-jest,6,3. Install test runner deps: `pnpm add -wD jest jest-environment-jsdom ts-jest @types/jest`
+pngjs,6,its `node_modules`. Install once: `npm i -D @playwright/test axe-core pngjs && npx playwright install chromium`.
+@marswave/coli,6,"3. If `coli` missing: inform user to install (`npm install -g @marswave/coli`), ask them to paste text instead"
+mmx-cli,6,| mmx not found | `npm install -g mmx-cli` |
+@total-typescript/shoehorn,6,- [ ] Install: `npm i @total-typescript/shoehorn`
+@angular/cli,6,3. Angular CLI installed (`npm install -g @angular/cli`).
+openclaw,6,"**Telegram-triggered `sudo npm i -g openclaw@latest` fails with ""elevated is not available"".**"
+tsc,6,"Run `npx tsc --noEmit` in the project root and report all TypeScript type errors found. If there are no errors, confirm "
+@forge/cli,6,"- **""forge: command not found""**: `npm install -g @forge/cli`"
+pixelmatch,6,`npm i -D playwright pixelmatch pngjs --no-save --legacy-peer-deps`.
+@opensea/cli,6,> **Recommended:** Use the `opensea` CLI (`@opensea/cli`) as your primary tool. Install with `npm install -g @opensea/cl
+@midscene/core,6,| **`@midscene/*` dependency version is outdated** | Check local versions with `npm ls @midscene/android @midscene/core 
+@midscene/shared,6,| **`@midscene/*` dependency version is outdated** | Check local versions with `npm ls @midscene/android @midscene/core 
+dmux,6,**安装：** `npm install -g dmux` 或参见 [github.com/standardagents/dmux](https://github.com/standardagents/dmux)
+neural-trader,6,`npm ls neural-trader 2>/dev/null || npm install --ignore-scripts neural-trader`
+skills,6,> **Prerequisite**: The `vercel flags` commands require the Vercel CLI to be installed and authenticated. If the Vercel 
+pyodide,6,- pnpm → `pnpm add pyodide@0.29.3`
+cyrus-core,6,- `npm install cyrus-core@test` will install this version.
+@sinch/sdk-core,6,| Node.js | `@sinch/sdk-core` | `npm install @sinch/sdk-core` |
+puppeteer-core,6,"**Dependencies:** Requires `puppeteer-core` and `marked` (optional, install with `npm install -g puppeteer-core marked`)"
+olakai-cli,6,1. Olakai CLI installed: `npm install -g olakai-cli`
+@avail-project/nexus-core,6,- `npm install @avail-project/nexus-core`
+@supsub/cli,6,- 安装：`curl -fsSL https://raw.githubusercontent.com/SupSub-AI/supsub-cli/master/scripts/install.sh | bash`（native 安装，装到 `
+@googleworkspace/cli,6,| `Google Workspace CLI (gws) is not installed` | Install with `npm install -g @googleworkspace/cli` |
+@sentry/nextjs,6,| `onRequestError` not firing | SDK version < 8.28.0 | Upgrade: `npm install @sentry/nextjs@latest` |
+sfcc-ci,6,| sfcc-ci | B2C | `npm install -g sfcc-ci` | `sfcc-ci client:auth` (client ID + secret) |
+@bigcommerce/big-design,6,- Install: `npm install @bigcommerce/big-design`
+@saleor/cli,6,Install via `npm i -g @saleor/cli` -- fetch live docs for current CLI version.
+@saleor/app-sdk,6,Install via `npm install @saleor/app-sdk` -- fetch live docs for the current version.
+knip,5,"- If not installed locally, install with `npm install -D knip` (or pnpm/yarn/bun equivalent based on lockfile present)"
+@stripe/cli,5,"If you don’t have a Stripe account, you can call a CLI command to generate working API keys with no registration require"
+snyk,5,| Snyk CLI | Commercial scanner | `npm install -g snyk` |
+@railway/cli,5,"- If `railway` command is not found, install via `npm i -g @railway/cli` or `brew install railway`."
+@marswave/listenhub-cli,5,1. Auto-install: run `npm install -g @marswave/listenhub-cli` silently
+@membranehq/cli,5,"If `npx` is awkward, install globally: `npm i -g @membranehq/cli@1.18.1` and use plain `membrane …`. Add `--json` to any"
+browser-use-sdk,5,- Cloud SDK: `uv pip install browser-use-sdk` (Python) or `npm install browser-use-sdk` (TypeScript)
+@qdrant/js-client-rest,5,- JavaScript / TypeScript — [qdrant-js](https://github.com/qdrant/qdrant-js) · Installation: `npm install @qdrant/js-cli
+camoufox-js,5,> Install it with: `npm install camoufox-js && npx camoufox-js fetch`
+agentation,5,"| `button ""npm install agentation Copy"" [ref=e15]` | `button:has(code)` or by text content via eval |"
+@supabase/supabase-js,5,- [ ] Install: `npm install @supabase/supabase-js`
+bash-language-server,5,| Bash     | `bashls`                     | `npm i -g bash-language-server`               |
+yaml-language-server,5,| YAML     | `yamlls`                     | `npm i -g yaml-language-server`               |
+netlify-cli,5,The CLI ships a complete database surface under `netlify database` (alias: `netlify db`) that replaces hand-rolled scrip
+@github/copilot,5,"| All (npm, Node.js 22+) | `npm install -g @github/copilot`                   |"
+socialclaw,5,- CLI (optional): `npm install -g socialclaw`
+@databricks/appkit,5,- **AppKit version**: never override the `@databricks/appkit` or `@databricks/appkit-ui` version in `package.json` — `da
+@playwright/cli,5,"- **`@playwright/cli` is available via devDependencies.** Run `npm install` at the repo root, then use `npx @playwright/"
+doctor,5,macOS Apple Silicon or Linux x64. System tools: `brew install node ffmpeg`. `npx hyperframes doctor` once. macOS GPU ren
+eve,5,"If `eve` is not installed yet, install it (`npm install eve`) or scaffold a new"
+firecrawl-cli,5,Not installed? Run: `npm install -g firecrawl-cli && firecrawl auth`
+undici,5,- **Twitter fetch failed?** Ensure `undici` is installed: `npm install -g undici`. Configure proxy: `agent-reach configu
+lucide-react,5,"If `NO_ICONS`, install `lucide-react`: `npm install lucide-react --legacy-peer-deps`. If an icon package is already pres"
+@solana/web3.js,5,- **@solana/web3.js** installed (`npm install @solana/web3.js`)
+tsx,5,"- Use `tsx` for local scripts (`pnpm add -D tsx`), avoid `ts-node` unless necessary."
+firebase,5,`npm install -g firebase@latest`
+edgeone,5,| `command not found: edgeone` | Run `npm install -g edgeone@latest` |
+jsdom,5,| Vite/React/Vue | Vitest | `npm i -D vitest @testing-library/react jsdom` |
+convex,5,- [ ] `npm install convex` completed
+@browserbasehq/browse-cli,5,"compatibility: ""Requires the browse CLI (`npm install -g @browserbasehq/browse-cli`). For remote testing: BROWSERBASE_AP"
+@wenyan-md/cli,5,1. `wenyan --version` 确认安装。未安装时提示 `npm install -g @wenyan-md/cli`，用户不想安装则直接交付手动发布包。
+socket,5,- If `socketCli.needsUpdate` is true: warn that the Socket CLI is below 1.x and prompt to update with `npm install -g so
+tool,4,- ⚠️ **未固定版本** + 全局安装 → Suspicious（如 `pip install requests`、`npm install -g tool`）
+bird-cli,4,- Install: `npm install -g bird-cli`
+axiom,4,"If not installed, install it using the project's package manager (e.g., `pnpm add axiom`)."
+acpx,4,- `cd extensions/acpx && npm install --omit=dev --no-save acpx@<pinnedVersion>`
+analyze,4,"> **Not analyzed yet, or `node .gitnexus/run.cjs` reports `Cannot find module`** (the gitignored runner is absent — e.g."
+postman-cli,4,"""Postman CLI is not installed. Install with: `npm install -g postman-cli`"""
+axe-core,4,(Scripts need Playwright: `npm i -D @playwright/test axe-core && npx playwright install chromium`.)
+altimate-code,4,"| `command not found: altimate-code` | ""altimate-code is not installed. Install with `npm install -g altimate-code` (Nod"
+@x402/fetch,4,"| `pip install ""browser-use-sdk[x402]""` | `npm install browser-use-sdk @x402/fetch @x402/evm viem` |"
+supermemory,4,4. (Optional) Install the CLI globally: `npm install -g supermemory`
+pixi.js,4,"description: ""Use this skill when scaffolding a new PixiJS v8 project with the create-pixi CLI or adding PixiJS to an ex"
+@wix/design-system,4,**Prerequisite:** `@wix/design-system` must be installed (`npm i @wix/design-system` or `yarn add @wix/design-system`).
+git-escrows,4,"Run `git-escrows --help` to verify the CLI is installed. If it fails, try `npx git-escrows --help` or `bunx git-escrows "
+chainbase-cli,4,**Install**: `npm install -g chainbase-cli` (or use `npx chainbase-cli`)
+x402,4,"- **x402 SDK** — `npm install x402` for raw payment header signing, or `venice-x402-client` for the managed Venice flow."
+mapbox-gl,4,- [ ] **Update package**: `npm install mapbox-gl` (remove maplibre-gl)
+@vercel/before-and-after,4,1. **Pre-flight** — `which before-and-after || npm install -g @vercel/before-and-after`
+@zeroxyz/cli,4,shells elsewhere) or a standalone CLI install (`npm install -g @zeroxyz/cli`). Trust it
+@capacitor/core,4,- **`Capacitor is not defined`**: Install `@capacitor/core` (`npm install @capacitor/core`).
+@microsoft/learn-cli,4,Run directly with `npx @microsoft/learn-cli <command>` or install globally with `npm install -g @microsoft/learn-cli`.
+ws,4,**解决**：`cd /tmp && npm init -y && npm install ws`
+@alwaysmeticulous/cli,4,The skills assume `meticulous` is on `PATH`. The `meticulous-cli-update` skill installs it globally via `npm install --g
+wscat,4,- wscat CLI tool for manual WebSocket interaction: `npm install -g wscat`
+@adobe/aio-cli,4,compatibility: Requires aio CLI (Adobe I/O CLI) — install or refresh with `npm install -g @adobe/aio-cli` so the bundled
+@modelcontextprotocol/server-azure,4,2. Reinstall MCP server: `npm install -g @modelcontextprotocol/server-azure`
+@vtsls/language-server,4,| TypeScript | vtsls                      | `npm install -g @vtsls/language-server`                    | `npx cclsp inst
+vtsls,4,| TypeScript | vtsls                      | `npm install -g @vtsls/language-server`                    | `npx cclsp inst
+vscode-json-languageserver,4,| JSON       | vscode-json-languageserver | `npm install -g vscode-json-languageserver`                | `npx cclsp inst
+vscode-html-languageserver,4,| HTML       | vscode-html-languageserver | `npm install -g vscode-html-languageserver`                | `npx cclsp inst
+vscode-css-languageserver,4,| CSS        | vscode-css-languageserver  | `npm install -g vscode-css-languageserver`                 | `npx cclsp inst
+hermesone,4,`npm install hermesone` **does not** download or launch the app — running an installer as a silent side effect of `npm i
+envio-cloud,4,- Prereqs: `npm install -g envio-cloud` + `envio-cloud login`. The monskills hook gates `envio-cloud` commands until bot
+jose,4,"1. Install @convex-dev/auth (pinned build) and add it to convex.config.ts. With pnpm, also `pnpm add jose` (it won't hoi"
+@modelcontextprotocol/sdk,4,- Install MCP SDK: `npm install @modelcontextprotocol/sdk`
+@ai-sdk/openai,4,- **Install:** `npm install ai @ai-sdk/openai @ai-sdk/anthropic`
+@misha_misha/skill-issue,4,"Install the CLI (`npm i -g @misha_misha/skill-issue`, `brew install mishanefedov/skill-issue/skill-issue`, or `npx @mish"
+@lap-platform/lapsh,4,| `command not found: lapsh` | `npm install -g @lap-platform/lapsh` or use `npx @lap-platform/lapsh` |
+@kitschpatrol/tldraw-cli,4,"1. **Check deps** — verify `tldraw --version` succeeds; if missing, run `npm install -g @kitschpatrol/tldraw-cli`."
+@hasna/skills,4,"> **This is a CLI skill.** It requires the `skills` CLI to execute. Install it with `npm install -g @hasna/skills`, then"
+claude-code,4,2. **Plugin install**: Use `npx add-plugin <path> -s project -y --target claude-code` — works because claude is in PATH 
+zcatalyst-cli,4,"compatibility: ""Requires Catalyst CLI (`npm install -g zcatalyst-cli`). Custom Docker deployments additionally require D"
+phaser,4,- [ ] Update `npm install phaser@4` (or equivalent)
+lim,4,Install if needed: `npm install --global lim`. Auth is `lim login` or
+@tanstack/react-query,4,- pnpm → `pnpm add @cognite/dune @cognite/sdk @tanstack/react-query && pnpm add -D vite-plugin-mkcert`
+three,4,| `unmet peer three@0.180.0: found 0.177.0` (or similar version) | `@cognite/reveal` requires a specific `three` version
+ajv,4,| `unmet peer ajv@>=8: found 6.x` | Monorepo root has `ajv@6`; app needs `ajv@^8` for `@cognite/dune-industrial-componen
+pm2,4,"1. Check if pm2 is installed (`which pm2`). If not, install it (`npm install -g pm2`)."
+remotion,4,环境允许时（Node 可用）：在 `_starter/` 里 `npm install`，用 `npx remotion still MyVideo out/frame.png --frame=N` 渲 2-3 张关键帧给用户看，确认和 H
+lighthouse,4,// Run: chrome://lighthouse or `npm i -g lighthouse`
+cloudinary-video-player,4,"- ✅ **Install the latest**: When adding Cloudinary packages, use `npm install <package>` **with no version** so npm inst"
+@google/stitch-sdk,4,| **Google Stitch** | `npm install @google/stitch-sdk` + API key | Higher fidelity AI designs | ~10-20s/screen | Design-
+@tiny-fish/cli,4,> Install the TinyFish CLI: `npm install -g @tiny-fish/cli`
+playwright-core,4,"- `error.code === ""PLAYWRIGHT_UNAVAILABLE""` — Playwright fallback 을 명시적으로 쓰려는데 모듈이 깔려있지 않음. `npm i rebrowser-playwright`"
+mysql2,4,| MySQL      | `npm install mysql2` |
+@cobo/agentic-wallet,4,"| LangChain | TypeScript | `npm install @cobo/agentic-wallet` | `import { CoboAgentWalletToolkit } from ""@cobo/agentic-w"
+@qfei-design/make-filter,4,- `pnpm-lock.yaml` -> `pnpm add @qfei-design/make-filter@^0.2.2`
+@qfei-design/canvas-table,4,- `pnpm-lock.yaml` -> `pnpm add @qfei-design/canvas-table`
+@axe-core/playwright,4,1. Install Playwright: `npm install -D @playwright/test @axe-core/playwright && npx playwright install chromium`
+anti-detect-browser,4,3. `npm install anti-detect-browser`
+mcp-remote,4,"**On failure:** If R mcptools fails, check that the R version path is correct and that mcptools is installed in the R li"
+@webflow/react,4,"76: | ""Module not found"" | Build | `npm install --save-dev @webflow/react` |"
+bn.js,4,> Copy-paste-ready scripts. Install dependencies: `npm install @solana/web3.js bn.js @jup-ag/lend @jup-ag/lend-read`
+@jup-ag/lend,4,> Copy-paste-ready scripts. Install dependencies: `npm install @solana/web3.js bn.js @jup-ag/lend @jup-ag/lend-read`
+@jup-ag/lend-read,4,> Copy-paste-ready scripts. Install dependencies: `npm install @solana/web3.js bn.js @jup-ag/lend @jup-ag/lend-read`
+@beads/bd,3,- **npm:** `npm install -g @beads/bd`
+@orth/cli,3,- Orthogonal CLI: `npm install -g @orth/cli`
+resend,3,"Install the `resend` npm package: `npm install resend` (or the equivalent for your language). For full sending docs, ins"
+mcp,3,- `npm install -g @microsoft/workiq` (or `npx -y @microsoft/workiq mcp`).
+my-sdk,3,<Tab>```bash npm install my-sdk ```</Tab>
+next-intl,3,**1. Install**: `npm install next-intl` or `react-i18next`
+z-schema,3,Install: `npm install z-schema`
+@steipete/summarize,3,- summarize: `npm i -g @steipete/summarize`
+@xai-official/grok,3,- **Install (preferred):** `npm install -g @xai-official/grok`
+just-scrape,3,"compatibility: ""Requires the just-scrape CLI (`npm install -g just-scrape`). Requires `SGAI_API_KEY` for ScrapeGraph AI "
+gsap,3,- ✅ Install everything from the public `gsap` npm package: `npm install gsap`. All plugins are included — import them as
+newman,3,Install: `npm install -g newman`
+@vectorize-io/hindsight-client,3,- Node.js: `npm install @vectorize-io/hindsight-client`
+rebrowser-playwright,3,| `rebrowser` | Chromium (stealth) | Alternative stealth approach | `npm install rebrowser-playwright` |
+@scoutqa/cli,3,| `command not found: scoutqa`   | Install CLI: `npm i -g @scoutqa/cli@latest`                 |
+@mem0/cli,3,If `MEM0_API_KEY` is missing AND the track is **Platform** → **default to Agent Mode**: run `mem0 init --agent --agent-c
+typescript-language-server,3,| TS/JS    | `typescript-language-server` | `npm i -g typescript-language-server`         |
+dep,3,| Installing dependencies outside their owning package | Duplication in bundles; deduplication breaks; version conflicts
+@adobe/aem-cli,3,"If `npm install -g @adobe/aem-cli` fails with `File exists: …/hlx`, the old package is still"
+@quicknode/x402,3,Install: `npm install @quicknode/x402`
+@alibaba-group/open-code-review,3,"- **Installation**: if `ocr` command is not found, install it by running `npm i -g @alibaba-group/open-code-review`"
+pg,3,"- On Vercel, use `node-postgres` (`npm install pg`) with Vercel Fluid compute and `import { attachDatabasePool } from ""@"
+update,3,!`if ! command -v gsd-sdk >/dev/null 2>&1; then printf '⚠ gsd-sdk not found in PATH — /gsd:set-profile requires it.\n\nI
+@larksuite/cli,3,"`npm install -g @larksuite/cli`, then `lark-cli config init` (scan the QR), then `lark-cli auth login`."
+pinme,3,| `command not found: pinme` | `npm install -g pinme` |
+@ai-sdk/anthropic,3,- **Install:** `npm install ai @ai-sdk/openai @ai-sdk/anthropic`
+langchain,3,- **Install:** `npm install langchain @langchain/openai`
+openai,3,- `npm install openai` (OpenAI)
+mercadopago,3,| node | `npm install mercadopago` |
+npm-check-updates,3,| npm | `ncu --format group` | Requires `npm-check-updates`. Suggest `npm install -g npm-check-updates` if missing. |
+daisyui,3,"3. daisyUI 5 can be installed using `npm i -D daisyui@latest` and then adding `@plugin ""daisyui"";` to the CSS file"
+prisma,3,"| `npm run`, `npx`, `yarn add`, `pnpm exec` in scripts, CI YAML, or docs | Bun is the only package manager; replace with"
+migrate,3,"| `npm run`, `npx`, `yarn add`, `pnpm exec` in scripts, CI YAML, or docs | Bun is the only package manager; replace with"
+init,3,| HyperFrames not found | `npm install -g hyperframes` then `npx hyperframes init` |
+next,3,| Next.js version | `npm list next` | `npm install next@15.5.2` |
+add-plugin,3,2. **Plugin install**: Use `npx add-plugin <path> -s project -y --target claude-code` — works because claude is in PATH 
+project,3,2. **Plugin install**: Use `npx add-plugin <path> -s project -y --target claude-code` — works because claude is in PATH 
+@agent-eyes/agent-eyes,3,- `pnpm add -D @agent-eyes/agent-eyes`
+elm-review,3,"For setup/execution, prefer local install with `npm install --save-dev elm-review` and run via `npx elm-review`; global "
+@cognite/dune,3,- pnpm → `pnpm add @cognite/dune @cognite/sdk @tanstack/react-query && pnpm add -D vite-plugin-mkcert`
+@cognite/sdk,3,- pnpm → `pnpm add @cognite/dune @cognite/sdk @tanstack/react-query && pnpm add -D vite-plugin-mkcert`
+react-pdf,3,- pnpm → `pnpm add react-pdf@^9.1.1`
+@sinclair/typebox,3,- pnpm → `pnpm add @sinclair/typebox@^0.33.0 ajv@^8.17.1 ajv-formats@^2.1.1`
+ajv-formats,3,- pnpm → `pnpm add @sinclair/typebox@^0.33.0 ajv@^8.17.1 ajv-formats@^2.1.1`
+lodash,3,| Runtime library | `--save` | `npm i lodash` |
+felo-ai,3,**Packaged CLI** (after `npm install -g felo-ai`):
+hyperstack-cli,3,> All examples use `hs`. If installed via cargo (`cargo install hyperstack-cli`) or npm (`npm install -g hyperstack-cli`
+@bithumb-official/bithumb-cli,3,- Prerequisites: install the CLI (`npm install -g @bithumb-official/bithumb-cli`); set `BITHUMB_ACCESS_KEY` / `BITHUMB_S
+next-themes,3,Install next-themes: `npm install next-themes`
+telnyx,3,**Server SDKs** — use these EXACT commands with version constraints (do NOT use `pip install telnyx` or `npm install tel
+@x402/core,3,**Install:** `npm install @x402/core @x402/evm`
+oh-my-mermaid,3,"If the install fails, tell the user: ""Please run `npm install -g oh-my-mermaid` in your terminal, then try again."""
+@freshworks/fdk,3,1. Install FDK: `npm install -g @freshworks/fdk`
+husky,3,"**Solution:** Run `npx husky init` again, then re-create the hook files. Verify `""prepare"": ""husky""` is in package.json "
+@ast-grep/cli,3,- **ast-grep** — structural pattern matching. Install: `npm i -g @ast-grep/cli` or `brew install ast-grep`.
+@onboardjs/core,3,| `pnpm-lock.yaml` | pnpm | `pnpm add @onboardjs/core @onboardjs/react` |
+@onboardjs/react,3,| `pnpm-lock.yaml` | pnpm | `pnpm add @onboardjs/core @onboardjs/react` |
+@dinoxx/dinox-cli,3,`npm install -g @dinoxx/dinox-cli`
+@anthropic-ai/claude-agent-sdk,3,- [ ] SDK installed (`npm install @anthropic-ai/claude-agent-sdk zod`)
+bsv-bap,3,A CLI is also available: `npm install -g bsv-bap` (see **`create-bap-identity`** skill).
+@bong/claude-frontend-skills,3,- Claude Code → `npm install -g @bong/claude-frontend-skills`
+@drupal-canvas/workbench,3,- npm: `npm install --save-dev @drupal-canvas/workbench`
+@testing-library/react,3,| Vite/React/Vue | Vitest | `npm i -D vitest @testing-library/react jsdom` |
+gmgn-cli,3,"- `gmgn-cli` installed globally — if missing, run: `npm install -g gmgn-cli`"
+tldraw,3,"- For a stable target (`latest` or a stable semver): install at that tag/version, e.g. `yarn add tldraw@latest` or `npm "
+playwriter,3,| **playwriter** | Playwright 기반 브라우저 자동화 (선택) | `npm install -g playwriter` |
+@sparkjsdev/spark,3,**Fix:** Install with `npm install @sparkjsdev/spark`. Import `SplatMesh` from this package. It integrates directly into
+lefthook,3,| lefthook | npm | `npx lefthook --help` | yes | install | `npm install -g lefthook` |
+@xano/cli,3,- **Xano CLI** npm package: `@xano/cli` — install: `npm install -g @xano/cli`
+@levnikolaevich/hex-line-mcp,3,| hex-line | stdio | `npm i -g @levnikolaevich/hex-line-mcp` → `hex-line-mcp` | Yes | No |
+@syncfusion/ej2-react-inputs,3,- Installing `@syncfusion/ej2-react-inputs` 🛑 *STOP — Do not install packages autonomously. Ask the user to run: `npm in
+artillery,3,| npm | `npm install -D artillery` |
+mysql,3,"- If you meant **mysqljs/mysql** (`npm i mysql`) which is callback-based, jump to the `tidbx-javascript-mysqljs` skill i"
+@haoxu/cli,3,| CLI 可用 | 已安装：`npm i -g @haoxu/cli@1.2.0`（或 `npx @haoxu/cli@1.2.0`） |
+@liberfi.io/cli,3,asking the user: `npm install -g @liberfi.io/cli --registry https://registry.npmjs.org/`.
+taze,3,- Global install: `npm install -g taze`
+linearis,3,"- **Not installed** — if the shell reports command-not-found, tell the user linearis isn't installed and offer `npm inst"
+@webflow/cli,3,- **Fix:** `npm install -g @webflow/cli`
+unbrowse,3,"missing, install the runtime first: `npm install -g unbrowse@preview && unbrowse setup`."
+mineru-open-api,2,- `npm i -g mineru-open-api` (Node.js)
+some-tool,2,| 配套脚本 `init.sh`包含 `npm install -g some-tool` | ✅**需报告** | skill自动执行全局安装**未固定版本**，可能拉取被投毒的最新版本 → Suspicious             
+@iansinnott/notion-cli,2,- Install notion-cli: `npm install -g @iansinnott/notion-cli`
+@context-hub/cli,2,"2. Check whether `chub` is available with `command -v chub`. If it is missing, say so clearly and suggest installing it "
+twilio-cli,2,| npm | `npm install -g twilio-cli` |
+@sendgrid/mail,2,| Node.js | `npm install @sendgrid/mail` | `@sendgrid/mail` (v8.x) |
+@ant-design/cli,2,"After running any command, if the output contains an ""Update available"" notice, run `npm install -g @ant-design/cli` to "
+react-email,2,Upgrade with `npm install react-email@latest` to get these defaults.
+cloudsploit,2,| CloudSploit | Cloud security scanning | `npm install -g cloudsploit` |
+@microsoft/winappcli,2,- **NPM** (for Electron): `npm install @microsoft/winappcli --save-dev`
+package,2,- Exact install command (`npm install package@version`)
+@heroui/styles,2,- `pnpm add @heroui/styles@beta @heroui/react@beta tailwind-variants`
+@heroui/react,2,- `pnpm add @heroui/styles@beta @heroui/react@beta tailwind-variants`
+tailwind-variants,2,- `pnpm add @heroui/styles@beta @heroui/react@beta tailwind-variants`
+@mvanhorn/printing-press,2,- **`flag-names`** — SKILL references `--foo` on a `<cli> ...` invocation but no command in `internal/cli/*.go` declares
+@defillama/api,2,**JavaScript** — `npm install @defillama/api` — [GitHub](https://github.com/DefiLlama/api-sdk)
+@shopify/shop-cli,2,To upgrade: `pnpm add --global @shopify/shop-cli@latest` (or `npm install --global @shopify/shop-cli@latest`). Uninstall
+@actionbookdev/cli,2,"| **""actionbook: command not found""** | CLI not installed | `npm install -g @actionbookdev/cli@latest` |"
+karma,2,## Setup: `npm install karma karma-jasmine karma-chrome-launcher karma-coverage --save-dev`
+karma-jasmine,2,## Setup: `npm install karma karma-jasmine karma-chrome-launcher karma-coverage --save-dev`
+karma-chrome-launcher,2,## Setup: `npm install karma karma-jasmine karma-chrome-launcher karma-coverage --save-dev`
+karma-coverage,2,## Setup: `npm install karma karma-jasmine karma-chrome-launcher karma-coverage --save-dev`
+nightwatch,2,## Setup: `npm install nightwatch --save-dev`
+jasmine,2,## Setup: `npm install jasmine --save-dev && npx jasmine init`
+nemo,2,## Setup: `npm install nemo nemo-view --save-dev`
+nemo-view,2,## Setup: `npm install nemo nemo-view --save-dev`
+mocha,2,## Setup: `npm install mocha chai sinon --save-dev`
+chai,2,## Setup: `npm install mocha chai sinon --save-dev`
+sinon,2,## Setup: `npm install mocha chai sinon --save-dev`
+@tencent-qqmail/agently-cli,2,2. 提议执行：`npm install -g @tencent-qqmail/agently-cli`
+chat,2,"- write-once-deploy-everywhere bot architecture (Vercel Chat SDK `npm i chat`, LangBot, Bottender patterns)"
+@capawesome/cli,2,- **`command not found: @capawesome/cli`** — The CLI is not installed globally. Either install with `npm install -g @cap
+@cloudcli-ai/cloudcli,2,"Run `npx @cloudcli-ai/cloudcli` for a local session, install globally with `npm install -g @cloudcli-ai/cloudcli && clou"
+@ulpi/browse,2,> Install it with: `npm install -g @ulpi/browse`
+@ulpi/codemap,2,"If `codemap` is missing, tell the user to install it with `npm install -g @ulpi/codemap` and stop. Do not install it aut"
+expo,2,- Expo + pnpm: `npx expo customize babel.config.js` may crash running `pnpm add --dev babel-preset-expo` (`--dev` is not
+babel-preset-expo,2,- Expo + pnpm: `npx expo customize babel.config.js` may crash running `pnpm add --dev babel-preset-expo` (`--dev` is not
+kbo-game,2,- `npm install -g kbo-game`
+@opendataloader/pdf,2,- npm：`npm install @opendataloader/pdf`
+@inlang/paraglide-js,2,- Install Paraglide.js: `npm install @inlang/paraglide-js`
+@scope/pkg,2,| Installing dependencies outside their owning package | Duplication in bundles; deduplication breaks; version conflicts
+agent-slack,2,Fallback: `npm i -g agent-slack` (Node >= 22.5).
+@cyfrin/aderyn,2,- **Aderyn** (recommended): `cargo install aderyn` (or `npm i -g @cyfrin/aderyn`)
+@acme/sdk,2,"> To setup the SDK, first install the dependancies using npm. Run `npm install @acme/sdk` in your terminal. After instal"
+@fly-ai/flyai-cli,2,1. **Install CLI**：`npm i -g @fly-ai/flyai-cli`
+gopls,2,| Go         | gopls                      | `go install golang.org/x/tools/gopls@latest`               | `npx cclsp inst
+clangd,2,| C/C++      | clangd                     | `brew install llvm` (macOS) / `apt install clangd` (Linux) | `npx cclsp inst
+ruby-lsp,2,| Ruby       | ruby-lsp                   | `gem install ruby-lsp`                                     | `npx cclsp inst
+marksman,2,| Markdown   | marksman                   | `brew install marksman` (macOS) / Download from GitHub     | `npx cclsp inst
+@marp-team/marp-cli,2,| `marp-cli` | Markdown → PPT/PDF | `npm install -g @marp-team/marp-cli` |
+@1claw/cli,2,> **Pin CLI version:** Always install a specific version (`@1claw/cli@0.32.1`). Running `npm install -g @1claw/cli` with
+x402-axios,2,- TypeScript: `npm install x402-axios`
+@nookplot/runtime,2,- **Runtime SDK** (autonomous long-running agents): `npm install @nookplot/runtime` (TypeScript) or `pip install nookplo
+browserstack-local,2,1. Install BrowserStack Local: `npm install -D browserstack-local`
+neon,2,"The above `init` command will install the Neon CLI, but the CLI can also be installed manually with `npm i -g neon` or `"
+myapp,2,| TypeScript | npm | `npm install -g myapp` |
+@midscene/computer,2,- Upgrade dependencies: `npm i @midscene/computer@latest @midscene/core@latest @midscene/shared@latest`.
+@huggingface/transformers,2,- Web & Client Applications: Use `transformers.js` to run inference directly on-device or entirely in the browser. Follo
+@xenova/transformers,2,- Web & Client Applications: Use `transformers.js` to run inference directly on-device or entirely in the browser. Follo
+@convex-dev/stripe,2,1. Install the component: `npm install @convex-dev/stripe`.
+@langchain/openai,2,- **Install:** `npm install langchain @langchain/openai`
+@anthropic-ai/sdk,2,- `npm install @anthropic-ai/sdk` (Anthropic)
+@tinybirdco/sdk,2,- Install: `npm install @tinybirdco/sdk`
+@bradygaster/squad-cli,2,- npm: `npm install -g @bradygaster/squad-cli@latest`
+@cyclonedx/cdxgen,2,| cdxgen | CycloneDX SBOM 生成 | `npm install -g @cyclonedx/cdxgen` |
+promptfoo,2,| promptfoo | AI 生成攻击 + 回归测试 | `npm install -g promptfoo` |
+@brightdata/cli,2,| CLI not found | Install with `npm i -g @brightdata/cli` or `curl -fsSL https://cli.brightdata.com/install.sh \| bash` 
+webreel,2,"- Do **NOT** run `npm install webreel`, `npx webreel`, or any other installation command."
+silk-wasm,2,Install the optional dependency: `npm install silk-wasm`
+parallel-web-cli,2,3. Linux/macOS/Windows (npm): `npm install -g parallel-web-cli`
+@capgo/plugin-name,2,1. Ensure plugin is installed: `npm install @capgo/plugin-name`
+@capacitor/camera,2,| cordova-plugin-camera | @capacitor/camera | `npm install @capacitor/camera` |
+@capacitor/geolocation,2,| cordova-plugin-geolocation | @capacitor/geolocation | `npm install @capacitor/geolocation` |
+@capacitor/device,2,| cordova-plugin-device | @capacitor/device | `npm install @capacitor/device` |
+@capacitor/network,2,| cordova-plugin-network-information | @capacitor/network | `npm install @capacitor/network` |
+@capacitor/status-bar,2,| cordova-plugin-statusbar | @capacitor/status-bar | `npm install @capacitor/status-bar` |
+@capacitor/splash-screen,2,| cordova-plugin-splashscreen | @capacitor/splash-screen | `npm install @capacitor/splash-screen` |
+@capacitor/keyboard,2,| cordova-plugin-keyboard | @capacitor/keyboard | `npm install @capacitor/keyboard` |
+@capacitor/dialog,2,| cordova-plugin-dialogs | @capacitor/dialog | `npm install @capacitor/dialog` |
+@capacitor/filesystem,2,| cordova-plugin-file | @capacitor/filesystem | `npm install @capacitor/filesystem` |
+@capacitor/browser,2,| cordova-plugin-inappbrowser | @capacitor/browser | `npm install @capacitor/browser` |
+@capacitor/haptics,2,| cordova-plugin-vibration | @capacitor/haptics | `npm install @capacitor/haptics` |
+@capacitor/local-notifications,2,| cordova-plugin-local-notifications | @capacitor/local-notifications | `npm install @capacitor/local-notifications` |
+@capacitor/push-notifications,2,| cordova-plugin-push | @capacitor/push-notifications | `npm install @capacitor/push-notifications` |
+@capacitor/plugin-name,2,- [ ] Install Capacitor plugins: `npm install @capacitor/plugin-name`
+temml,2,- **temml**: `npm install temml` (LaTeX → MathML conversion for Word native math)
+fast-xml-parser,2,- **fast-xml-parser**: `npm install fast-xml-parser` (MathML parsing for docx conversion)
+@earendil-works/pi-coding-agent,2,1. Install pi with `npm install -g @earendil-works/pi-coding-agent`.
+npm,2,4. Let the owner update npm itself: Homebrew updates a Homebrew Node/npm; only use `npm install -g npm@latest` for a sel
+@larksuite/whiteboard-cli,2,> 如果执行失败，手动安装后重试：`npm install -g @larksuite/whiteboard-cli@^0.1.0`
+@langchain/core,2,"- `@langchain/core` is a peer dependency, not a transitive dependency. You must install it explicitly: `npm install @lan"
+my-package,2,```bash npm install my-package ```
+voxflow,2,"If ANY `voxflow` command prints a `<voxflow-hint ... type=""cli-outdated"" ...>` line to stderr, IMMEDIATELY run `voxflow "
+@wechatsync/cli,2,- `npm install -g @wechatsync/cli`
+@commet/node,2,"| `@commet/node` | Core SDK - customers, subscriptions, usage, seats, features, portal, webhooks | `npm i @commet/node` "
+@commet/next,2,"| `@commet/next` | Next.js helpers - webhook route handler, customer portal route | `npm i @commet/next` |"
+@commet/better-auth,2,"| `@commet/better-auth` | Better Auth plugin - auto customer sync, auth-scoped billing | `npm i @commet/better-auth` |"
+@commet/cli,2,"| `@commet/cli` | CLI - login, link project, pull types for autocomplete | `npm i -g @commet/cli` |"
+@annals/agent-mesh,2,"1. Run `agent-mesh --version` — if not found, install with `npm install -g @annals/agent-mesh`"
+ox,2,- The `ox` library for generating ERC-8021 suffixes: `npm install ox`
+langwatch,2,2. Install the LangWatch SDK (`pip install langwatch` or `npm install langwatch`)
+web-haptics,2,Install `web-haptics` (`npm i web-haptics`) and add haptic feedback to the app following these rules:
+@types/node,2,| @types/* | `--save-dev` | `npm i -D @types/node` |
+postmark,2,"4. Install the SDK for your language (e.g., `npm install postmark` for Node.js)"
+@uipath/cli,2,"If `uip` is not found, install it with `npm install -g @uipath/cli`. If `npm` is missing, ask the user to install Node.j"
+@ic-pay/icpay-sdk,2,Install: `pnpm add @ic-pay/icpay-sdk`.
+@paragraph-com/sdk,2,"description: Use the Paragraph REST API or TypeScript SDK to manage posts, publications, subscribers, and coins on parag"
+@covalenthq/client-sdk,2,**Install:** `npm install @covalenthq/client-sdk`
+torph,2,"- **Text morphing over instant replacement.** When button labels change (e.g., ""Continue"" → ""Confirm""), animate the tran"
+liveline,2,"- **Animate numbers and live charts.** Values that change (prices, counts, balances) should count/flip/morph. Commas sho"
+dotenv,2,- Node.js: `npm install dotenv`
+@workos/authkit-tanstack-react-start,2,**Fix:** `pnpm add @workos/authkit-tanstack-react-start`
+@lessie/cli,2,3. If the command fails (not found) → attempt auto-install: `npm install -g @lessie/cli`
+magicpath-ai,2,"- If the CLI is missing, install it with `npm install -g magicpath-ai` or invoke it with `npx magicpath-ai@latest`."
+prettier,2,- prettier (install: `npm install -g prettier`)
+@flipswitch-io/sdk,2,- **javascript (web)**: `npm install @flipswitch-io/sdk @openfeature/web-sdk`
+not,2,| `npx not found` | Install Node.js: `brew install node` |
+found,2,| `npx not found` | Install Node.js: `brew install node` |
+fizko-cli,2,"If the output says ""No autenticado"", tell the user to run `fizko login` and wait for them. If `fizko` is not found, tell"
+@angular/cdk,2,- **Angular CDK**: Obligatorio para overlays y accesibilidad (`pnpm add @angular/cdk`).
+@base-ui/react,2,"2. If that fails, update the conflicting dep: `npm install @base-ui/react@latest`"
+uipro-cli,2,"- On failure → ""Hit a snag. You can try manually later: `npm install -g uipro-cli && uipro init --ai claude`. Let's keep"
+@angular/aria,2,Install via `npm install @angular/aria`.
+@codespring-app/cli,2,- **CLI installed**: `npm i -g @codespring-app/cli` or use `npx @codespring-app/cli`
+canvas,2,- **node-canvas** (`npm install canvas`) — used for adding text overlays to slide images. This is a native module that m
+@lucasygu/redbook,2,**OpenClaw users:** Install via `clawhub install redbook` or `npm install -g @lucasygu/redbook`.
+vanish-cli,2,Upload files to get temporary public URLs. Install with `npm i -g vanish-cli` or use `npx vanish-cli`.
+@zvec/zvec,2,- **Local search requires @zvec/zvec** — install with `npm install @zvec/zvec` before using index/search.
+counselors,2,- **counselors not installed**: Tell the user to install it (`npm install -g counselors`)
+chrome-remote-interface,2,| Module not found | `npm install -g chrome-remote-interface` |
+k-skill-rhwp,2,- 전역: `npm install -g k-skill-rhwp`
+bananatape,2,- BananaTape CLI: `npm install -g bananatape` or `npx bananatape ...`
+elestio,2,"This skill uses the **official Elestio CLI** (`elestio` command, installed via `npm install -g elestio`)."
+wattpm,2,3. Install: `npm install wattpm` (or use `npx wattpm`)
+zerion,2,"compatibility: ""Requires zerion (`npx zerion` or `npm install -g zerion`). Set ZERION_API_KEY. Trading requires OWS wall"
+@grimoirelabs/cli,2,- Global CLI: `npm i -g @grimoirelabs/cli`
+@enonic/nextjs-adapter,2,3. Install the `@enonic/nextjs-adapter` package if not already present. Use the version matching the Next.js version: `n
+polizy,2,| Critical | Install package | `npm install polizy` |
+ic-mops,2,- For Motoko canisters: `npm i -g ic-mops` and `moc` version defined in `mops.toml` (templates include this; for manual 
+@heydovetail/dt,2,"1. `dt` is installed — if not, run `npm install -g @heydovetail/dt`"
+pilcrow-ink,2,0. Make sure the pilcrow CLI is available. The commands run the `pilcrow` binary. If `pilcrow` isn't found (and `npx pil
+animate.css,2,"If the user has a Tailwind or CSS Modules setup, note they can also `npm install animate.css` and `import 'animate.css'`"
+markdownlint-cli2,2,"**Solution:** Run `npm install` or use npx: `npx markdownlint-cli2 ""**/*.md""`"
+defuddle-cli,2,If not installed: `npm install -g defuddle-cli`
+@withgraphite/graphite-cli,2,">   `npm install -g @withgraphite/graphite-cli@stable`), then"
+@stablyai/playwright-test,2,- Automatically upgrade to latest: `npm install -D @stablyai/playwright-test@latest` (or equivalent)
+@playwright/mcp,2,Run: `npm install -g @playwright/mcp`
+@tailwindcss/cli,2,"**Production (recommended):** `npm init -y && npm install -D tailwindcss @tailwindcss/cli basecoat-css`, create `assets/"
+indxel,2,**Prerequisites:** The user should have the indxel CLI installed (`npm install indxel`). Some features require a paid pl
+patchright,2,"- **`--browser` (Patchright):** Launches a real undetected Chrome browser, opens x.com compose, types with human-style j"
+vidu-cli,2,1. `npm install -g vidu-cli@latest` (requires Node.js >=14; postinstall auto-downloads the platform binary)
+koa-websocket,2,For WebSocket support: `npm install koa-websocket @types/koa-websocket`
+iii-sdk,2,`npm install iii-sdk`
+ppio-sandbox-cli,2,- **NOT_INSTALLED** → `npm install -g ppio-sandbox-cli@beta`
+@stripe/stripe-js,2,1. **Install Dependencies**: `npm install @stripe/stripe-js @stripe/react-stripe-js stripe`
+@stripe/react-stripe-js,2,1. **Install Dependencies**: `npm install @stripe/stripe-js @stripe/react-stripe-js stripe`
+stripe,2,1. **Install Dependencies**: `npm install @stripe/stripe-js @stripe/react-stripe-js stripe`
+@arcjet/cli,2,"description: Add security protection to a server-side route or endpoint — rate limiting, bot detection, email validation"
+@58pic/cli,2,**须先安装 `58pic` 可执行文件**（`npm install -g @58pic/cli` 或 `npm install -g github:58pic-open/cli`）；Skill 不会替代 CLI，只指导 Agent 如何
+@rsbuild/plugin-react,2,| React | `@rsbuild/plugin-react` | `pnpm add -D @rsbuild/plugin-react` |
+@tailwindcss/vite,2,- Tailwind: `npm install tailwindcss @tailwindcss/vite`
+agent-validator,2,"- If not found: ""Agent Validator CLI is required. Install with `npm install -g agent-validator`, then run `agent-validat"
+varlock,2,"- **JS projects:** Install as a dev dependency — `npm install -D varlock` (or `bun add -D varlock`, `pnpm add -D varlock"
+@x402/express,2,Install: `npm install @x402/express @x402/core @x402/evm`
+@x402/axios,2,Install: `npm install @x402/axios @x402/evm viem`
+acorn,2,"- **JS/TS Parsing (`scripts/parse-js.mjs`)**: Requires Node.js v14+, `acorn`, and `acorn-walk`. Before running, check if"
+acorn-walk,2,"- **JS/TS Parsing (`scripts/parse-js.mjs`)**: Requires Node.js v14+, `acorn`, and `acorn-walk`. Before running, check if"
+@gw-tools/gw-tool,2,2. Install gw: `npm install -g @gw-tools/gw-tool`
+tunnelmole,2,2. **HTTPS tunnel**: `tmole 8081` (install with `npm install -g tunnelmole` if not found)
+convex-helpers,2,- [ ] Installed convex-helpers: `npm install convex-helpers`
+@convex-dev/component-name,2,- [ ] Install components via npm: `npm install @convex-dev/component-name`
+@openwebf/webf-my-plugin,2,- Anyone can install with `npm install @openwebf/webf-my-plugin`
+@browserbasehq/cli,2,"compatibility: ""Requires the Browserbase CLI (`npm install -g @browserbasehq/cli`). API commands require `BROWSERBASE_AP"
+hono,2,- ❌ `npm install hono`
+beads-cli,2,- Install `bd`: `npm install -g beads-cli`
+xactions,2,`npm install xactions` -- all functions from `src/scrapers/index.js`.
+@xiaokexiang/db-cli,2,2. **如需安装**：运行 `npm i -g @xiaokexiang/db-cli`
+use-supercluster,2,- [ ] Install clustering library (`npm install use-supercluster`)
+is-odd,2,"**Novice**: `npm install is-odd` (actual package, 54M weekly downloads). Installs a package with 1 line of code: `n % 2 "
+ts-prune,2,- `bun add --dev ts-prune` or `npm install --save-dev ts-prune`
+unimported,2,- `bun add --dev unimported` or `npm install --save-dev unimported`
+@ssabrojs/hwpxjs,2,Generate .hwpx files with JavaScript. Install: `npm install @ssabrojs/hwpxjs`
+supabase,2,| Install CLI | `npm install supabase --save-dev` |
+clsx,2,3. **Compose classNames with `clsx`** (`npm i clsx`). Vireya's internal `tatcn` helper is just a `clsx` alias and isn't 
+inngest,2,- Inngest v4 SDK installed (`npm install inngest`) — see the `inngest-setup` skill
+@levnikolaevich/hex-ssh-mcp,2,| hex-ssh | stdio | `npm i -g @levnikolaevich/hex-ssh-mcp` → `hex-ssh-mcp` | No | No |
+@levnikolaevich/hex-graph-mcp,2,| hex-graph | stdio | `npm i -g @levnikolaevich/hex-graph-mcp` → `hex-graph-mcp` | No | No |
+naracli,2,- **npx download risk**: `npx naracli@latest` downloads and executes the latest published package from npm. A compromise
+@prava-sdk/cli,2,"1. `which prava` — if missing, run `npm install -g @prava-sdk/cli` (see Prerequisites above for sudo / verify fallbacks)"
+@syncfusion/ej2-react-calendars,2,"- **""Cannot find module"":** run `npm install @syncfusion/ej2-react-calendars @syncfusion/ej2-base` and confirm `package."
+@syncfusion/ej2-base,2,"- **""Cannot find module"":** run `npm install @syncfusion/ej2-react-calendars @syncfusion/ej2-base` and confirm `package."
+@getlark/cli,2,"compatibility: ""Requires the getlark CLI (`npm install -g @getlark/cli`) and `GETLARK_API_KEY` in the environment (or a "
+idmp,2,Or use any other package manager: `pnpm add idmp` / `yarn add idmp` / `bun add idmp`.
+@pachca/cli,2,"> After successful use, suggest installing CLI globally: `npm install -g @pachca/cli && pachca auth login --token $PACHC"
+mbt,2,- For CAP agents: `mbt` (MTA Build Tool): `npm install -g mbt`
+ccxt,2,- Solution: Run `npm install ccxt`
+qrcode.react,2,| qrcode.react | `npm install qrcode.react` | QR codes in end card |
+ghq-sector,2,"If installed globally (`npm install -g ghq-sector`), use the `gsec` shorthand. Otherwise use `npx ghq-sector` or `bunx g"
+reader-cli,2,- **reader**: Mozilla Readability CLI (`npm install -g reader-cli`)
+@latitude-data/telemetry,2,"Other package managers translate the exact-version pin the same way: `pnpm add @latitude-data/telemetry@<version>`, `yar"
+@domoinc/ryuu,2,- Domo CLI installed (`npm install -g @domoinc/ryuu`)
+katex,2,| `katex` (npm)                    | LaTeX → HTML    | `npm install -g katex`                                  |
+@vozoai/cli,2,Requires the official `vozo-cli` from npm [`@vozoai/cli`](https://www.npmjs.com/package/@vozoai/cli) (source: [github.co
+@operately/operately-cli,2,| Install CLI | `npm install -g @operately/operately-cli` |
+agentic-qe,2,- [ ] Update to v3: `npm install agentic-qe@latest`
+playwright-extra,2,command: `cd /tmp && rm -rf qcsd-fetch && mkdir qcsd-fetch && cd qcsd-fetch && npm init -y && npm install playwright-ext
+puppeteer-extra-plugin-stealth,2,command: `cd /tmp && rm -rf qcsd-fetch && mkdir qcsd-fetch && cd qcsd-fetch && npm init -y && npm install playwright-ext
+inbound-cli,2,- Install globally: `npm i -g inbound-cli`
+pnpm,2,"This may take a few minutes. If `pnpm` has corepack issues, install directly: `npm install -g pnpm@10.11.0`"
+@abaplint/cli,2,"- If not installed, install with: `npm install @abaplint/cli -g`"
+@tidbcloud/serverless,2,**`npm install @tidbcloud/serverless`**
+@ui5/cli,2,2. Install UI5 CLI: `npm install --save-dev @ui5/cli`
+mp-skills,2,- `mp-skills` CLI（`npm install -g mp-skills`）
+mjml,2,- Never `npm install -g mjml`
+@thinkingpatterns/cli,2,"- If `tp` is not installed but Node.js is available, use `npx @thinkingpatterns/cli@latest` as a prefix. For best perfor"
+@xhanglobal/nicechat-cli,2,- CLI 会定期检查 npm 最新版本；如果当前版本过旧，会在 stderr 提示尽快执行 `npm install -g @xhanglobal/nicechat-cli@latest` 升级。
+@letta-ai/letta-client,2,- [TypeScript SDK](https://github.com/letta-ai/letta-node) - `npm install @letta-ai/letta-client`
+@ably/cli,2,"**Ably CLI:** Install with `npm install -g @ably/cli` to publish test messages, subscribe to channels, and verify setup."
+@okx_ai/okx-trade-cli,2,Installed via `npm install -g @okx_ai/okx-trade-cli`. Binary at `$OKX_CLI_PATH` or default path. All commands accept `--
+@circle-fin/cli,2,`circle --version` also surfaces any update notice from Circle's server when a newer CLI version is available (server-dr
+beads-kanban-ui,2,"- If ""Yes"" → Run `npm install -g beads-kanban-ui`, then use `--with-kanban-ui` flag"
+codemod,2,- **Codemod CLI** — `npm i -g codemod` (or the scripts fall back to `npx codemod`). Provides
+@agentspace-so/ascli,2,"2. Else if `npm` is available, install once with `npm install -g @agentspace-so/ascli@latest`, or run without installing"
+@ipads-skvm/skvm,1,"- If `skvm` is not on PATH, report it to the user and stop — do not install anything. If `skvm jit-optimize` fails with "
+@notyped/gitai,1,"> ""The `gitai` CLI tool is not installed. Please install it globally (e.g., `npm install -g @notyped/gitai`) and configu"
+@binance/binance-cli,1,- Install binance-cli using `npm install -g @binance/binance-cli`
+in,1,- **Dependencies not installed** — `screenshot.js` exits with `playwright not installed. Run npm install in the skill di
+skill,1,- **Dependencies not installed** — `screenshot.js` exits with `playwright not installed. Run npm install in the skill di
+directory,1,- **Dependencies not installed** — `screenshot.js` exits with `playwright not installed. Run npm install in the skill di
+foo,1,- **Unpinned deps.** `npm install foo` without a lockfile means the next session gets a different transitive graph. See 
+awp-wallet,1,"`npm install -g awp-wallet`, `pip install awp-wallet`, `brew install awp-wallet`,"
+vite,1,"The agent verifies `.understand-anything/knowledge-graph.json` exists in the current directory, resolves the dashboard p"
+tree-sitter-solidity,1,Each key is a language name. `package` is the npm package of the tree-sitter grammar and `extensions` lists the file ext
+@blackbox_ai/blackbox-cli,1,- Blackbox CLI installed: `npm install -g @blackbox_ai/blackbox-cli` (binary: `blackbox`)
+react-native-code-push,1,- **Install**: `npm install react-native-code-push`
+alkahest-cli,1,"Install globally via `npm install -g alkahest-cli`, then run commands with:"
+x402-fetch,1,"If you're integrating into an existing Node project, you can ignore the bundled `package.json` and just `npm i x402-fetc"
+@techdigger/humanode-agentlink-cli,1,Prefer a global install? `npm install -g @techdigger/humanode-agentlink-cli` makes the `agentlink` command available dir
+@mariozechner/pi-coding-agent,1,**TL;DR for agents:** Install Pi: `npm install -g @mariozechner/pi-coding-agent`. Install the AntSeed extension: `pi ins
+obsidian-cli,1,| **obsidian-cli not found** | Not installed | `npm install -g obsidian-cli` |
+@comfyorg/comfyui-frontend-types,1,"If your pack adds custom UI (widgets, sidebar tabs, menu items), set `WEB_DIRECTORY` in `__init__.py` and ship JS there."
+@nimble-way/nimble-cli,1,"- **Neither** → load `rules/setup.md` for the environment-aware install flow. Any Claude product (Code, Cowork, claude.a"
+i18next,1,"| React i18n | react-i18next | `npm i i18next react-i18next` | Most React apps, flexibility |"
+react-i18next,1,"| React i18n | react-i18next | `npm i i18next react-i18next` | Most React apps, flexibility |"
+react-intl,1,| React i18n (ICU) | react-intl (FormatJS) | `npm i react-intl` | ICU-first message catalog + tooling |
+vue-i18n,1,| Vue i18n | vue-i18n | `npm i vue-i18n` | Vue 3 apps |
+@lingui/core,1,| Minimal bundle | LinguiJS | `npm i @lingui/core @lingui/react` | Bundle size critical |
+@lingui/react,1,| Minimal bundle | LinguiJS | `npm i @lingui/core @lingui/react` | Bundle size critical |
+typesafe-i18n,1,| Type-safe | typesafe-i18n | `npm i typesafe-i18n` | TypeScript-first projects |
+@aws/agentcore,1,> The AgentCore CLI isn't installed. Run `npm install -g @aws/agentcore` (requires Node.js 20+).
+@inboxapi/cli,1,- Preferred: `npm install -g @inboxapi/cli`
+base44,1,"| Update available message    | If prompted to update, run `npm install -g base44@latest` (or use npx for local installs"
+whoami,1,| `npx wrangler whoami` fails                    | The auth probe needs wrangler to enumerate accounts. Install path: `n
+component-library,1,- **Traditional**: `npm install component-library` → locked to package versions
+customize,1,- Expo + pnpm: `npx expo customize babel.config.js` may crash running `pnpm add --dev babel-preset-expo` (`--dev` is not
+babel.config.js,1,- Expo + pnpm: `npx expo customize babel.config.js` may crash running `pnpm add --dev babel-preset-expo` (`--dev` is not
+@linkedapi/linkedin-cli,1,| `linkedin-cli` | `npm install -g @linkedapi/linkedin-cli` |
+@modelcontextprotocol/express,1,"- Install dependencies: `@modelcontextprotocol/server`, `zod@^4.2`, and the transport package — `@modelcontextprotocol/n"
+paperfit-cli,1,前提：`npm install -g paperfit-cli`（或等价全局安装），`paperfit` 在 `PATH` 中。输出目录 `--output` 相对于**当前工作目录**（一般为论文根目录）。
+@trustwallet/cli,1,Command-line interface for multichain crypto wallet operations. Install with `npm install -g @trustwallet/cli`.
+lenis,1,- Lenis package name: `npm install lenis` (NOT `@studio-freight/lenis`)
+vscode-langservers-extracted,1,| JSON     | `jsonls`                     | `npm i -g vscode-langservers-extracted`       |
+@usebruno/cli,1,| **Bruno**  | Git-native API collection runner | `npm i -g @usebruno/cli`    |
+nativewind,1,| Upgrading only one of the two packages               | Mismatched peer dependencies cause cryptic PostCSS errors      
+happy,1,- **命令必须用代码块或行内代码**，例如 `npm install -g happy`、`happy resume`。
+@dataform/cli,1,`npm i -g @dataform/cli` and verifying the installation with `dataform
+react-leaflet,1,4. Install map dependencies: `npm install react-leaflet@^5 leaflet@^1.9` and
+leaflet,1,4. Install map dependencies: `npm install react-leaflet@^5 leaflet@^1.9` and
+@types/leaflet,1,`npm install -D @types/leaflet` (skip if already present).
+recharts,1,4. Install the chart library: `npm install recharts@^2.15.0`.
+laravel-echo,1,3. `npm install --save-dev laravel-echo pusher-js`
+pusher-js,1,3. `npm install --save-dev laravel-echo pusher-js`
+@orderly.network/cli,1,1. Install the CLI: `npm install -g @orderly.network/cli`
+to,1,!`if ! command -v gsd-sdk >/dev/null 2>&1; then printf '⚠ gsd-sdk not found in PATH — /gsd:set-profile requires it.\n\nI
+get,1,!`if ! command -v gsd-sdk >/dev/null 2>&1; then printf '⚠ gsd-sdk not found in PATH — /gsd:set-profile requires it.\n\nI
+latest,1,!`if ! command -v gsd-sdk >/dev/null 2>&1; then printf '⚠ gsd-sdk not found in PATH — /gsd:set-profile requires it.\n\nI
+@midscene/android,1,| **`@midscene/*` dependency version is outdated** | Check local versions with `npm ls @midscene/android @midscene/core 
+@midscene/harmony,1,| **`@midscene/*` dependency version is outdated** | Check local versions with `npm ls @midscene/harmony @midscene/core 
+@midscene/web,1,- Upgrade dependencies: `npm i @midscene/web@latest @midscene/core@latest @midscene/shared@latest`.
+@midscene/ios,1,- Upgrade dependencies: `npm i @midscene/ios@latest @midscene/core@latest @midscene/shared@latest`.
+@nutrient-sdk/dws-mcp-server,1,- Preferred: `npm i -g @nutrient-sdk/dws-mcp-server@<pinned-version>`
+design-book,1,"For larger systems, prefer a **token graph** over a flat token dump: references, semantic roles, derived functions, and "
+@browserbasehq/sdk,1,"compatibility: ""Requires BROWSERBASE_API_KEY. Examples use `curl` (or the Node SDK via `npm install @browserbasehq/sdk`)"
+mcp-excalidraw-server,1,No setup needed — any canvas-touching command **auto-starts the canvas server** on `http://127.0.0.1:3000` (first `npx` 
+@prisma-next/extension-author-tools,1,`prisma-next-check-pins` (shipped by `@prisma-next/extension-author-tools` — install with `pnpm add -D @prisma-next/exte
+steps,1,- `docs(contributing): clarify pnpm install steps`
+@mercadopago/sdk-react,1,| react (client) | `npm install @mercadopago/sdk-react` |
+page-agent,1,- `page-agent` is an `optionalDependencies` entry (`npm i page-agent` if the doctor/degraded hint asks for it) — this pl
+metaharness,1,"""hint"": ""Install with `npm i -D metaharness@~0.3.0` (pinned range — this plugin never fetches @latest) or verify network"
+@ui5/linter,1,"If the linter is not installed, tell the user to run `npm install --save-dev @ui5/linter` and stop."
+new,1,> - Angular: `echo | npx --yes @angular/cli@22 new frontend --style=css --ssr=false --skip-git --defaults --skip-install
+frontend,1,> - Angular: `echo | npx --yes @angular/cli@22 new frontend --style=css --ssr=false --skip-git --defaults --skip-install
+@cosmicstack/mercury-agent,1,| `mercury: command not found` | Run `npm i -g @cosmicstack/mercury-agent` or use `npx` |
+framer-motion,1,- Make sure `framer-motion` is installed: `npm install framer-motion`
+@wecom/cli,1,| `command not found: wecom-cli` | Run `npm install -g @wecom/cli` |
+xxx,1,"**Dependency management**: choose the language and packages as you see fit, but **always stop and ask the user before in"
+@tenpay/wechatpay-dev-cli,1,- ③ 命令不可用：执行 `npm install -g @tenpay/wechatpay-dev-cli@latest` 安装 CLI，再重跑本命令。
+lz-string,1,1. ✅ Установлен lz-string: `npm install lz-string`
+@cloudflare/next-on-pages,1,| Cloudflare adapter | `npm list @cloudflare/next-on-pages` | `npm install -D @cloudflare/next-on-pages` |
+whoopskill,1,Install: `npm install -g whoopskill` | [GitHub](https://github.com/koala73/whoopskill)
+bring-shopping,1,- `npm install bring-shopping`
+skilllens,1,- Global install: `pnpm add -g skilllens`
+lk,1,- `lk` CLI (LinkedIn CLI) — `npm install -g lk`
+@anthropic/pi-coding-agent,1,- Pi Coding Agent must be installed: `npm install -g @anthropic/pi-coding-agent`
+oxlint,1,1. Install oxlint: `npm install -D oxlint`
+tsdown,1,1. Install tsdown: `npm install -D tsdown`
+feedcontext,1,`npm install -g feedcontext`.
+@vscode/vsce,1,"3. **vsce installed:** `vsce --version` — if missing, run `npm install -g @vscode/vsce`"
+@replayio/playwright,1,1. Install the plugin: `npm install --save-dev @replayio/playwright`
+@types/library-name,1,1. **Official `@types` packages** — `pnpm add -D @types/library-name`
+dokploy,1,- Dokploy CLI installed (`npm install -g dokploy`).
+adm-zip,1,- **adm-zip** (for template extraction): `npm install adm-zip`
+cheerio,1,- **cheerio** (for HTML parsing): `npm install cheerio`
+zod-to-json-schema,1,- `zodToJsonSchema()` comes from the `zod-to-json-schema` package (separate from `zod`) -- requires `npm install zod-to-
+chromadb,1,"- Missing `@chroma-core/default-embed` package -- since v3, the default embedding function ships separately; `npm instal"
+@chroma-core/default-embed,1,"- Missing `@chroma-core/default-embed` package -- since v3, the default embedding function ships separately; `npm instal"
+@code-push-next/react-native-code-push,1,- `yarn add @code-push-next/react-native-code-push`
+agentic-debug-mode,1,1. npm: `npm install --global agentic-debug-mode@latest`
+@docuseal/api,1,| JavaScript / TypeScript | `@docuseal/api` | `npm install @docuseal/api` |
+immer,1,**Install:** `npm install immer use-immer`
+use-immer,1,**Install:** `npm install immer use-immer`
+juice,1,- Node: `npm i -D juice` → `juice source.html > compiled.html`
+dexie,1,"Raw IndexedDB is verbose and transaction-leaky. Dexie wraps it with promises, typed tables, and migrations. Install with"
+@easykol/cli,1,1. **CLI missing** → ask the user to run `npm install -g @easykol/cli@latest`.
+kalshi-typescript,1,| TypeScript | `npm install kalshi-typescript` | <https://docs.kalshi.com/sdks/typescript/quickstart.md> |
+@polymarket/clob-client,1,| TypeScript | `npm install @polymarket/clob-client` | [GitHub](https://github.com/Polymarket/clob-client) |
+@polymarket/builder-signing-sdk,1,| Builder Signing SDK | `npm install @polymarket/builder-signing-sdk` | Builder order attribution |
+siwe,1,1. Install dependencies: `npm install @x402/fetch @x402/evm siwe viem`
+@commet/ai-sdk,1,| `@commet/ai-sdk` | Vercel AI SDK middleware - automatic AI token usage billing | `npm i @commet/ai-sdk` |
+@onkernel/cli,1,- npm: `npm install -g @onkernel/cli` (>=v0.13.4)
+@resvg/resvg-js-linux-x64-gnu,1,`npm i --no-save @resvg/resvg-js-linux-x64-gnu --force --os=linux --cpu=x64 --libc=glibc`.
+webmcp-kit,1,"- If missing, install with `npm install webmcp-kit zod`"
+@annals/agent-bridge,1,"1. Run `agent-bridge --version` — if not found, install with `npm install -g @annals/agent-bridge`"
+@reconugc/cli,1,- CLI: `npm i -g @reconugc/cli && reconugc auth login`
+dompurify,1,"For each dangerous DOM pattern, apply the fix directly. Install DOMPurify with `pnpm add dompurify` and `pnpm add -D @ty"
+@types/dompurify,1,"For each dangerous DOM pattern, apply the fix directly. Install DOMPurify with `pnpm add dompurify` and `pnpm add -D @ty"
+xstate,1,`npm install xstate`
+@langwatch/scenario,1,2. Install the Scenario SDK (`pip install langwatch-scenario` or `npm install @langwatch/scenario`)
+mcporter,1,- **npm 包**: `npm install -g mcporter`
+@coregit/sdk,1,- **SDK:** `npm install @coregit/sdk`
+@coregit/cli,1,- **CLI:** `npm install -g @coregit/cli` (binary: `cgt`)
+headless-twitter,1,2. If missing: `npm install -g headless-twitter`
+paperbd,1,"- If `paperbd` is missing, tell them to install it with `npm i -g paperbd`."
+@dodopayments/sdk,1,Install: `npm install @dodopayments/sdk`
+@juangadm/pre-post,1,| `command not found` | `npm install -g @juangadm/pre-post` |
+svgexport,1,| **svgexport** | `npm install -g svgexport` | SVG to PNG (optional) |
+elevenlabs,1,> **SDK Warning:** Always use `@elevenlabs/elevenlabs-js` for JavaScript. Do not use `npm install elevenlabs` (that's an
+@swarmclawai/swarmclaw,1,1. Install: `npm i -g @swarmclawai/swarmclaw`
+@types/lodash,1,| Types for library | `--save-dev` | `npm i -D @types/lodash` |
+node-freshdesk-api,1,| Node.js | `node-freshdesk-api` | `npm install node-freshdesk-api` |
+@sth87/shadcn-design-system,1,- [ ] `npm install @sth87/shadcn-design-system`
+next-sitemap,1,Then: `pnpm add next-sitemap && pnpm next-sitemap`
+@vercel/og,1,`pnpm add @vercel/og satori sharp`
+satori,1,`pnpm add @vercel/og satori sharp`
+pino,1,- [ ] Install Pino: `pnpm add pino pino-pretty`
+pino-pretty,1,- [ ] Install Pino: `pnpm add pino pino-pretty`
+svgo,1,Install globally: `npm install -g svgo`
+my-cli,1,Published with `--tag dev`. Install: `npm install my-cli@dev`
+c8,1,- **Install:** `npm install --save-dev c8`
+nyc,1,- **Install:** `npm install --save-dev nyc`
+@codemieai/code,1,- 📦 Package will be available at: `npm install @codemieai/code@<VERSION>`
+vega-cli,1,- Vega-Lite — `npm i -g vega-cli vega-lite`; `vl2svg f.vega.json f.svg`.
+vega-lite,1,- Vega-Lite — `npm i -g vega-cli vega-lite`; `vl2svg f.vega.json f.svg`.
+pnote,1,Manage your prompts and notes from the terminal. Requires `npm install -g pnote` and authentication via `pnote auth toke
+jam-skill-cli,1,"found, install it with `npm install -g jam-skill-cli` and retry. If that install"
+exited,1,- `CreateSandboxError` / `InstallDepsError: npm install exited 1` — usually a
+1,1,- `CreateSandboxError` / `InstallDepsError: npm install exited 1` — usually a
+devsh,1,| npm | Production CLI | `npm install -g devsh` |
+gsd-core,1,"- Missing `surface.cjs` → prompt: ""Run `npm i -g gsd-core` to reinstall GSD."""
+igniteui-angular,1,| `igniteui-angular` | `npm install igniteui-angular` | Open-source / community |
+hyperstack-stacks,1,"Current public stacks: **ore** (ORE mining rounds, miners, treasury state). Prepackaged SDK types: `npm install hypersta"
+@anthropic-ai/claude-cli,1,Requires: `npm install -g @anthropic-ai/claude-cli`
+meta,1,| `meta: command not found` | meta is not installed globally | Run `npm i -g meta` |
+supaguard,1,"1. **CLI installed**: run `which supaguard`. If missing, tell the user: `npm install -g supaguard`"
+@customerio/cdp-analytics-node,1,"4. Install the SDK in your application (e.g., `npm install @customerio/cdp-analytics-node` for Node.js)"
+@auth0/auth0-spa-js,1,> - **Module not found**: Missing `npm install @auth0/auth0-spa-js` — run the install command
+@auth0/auth0-cli,1,- **Auth0 CLI** (for automatic setup): `npm install -g @auth0/auth0-cli`
+openspec,1,"- Directory exists but CLI missing → ""Found `openspec/` directory but `openspec` CLI is not in PATH. Run `npm install -g"
+worldbook,1,- CLI: `pip install worldbook` or `npm i -g worldbook`
+still,1,环境允许时（Node 可用）：在 `_starter/` 里 `npm install`，用 `npx remotion still MyVideo out/frame.png --frame=N` 渲 2-3 张关键帧给用户看，确认和 H
+studio,1,环境允许时（Node 可用）：在 `_starter/` 里 `npm install`，用 `npx remotion still MyVideo out/frame.png --frame=N` 渲 2-3 张关键帧给用户看，确认和 H
+clerk,1,"The published npm package is **`clerk`**, not `@clerk/cli`. Never teach `npm install -g clerk` as the primary path. If t"
+@tentagrip/seemd,1,"If that's not available either, suggest the user install globally (`npm i -g @tentagrip/seemd && seemd <path>`) and stop"
+@ic-pay/icpay-widget,1,Install: `pnpm add @ic-pay/icpay-widget @ic-pay/icpay-sdk`.
+posthog-js,1,**Fix:** This skill generates the PLAN only. Install PostHog SDK separately: `pnpm add posthog-js` (web) or add `posthog
+@telnyx/webrtc,1,**Client-side WebRTC SDK** (if WebRTC detected): `npm install @telnyx/webrtc` — see `{baseDir}/sdk-reference/webrtc-clie
+@solana-compass/cli,1,"If the user has installed globally (`npm install -g @solana-compass/cli`),"
+@tvl-justin/travel-cli,1,"If the user has installed it globally (`npm install -g @tvl-justin/travel-cli`), call `travel-cli` directly."
+bids-validator,1,The older Node.js-based validator (`npm install -g bids-validator`) is deprecated in favor of the Deno-based version. Th
+agentcash,1,"| ""Command not found"" | Run `npm install -g agentcash` |"
+kappmaker,1,"1. **CLI installed**: Run `which kappmaker`. If missing, tell user to run `npm install -g kappmaker`."
+adapty,1,- **adapty not found**: Run `npm install -g adapty`
+simple-icons,1,2. Install the latest package: `pnpm add simple-icons@latest`.
+@paragraph-com/cli,1,compatibility: Requires Node.js 18+ and npm. Install the CLI with `npm install -g @paragraph-com/cli`.
+@constructive-io/cli,1,- `@constructive-io/cli` installed (`npm install -g @constructive-io/cli` or available from the monorepo)
+lucide-vue-next,1,"3. **Handle Dependencies**: Ensure necessary icons are installed (e.g., `npm install lucide-vue-next`)."
+skill-memory,1,"- assume you have `skill-memory` cli, if not, run `npm install -g skill-memory`"
+claude-jarvis,1,"> ""No skills found. Make sure GSD, gstack, or Superpowers are installed. Run: `npm install -g claude-jarvis` to reinstal"
+railcode,1,The CLI is the npm package `railcode` (`npm install -g railcode@latest`).
+memoclaw-mcp,1,**MCP Server:** `npm install -g memoclaw-mcp` (for tool-based access from MCP-compatible clients)
+@workos-inc/node,1,3. Update SDK: `npm install @workos-inc/node@latest`
+@daytonaio/sdk,1,"The TypeScript SDK (`@daytonaio/sdk`) mirrors the Python API. Key differences: `executeCommand` instead of `exec`, `code"
+@smythos/cli,1,| SmythOS CLI       | Latest          | `npm i -g @smythos/cli` |
+jsdoc,1,- Optional: JSDoc CLI tool for generating documentation (`npm install -g jsdoc`)
+mviz,1,"For faster repeated use, install globally: `npm install -g mviz`"
+msw-storybook-addon,1,1. Install addon: `npm install msw-storybook-addon --save-dev`
+@goperigon/perigon-ts,1,| **Install** | `npm install @goperigon/perigon-ts` | `pip install perigon` | `go get github.com/goperigon/perigon-go-sd
+@zenon-red/probe,1,- **probe not installed:** `npm install -g @zenon-red/probe`
+@johnlindquist/obsidian-cli,1,- Install via: `npm install -g @johnlindquist/obsidian-cli`
+prpm,1,- PRPM CLI installed (`npm install -g prpm`)
+adkit-cli,1,"3. If `adkit` is not found: `npm i -g adkit-cli`, then `adkit setup manage`."
+@openfeature/web-sdk,1,- **javascript (web)**: `npm install @flipswitch-io/sdk @openfeature/web-sdk`
+@openfeature/js-sdk,1,- **javascript (server)**: `npm install @flipswitch-io/sdk @openfeature/js-sdk`
+pnpm-workspace-graph,1,- **Interactive workspace graph**: `pnpm install -g pnpm-workspace-graph` → run `pnpm-workspace-graph` to open an intera
+@tailwindcss/container-queries,1,| `npm install @tailwindcss/container-queries` | Use native `@md:` variants |
+@thallesp/nestjs-better-auth,1,| Install      | `npm install @thallesp/nestjs-better-auth` |
+@banaba/ue-cli,1,- `ue-cli` installed: `npm install -g @banaba/ue-cli`
+@stackone/cli,1,2. Install the CLI: `npm install -g @stackone/cli`
+scraperapi-sdk,1,"**Requires:** Node.js 14+, `npm install scraperapi-sdk`, `SCRAPERAPI_API_KEY` environment variable."
+ng,1,1. Set `frontend:build` to `npx ng build` and `frontend:install` to `npm install` in `wails.json`.
+build,1,1. Set `frontend:build` to `npx ng build` and `frontend:install` to `npm install` in `wails.json`.
+@gitbook/cli,1,"1. **Prerequisites.** Node 18+, a personal access token from https://app.gitbook.com/account/developer, and the CLI: `np"
+@rive-app/react-canvas,1,1. Install: `npm install @rive-app/react-canvas`
+camofox-browser,1,- Install: `npm install -g camofox-browser`
+@spartan-ng/brain,1,1. **Instalar dependencias**: `pnpm add @spartan-ng/brain @angular/cdk`.
+rollup-plugin-visualizer,1,2. Install dependencies: `npm install -D rollup-plugin-visualizer`
+tarball,1,- `npm install -g <CDN tarball URL>` only (see **CDN Tarball Reality**).
+vtex,1,| `vtex_cli_not_installed` | VTEX CLI no esta instalado | `vtex --version` fallo | Instalar: `yarn global add vtex` o `n
+bs58,1,- **bs58** installed (`npm install bs58`)
+lean-spec,1,1. User runs `npm install -g lean-spec`
+@modelcontextprotocol/create-server,1,2. **Initialize project** — `npx @modelcontextprotocol/create-server my-server` (TypeScript) or `pip install mcp` + scaf
+my-server,1,2. **Initialize project** — `npx @modelcontextprotocol/create-server my-server` (TypeScript) or `pip install mcp` + scaf
+maven-indexer-cli,1,"> If `maven-indexer-cli` is not found, install it: `npm install -g maven-indexer-cli`"
+@mandarnilange/agentforge-core,1,Anyone with `npm install @mandarnilange/agentforge-core` can use it.
+@vercel/next-browser,1,"behind, upgrade it (`npm install -g @vercel/next-browser@latest` or the"
+paymcp,1,- `npm install paymcp` (or your package manager)
+@correctroadh/toggl-cli,1,- Install: `npm install -g @correctroadh/toggl-cli`
+cortexfs-cli,1,- Install: `npm install -g cortexfs-cli`
+flutter-skill-react-native,1,| React Native | `npm install flutter-skill-react-native` |
+flutter-skill-electron,1,| Electron | `npm install flutter-skill-electron` |
+@kirha/cli,1,> Install the Kirha CLI first: `curl -fsSL https://cli.kirha.com/install.sh | sh` (or `npm install -g @kirha/cli`). See 
+@dapi/tgcli,1,"- If `tgcli` is not found, install it: `npm install -g @dapi/tgcli` then run `tgcli auth` for first-time login."
+music-metadata,1,2. `npm install music-metadata node-edge-tts` 安装依赖
+node-edge-tts,1,2. `npm install music-metadata node-edge-tts` 安装依赖
+glove-core,1,"| `glove-core` | Runtime engine: agent loop, tool execution, display manager, model adapters, stores | `pnpm add glove-c"
+glove-react,1,"| `glove-react` | React hooks (`useGlove`), `GloveClient`, `GloveProvider`, `defineTool`, `<Render>`, `MemoryStore`, `To"
+glove-next,1,| `glove-next` | One-line Next.js API route handler (`createChatHandler`) for streaming SSE | `pnpm add glove-next` |
+glove-voice,1,"| `glove-voice` | Voice pipeline: `GloveVoice`, adapters (STT/TTS/VAD), `AudioCapture`, `AudioPlayer` | `pnpm add glove-"
+oasis-sdk,1,"| `oasis-sdk` | Client SDK: feedback, crashes, breadcrumbs | `npm install oasis-sdk` |"
+@rbxts/services,1,"**""Cannot find module '@rbxts/services'""** - Run `npm install @rbxts/services @rbxts/types`"
+@rbxts/types,1,"**""Cannot find module '@rbxts/services'""** - Run `npm install @rbxts/services @rbxts/types`"
+ralphy-cli,1,| Setup | `npm i -g ralphy-cli` | No install | No install |
+univer-cli,1,Install the CLI with `npm i -g univer-cli`. Update the CLI with `univer update`. The executable is `univer`.
+@anthropic-ai/playwright-cli,1,| `playwright-cli` | Scholar Inbox browser login | `npm install -g @anthropic-ai/playwright-cli` |
+adr-tools,1,1. Instalar `adr-tools`: `npm install -g adr-tools` o usar el script: https://github.com/npryce/adr-tools.
+@commitlint/cli,1,2. Instalar commitlint: `npm install --save-dev @commitlint/cli @commitlint/config-conventional`
+@commitlint/config-conventional,1,2. Instalar commitlint: `npm install --save-dev @commitlint/cli @commitlint/config-conventional`
+@livekit/agents-plugin-lemonslice,1,- Node.js: `npm install @livekit/agents-plugin-lemonslice` (or `pnpm add` - exactly as documented in the LiveKit Node.js
+assemblyai,1,| JavaScript/TypeScript | `npm i assemblyai` | Active |
+stripe-pulse,1,**Install:** `npm install -g stripe-pulse`
+pantone-cli,1,`bunx pantone-cli` and a global install (`npm i -g pantone-cli`) work the same way.
+@cometix/ccline,1,| CCometixLine | Claude Code statusline | `npm install -g @cometix/ccline` | `command -v ccline` |
+@hono/zod-validator,1,Install: `pnpm add @hono/zod-validator zod`
+xlsx,1,- [ ] Installed required packages (`npm install docx xlsx pdf-lib`)
+pdf-lib,1,- [ ] Installed required packages (`npm install docx xlsx pdf-lib`)
+react-hook-form,1,Install external deps separately: `pnpm add react-hook-form zod @hookform/resolvers`
+@hookform/resolvers,1,Install external deps separately: `pnpm add react-hook-form zod @hookform/resolvers`
+@tiptap/markdown,1,**Install**: `npm install @tiptap/markdown@3.16.0`
+@tanstack/virtual-file-routes,1,**Install**: `npm install @tanstack/virtual-file-routes`
+@tanstack/router-devtools,1,- **Fix**: `npm install @tanstack/router-devtools`
+bentopdf-sh,1,Or install globally: `npm install -g bentopdf-sh`
+@stackbone/cli,1,"You can also run it one-off without installing: `npx @stackbone/cli <command>`. If `stackbone --help` fails, you have no"
+@caravo/cli,1,"If the CLI is installed globally (`npm install -g @caravo/cli`), use the shorter `caravo` command:"
+@model-go/cli,1,"- **Network error during install** — set `https_proxy` if behind a firewall, or use a corporate npm mirror: `npm install"
+gainforest-sdk-nextjs,1,"- `gainforest-sdk-nextjs` and `@supabase/supabase-js` are installed (if not, run `npm install gainforest-sdk-nextjs @sup"
+chatlab-cli,1,如果 CLI 未安装，告诉用户运行 `npm install -g chatlab-cli`。未经批准不要自行安装软件。存在多个候选文件时不要猜测，每条命令中的路径都要加引号。
+@solana/connector,1,- **NPM**: `npm i @solana/connector`
+@walletconnect/universal-provider,1,- Install the WalletConnect peer dependency: `npm i @walletconnect/universal-provider`
+symbolfyi,1,**Install**: `pip install symbolfyi` · **Web**: [symbolfyi.com](https://symbolfyi.com/) · **API**: [REST API](https://sy
+fontfyi,1,**Install**: `pip install fontfyi` · **Web**: [fontfyi.com](https://fontfyi.com/) · **API**: [REST API](https://fontfyi.
+emojifyi,1,**Install**: `pip install emojifyi` · **Web**: [emojifyi.com](https://emojifyi.com/) · **API**: [REST API](https://emoji
+@fyipedia/colorfyi,1,**Install**: `pip install colorfyi` · **Web**: [colorfyi.com](https://colorfyi.com/) · **API**: [REST API](https://color
+unicodefyi,1,**Install**: `pip install unicodefyi` · **Web**: [unicodefyi.com](https://unicodefyi.com/) · **API**: [REST API](https:/
+bitget-client,1,If not found → tell the user: `npm install -g bitget-client`
+claudish,1,- **Claudish CLI** - Install with: `npm install -g claudish` or `bun install -g claudish`
+is-ci,1,"5. If `is-ci` style guard is used, `is-ci` is installed (`pnpm add -D is-ci`)."
+tinyfish,1,If not installed: `npm install -g tinyfish`
+wireweave,1,"Spoint's WebRTC stack is wireweave (`npm i wireweave nostr-tools`). Use for: in-page voice chat by URL hash, host/join p"
+nostr-tools,1,"Spoint's WebRTC stack is wireweave (`npm i wireweave nostr-tools`). Use for: in-page voice chat by URL hash, host/join p"
+superx-cli,1,**Rule 1: Run `superx status` before anything else.** Every other command fails without valid credentials. If the `super
+oxfmt,1,- With nvim-lspconfig: `npm i -g oxfmt` then `vim.lsp.enable('oxfmt')`
+ashby-cli,1,"If the binary is missing, install it with `npm install -g ashby-cli`."
+quickjs-emscripten,1,1. **Install the sandbox dependency** (e.g. `npm i quickjs-emscripten`)
+pdfkit,1,1. Install PDFKit (`npm install pdfkit`)
+denji,1,"- **Locally installed** (`npm i -D denji`): `""./node_modules/denji/configuration_schema.json""`"
+@cloudflare/sandbox,1,- [ ] `npm install @cloudflare/sandbox@latest`
+@personize/sdk,1,- `npm install @personize/sdk` + project setup
+saju-fortune,1,- 배포 후: `npm install -g saju-fortune`
+korean-law-mcp,1,- `npm install -g korean-law-mcp` (로컬 CLI/로컬 MCP server 경로일 때)
+lck-analytics,1,- `npm install -g lck-analytics`
+kleague-results,1,- `npm install -g kleague-results`
+k-lotto,1,- 배포 후: `npm install -g k-lotto`
+naming-house,1,- 배포 후: `npm install -g naming-house`
+kbl-results,1,- `npm install -g kbl-results`
+housing-official-price,1,- `npm install housing-official-price`
+hipass-receipt,1,- `npm install hipass-receipt` 또는 이 레포에서 `npm install` (`playwright-core` 포함)
+@tigrisdata/react,1,"`npm install @tigrisdata/react` provides a drop-in `<Uploader>` component with file selection, progress, and error handl"
+@tnnevol/halo-cli,1,"Alternatively, install globally: `npm install -g @tnnevol/halo-cli` then use `halo-cli <action>`."
+@stryker-mutator/core,1,- TypeScript: `npm install --save-dev @stryker-mutator/core`
+kuaifa,1,| `kuaifa: command not found` | `npm install -g kuaifa` |
+node-pty,1,If `NODE_PTY` is `missing` and the user requests a terminal demo: run `npm install node-pty`. This is only required for 
+test,1,"- `/llmer-demo ""run npm install then npm test and show the output""` — terminal demo from inline description (auto-detect"
+show,1,"- `/llmer-demo ""run npm install then npm test and show the output""` — terminal demo from inline description (auto-detect"
+output,1,"- `/llmer-demo ""run npm install then npm test and show the output""` — terminal demo from inline description (auto-detect"
+@olakai/sdk,1,| `Import errors` | Ensure SDK is installed: `npm install @olakai/sdk` or `pip install olakai-sdk` |
+@mux/mux-player-react,1,"Install: `npm install @mux/mux-player-react` for React, or use the web component directly."
+nitro,1,Install: `pnpm add nitro`
+lint-staged,1,- Husky Setup: `npm install -D husky lint-staged && npx husky init`
+@lifi/sdk,1,- LI.FI SDK: `npm install @lifi/sdk viem`
+@enonic/cli,1,- **npm (any OS):** `npm install -g @enonic/cli`
+zodipus,1,- [ ] Install Zodipus: `npm install zodipus`
+kenobi-pages,1,1. Install: `pnpm add kenobi-pages`
+@polar-sh/sdk,1,> `npm install @polar-sh/sdk@^0.46` / `pip install polar-sdk~=0.28`
+googleapis,1,→ Solution: Run `npm install googleapis --save`
+@google/adk,1,| TypeScript | `@google/adk` | `npm install @google/adk` |
+@logseq/libs,1,2. **Install Dependencies**: `npm install @logseq/libs`.
+@dcl/sdk,1,"- **SDK branch (MANDATORY)**: The auth-server pattern requires `npm install @dcl/sdk@auth-server`, not the standard `@dc"
+eth-connect,1,- `eth-connect` must be installed as a dependency: `npm install eth-connect`
+dreamboard,1,Install with `npm install -g dreamboard`
+jupyter-link,1,install once with `npm install -g jupyter-link@0.2.7` and verify the resolved tarball
+browsers,1,| Chromium not found after `npm install puppeteer` | Run `npx puppeteer browsers install chrome` |
+chrome,1,| Chromium not found after `npm install puppeteer` | Run `npx puppeteer browsers install chrome` |
+agency-agents-zh,1,- **角色文件不存在**：提示用户运行 `ao init` 或 `npm install agency-agents-zh`
+@observablehq/plot,1,- Check Observable Plot installed: `npm install @observablehq/plot`
+semantic-release,1,| semantic-release not found   | Not installed globally          | `npm install -g semantic-release`                    
+algobot-ai,1,[Algolia Agent Studio](https://www.algolia.com/products/ai/agent-studio/) is Algolia's platform for building AI agents —
+basecoat-css,1,"**Production (recommended):** `npm init -y && npm install -D tailwindcss @tailwindcss/cli basecoat-css`, create `assets/"
+@playdrop/playdrop-cli,1,2. Install the CLI: `npm install -g @playdrop/playdrop-cli`
+vara-wallet,1,**Requires vara-wallet 0.10+** for hex→bytes auto-conversion. Update with: `npm install -g vara-wallet@latest`
+link,1,**Prerequisites:** The user should have the indxel CLI installed (`npm install indxel`). Some features require a paid pl
+ccstatusline,1,1. Install ccstatusline: `npm install -g ccstatusline`
+minisearch,1,- **Install**: `npm install minisearch`
+@aws-sdk/client-kms,1,| **AWS KMS** | `npm install @aws-sdk/client-kms`                                  |
+@google-cloud/kms,1,| **GCP KMS** | `npm install @google-cloud/kms`                                    |
+@ledgerhq/hw-app-eth,1,| **Ledger**  | `npm install @ledgerhq/hw-app-eth @ledgerhq/hw-transport-node-hid` |
+@ledgerhq/hw-transport-node-hid,1,| **Ledger**  | `npm install @ledgerhq/hw-app-eth @ledgerhq/hw-transport-node-hid` |
+@trezor/connect,1,| **Trezor**  | `npm install @trezor/connect`                                      |
+@turnkey/viem,1,| **Turnkey** | `npm install @turnkey/viem @turnkey/http @turnkey/api-key-stamper` |
+@turnkey/http,1,| **Turnkey** | `npm install @turnkey/viem @turnkey/http @turnkey/api-key-stamper` |
+@turnkey/api-key-stamper,1,| **Turnkey** | `npm install @turnkey/viem @turnkey/http @turnkey/api-key-stamper` |
+@steipete/sweet-cookie,1,| `extract-cookies.mjs not found` | Run `npm install -g @steipete/sweet-cookie` and `brew reinstall yoetz` (v0.2.6+) |
+fsh-sushi,1,| **SUSHI** | Compiles `.fsh` files → FHIR JSON | `npm install -g fsh-sushi` |
+gofsh,1,| **GoFSH** | Converts FHIR JSON → FSH source | `npm install -g gofsh` |
+@platejs/package-name,1,- The `npm install @platejs/package-name` command for the core plugin package.
+tmuxx,1,"- If using npm, `npm install -g tmuxx` installs only a wrapper. The Python `tmuxx` binary must still be available in `PA"
+myapp-pro,1,`npm install myapp-pro`
+myapp-free,1,`npm install myapp-free`
+@tc9011/skills-manager,1,"If installed globally (`npm install -g @tc9011/skills-manager`), you can use `skills-manager` directly instead of `""$SM"""
+@types/koa-websocket,1,For WebSocket support: `npm install koa-websocket @types/koa-websocket`
+@opentelemetry/api,1,1. **Install dependencies**: `npm install @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/sdk-metrics @opentel
+@opentelemetry/sdk-node,1,1. **Install dependencies**: `npm install @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/sdk-metrics @opentel
+@opentelemetry/sdk-metrics,1,1. **Install dependencies**: `npm install @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/sdk-metrics @opentel
+@opentelemetry/exporter-metrics-otlp-grpc,1,1. **Install dependencies**: `npm install @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/sdk-metrics @opentel
+@opentelemetry/resources,1,1. **Install dependencies**: `npm install @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/sdk-metrics @opentel
+@opentelemetry/semantic-conventions,1,1. **Install dependencies**: `npm install @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/sdk-metrics @opentel
+@ai-sdk/google,1,1. **Install dependencies**: `npm install ai @ai-sdk/anthropic @ai-sdk/google @ai-sdk/openai`
+short-uuid,1,1. **Install** dependencies: `npm install koa-websocket short-uuid`
+koa-compress,1,1. **Install** `koa-compress`: `npm install koa-compress`
+@cargo-ai/cli,1,`npm install -g @cargo-ai/cli@latest`.
+@types/pg,1,| PostgreSQL | `npm install pg` + `npm install -D @types/pg` |
+better-sqlite3,1,| SQLite     | `npm install better-sqlite3` + `npm install -D @types/better-sqlite3` |
+@types/better-sqlite3,1,| SQLite     | `npm install better-sqlite3` + `npm install -D @types/better-sqlite3` |
+@zenstackhq/plugin-policy,1,Add access control only if needed: `npm install @zenstackhq/plugin-policy` (see
+@zenstackhq/server,1,package: `npm install @zenstackhq/server`.
+ardi-agent,1,"typing `npm install -g ardi-agent` or similar — stop, that package does"
+iii-browser-sdk,1,`npm install iii-browser-sdk`
+together-ai,1,"- SDKs: `pip install together` (Python), `npm install together-ai` (TypeScript)"
+react-email-editor,1,| React | `react-email-editor` | `npm i react-email-editor` | `useRef<EditorRef>` → `ref.current?.editor` |
+vue-email-editor,1,| Vue | `vue-email-editor` | `npm i vue-email-editor` | `this.$refs.emailEditor.editor` |
+angular-email-editor,1,| Angular | `angular-email-editor` | `npm i angular-email-editor` | `@ViewChild` → `this.emailEditor.editor` |
+squirrelscan,1,| `squirrelscan audit <url>` | Full-site 230+ rules audit via CLI (`npm i -g squirrelscan`) |
+beautiful-mermaid,1,"**""Cannot find module 'beautiful-mermaid'""**: Run `npm install beautiful-mermaid`"
+graphify-ts,1,**Requires CLI:** `npm i -g graphify-ts` (uses Bun runtime).
+picgo,1,"If the install fails (commonly an `EACCES` permission error), **don't try sudo automatically** — show the user the comma"
+@addfox/rsbuild-plugin-vue,1,| Vue 3 | `@addfox/rsbuild-plugin-vue` | `pnpm add -D @addfox/rsbuild-plugin-vue` |
+@rsbuild/plugin-preact,1,| Preact | `@rsbuild/plugin-preact` | `pnpm add -D @rsbuild/plugin-preact` |
+@rsbuild/plugin-svelte,1,| Svelte | `@rsbuild/plugin-svelte` | `pnpm add -D @rsbuild/plugin-svelte` |
+@rsbuild/plugin-solid,1,| Solid | `@rsbuild/plugin-solid` | `pnpm add -D @rsbuild/plugin-solid` |
+renovate,1,"- If not installed → ask the user: *""Renovate is not installed. Can I install it with `npm install -g renovate`?""* Only "
+@astrojs/cloudflare,1,- Install adapters: `npm install @astrojs/cloudflare @astrojs/check`
+@astrojs/check,1,- Install adapters: `npm install @astrojs/cloudflare @astrojs/check`
+p-queue,1,- Utilities: `npm install lodash p-queue jose` (Note: `jose` is for crypto as native crypto fails on Cloudflare).
+@astrojs/sitemap,1,- SEO: `npm install @astrojs/sitemap`
+@kweaver-ai/kweaver-sdk,1,- **TypeScript / Node** (recommended): `npm install -g @kweaver-ai/kweaver-sdk` — requires Node.js 22+
+@serwist/next,1,1. Install: `npm install @serwist/next @serwist/precaching @serwist/strategies`
+@serwist/precaching,1,1. Install: `npm install @serwist/next @serwist/precaching @serwist/strategies`
+@serwist/strategies,1,1. Install: `npm install @serwist/next @serwist/precaching @serwist/strategies`
+create-next-app,1,"- Long-running commands (`npx create-next-app`, `npm install`, `npm run dev`, `npx vercel`) **must** use `run_in_backgro"
+@dosu/cli,1,"> - **npm** (cross-platform, needs Node 18+): `npm install -g @dosu/cli`"
+neonctl,1,- **CLI:** `npm i -g neonctl`
+@helpfeel/cosense-cli,1,- 事前に `npm install -g @helpfeel/cosense-cli` でインストールしておく
+ant-design-vue,1,- 👤 **需要你来操作：** 执行 `npm i --save ant-design-vue@4.x`。
+axios,1,- 👤 **需要你来操作：** 执行 `npm install axios` 和 `npm install --save-dev @umijs/openapi`。
+@umijs/openapi,1,- 👤 **需要你来操作：** 执行 `npm install axios` 和 `npm install --save-dev @umijs/openapi`。
+@typescript-eslint/parser,1,- Install parser: `npm install --save-dev @typescript-eslint/parser`
+babel-plugin-react-compiler,1,Install: `pnpm add -D babel-plugin-react-compiler`. Auto-memoizes components and hooks - no manual `useMemo`/`useCallbac
+hyperellipse,1,1. Install: `npm install hyperellipse` (or `bun` / `pnpm`)
+@scope/package-b-v2,1,1. Install replacement: `yarn add @scope/package-b-v2`
+@clerk/nextjs,1,**Resolution**: RESOLVED - Added package with `npm install @clerk/nextjs`
+cypress,1,1. `npm install --save-dev cypress` — install
+@kood/color-cli,1,compatibility: Requires Bash tool. @kood/color-cli must be installed globally (`npm i -g @kood/color-cli`).
+@unity/cli,1,- **Fix**: Run `npm install -g @unity/cli` or download binary from https://docs.unity.com/cli.
+@mozilla/readability,1,- **`Module not found`** → run `pnpm add defuddle @mozilla/readability turndown turndown-plugin-gfm jsdom` (or `npm inst
+turndown,1,- **`Module not found`** → run `pnpm add defuddle @mozilla/readability turndown turndown-plugin-gfm jsdom` (or `npm inst
+turndown-plugin-gfm,1,- **`Module not found`** → run `pnpm add defuddle @mozilla/readability turndown turndown-plugin-gfm jsdom` (or `npm inst
+jira-adf-validator,1,- **jira_adf_validator**: `npm install -g jira-adf-validator`
+duckdb,1,- **Node.js**: `npm install duckdb`
+twd-js,1,1. `npm install twd-js`
+twd-relay,1,2. `npm install --save-dev twd-relay`
+localtunnel,1,| Install | `brew install ngrok` + free account at ngrok.com | Zero install (`npx localtunnel`) |
+@tiptap/core,1,> **Install ordering trap (any TipTap upgrade).** Running `npm install @tiptap/core@3 @tiptap/starter-kit@3 ...` against
+@tiptap/starter-kit,1,> **Install ordering trap (any TipTap upgrade).** Running `npm install @tiptap/core@3 @tiptap/starter-kit@3 ...` against
+@wellgrow/cli,1,| `wellgrow: command not found` | `npm install -g @wellgrow/cli` を再実行。Node.js のグローバル bin が PATH に含まれているか確認 |
+@google/clasp,1,| `clasp: command not found` | `npm install -g @google/clasp` を実行 |
+@agent-canvas/cli,1,- Otherwise → `npm install -g @agent-canvas/cli@0.6.0`
+@difflabai/ats-cli,1,"- **""ats: command not found""** — Install the CLI: `npm install -g @difflabai/ats-cli`"
+cisco-dime,1,"> ""This workflow needs cisco-dime which isn't installed. Install it with: `npm install -g cisco-dime`"""
+json-variables,1,"For provisioning multiple items, use templates with CSV files. Requires optional packages: `npm install json-variables c"
+csv-parse,1,"For provisioning multiple items, use templates with CSV files. Requires optional packages: `npm install json-variables c"
+@clerk/clerk-react,1,**Install:** `npm install @clerk/clerk-react`
+convex-test,1,**Install:** `npm install convex-test vitest --save-dev`
+@volcengine/cli,1,"If `ve login` fails (network error, non-interactive terminal, version too old), or the user explicitly asks for a differ"
+@volcengine/ark-cli,1,- 安装: `npm i @volcengine/ark-cli -g`（公开版）
+@gw-tools/gw,1,| gw command not found   | `which gw`                  | `npm install -g @gw-tools/gw`                                  
+@testing-library/jest-dom,1,`npm install -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event vitest-axe`
+@testing-library/user-event,1,`npm install -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event vitest-axe`
+vitest-axe,1,`npm install -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event vitest-axe`
+@strudel/web,1,1. `npm install @strudel/web`
+@stoplight/spectral-cli,1,- Spectral installed (`npm install -g @stoplight/spectral-cli`)
+@openwebf/webf-share,1,- Example: `npm install @openwebf/webf-share`
+@openwebf/react-core-ui,1,- **@openwebf/react-core-ui**: Install with `npm install @openwebf/react-core-ui`
+@tomasward/whoop-cli,1,"- If `whoop` is not found, tell the user to install: `npm install -g @tomasward/whoop-cli`."
+@blecsd/media,1,**Install:** `pnpm add @blecsd/media`
+@blecsd/audio,1,**Install:** `pnpm add @blecsd/audio`
+@blecsd/game,1,**Install:** `pnpm add @blecsd/game`
+@blecsd/ai,1,**Install:** `pnpm add @blecsd/ai`
+@openai/agents,1,* TypeScript: `npm install @openai/agents`
+@youdotcom-oss/langchain,1,**Fix**: Install with your package manager: `npm install @youdotcom-oss/langchain @langchain/core langchain`
+@napi-rs/canvas,1,| 封面图生成 SVG 而非 PNG/JPEG | 可选依赖未安装，运行 `cd ${SKILL_DIR}/scripts && npm install @napi-rs/canvas` 或接受 SVG 格式 |
+geekbot-cli,1,- **CLI not found**: Install via `npm install -g geekbot-cli` (requires
+@internal/extension-author-tools,1,`prisma-8-check-pins` (shipped by `@internal/extension-author-tools` — install with `pnpm add -D @internal/extension-aut
+apify-client,1,3. **Dependencies**: Run `npm install apify-client` in the Organized Codebase root
+@alipay/agent-payment,1,- `npm install @alipay/agent-payment@1.0.0`
+vite-plugin-db,1,"For Vite projects, `vite-plugin-db` auto-provisions a database on `vite dev` if `DATABASE_URL` is missing. Install with "
+@gitbeaker/cli,1,- 如果没有安装 gitbeaker，必须先执行 `npm install -g @gitbeaker/cli` 进行安装
+jira.js,1,- 缺少 `jira.js` 时，脚本会自动执行 `npm install jira.js`
+@programasweights/web,1,Browser / JavaScript: `npm install @programasweights/web`. Functions compiled with
+@better-i18n/next,1,| `@better-i18n/next` | 0.7.2 | `npm install @better-i18n/next@0.7.2` |
+@better-i18n/use-intl,1,| `@better-i18n/use-intl` | 0.5.0 | `npm install @better-i18n/use-intl@0.5.0` |
+@better-i18n/core,1,| `@better-i18n/core` | 0.5.0 | `npm install @better-i18n/core@0.5.0` |
+@better-i18n/expo,1,| `@better-i18n/expo` | 0.7.5 | `npm install @better-i18n/expo@0.7.5` |
+@better-i18n/sdk,1,| `@better-i18n/sdk` | 3.2.0 | `npm install @better-i18n/sdk@3.2.0` |
+tigeropen,1,"- npm: `npm install tigeropen` | Node.js 16+, ESM/CommonJS"
+apaas-oapi-client,1,2. **安装 SDK**：`npm install apaas-oapi-client@^0.1.37`（`schema` 模块从 0.1.37 开始提供，低版本会报 `Cannot read properties of undefine
+@perplexityai/perplexity,1,Install: `pip install perplexityai` (Python) or `npm install @perplexityai/perplexity` (TypeScript/JavaScript).
+@tavily/core,1,Install: `pip install tavily-python` (Python) or `npm i @tavily/core` (JavaScript).
+@klingai/cli-cn,1,| 中国区 | https://klingai.com | 账号登录 klingai.com（中国大陆） | `npm i -g @klingai/cli-cn --registry=https://registry.npmjs.org` 
+@klingai/cli-global,1,| 非中国区 | https://kling.ai | 账号登录 kling.ai（海外站 / global） | `npm i -g @klingai/cli-global --registry=https://registry.npmj
+agent-message,1,**Install**: `npm install -g agent-message`
+zustand,1,- **状态管理库未安装**：在项目中运行 `pnpm install zustand`
+@tursodatabase/database,1,| JavaScript (Node.js) | `@tursodatabase/database` | `npm i @tursodatabase/database` |
+@tursodatabase/serverless,1,| Serverless / Edge | `@tursodatabase/serverless` | `npm i @tursodatabase/serverless` |
+@tursodatabase/sync,1,| JavaScript Sync (local-first/offline-first) | `@tursodatabase/sync` | `npm i @tursodatabase/sync` |
+@tursodatabase/database-wasm,1,| WASM (Browser) | `@tursodatabase/database-wasm` | `npm i @tursodatabase/database-wasm` |
+@tursodatabase/sync-wasm,1,| WASM + Sync (local-first/offline-first) | `@tursodatabase/sync-wasm` | `npm i @tursodatabase/sync-wasm` |
+@tursodatabase/sync-react-native,1,| React Native | `@tursodatabase/sync-react-native` | `npm i @tursodatabase/sync-react-native` |
+@fluentui/react-components,1,Install: `npm install @fluentui/react-components`
+@salesforce/agentforce-conversation-client,1,2. Add the package: `npm install @salesforce/agentforce-conversation-client`.
+@proggarapsody/bitbottle,1,`npm install -g @proggarapsody/bitbottle` installs the CLI and
+bullmq,1,`yarn add bullmq` — requires Redis 5.0+ with `maxmemory-policy=noeviction`.
+@honcho-ai/sdk,1,| `Cannot find module '@honcho-ai/sdk'` | Peer dep missing — `@honcho-ai/vercel-ai-sdk` requires `@honcho-ai/sdk` to res
+@honcho-ai/vercel-ai-sdk,1,"| Insert `import { createHoncho } from ""@honcho-ai/vercel-ai-sdk""` without confirming the package is installed | If the "
+nansen-cli,1,- ONLY run `npm install -g nansen-cli` AFTER the user approves. NEVER install silently.
+@hubspot/cli,1,- HubSpot CLI v7.6.0+: `npm install -g @hubspot/cli@latest`
+cerul,1,- [TypeScript SDK](https://www.npmjs.com/package/cerul) — `npm install cerul`
+@xmtp/convos-cli,1,Not installed. Run `npm install -g @xmtp/convos-cli`.
+xyz,1,Suggested fix: Run `npm install xyz` and redeploy
+react-native-reanimated,1,**Install**: `pnpm add react-native-reanimated` (included with Expo SDK 54+)
+@radix-ui/react-slot,1,2. **`forwardRef + asChild` for polymorphism** — mirror Vireya's pattern (see e.g. `Button` exporting `IButtonProps`). U
+langsmith,1,1. Install SDK: `pip install -U langsmith` (Python) or `npm install langsmith` (TypeScript)
+eslint-plugin-obsidianmd,1,| Install ESLint | `npm install --save-dev eslint eslint-plugin-obsidianmd` |
+@jackwener/wx-cli,1,"1. **wx-cli installed** — run `wx --version`. If missing, tell the user to install it themselves (`npm install -g @jackw"
+livetennisapi,1,- **JavaScript client:** `npm install livetennisapi` — [livetennisapi-js](https://github.com/livetennisapi/livetennisapi
+livetennisapi-ai,1,- **Vercel AI SDK tools:** `npm install livetennisapi-ai` — [livetennisapi-ai](https://github.com/livetennisapi/livetenn
+affine-mcp-server,1,- Update to latest version: `npm i -g affine-mcp-server@latest`
+continues,1,1. Update to latest: `npm install -g continues@latest`
+web3-devkit-cli,1,4. Reinstall globally: `npm install -g web3-devkit-cli`
+@box0/cli,1,| `b0: command not found` | Run `npm install -g @box0/cli@latest` |
+@sentry/node,1,1. Install: `npm install @sentry/node @sentry/profiling-node`
+@sentry/profiling-node,1,1. Install: `npm install @sentry/node @sentry/profiling-node`
+@rds-vue-ui/rds-theme-base,1,- `yarn add @rds-vue-ui/rds-theme-base`
+sass-embedded,1,- `yarn add -D sass-embedded` (if build fails on SCSS preprocessing).
+@alchemy/cli,1,"| Neither CLI nor MCP is available | install `alchemy-cli` (`npm i -g @alchemy/cli`), then use `alchemy-cli` |"
+downshift,1,- Install: `npm install downshift`
+@githubnext/github-copilot-cli,1,| `copilot --version` fails | **STOP.** Ask the user to install GitHub Copilot CLI: `npm install -g @githubnext/github-c
+slidev-theme-name,1,- Ensure theme is installed: `npm install slidev-theme-name`
+payram,1,- Installed the Payram SDK: `npm install payram`
+@syncfusion/ej2-react-popups,1,- Installation: `npm install @syncfusion/ej2-react-popups`
+@syncfusion/ej2-react-layouts,1,**Installation:** `npm install @syncfusion/ej2-react-layouts --save`
+@syncfusion/ej2-react-buttons,1,- Installing `@syncfusion/ej2-react-buttons` 🛑 *STOP — Do not install packages autonomously. Ask the user to run: `npm i
+@syncfusion/ej2-angular-circulargauge,1,1. Install package: `npm install @syncfusion/ej2-angular-circulargauge`
+oh-my-opencode,1,- **If `oh-my-opencode` is not in PATH**: report the error clearly and suggest installing via `npm install -g oh-my-open
+checkout-intents,1,| TypeScript | `checkout-intents` | `npm install checkout-intents` |
+coding-agent-harness,1,允许 `npm install -g coding-agent-harness`。未获明确同意时，用
+@aspect-build/resvg,1,"> ""No SVG-to-PNG converter found. Install one of: `npm install -g @aspect-build/resvg`, or install Inkscape, or install "
+@whop/sdk,1,| `@whop/sdk` | Server-side API client (TypeScript) | `npm install @whop/sdk` |
+@whop/checkout,1,| `@whop/checkout` | Embedded checkout React component | `npm install @whop/checkout` |
+@whop/embedded-components-react-js,1,| `@whop/embedded-components-react-js` | Embedded payout/wallet/KYC/chat components (React) | `npm install @whop/embedde
+@whop/embedded-components-vanilla-js,1,| `@whop/embedded-components-vanilla-js` | Embedded components (Vanilla JS) | `npm install @whop/embedded-components-van
+@sap/joule-studio-cli,1,- Joule CLI installed: `npm install -g @sap/joule-studio-cli`
+@camunda8/sdk,1,4. For Node.js: `npm install @camunda8/sdk@^8.8.0 express`
+@camunda8/cli,1,5. Verify c8ctl is installed: `c8 --version` (if not: `npm install @camunda8/cli -g`)
+@remotion/cli,1,| Remotion | `npm install remotion @remotion/cli @remotion/player` | Video composition |
+@remotion/player,1,| Remotion | `npm install remotion @remotion/cli @remotion/player` | Video composition |
+@argo-video/cli,1,1. **`@argo-video/cli`** in `devDependencies` — install with `npm i -D @argo-video/cli` if missing
+deno,1,> - Install: `npm i -g deno`
+context-overflow-cli,1,Install: `npm i -g context-overflow-cli` or `pnpm i -g context-overflow-cli`
+bknd,1,- `bknd` package installed: `npm install bknd`
+uifork,1,1. Install uifork: `npm install uifork`
+swr,1,1. Run `npm install swr` (or the project's package manager equivalent)
+@neo4j/graphql-ogm,1,Install separately: `npm install @neo4j/graphql-ogm`
+@outlit/cli,1,Customer intelligence from the terminal. Install: `npm i -g @outlit/cli`
+@liaisonio/cli,1,Both `npm i -g @liaisonio/cli` and the curl installer also pre-populate
+@ai-sdk/react,1,| `ai` module not found | Missing Vercel AI SDK | `npm install ai @ai-sdk/openai @ai-sdk/react` |
+dev,1,2. **Existing Next.js app?** Add Convex via `npm install convex` + `npx convex dev`.
+clawbase-relay,1,| `command not found` | `npm install -g clawbase-relay` |
+tronweb,1,- `tronweb` - TRON JavaScript SDK (`npm install tronweb`)
+@bankofai/agent-wallet,1,2. Run `npm install -g @bankofai/agent-wallet` to install the Agent Wallet CLI.
+surrealdb,1,install without pinning (`npm i surrealdb`) unless the user requires a specific
+autoevals,1,"`autoevals` provides ready-made scorers: `Levenshtein`, `Factuality`, and others. Install with `pnpm add -D autoevals`."
+@anthropic-ai/copilot-cli,1,1. **Copilot CLI installed**: `npm install -g @anthropic-ai/copilot-cli` or via GitHub
+react-call,1,`npm install react-call`.
+@aigne/cli,1,- 确保 AIGNE CLI 已安装：`npm install -g @aigne/cli`
+cline,1,"If the `cline` CLI is installed (`npm install -g cline`), runs it directly. Otherwise copies the fix prompt to clipboard"
+json-logic-js,1,Requires: `npm install json-logic-js`
+xreach-cli,1,- **xreach** (`npm i -g xreach-cli`) — Twitter/X data. Requires auth: `xreach auth`
+supertest,1,1. **Install** - `npm install --save-dev jest supertest`
+bcryptjs,1,1. **Install** - `npm install jsonwebtoken bcryptjs`
+mongoose,1,1. **Install** - `npm install mongoose`
+@chenglou/pretext,1,- Install when needed: `npm install @chenglou/pretext`
+@cerebras/cerebras_cloud_sdk,1,| TypeScript SDK | `npm install @cerebras/cerebras_cloud_sdk` |
+@noxinfluencer/cli,1,"1. **No CLI installed** → Tell user to run `npm install -g @noxinfluencer/cli` in their terminal. In the same reply, dir"
+genkit,1,"-   If not found, install it globally: `npm install -g genkit`."
+commander,1,如果确实无法找到依赖，可以尝试 `npm i puppeteer commander --no-save`。
+jbctl,1,"If `bun` is unavailable, use `npm i -g jbctl`."
+@steipete/bird,1,1. Install bird: `npm install -g @steipete/bird`
+hoosat-sdk,1,| **Node.js** | `hoosat-sdk` | `npm install hoosat-sdk` |
+hoosat-sdk-web,1,| **Browser** | `hoosat-sdk-web` | `npm install hoosat-sdk-web` |
+tailwind-merge,1,"**On failure:** If `clsx` or `tailwind-merge` are not found, run `npm install clsx tailwind-merge`. If TypeScript report"
+qrcode,1,- Node import error → ensure `npm install qrcode` completed
+telegraf,1,- Install: `npm install telegraf`
+openadviser,1,1. Installed the CLI: `npm install -g openadviser`
+ink,1,5. **Install both `ink` and `react`.** They are peer dependencies: `npm install ink react`.
+repomix,1,- `repomix`: `npm install -g repomix`
+@xmindltd/xmind-cli,1,- xmind CLI installed (`npm i -g @xmindltd/xmind-cli`)
+markdownlint-cli,1,- Install markdownlint: `npm install -g markdownlint-cli`
+mta,1,- MTA tool: `npm i -g mta`
+@inkeep/open-knowledge,1,> Skill version tracks `@inkeep/open-knowledge-server`. `cat ~/.ok/skill-state.yml` shows what's installed. `ok seed` ne
+@baidu/mapv-three,1,9. **版本确认**：当用户遇到 API 不存在、参数不生效等问题时，优先让用户确认 `@baidu/mapv-three` 的版本（`npm list @baidu/mapv-three`）。内网 npm 安装时必须加 `@latest
+@dynatrace/react-native-plugin,1,- **Under `devDependencies`:** Remove it and run `npm install @dynatrace/react-native-plugin`. The plugin is required at
+@anthropic-ai/mcp-playwright,1,| Playwright errors | Run `npm install -g @anthropic-ai/mcp-playwright` |
+plaid,1,- [ ] Install Plaid SDK: `npm install plaid react-plaid-link`
+react-plaid-link,1,- [ ] Install Plaid SDK: `npm install plaid react-plaid-link`
+aiusd-pro,1,"If `aiusd-pro` is already in PATH (via `npm install -g aiusd-pro`), you may use `aiusd-pro` directly instead."
+napkin-ai,1,Install: `npm install -g napkin-ai`
+lark-hirono,1,"If not found, install with `npm install -g lark-hirono`; and update to latest via `npm update -g lark-hirono`"
+@reflexautomation/browser-cli,1,- `npm install -g @reflexautomation/browser-cli`
+@backnotprop/orchestrator-cli,1,install it with `npm install -g @backnotprop/orchestrator-cli`.
+@dokploy/cli,1,| CLI install | `npm install -g @dokploy/cli` |
+@every-env/spiral-cli,1,"- **Unauthed** → the agent runs `spiral login --json` (CLI >= 1.8.0; non-blocking, the API key never passes through the "
+@openclaw/flyai,1,- **FlyAI CLI**: Must be installed globally (`npm install -g @openclaw/flyai`)
+questlog-ai,1,"**Note:** In containerized environments, `ql` may be lost on rebuild. Just `npm install -g questlog-ai` again. Your conf"
+@openduo/finflow,1,"1. **Run via Bash**: `finflow <command>` — if not found, install first with `npm install -g @openduo/finflow`"
+hexo-cli,1,- Hexo CLI installed globally (`npm install -g hexo-cli`)
+clawhub,1,- **ClawHub**: `clawhub` (via `npm i -g clawhub`)
+md-to-pdf,1,"> ""No PDF tool found. Install one with: `npm i -g md-to-pdf` (recommended), `brew install typst`, or `pip install weasyp"
+genmedia,1,"Always exits 0 — it's a report, not a gate. `chrome` and `node` are **REQUIRED**: if either is missing, stop and help th"
+mdx2vast,1,"- In order to use Vale, you must download the Vale binary and install `mdx2vast` globally. `pnpm run vale:download`, `np"
+supermemory-mcp,1,| 13 | [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory) | ~16.7K | Cross-session persistent mem
+@astrojs/react,1,"If Astro is the framework and `@astrojs/react` is absent, the CLI runs `npm install --save @astrojs/react` without promp"
+@webflow/webflow-cli,1,- [ ] Install dependencies if needed: `npm i --save-dev @webflow/webflow-cli @webflow/data-types @webflow/react`
+@webflow/data-types,1,- [ ] Install dependencies if needed: `npm i --save-dev @webflow/webflow-cli @webflow/data-types @webflow/react`

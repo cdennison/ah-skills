@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import functools
 import json
 import os
 import subprocess
@@ -36,6 +37,9 @@ import sys
 import time
 from collections import defaultdict
 from pathlib import Path
+
+# line-buffered stdout so `nohup ... > log` shows batch progress live
+print = functools.partial(print, flush=True)  # noqa: A001
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent

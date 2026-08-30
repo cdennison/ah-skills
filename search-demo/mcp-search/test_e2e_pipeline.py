@@ -220,6 +220,13 @@ class TestRegistryData:
             "not a broken test -- verify at https://osv.dev before assuming this assertion is stale)"
         )
         assert "@modelcontextprotocol/sdk" in (refreshed_row.get("security_direct_deps_with_vulns") or [])
+        # Findings 7/8: the dep pass also aggregates severity + ids, kept
+        # separate from the package-own security_max_severity above.
+        assert refreshed_row.get("security_direct_deps_max_severity") == "HIGH", (
+            "@modelcontextprotocol/sdk's advisories were HIGH when this was written "
+            "(GHSA-345p-7cg4-v4c7 et al.) -- re-check osv.dev if this legitimately changed"
+        )
+        assert refreshed_row.get("security_direct_deps_vuln_ids"), "dep advisory ids not collected"
 
     def test_readme_already_fetched(self, refreshed_row):
         # Not re-fetched by this test (download_readmes.py's job, not
@@ -270,6 +277,8 @@ class TestQdrantPayload:
         assert payload.get("security_direct_deps_scanned") is not None
         assert payload.get("security_direct_deps_vuln_count") is not None
         assert "@modelcontextprotocol/sdk" in (payload.get("security_direct_deps_with_vulns") or [])
+        assert payload.get("security_direct_deps_max_severity") == "HIGH"
+        assert payload.get("security_direct_deps_vuln_ids")
 
     def test_three_timestamps_in_payload(self, payload):
         for field in ("readme_updated", "stars_updated", "downloads_updated", "security_updated"):

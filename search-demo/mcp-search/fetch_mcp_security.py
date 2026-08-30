@@ -43,7 +43,17 @@ package's DECLARED direct dependencies straight from its own manifest
 pypi.org/pypi/<pkg>/json's `info.requires_dist`, extras/env-marker-gated
 entries excluded since a plain install doesn't pull those in) and checks
 each of THOSE by name against OSV too -- see fetch_direct_dependencies()/
-fetch_osv_scan_with_deps(). This is genuinely NOT a full dependency tree:
+fetch_osv_scan_with_deps(). The dependency pass records
+security_direct_deps_scanned/vuln_count/with_vulns, plus
+security_direct_deps_max_severity (highest severity label seen across ALL
+dep advisories -- distinct from security_max_severity, which stays
+package-own) and security_direct_deps_vuln_ids (deduped, capped at
+MAX_DEP_VULN_IDS). For a package that is itself clean but has vulnerable
+dependencies (the common supply-chain case -- e.g. @upstash/context7-mcp:
+0 own vulns, 44 across 4 of 8 direct deps) the entire security story is in
+those dep fields, so they're written unconditionally on every with-deps
+scan (empty list / null severity is a real "checked, nothing", not a skip).
+This is genuinely NOT a full dependency tree:
 no version-range resolution, no transitive walk past depth 1 (a
 dependency's own dependencies are never fetched). Going further would mean
 either reimplementing npm/pip's semver resolver (its own substantial
@@ -91,6 +101,10 @@ MAX_DIRECT_DEPS_SCANNED = 40  # sanity cap, not a real-world limiter -- an
 # MCP server package normally declares single digits of direct deps; this
 # only guards against a pathological/malformed manifest turning one row
 # into dozens of extra OSV calls.
+MAX_DEP_VULN_IDS = 60  # cap on security_direct_deps_vuln_ids -- a triage
+# pointer ("which advisories are downstream"), not an exhaustive audit
+# feed; a handful of vulnerable deps can already carry dozens of advisory
+# ids each and the full list belongs in an OSV lookup, not this payload.
 _PYPI_DEP_NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*")
 
 
@@ -158,11 +172,22 @@ def fetch_direct_dependencies(pkg: str, ecosystem: str, limiter) -> list[str]:
 def fetch_osv_scan_with_deps(pkg: str, ecosystem: str, limiter, fallback_deps: list[str] | None = None) -> dict:
     """fetch_osv_scan() on `pkg` itself, PLUS a pass over its direct
     dependencies (fetch_direct_dependencies()) -- each dependency name is
-    checked against OSV the same way `pkg` is. Adds security_direct_deps_
-    scanned/vuln_count/with_vulns to the result; a dependency contributing
-    a vuln is named explicitly (with_vulns), not just counted, so a human
-    reviewing this row knows WHICH dependency to look at, not just that
-    "something downstream" is flagged.
+    checked against OSV the same way `pkg` is. Adds these keys to the
+    result, all written unconditionally (an empty/null value is a real
+    "scanned, nothing found," never a skip):
+      - security_direct_deps_scanned    (int)       how many dep names checked
+      - security_direct_deps_vuln_count (int)       total advisories across them
+      - security_direct_deps_with_vulns (list[str]) WHICH deps carry vulns --
+          named, not just counted, so a human knows where to look
+      - security_direct_deps_max_severity (str|None) highest OSV severity
+          label seen across ALL dep advisories (CRITICAL>HIGH>MODERATE>LOW),
+          None if none of them carried a label. Deliberately SEPARATE from
+          security_max_severity (which stays "the package's own"): for a
+          clean package with vulnerable deps, security_max_severity is null
+          and this is where the real severity signal lives.
+      - security_direct_deps_vuln_ids   (list[str]) the dep advisory ids,
+          deduped, capped at MAX_DEP_VULN_IDS -- a triage pointer, not an
+          exhaustive feed.
 
     `fallback_deps` (enrich_from_repo_scan.py's `pyproject_dependencies`) is
     used when the package manager registry has no manifest to read -- i.e. a
@@ -177,15 +202,27 @@ def fetch_osv_scan_with_deps(pkg: str, ecosystem: str, limiter, fallback_deps: l
         dep_names = list(dict.fromkeys(fallback_deps))[:MAX_DIRECT_DEPS_SCANNED]
     deps_with_vulns = []
     dep_vuln_total = 0
+    dep_vuln_ids: list[str] = []
+    deps_best_severity = None
+    deps_best_rank = 0
     for dep_name in dep_names:
         dep_scan = fetch_osv_scan(dep_name, ecosystem, limiter)
         if dep_scan["security_vuln_count"] > 0:
             deps_with_vulns.append(dep_name)
             dep_vuln_total += dep_scan["security_vuln_count"]
+            dep_vuln_ids.extend(dep_scan["security_vuln_ids"])
+            # dep_scan only carries security_max_severity when at least one
+            # of that dep's advisories had a label (see fetch_osv_scan) --
+            # absence contributes rank 0, never a fabricated floor.
+            rank = SEVERITY_RANK.get(dep_scan.get("security_max_severity"), 0)
+            if rank > deps_best_rank:
+                deps_best_rank, deps_best_severity = rank, dep_scan["security_max_severity"]
 
     own["security_direct_deps_scanned"] = len(dep_names)
     own["security_direct_deps_vuln_count"] = dep_vuln_total
     own["security_direct_deps_with_vulns"] = deps_with_vulns
+    own["security_direct_deps_max_severity"] = deps_best_severity
+    own["security_direct_deps_vuln_ids"] = list(dict.fromkeys(dep_vuln_ids))[:MAX_DEP_VULN_IDS]
     return own
 
 

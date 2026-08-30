@@ -228,6 +228,12 @@ def load_points(registry_rows: list[dict], skip_ids: set[str] | None = None):
             "security_direct_deps_scanned": entry.get("security_direct_deps_scanned"),
             "security_direct_deps_vuln_count": entry.get("security_direct_deps_vuln_count"),
             "security_direct_deps_with_vulns": entry.get("security_direct_deps_with_vulns"),
+            # Highest OSV severity across the dep advisories, and their ids
+            # (deduped/capped). security_max_severity above stays the
+            # package's own -- for a clean package with vulnerable deps that
+            # is null and this is where the severity signal lives.
+            "security_direct_deps_max_severity": entry.get("security_direct_deps_max_severity"),
+            "security_direct_deps_vuln_ids": entry.get("security_direct_deps_vuln_ids"),
             # Three independent "last checked" clocks -- deliberately not
             # collapsed into one "last_updated" field, since each reflects a
             # different fetch running on its own schedule against a
@@ -281,6 +287,7 @@ RANKING_FIELDS = (
     "stars", "weekly_downloads", "monthly_downloads", "npm_dependents", "npm_score_final", "downloads_source",
     "language", "security_vuln_count", "security_vuln_ids", "security_max_severity", "security_source",
     "security_direct_deps_scanned", "security_direct_deps_vuln_count", "security_direct_deps_with_vulns",
+    "security_direct_deps_max_severity", "security_direct_deps_vuln_ids",
     "stars_updated", "downloads_updated", "security_updated",
 )
 RANKING_OP_BATCH = 1000  # operations per batch_update_points call -- these

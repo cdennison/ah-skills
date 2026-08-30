@@ -91,6 +91,17 @@ class McpPayload(BaseModel):
     security_vuln_ids: tuple[str, ...] | None = None
     security_max_severity: str | None = None
 
+    # Direct-dependency pass of the same OSV scan. For a package that is
+    # itself clean but ships vulnerable deps (e.g. @upstash/context7-mcp:
+    # 0 own, 44 across 4 deps) the whole security story is here.
+    # security_direct_deps_max_severity is kept separate from
+    # security_max_severity above (which stays package-own).
+    security_direct_deps_scanned: int | None = None
+    security_direct_deps_vuln_count: int | None = None
+    security_direct_deps_with_vulns: tuple[str, ...] | None = None
+    security_direct_deps_max_severity: str | None = None
+    security_direct_deps_vuln_ids: tuple[str, ...] | None = None
+
 
 @dataclass(frozen=True, slots=True)
 class McpSearchResult:
@@ -123,6 +134,11 @@ class McpSearchResult:
     security_vuln_count: int | None
     security_vuln_ids: tuple[str, ...] | None
     security_max_severity: str | None
+    security_direct_deps_scanned: int | None
+    security_direct_deps_vuln_count: int | None
+    security_direct_deps_with_vulns: tuple[str, ...] | None
+    security_direct_deps_max_severity: str | None
+    security_direct_deps_vuln_ids: tuple[str, ...] | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -199,6 +215,11 @@ def build_search_result(*, rank: int, payload: McpPayload, score: float | None) 
         security_vuln_count=payload.security_vuln_count,
         security_vuln_ids=payload.security_vuln_ids,
         security_max_severity=payload.security_max_severity,
+        security_direct_deps_scanned=payload.security_direct_deps_scanned,
+        security_direct_deps_vuln_count=payload.security_direct_deps_vuln_count,
+        security_direct_deps_with_vulns=payload.security_direct_deps_with_vulns,
+        security_direct_deps_max_severity=payload.security_direct_deps_max_severity,
+        security_direct_deps_vuln_ids=payload.security_direct_deps_vuln_ids,
     )
 
 

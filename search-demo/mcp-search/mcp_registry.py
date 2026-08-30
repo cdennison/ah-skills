@@ -409,8 +409,19 @@ def set_security_scan(
     security_vuln_count (int), security_vuln_ids (list[str], e.g.
     ["GHSA-...", "PYSEC-..."]), security_max_severity (one of "CRITICAL"/
     "HIGH"/"MODERATE"/"LOW", or absent if OSV had no severity label for any
-    finding). A package with zero known vulnerabilities is a real,
-    meaningful result (not a fetch failure) -- callers should pass
+    finding) -- all three describe the PACKAGE'S OWN advisories.
+
+    A with-deps scan (fetch_osv_scan_with_deps) also lands the direct-
+    dependency pass: security_direct_deps_scanned (int),
+    security_direct_deps_vuln_count (int), security_direct_deps_with_vulns
+    (list[str] -- which deps), security_direct_deps_max_severity (str|None --
+    highest label across ALL dep advisories, kept SEPARATE from the
+    package-own security_max_severity), security_direct_deps_vuln_ids
+    (list[str], deduped + capped). These are written unconditionally by that
+    scan (empty list / null severity == "checked, nothing," not a skip).
+
+    A package with zero known vulnerabilities is a real, meaningful result
+    (not a fetch failure) -- callers should pass
     {"security_vuln_count": 0, "security_vuln_ids": []} for that case, not
     skip the call, so "field present" always means "this package's package
     manager registry was actually checked," not "checking was attempted."

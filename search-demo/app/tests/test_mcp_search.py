@@ -31,6 +31,12 @@ def _full_payload() -> McpPayload:
         security_vuln_count=0,
         security_vuln_ids=(),
         security_max_severity=None,
+        # clean package, vulnerable deps -- the context7 shape (Finding 7/8)
+        security_direct_deps_scanned=8,
+        security_direct_deps_vuln_count=44,
+        security_direct_deps_with_vulns=("zod", "jose", "undici", "express"),
+        security_direct_deps_max_severity="HIGH",
+        security_direct_deps_vuln_ids=("GHSA-qw6g-c8x8-2rxj", "GHSA-9r9j-wr3f-mm4v"),
     )
 
 
@@ -46,6 +52,12 @@ def test_build_search_result_carries_ranking_and_security_fields() -> None:
     assert result.security_vuln_count == 0
     assert result.security_vuln_ids == ()
     assert result.security_max_severity is None
+    # the package is clean but its deps are not -- Finding 7/8
+    assert result.security_direct_deps_scanned == 8
+    assert result.security_direct_deps_vuln_count == 44
+    assert result.security_direct_deps_with_vulns == ("zod", "jose", "undici", "express")
+    assert result.security_direct_deps_max_severity == "HIGH"
+    assert result.security_direct_deps_vuln_ids == ("GHSA-qw6g-c8x8-2rxj", "GHSA-9r9j-wr3f-mm4v")
 
 
 def test_mcp_payload_defaults_when_row_never_enriched() -> None:
@@ -56,6 +68,11 @@ def test_mcp_payload_defaults_when_row_never_enriched() -> None:
     assert payload.security_source is None
     assert payload.security_vuln_count is None
     assert payload.security_vuln_ids is None
+    assert payload.security_direct_deps_scanned is None
+    assert payload.security_direct_deps_vuln_count is None
+    assert payload.security_direct_deps_with_vulns is None
+    assert payload.security_direct_deps_max_severity is None
+    assert payload.security_direct_deps_vuln_ids is None
     assert payload.transport is None
 
 
@@ -74,6 +91,13 @@ def test_to_mcp_hit_maps_new_fields() -> None:
     assert hit.security_vuln_count == 0
     assert hit.security_vuln_ids == ()
     assert hit.security_max_severity is None
+    # Finding 7/8: the dependency-vuln signal must reach the hit -- for
+    # context7 the package is clean and this is the whole security story.
+    assert hit.security_direct_deps_scanned == 8
+    assert hit.security_direct_deps_vuln_count == 44
+    assert hit.security_direct_deps_with_vulns == ("zod", "jose", "undici", "express")
+    assert hit.security_direct_deps_max_severity == "HIGH"
+    assert hit.security_direct_deps_vuln_ids == ("GHSA-qw6g-c8x8-2rxj", "GHSA-9r9j-wr3f-mm4v")
 
 
 def test_to_mcp_hit_when_security_fields_present() -> None:
@@ -91,6 +115,33 @@ def test_to_mcp_hit_when_security_fields_present() -> None:
     assert hit.security_vuln_count == 3
     assert hit.security_max_severity == "HIGH"
     assert hit.security_vuln_ids == ("GHSA-aaaa-bbbb-cccc", "GHSA-dddd-eeee-ffff", "CVE-2025-0001")
+
+
+def test_to_mcp_hit_clean_package_vulnerable_deps() -> None:
+    """Finding 8: a package with 0 own vulns but flagged dependencies must
+    still surface a non-null severity -- via security_direct_deps_max_severity,
+    NOT by overloading the package-own security_max_severity."""
+    payload = McpPayload(
+        mcp_id="github:upstash/context7",
+        name="context7",
+        security_source="osv",
+        security_vuln_count=0,
+        security_vuln_ids=(),
+        security_max_severity=None,
+        security_direct_deps_scanned=8,
+        security_direct_deps_vuln_count=44,
+        security_direct_deps_with_vulns=("zod", "jose", "undici", "express"),
+        security_direct_deps_max_severity="HIGH",
+        security_direct_deps_vuln_ids=("GHSA-qw6g-c8x8-2rxj",),
+    )
+
+    hit = _to_mcp_hit(build_search_result(rank=1, payload=payload, score=None))
+
+    assert hit.security_vuln_count == 0
+    assert hit.security_max_severity is None  # package-own untouched
+    assert hit.security_direct_deps_vuln_count == 44
+    assert hit.security_direct_deps_max_severity == "HIGH"
+    assert hit.security_direct_deps_with_vulns == ("zod", "jose", "undici", "express")
 
 
 def test_filters_to_qdrant_filter_pushes_down_min_stars() -> None:

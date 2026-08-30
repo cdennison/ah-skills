@@ -525,6 +525,67 @@
               }
             ],
             "title": "Security Max Severity"
+          },
+          "security_direct_deps_scanned": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Security Direct Deps Scanned"
+          },
+          "security_direct_deps_vuln_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Security Direct Deps Vuln Count"
+          },
+          "security_direct_deps_with_vulns": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Security Direct Deps With Vulns"
+          },
+          "security_direct_deps_max_severity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Security Direct Deps Max Severity"
+          },
+          "security_direct_deps_vuln_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Security Direct Deps Vuln Ids"
           }
         },
         "type": "object",
@@ -557,7 +618,12 @@
           "security_source",
           "security_vuln_count",
           "security_vuln_ids",
-          "security_max_severity"
+          "security_max_severity",
+          "security_direct_deps_scanned",
+          "security_direct_deps_vuln_count",
+          "security_direct_deps_with_vulns",
+          "security_direct_deps_max_severity",
+          "security_direct_deps_vuln_ids"
         ],
         "title": "McpHit"
       },

@@ -151,11 +151,20 @@ class McpHit(BaseModel):
     monthly_downloads: int | None
     # OSV.dev scan from fetch_mcp_security.py. security_source == "osv" with
     # security_vuln_count 0 means "scanned, nothing known"; all-null means
-    # "never scanned".
+    # "never scanned". The security_direct_deps_* fields are the direct-
+    # dependency pass: for a package that is itself clean but ships
+    # vulnerable deps, security_vuln_count is 0 / security_max_severity is
+    # null and the real signal is security_direct_deps_vuln_count /
+    # security_direct_deps_max_severity.
     security_source: str | None
     security_vuln_count: int | None
     security_vuln_ids: tuple[str, ...] | None
     security_max_severity: str | None
+    security_direct_deps_scanned: int | None
+    security_direct_deps_vuln_count: int | None
+    security_direct_deps_with_vulns: tuple[str, ...] | None
+    security_direct_deps_max_severity: str | None
+    security_direct_deps_vuln_ids: tuple[str, ...] | None
 
 
 class QueryResponse(BaseModel):
@@ -222,6 +231,11 @@ def _to_mcp_hit(result: McpSearchResult) -> McpHit:
         security_vuln_count=result.security_vuln_count,
         security_vuln_ids=result.security_vuln_ids,
         security_max_severity=result.security_max_severity,
+        security_direct_deps_scanned=result.security_direct_deps_scanned,
+        security_direct_deps_vuln_count=result.security_direct_deps_vuln_count,
+        security_direct_deps_with_vulns=result.security_direct_deps_with_vulns,
+        security_direct_deps_max_severity=result.security_direct_deps_max_severity,
+        security_direct_deps_vuln_ids=result.security_direct_deps_vuln_ids,
     )
 
 

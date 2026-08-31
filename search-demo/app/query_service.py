@@ -25,7 +25,7 @@ OpenAPI schema is served automatically at /openapi.json (FastAPI).
 from typing import Any, Literal
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 import mcp_search
 import search
@@ -93,7 +93,183 @@ class QueryRequest(BaseModel):
     )
 
 
+# One fully-populated example per hit type, for human review of the response
+# shape (rendered into docs/QUERY_SERVICE_API.md by scripts/render_openapi_md.sh).
+# Field values are real observations assembled from the v0.2-v0.4a e2e runs
+# (vettd-e2e/E2E_TEST_PLAN_0{2,3,4}.md): the skill is `affaan-m/ECC/skills/e2e-testing`
+# (the one skill that carries all three scan verdicts); the MCP server is
+# `github:upstash/context7`. `content` / `readme` and the full advisory-id list
+# are truncated for readability; everything else is a real value.
+_SKILL_HIT_EXAMPLE: dict[str, Any] = {
+    "score": 0.87,
+    "rank": 1,
+    "path": "affaan-m/ECC/skills/e2e-testing/SKILL.md",
+    "name": "e2e-testing",
+    "owner": "affaan-m",
+    "repo": "ECC",
+    "repo_url": "https://github.com/affaan-m/ECC",
+    "skill_url": "https://github.com/affaan-m/ECC/blob/HEAD/skills/e2e-testing/SKILL.md",
+    "description": (
+        "Drives end-to-end browser tests with Playwright: installs the runner, "
+        "generates specs from a user story, runs them headless with retries, and "
+        "triages failures. Use when a task needs real-browser verification of a web app."
+    ),
+    "content": "<full SKILL.md text plus any scripts -- truncated in this example>",
+    "sources": ["marketplace", "search"],
+    "stars": 240095,
+    "ranking": "skills_sh_rank=142 skills_sh_skill_count=37 skills_sh_top_installs=5120",
+    "search_rank": {"search_rank_skills_sh_leaderboard": 142},
+    "duplicate_count": 1,
+    "name_collision_count": 0,
+    "name_shared_with": [],
+    "locations": [
+        {
+            "owner": "affaan-m",
+            "repo": "ECC",
+            "path": "affaan-m/ECC/skills/e2e-testing/SKILL.md",
+            "repo_url": "https://github.com/affaan-m/ECC",
+            "skill_url": "https://github.com/affaan-m/ECC/blob/HEAD/skills/e2e-testing/SKILL.md",
+            "sources": ["marketplace", "search"],
+            "stars": 240095,
+            "ranking": "skills_sh_rank=142 skills_sh_skill_count=37 skills_sh_top_installs=5120",
+            "language": "en",
+            "agent_compatibility": ["claude-code"],
+            # The DETERMINISTIC Vettd scan rollup, written per-location by
+            # publish_scans.py (_findings_summary); preserved across a re-index.
+            "vettd_scan_findings": {
+                "scan_id": "scn_01J9Z7Q3K8V2M4N6P8R0T2W4Y6",
+                "overall_grade": "B",
+                "trust_level": "cautious",
+                "has_malicious_findings": False,
+                "finding_count": 4,
+                "severity_counts": {"critical": 0, "high": 0, "medium": 1, "low": 2, "info": 1},
+                "categories_flagged": ["scripts", "best-practices"],
+                "top_findings": [
+                    {
+                        "rule_id": "shell-exec-unpinned-install",
+                        "category": "scripts",
+                        "severity": "medium",
+                        "label": "SKILL.md tells the agent to run 'npx playwright install' without a pinned version",
+                    },
+                    {
+                        "rule_id": "network-egress-undeclared",
+                        "category": "best-practices",
+                        "severity": "low",
+                        "label": "Downloads browser binaries from the Playwright CDN; egress not declared in frontmatter",
+                    },
+                ],
+            },
+        }
+    ],
+    "language": "en",
+    "agent_compatibility": ["claude-code"],
+    # Non-deterministic LLM threat scan (POST /scan/skill). model / prompt_version
+    # / content_sha256 are from the E2E_TEST_PLAN_04 run; the finding is
+    # representative of the shape (a real re-run may return NONE / 0).
+    "llm_scan": {
+        "model": "openrouter/deepseek/deepseek-v3.2",
+        "prompt_version": "37243f9d5700",
+        "scanned_at": "2026-08-30T21:41:26.512874+00:00",
+        "content_sha256": "b0e00e7e17cb259101139900816c5528aed18dd10bcf5f9cb42cfc35baf8a755",
+        "max_severity": "LOW",
+        "finding_count": 1,
+        "primary_threats": ["unpinned-dependency-install"],
+        "overall_assessment": (
+            "Benign testing skill. One low-severity note: instructs the agent to install "
+            "the Playwright CLI globally at an unpinned version, which widens the supply-chain "
+            "surface but is standard practice for this tool."
+        ),
+        "findings": [
+            {
+                "severity": "LOW",
+                "aitech": "AITech-4.3",
+                "aisubtech": "AITech-4.3.2",
+                "title": "Unpinned global CLI install",
+                "description": (
+                    "SKILL.md instructs `npm install -g playwright` with no version constraint; "
+                    "the agent will pull whatever is latest at run time."
+                ),
+                "location": "SKILL.md, 'Setup' section",
+                "evidence": "npm install -g playwright && npx playwright install chromium",
+                "remediation": "Pin the version, e.g. `npm install -g playwright@1.55.0`.",
+            }
+        ],
+    },
+    # CLI/dependency security scan (cli-security-scan/build_cli_export.py).
+    "cli_security": {
+        "grade": "C",
+        "scanned_at": "2026-08-30T21:40:47.315190+00:00",
+        "osv_snapshot_date": "2026-08-30",
+        "packages": [
+            {
+                "package": "playwright",
+                "ecosystem": "npm",
+                "classification": "cli",
+                "install_command": "npx playwright test tests/search.spec.ts --repeat-each=10",
+                "vuln_count": 1,
+                "max_severity": "HIGH",
+                "advisory_ids": ["GHSA-7mvr-c777-76hp"],
+            }
+        ],
+    },
+}
+
+_MCP_HIT_EXAMPLE: dict[str, Any] = {
+    "score": 0.75,
+    "rank": 1,
+    "mcp_id": "github:upstash/context7",
+    "name": "io.github.upstash/context7",
+    "description": (
+        "A Model Context Protocol server that fetches up-to-date, version-specific "
+        "documentation and code examples from libraries directly into LLM prompts, "
+        "helping developers get accurate answers without outdated or hallucinated information."
+    ),
+    "readme": "![Cover](...)\n\n# Context7 Platform - Up-to-date Code Docs For Any Prompt\n\n<full README markdown -- truncated in this example>",
+    "repo_url": "https://github.com/upstash/context7",
+    "status": "active",
+    "mcp_category": "server",
+    "mcp_category_source": "rule",
+    "sources": ["repo_scan", "official_registry", "glama"],
+    "registry_type": "npm",
+    "package_identifier": "@upstash/context7-mcp",
+    "package_url": "https://www.npmjs.com/package/@upstash/context7-mcp",
+    "deployment": "hybrid",
+    "transport": "stdio",
+    "has_installable_package": True,
+    "has_remote": True,
+    "attributes": ["hosting:remote-capable"],
+    "license": "MIT License",
+    "added": "2026-08-17",
+    "stars": 61421,
+    "language": "TypeScript",
+    "weekly_downloads": 867314,
+    "monthly_downloads": 3729481,
+    # OSV.dev via fetch_mcp_security.py. The npm package itself is clean
+    # (security_vuln_count 0); the real signal is the direct-dependency pass:
+    # 8 deps scanned, 44 advisories across zod / jose / undici / express, max HIGH.
+    "security_source": "osv",
+    "security_vuln_count": 0,
+    "security_vuln_ids": [],
+    "security_max_severity": None,
+    "security_direct_deps_scanned": 8,
+    "security_direct_deps_vuln_count": 44,
+    "security_direct_deps_with_vulns": ["zod", "jose", "undici", "express"],
+    "security_direct_deps_max_severity": "HIGH",
+    "security_direct_deps_vuln_ids": [
+        "GHSA-wqq4-5wpv-mx2g",
+        "GHSA-m4v8-wqvr-p9f7",
+        "GHSA-cxjh-pqwp-8mfp",
+        "GHSA-qw6h-vgh9-j6wx",
+        "GHSA-jj4c-3xjj-3xjr",
+        "GHSA-9wv6-86v2-598j",
+        "... (44 advisory ids total -- truncated in this example)",
+    ],
+}
+
+
 class SkillHit(BaseModel):
+    model_config = ConfigDict(json_schema_extra={"example": _SKILL_HIT_EXAMPLE})
+
     score: float | None
     rank: int
     path: str
@@ -127,6 +303,8 @@ class SkillHit(BaseModel):
 
 
 class McpHit(BaseModel):
+    model_config = ConfigDict(json_schema_extra={"example": _MCP_HIT_EXAMPLE})
+
     score: float | None
     rank: int
     mcp_id: str
@@ -173,6 +351,17 @@ class McpHit(BaseModel):
 
 
 class QueryResponse(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "index_ready": True,
+                "query": "playwright end to end browser testing",
+                "asset_type": "skill",
+                "hits": [_SKILL_HIT_EXAMPLE],
+            }
+        }
+    )
+
     index_ready: bool
     query: str
     asset_type: AssetType

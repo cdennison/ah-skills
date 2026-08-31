@@ -256,6 +256,42 @@ graded — rather than the whole corpus.
   `publish_scans.py preflight()` re-checks all of this and aborts before
   scanning anything if it doesn't verify.
 
+- **Raise the Vettd backend's `scans-ingest` rate limit for the run.** The
+  Vettd API rate-limits `POST /api/scans/ingest` to **5 requests / 60 s per
+  user** (`RATE_LIMIT_POLICY["scans-ingest"]` in
+  `~/vettd/packages/api/src/rate-limit/policy.ts` — `limit: 5`,
+  `windowMs: 60_000`, `scope: "user"`). A batch run (`publish_scans.py` /
+  `dual_scan_batched.py`) fires far more than that and every skill past the
+  first 5 in a window comes back **HTTP 429** — the receipt is dropped and
+  the skill lands in the retry log, so a naive run "completes" having
+  persisted almost nothing.
+
+  For a local batch run, bump it — **local checkout only, do not commit**
+  (the comment in `policy.ts` says so):
+
+  ```ts
+  "scans-ingest": {
+      key: "scans-ingest",
+      limit: 9_999_999,   // was 5 — local batch-testing only, revert before committing
+      windowMs: 60_000,
+      tier: "durable",
+      scope: "user",
+  },
+  ```
+
+  Then make the running backend pick it up:
+  - `next dev` (or `pnpm dev`): `pnpm --filter @vettd/api build` (the
+    `packages/api` is compiled — the dev server does **not** rebuild it),
+    then restart the dev server.
+  - the box's `vettd-web-1` container (what `VETTD_SCAN_ENDPOINT=http://localhost:3000`
+    points at): `cd ~/vettd && docker compose up -d --build web`.
+
+  On this EC2 box the bump is already baked into the working tree
+  (`git -C ~/vettd diff packages/api/src/rate-limit/policy.ts`) and into the
+  `vettd:local` image. If you rebuild that image from a clean checkout, or
+  run against a fresh `next dev`, re-apply it. Revert (`git checkout`) once
+  the batch run is done so it never reaches a commit or a real deployment.
+
 > **Scale + risk.** `publish_scans.py` has been verified by hand on a handful
 > of real skills against a real local backend (all four rescan-gate branches),
 > **but not at registry scale and not against a production key** (see
@@ -333,6 +369,11 @@ step 3 — grep the `C`-grade paths out of `skills_export.csv`, or
 
 `VETTD_RESCAN_INTERVAL_DAYS=0` in the environment forces a rescan of
 everything every run — don't set that here; it defeats the resume behaviour.
+
+If the failure log is full of **HTTP 429 / "rate limit exceeded"**, the
+backend's `scans-ingest` limit wasn't raised — see the Preconditions bullet
+above, bump `policy.ts`, rebuild `@vettd/api` (or the `web` image), restart,
+and re-run.
 
 ---
 

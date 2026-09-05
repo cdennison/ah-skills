@@ -4,16 +4,16 @@
 CLI tool** — the whole collection, not a sample:
 
 1. a `cli_security` OSV advisory verdict on the *packages* it installs
-   (§1–§3, the [`cli-security-scan/`](cli-security-scan/) pipeline), and
+   (§1–§3, the [`cli-security-scan/`](../cli-security-scan/) pipeline), and
 2. a `vettd` deterministic scan of the skill *folder* itself
    (§3B, `publish_scans.py`).
 
 Against a freshly re-cloned, freshly re-indexed corpus.
 
-Design: [`docs/ARCHITECTURE_CLI_SECURITY_SCAN.md`](docs/ARCHITECTURE_CLI_SECURITY_SCAN.md)
-(OSV) and [`docs/ARCHITECTURE_PUBLISHING_SCANS.md`](docs/ARCHITECTURE_PUBLISHING_SCANS.md)
+Design: `vettd-e2e/docs/specs/architecture-cli-security-scan.md`
+(OSV) and `vettd-e2e/docs/specs/architecture-publishing-scans.md`
 (Vettd). Standard maintenance workflow this builds on:
-[`DAILY_JOB.md`](DAILY_JOB.md), [`RUN.sh`](RUN.sh).
+[`DAILY_JOB.md`](DAILY_JOB.md), [`RUN.sh`](../RUN.sh).
 
 ---
 
@@ -226,7 +226,7 @@ installs. This is the **other** scanner — `publish_scans.py` runs the
 `vettd` binary over each skill *folder* and submits the result to the Vettd
 backend, landing a `vettd_scan_findings` / `vettd_scan_publications` block on
 the skill's `locations[]` entry. Design:
-[`docs/ARCHITECTURE_PUBLISHING_SCANS.md`](docs/ARCHITECTURE_PUBLISHING_SCANS.md),
+`vettd-e2e/docs/specs/architecture-publishing-scans.md`,
 [`DAILY_JOB.md` §5](DAILY_JOB.md).
 
 Here we point it at exactly the skills that install a CLI — the same set §3

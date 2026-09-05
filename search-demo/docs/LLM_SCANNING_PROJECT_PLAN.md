@@ -4,9 +4,9 @@ Living status doc for adding a **non-deterministic LLM threat scan** as a
 pipeline step: select the top skills from Qdrant, scan each through the
 FastAPI service, and persist the verdict onto the skill's Qdrant point.
 
-Design detail: [`docs/ARCHITECTURE_LLM_SCAN.md`](docs/ARCHITECTURE_LLM_SCAN.md).
+Design detail: `vettd-e2e/docs/specs/architecture-llm-scan.md`.
 Sibling context: the Vettd deterministic scan
-([`docs/ARCHITECTURE_PUBLISHING_SCANS.md`](docs/ARCHITECTURE_PUBLISHING_SCANS.md))
+(`vettd-e2e/docs/specs/architecture-publishing-scans.md`)
 and the prompt eval harness (`../skill-scan-eval/`).
 
 ---
@@ -45,8 +45,8 @@ and the prompt eval harness (`../skill-scan-eval/`).
   one hit carries **both** `llm_scan` and the Vettd scan. Spawns a throwaway
   service if none serves `/scan/skill`; key falls back to
   `../skill-scan-eval/.env`. **PASS** (deepseek, ~16s, one real `set_payload`).
-  Worked-example curl req/resp is in `docs/ARCHITECTURE_LLM_SCAN.md`.
-- **Design + pipeline docs** — `docs/ARCHITECTURE_LLM_SCAN.md` (this step, incl.
+  Worked-example curl req/resp is in `vettd-e2e/docs/specs/architecture-llm-scan.md`.
+- **Design + pipeline docs** — `vettd-e2e/docs/specs/architecture-llm-scan.md` (this step, incl.
   worked example), pointer from `docs/ARCHITECTURE.md`, "Running this now" +
   `DAILY_JOB.md` section.
 - **Selection query patterns** — `TEST_PLAN_FINDINGS_SUMMARY_TOP1000.md` §5
@@ -101,7 +101,7 @@ then only *selects* point ids and calls this endpoint per skill.
 
 ### 2. Pipeline docs must make it clear how to run this now
 
-- `docs/ARCHITECTURE_LLM_SCAN.md` → "Running this now" section (done).
+- `vettd-e2e/docs/specs/architecture-llm-scan.md` → "Running this now" section (done).
 - `DAILY_JOB.md` → LLM-scan section with the concrete commands (done).
 - `RUN.sh` header → note the step exists but is opt-in / not yet wired, and
   point at this plan (done).

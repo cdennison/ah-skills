@@ -4,10 +4,10 @@ This is the recurring workflow for keeping `repo-seeds/registry.json` (the
 pipeline's single source of truth) curated and the search index fresh. It's
 written as four steps you can run in order, by hand or from a script/cron —
 none of them require re-explaining the pipeline itself (see
-[`README.md`](README.md#pipeline) and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+[`README.md`](../README.md#pipeline) and [`docs/ARCHITECTURE.md`](ARCHITECTURE.md)
 for that).
 
-**[`RUN.sh`](RUN.sh) automates steps 3 (partially) and 4 of this workflow**
+**[`RUN.sh`](../RUN.sh) automates steps 3 (partially) and 4 of this workflow**
 — repo discovery (`sync-seed`, marketplace, optional GitHub search/leaderboard)
 and rerunning the pipeline, in one command. It does **not** automate steps 0-2
 (reviewing what's unsynced, skipping noisy repos, blacklisting bad skills) —
@@ -120,11 +120,11 @@ here, and it's easy to fix one and still be silently stuck on the other:
 (2) is the one that's easy to miss, because the discovery scripts all exit
 `0` and print "0 new repos" whether nothing changed upstream or your local
 view of upstream is just stale. Concretely, for `officialskills.sh`:
-[`repo-seeds/awesome-agent-skills/README.md`](repo-seeds/awesome-agent-skills/README.md)
+[`repo-seeds/awesome-agent-skills/README.md`](../repo-seeds/awesome-agent-skills/README.md)
 is a **vendored, point-in-time copy** of the upstream
 [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
 repo, tracked separately in
-[`repo-seeds/repo_seeds.json`](repo-seeds/repo_seeds.json) (`last_pulled`,
+[`repo-seeds/repo_seeds.json`](../repo-seeds/repo_seeds.json) (`last_pulled`,
 distinct from any individual repo's `last_synced` in `registry.json`).
 `registry.py sync-seed` only ever regex-scrapes github.com links out of
 *that vendored copy* — it never talks to GitHub itself. If the vendored

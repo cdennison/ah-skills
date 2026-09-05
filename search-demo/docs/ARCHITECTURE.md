@@ -14,7 +14,7 @@
   pass with no batching, which is the disk-filling failure mode
   `batch_pipeline.py` replaced it to avoid. For the recurring
   curation/maintenance workflow this diagram feeds into, see
-  [`../DAILY_JOB.md`](../DAILY_JOB.md).
+  [`DAILY_JOB.md`](DAILY_JOB.md).
 
   Repo-discovery sources currently in the diagram:
 
@@ -39,12 +39,12 @@
   viewers whose Markdown renderer doesn't support Mermaid fences.
 
 Companion design docs for scan steps that hang off the indexed collection:
-[`ARCHITECTURE_PUBLISHING_SCANS.md`](ARCHITECTURE_PUBLISHING_SCANS.md) (Vettd
+`vettd-e2e/docs/specs/architecture-publishing-scans.md` (Vettd
 deterministic scan, implemented),
-[`ARCHITECTURE_LLM_SCAN.md`](ARCHITECTURE_LLM_SCAN.md) (non-deterministic LLM
+`vettd-e2e/docs/specs/architecture-llm-scan.md` (non-deterministic LLM
 threat scan → `llm_scan` payload field via `POST /scan/skill` — endpoints
 built, selection step + pipeline wiring not) and
-[`ARCHITECTURE_CLI_SECURITY_SCAN.md`](ARCHITECTURE_CLI_SECURITY_SCAN.md)
+`vettd-e2e/docs/specs/architecture-cli-security-scan.md`
 (CLI/dependency advisory scan of the tools skills tell you to install →
 `cli_security` payload field via `cli-security-scan/`, implemented; opt-in
 `RUN.sh --with-cli-scan` step 8.5).

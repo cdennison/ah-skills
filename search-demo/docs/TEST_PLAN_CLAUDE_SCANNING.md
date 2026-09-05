@@ -27,7 +27,7 @@ Repos/paths involved:
   `test-data/ECC/`
 - `../vettd-cli` (built binary, not modified)
 - `../vettd` (Next.js dev server, not modified) — see
-  `../vettd-e2e/TEST_PLAN_SCAN_PUBLISH.md` for how to bring it up locally;
+  `../../vettd-e2e/docs/runs/2026-08-13-scan-publish-local.md` for how to bring it up locally;
   don't duplicate that setup here, just reference it
 
 ---
@@ -39,7 +39,7 @@ cd /Users/c/code/vettd/ah-skills/search-demo
 uv sync --all-groups
 ```
 
-Confirm the vettd dev server is up (see `../vettd-e2e/TEST_PLAN_SCAN_PUBLISH.md`
+Confirm the vettd dev server is up (see `../../vettd-e2e/docs/runs/2026-08-13-scan-publish-local.md`
 steps 1–3 for standing it up and minting an API key against the
 `dev@localhost` user):
 
@@ -117,7 +117,7 @@ receipts between the two copies).
 ```bash
 export VETTD_CLI_BIN=/Users/c/code/vettd/vettd-cli/target/debug/vettd
 export VETTD_SCAN_ENDPOINT=http://localhost:3000/api/scans/ingest
-export VETTD_API_KEY="<key minted per ../vettd-e2e/TEST_PLAN_SCAN_PUBLISH.md step 3>"
+export VETTD_API_KEY="<key minted per ../../vettd-e2e/docs/runs/2026-08-13-scan-publish-local.md step 3>"
 export VETTD_EXPECTED_ACCOUNT_EMAIL=dev@localhost
 export HOME=/tmp/vettd-e2e-scan-publish-home   # isolated CLI config dir
 
@@ -167,7 +167,7 @@ POST /api/scans/ingest 201 in ...ms
 
 for each submitted skill (two `201`s expected here) — not `POST / 200`
 (the silent-misconfiguration failure mode documented in
-`../vettd-e2e/TEST_PLAN_SCAN_PUBLISH.md`'s deviations section).
+`../../vettd-e2e/docs/runs/2026-08-13-scan-publish-local.md`'s deviations section).
 
 **c. The scan is visible through the backend's own read API**, logged in as
 the same user the key was minted against:
@@ -303,7 +303,7 @@ rm -rf /tmp/vettd-scan-test-qdrant /tmp/vettd-e2e-scan-publish-home \
        /tmp/vettd-scan-test-cookies.txt /tmp/ecc-skill-dirs.txt /tmp/ecc-publish-run.log
 git checkout -- search-raw   # in case any test edit wasn't cleanly reverted above
 # vettd dev server / Postgres rows: leave running / tear down per
-# ../vettd-e2e/TEST_PLAN_SCAN_PUBLISH.md step 10
+# ../../vettd-e2e/docs/runs/2026-08-13-scan-publish-local.md step 10
 ```
 
 ---

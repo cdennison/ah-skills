@@ -4,7 +4,7 @@ Scan the skills corpus for the third-party **command-line tools** skills tell
 you (or the agent) to install, and flag the ones with known security
 advisories.
 
-Full design + rationale: [`../docs/ARCHITECTURE_CLI_SECURITY_SCAN.md`](../docs/ARCHITECTURE_CLI_SECURITY_SCAN.md).
+Full design + rationale: [`../docs/ARCHITECTURE_CLI_SECURITY_SCAN.md`](../../../vettd-e2e/docs/specs/architecture-cli-security-scan.md).
 
 ## What it produces
 

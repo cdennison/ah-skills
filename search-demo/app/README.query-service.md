@@ -24,9 +24,9 @@ network call (to the LLM provider).
 | Method / path | What it does |
 |---|---|
 | `GET /health` | Reports whether the requested collection is populated (`asset_type` = `skill` \| `mcp`). |
-| `POST /query` | Read-only hybrid search over the `agent_skills` / `mcp_servers` collections. Body: `{query, asset_type, limit, …filters}`. A skill hit carries `llm_scan` (see `/scan/skill`) plus the Vettd scan inside `locations[]`. See [`docs/NEXTJS_INTEGRATION.md`](../docs/NEXTJS_INTEGRATION.md). |
+| `POST /query` | Read-only hybrid search over the `agent_skills` / `mcp_servers` collections. Body: `{query, asset_type, limit, …filters}`. A skill hit carries `llm_scan` (see `/scan/skill`) plus the Vettd scan inside `locations[]`. See [`docs/NEXTJS_INTEGRATION.md`](../../../vettd-e2e/docs/specs/nextjs-integration.md). |
 | `POST /scan` | Non-deterministic LLM threat scan of a text blob. Body: `{skill_text, skill_name?, model?}`. Returns `{model, prompt_version, findings[], overall_assessment, primary_threats}` — the same shape `skill-scan-eval/scanner.py` produces. `503` no API key, `502` upstream/parse failure. Touches no Qdrant. |
-| `POST /scan/skill` | Scan an already-indexed skill **and record the verdict**. Body: `{point_id \| content_hash, model?, force?}`. Looks up the point, scans its SKILL.md text, writes a top-level `llm_scan` payload field, returns `{point_id, skipped, reason, llm_scan}`. A recent scan for unchanged content + model + prompt is reused (`skipped: true`) unless `force: true`. `404` unknown skill, `503` / `502` as above. See [`docs/ARCHITECTURE_LLM_SCAN.md`](../docs/ARCHITECTURE_LLM_SCAN.md). |
+| `POST /scan/skill` | Scan an already-indexed skill **and record the verdict**. Body: `{point_id \| content_hash, model?, force?}`. Looks up the point, scans its SKILL.md text, writes a top-level `llm_scan` payload field, returns `{point_id, skipped, reason, llm_scan}`. A recent scan for unchanged content + model + prompt is reused (`skipped: true`) unless `force: true`. `404` unknown skill, `503` / `502` as above. See [`docs/ARCHITECTURE_LLM_SCAN.md`](../../../vettd-e2e/docs/specs/architecture-llm-scan.md). |
 
 ### Example: scan a skill, then see both scans via `/query`
 

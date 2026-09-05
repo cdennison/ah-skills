@@ -3,7 +3,7 @@
 This is a proposal, not yet implemented, for turning the `mcp-search/`
 prototype (see [`MCP_PIPELINE.md`](MCP_PIPELINE.md) for what's built and
 proven so far) into a recurring pipeline analogous to the main project's
-[`../DAILY_JOB.md`](../DAILY_JOB.md) -- same spirit (numbered steps,
+[`../docs/DAILY_JOB.md`](../docs/DAILY_JOB.md) -- same spirit (numbered steps,
 additive-only source tracking, explicit staleness handling), scoped to MCP
 servers instead of Claude skills.
 

@@ -88,9 +88,8 @@ curl -sL "https://mermaid.ink/img/${base64_input}?bg=white&width=3000" -o docs/a
 
 Requires [`@mermaid-js/mermaid-cli`](https://github.com/mermaid-js/mermaid-cli)
 (`brew install mermaid-cli` or `npm install -g @mermaid-js/mermaid-cli`) and
-a headless Chrome. If `mmdc` reports it can't find Chrome, install one and
-point `mmdc` at it explicitly — relying on the default cache path lookup
-has been flaky:
+a headless Chrome. If `mmdc` reports it can't find Chrome, install one first
+— relying on the default cache path lookup has been flaky:
 
 ```bash
 npx puppeteer browsers install chrome-headless-shell
@@ -98,18 +97,18 @@ npx puppeteer browsers install chrome-headless-shell
 # /Users/you/.cache/puppeteer/chrome-headless-shell/mac_arm-<version>/chrome-headless-shell-mac-arm64/chrome-headless-shell
 ```
 
-`mmdc` only writes `.md`/`.svg`/`.png`/`.pdf`, so render to PNG and convert.
-`-s 3` (scale factor) is what makes the text sharp — don't drop it:
+The rendering script is centralized in `vettd-e2e` (it wraps `mmdc` +
+PNG→JPEG conversion so every diagram in any of the four repos renders the
+same way — see `vettd-e2e/docs/conventions/doc-placement.md`):
 
 ```bash
 cd search-demo
 PUPPETEER_EXECUTABLE_PATH=<path from the install step above> \
-  mmdc -i docs/architecture.mmd -o docs/architecture.png -b white -w 2400 -s 3
-sips -s format jpeg docs/architecture.png --out docs/architecture.jpg   # macOS
-rm docs/architecture.png
+  ../../vettd-e2e/scripts/render-mermaid.sh docs/architecture.mmd docs/architecture.jpg
 ```
 
-(On Linux/Windows, swap the `sips` line for `magick docs/architecture.png docs/architecture.jpg` or any PNG→JPEG converter.)
+`-s 3` (scale factor, the script's default) is what makes the text sharp —
+pass a 4th argument to override it, or a 3rd to override the width.
 
 After regenerating, **open `docs/architecture.jpg` and actually read the node
 text** (don't just check the file exists) — visually diff it against the

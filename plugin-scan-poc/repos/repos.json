@@ -1,0 +1,47 @@
+{
+  "_comment": "Test-fixture plugin repos for the plugin-scan POC. The working copies under repos/<name>/ are gitignored; regenerate them with the `clone` command below. `purpose` records why the repo is in the set.",
+  "repos": [
+    {
+      "name": "superpowers",
+      "owner": "obra",
+      "url": "https://github.com/obra/superpowers",
+      "clone": "git clone https://github.com/obra/superpowers.git repos/superpowers",
+      "pinned_sha": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797",
+      "pinned_date": "2026-08-12T09:53:21-07:00",
+      "plugin_version": "6.3.0",
+      "added": "2026-09-05",
+      "purpose": "testing",
+      "why": "Widely installed real Claude Code plugin. Exercises every component we care about: a SessionStart command hook (hooks/hooks.json + hooks/run-hook.cmd + hooks/session-start) that injects context into the model on every session, ~15 skills with aggressive imperative language, and bundled runnable scripts (skills/brainstorming/scripts/server.cjs, start-server.sh, etc.). Also ships parallel non-Claude manifests (.codex-plugin, .cursor-plugin, .devin-plugin, .hermes-plugin) which are out of scope but useful for testing that the scanner only reads the Claude surface.",
+      "claude_surface": {
+        "manifest": ".claude-plugin/plugin.json",
+        "marketplace": ".claude-plugin/marketplace.json",
+        "hooks": "hooks/hooks.json",
+        "hook_scripts": ["hooks/run-hook.cmd", "hooks/session-start"],
+        "skills_dir": "skills/",
+        "mcp": null
+      },
+      "e2e_install": {
+        "marketplace_source": "./",
+        "installs_files": 194,
+        "note": "source '.' -> the whole repo is copied to the plugin cache. discover_assets.py accounts for all 194 (177 assets + 18 explicit exclusions). Verified 2026-09-05."
+      }
+    },
+    {
+      "name": "impeccable",
+      "owner": "pbakaus",
+      "url": "https://github.com/pbakaus/impeccable",
+      "clone": "git clone https://github.com/pbakaus/impeccable.git repos/impeccable",
+      "pinned_sha": "8dac6ae7e020c43ab10ce9b41939f6fd42627b96",
+      "pinned_date": "2026-09-04T18:21:01-07:00",
+      "plugin_version": "4.2.0",
+      "added": "2026-09-05",
+      "purpose": "testing — hard case",
+      "why": "Monorepo (Rust engine + browser extension + npm CLI + ~2960 files) that ALSO ships a plugin. The Claude Code marketplace entry has source './plugin', so only the plugin/ subdir (58 files) is installed — not the whole repo. Exercises: subdir marketplace source, ~18 per-harness standalone skill copies at the repo root, PostToolUse+Stop hooks that exec a platform binary, a skill-source dir, and separately-distributed components (extension/, cli/, crates/) that are NOT plugin assets. Also ships .hermes/ (excluded).",
+      "e2e_install": {
+        "marketplace_source": "./plugin",
+        "installs_files": 58,
+        "note": "source './plugin' -> only plugin/** is copied. discover_assets.py's marketplace surface = the same 58 files, 0 unaccounted. Component inventory (1 skill / 4 agents / 2 hook entries) matches `claude plugin details`. Verified 2026-09-05."
+      }
+    }
+  ]
+}

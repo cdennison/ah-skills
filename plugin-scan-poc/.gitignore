@@ -1,0 +1,12 @@
+# Cloned test-fixture plugin repos. Regenerate with the clone commands in
+# repos/repos.json (each entry pins a commit SHA).
+repos/*/
+
+# Generated discover_assets.py catalogues (regenerate: python discover_assets.py <repo>)
+assets/
+*.assets.json
+
+# E2E install snapshots (regenerate: e2e/run_e2e.sh <repo>)
+e2e/out/
+
+__pycache__/
